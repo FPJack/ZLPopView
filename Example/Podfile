@@ -1,0 +1,13 @@
+use_frameworks!
+
+platform :ios, '10.0'
+
+target 'ZLPopView_Example' do
+  pod 'ZLPopView', :path => '../'
+
+  target 'ZLPopView_Tests' do
+    inherit! :search_paths
+
+    pod 'FBSnapshotTestCase'
+  end
+end
