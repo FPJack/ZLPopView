@@ -22,6 +22,8 @@
 		6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5B8195388D20070C39A /* InfoPlist.strings */; };
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
 		71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */; };
+		8432B31E2ED5C85D00617EFB /* ZLConfigure.m in Sources */ = {isa = PBXBuildFile; fileRef = 8432B31D2ED5C85D00617EFB /* ZLConfigure.m */; };
+		8432B3212ED5C90500617EFB /* ZLCommonViews.m in Sources */ = {isa = PBXBuildFile; fileRef = 8432B3202ED5C90500617EFB /* ZLCommonViews.m */; };
 		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
 		EAF23DE298C7956171154492 /* Pods_ZLPopView_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C02195E918605FD5BD61B2CA /* Pods_ZLPopView_Tests.framework */; };
 /* End PBXBuildFile section */
@@ -63,6 +65,10 @@
 		71719F9E1E33DC2100824A3D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		731DC839FB505222550A1E37 /* Pods_ZLPopView_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZLPopView_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		738EE6DD1C1509D48AF976BA /* ZLPopView.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = ZLPopView.podspec; path = ../ZLPopView.podspec; sourceTree = "<group>"; };
+		8432B31C2ED5C85D00617EFB /* ZLConfigure.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLConfigure.h; sourceTree = "<group>"; };
+		8432B31D2ED5C85D00617EFB /* ZLConfigure.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLConfigure.m; sourceTree = "<group>"; };
+		8432B31F2ED5C90500617EFB /* ZLCommonViews.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLCommonViews.h; sourceTree = "<group>"; };
+		8432B3202ED5C90500617EFB /* ZLCommonViews.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLCommonViews.m; sourceTree = "<group>"; };
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C02195E918605FD5BD61B2CA /* Pods_ZLPopView_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZLPopView_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE07456A427983C7B07A71EE /* Pods-ZLPopView_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZLPopView_Example.debug.xcconfig"; path = "Target Support Files/Pods-ZLPopView_Example/Pods-ZLPopView_Example.debug.xcconfig"; sourceTree = "<group>"; };
@@ -148,6 +154,10 @@
 				873B8AEA1B1F5CCA007FD442 /* Main.storyboard */,
 				6003F5A5195388D20070C39A /* ZLViewController.h */,
 				6003F5A6195388D20070C39A /* ZLViewController.m */,
+				8432B31C2ED5C85D00617EFB /* ZLConfigure.h */,
+				8432B31D2ED5C85D00617EFB /* ZLConfigure.m */,
+				8432B31F2ED5C90500617EFB /* ZLCommonViews.h */,
+				8432B3202ED5C90500617EFB /* ZLCommonViews.m */,
 				71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
 				6003F594195388D20070C39A /* Supporting Files */,
@@ -387,6 +397,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8432B31E2ED5C85D00617EFB /* ZLConfigure.m in Sources */,
+				8432B3212ED5C90500617EFB /* ZLCommonViews.m in Sources */,
 				6003F59E195388D20070C39A /* ZLAppDelegate.m in Sources */,
 				6003F5A7195388D20070C39A /* ZLViewController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,

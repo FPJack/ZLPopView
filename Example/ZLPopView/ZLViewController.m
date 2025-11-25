@@ -8,6 +8,9 @@
 
 #import "ZLViewController.h"
 
+
+
+
 @interface ZLViewController ()
 
 @end
@@ -17,13 +20,17 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+    self.title = @"demo";
+    if (@available(iOS 13.0, *)) {
+        UINavigationBarAppearance *appearance = [[UINavigationBarAppearance alloc] init];
+        [appearance configureWithOpaqueBackground];
+        appearance.backgroundColor = UIColor.orangeColor;// 设置背景色
+        appearance.titleTextAttributes = @{NSForegroundColorAttributeName: UIColor.blackColor}; // 标题颜色
+        self.navigationController.navigationBar.standardAppearance = appearance;
+        self.navigationController.navigationBar.scrollEdgeAppearance = appearance;
+    }else {
+        self.navigationController.navigationBar.barTintColor = UIColor.orangeColor;
+        self.navigationController.navigationBar.backgroundColor = UIColor.orangeColor;
+    }
 }
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 @end
