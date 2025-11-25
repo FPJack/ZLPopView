@@ -39,7 +39,7 @@
 /* Begin PBXFileReference section */
 		07A2D0D3CEEF6BA9D60A8B4D /* Pods-ZLPopView_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZLPopView_Tests.release.xcconfig"; path = "Target Support Files/Pods-ZLPopView_Tests/Pods-ZLPopView_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		0DB4D4441566DBF5B381001E /* Pods-ZLPopView_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZLPopView_Tests.debug.xcconfig"; path = "Target Support Files/Pods-ZLPopView_Tests/Pods-ZLPopView_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		1A9632221684C9B047910806 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		1A9632221684C9B047910806 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		1F215497155AFD2F6CF5C5B8 /* Pods-ZLPopView_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZLPopView_Example.release.xcconfig"; path = "Target Support Files/Pods-ZLPopView_Example/Pods-ZLPopView_Example.release.xcconfig"; sourceTree = "<group>"; };
 		6003F58A195388D20070C39A /* ZLPopView_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZLPopView_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -62,11 +62,11 @@
 		606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
 		71719F9E1E33DC2100824A3D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		731DC839FB505222550A1E37 /* Pods_ZLPopView_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZLPopView_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		738EE6DD1C1509D48AF976BA /* ZLPopView.podspec */ = {isa = PBXFileReference; includeInIndex = 1; name = ZLPopView.podspec; path = ../ZLPopView.podspec; sourceTree = "<group>"; };
+		738EE6DD1C1509D48AF976BA /* ZLPopView.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = ZLPopView.podspec; path = ../ZLPopView.podspec; sourceTree = "<group>"; };
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C02195E918605FD5BD61B2CA /* Pods_ZLPopView_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZLPopView_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE07456A427983C7B07A71EE /* Pods-ZLPopView_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZLPopView_Example.debug.xcconfig"; path = "Target Support Files/Pods-ZLPopView_Example/Pods-ZLPopView_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		F511A3B34B91E7D04F2E6140 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		F511A3B34B91E7D04F2E6140 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,7 +103,6 @@
 				0DB4D4441566DBF5B381001E /* Pods-ZLPopView_Tests.debug.xcconfig */,
 				07A2D0D3CEEF6BA9D60A8B4D /* Pods-ZLPopView_Tests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -249,6 +248,10 @@
 				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = fanpeng;
 				TargetAttributes = {
+					6003F589195388D20070C39A = {
+						DevelopmentTeam = 6ZA44MJL83;
+						ProvisioningStyle = Manual;
+					};
 					6003F5AD195388D20070C39A = {
 						TestTargetID = 6003F589195388D20070C39A;
 					};
@@ -259,6 +262,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -513,12 +517,17 @@
 			baseConfigurationReference = EE07456A427983C7B07A71EE /* Pods-ZLPopView_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 6ZA44MJL83;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ZLPopView/ZLPopView-Prefix.pch";
 				INFOPLIST_FILE = "ZLPopView/ZLPopView-Info.plist";
 				MODULE_NAME = ExampleApp;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_BUNDLE_IDENTIFIER = com.wws.popview;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "glcoalme-dev-all";
 				SWIFT_VERSION = 4.0;
 				WRAPPER_EXTENSION = app;
 			};
@@ -529,12 +538,17 @@
 			baseConfigurationReference = 1F215497155AFD2F6CF5C5B8 /* Pods-ZLPopView_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 6ZA44MJL83;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ZLPopView/ZLPopView-Prefix.pch";
 				INFOPLIST_FILE = "ZLPopView/ZLPopView-Info.plist";
 				MODULE_NAME = ExampleApp;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_BUNDLE_IDENTIFIER = com.wws.popview;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "glcoalme-dev-all";
 				SWIFT_VERSION = 4.0;
 				WRAPPER_EXTENSION = app;
 			};

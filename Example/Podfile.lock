@@ -1,0 +1,27 @@
+PODS:
+  - FBSnapshotTestCase (2.1.4):
+    - FBSnapshotTestCase/SwiftSupport (= 2.1.4)
+  - FBSnapshotTestCase/Core (2.1.4)
+  - FBSnapshotTestCase/SwiftSupport (2.1.4):
+    - FBSnapshotTestCase/Core
+  - ZLPopView (0.1.0)
+
+DEPENDENCIES:
+  - FBSnapshotTestCase
+  - ZLPopView (from `../`)
+
+SPEC REPOS:
+  trunk:
+    - FBSnapshotTestCase
+
+EXTERNAL SOURCES:
+  ZLPopView:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  FBSnapshotTestCase: 094f9f314decbabe373b87cc339bea235a63e07a
+  ZLPopView: fba0e75a8aa6cf2eb3eddf73e14a7d199b900946
+
+PODFILE CHECKSUM: f725eab3c0c91d7a6adc0b8537637a3116878ede
+
+COCOAPODS: 1.16.2
