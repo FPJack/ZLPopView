@@ -7,40 +7,56 @@
 //
 
 #import "ZLAppDelegate.h"
+#import "ZLPopViewController.h"
+#import "ZLLayoutViewController.h"
+#import "ZLConvenienceViewController.h"
+#import "ZLNavigationController.h"
 
 @implementation ZLAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
-    return YES;
+    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+
+        // 创建 TabBarController
+        UITabBarController *tabBarController = [[UITabBarController alloc] init];
+
+        // 创建 4 个控制器
+    ZLLayoutViewController *homeVC = [[ZLLayoutViewController alloc] init];
+    ZLConvenienceViewController *discoverVC = [[ZLConvenienceViewController alloc] init];
+    ZLPopViewController *messageVC = [[ZLPopViewController alloc] init];
+      
+        // 设置标题
+        homeVC.title = @"常用布局";
+        discoverVC.title = @"便捷方法";
+        messageVC.title = @"通用弹窗";
+
+    // 设置 TabBarItem（图标可以换成你项目的图片）
+    homeVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"首页"
+                                                      image:[UIImage imageNamed:@"tab_home"]
+                                              selectedImage:[UIImage imageNamed:@"tab_home_sel"]];
+
+    discoverVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"发现"
+                                                          image:[UIImage imageNamed:@"tab_discover"]
+                                                  selectedImage:[UIImage imageNamed:@"tab_discover_sel"]];
+
+    messageVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"消息"
+                                                         image:[UIImage imageNamed:@"tab_message"]
+                                                 selectedImage:[UIImage imageNamed:@"tab_message_sel"]];
+
+        // 每个 VC 放入导航控制器（可选）
+        UINavigationController *nav1 = [[ZLNavigationController alloc] initWithRootViewController:homeVC];
+        UINavigationController *nav2 = [[ZLNavigationController alloc] initWithRootViewController:discoverVC];
+        UINavigationController *nav3 = [[ZLNavigationController alloc] initWithRootViewController:messageVC];
+      
+        // 添加到 TabBarController
+        tabBarController.viewControllers = @[nav1, nav2, nav3];
+
+        self.window.rootViewController = tabBarController;
+        [self.window makeKeyAndVisible];
+
+        return YES;
 }
 
-- (void)applicationWillResignActive:(UIApplication *)application
-{
-    // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-    // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
-}
-
-- (void)applicationDidEnterBackground:(UIApplication *)application
-{
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-}
-
-- (void)applicationWillEnterForeground:(UIApplication *)application
-{
-    // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-}
-
-- (void)applicationDidBecomeActive:(UIApplication *)application
-{
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-}
-
-- (void)applicationWillTerminate:(UIApplication *)application
-{
-    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-}
 
 @end

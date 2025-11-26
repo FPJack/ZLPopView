@@ -24,6 +24,13 @@
 		71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */; };
 		8432B31E2ED5C85D00617EFB /* ZLConfigure.m in Sources */ = {isa = PBXBuildFile; fileRef = 8432B31D2ED5C85D00617EFB /* ZLConfigure.m */; };
 		8432B3212ED5C90500617EFB /* ZLCommonViews.m in Sources */ = {isa = PBXBuildFile; fileRef = 8432B3202ED5C90500617EFB /* ZLCommonViews.m */; };
+		8432B3262ED68D4400617EFB /* ZLLayoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8432B3242ED68D4400617EFB /* ZLLayoutViewController.m */; };
+		8432B3272ED68D4400617EFB /* ZLLayoutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8432B3252ED68D4400617EFB /* ZLLayoutViewController.xib */; };
+		8432B32B2ED68D7500617EFB /* ZLConvenienceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8432B3292ED68D7500617EFB /* ZLConvenienceViewController.m */; };
+		8432B32C2ED68D7500617EFB /* ZLConvenienceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8432B32A2ED68D7500617EFB /* ZLConvenienceViewController.xib */; };
+		8432B3302ED68DA000617EFB /* ZLPopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8432B32E2ED68DA000617EFB /* ZLPopViewController.m */; };
+		8432B3312ED68DA000617EFB /* ZLPopViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8432B32F2ED68DA000617EFB /* ZLPopViewController.xib */; };
+		8432B3342ED6909600617EFB /* ZLNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8432B3332ED6909600617EFB /* ZLNavigationController.m */; };
 		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
 		EAF23DE298C7956171154492 /* Pods_ZLPopView_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C02195E918605FD5BD61B2CA /* Pods_ZLPopView_Tests.framework */; };
 /* End PBXBuildFile section */
@@ -69,6 +76,17 @@
 		8432B31D2ED5C85D00617EFB /* ZLConfigure.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLConfigure.m; sourceTree = "<group>"; };
 		8432B31F2ED5C90500617EFB /* ZLCommonViews.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLCommonViews.h; sourceTree = "<group>"; };
 		8432B3202ED5C90500617EFB /* ZLCommonViews.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLCommonViews.m; sourceTree = "<group>"; };
+		8432B3232ED68D4400617EFB /* ZLLayoutViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLLayoutViewController.h; sourceTree = "<group>"; };
+		8432B3242ED68D4400617EFB /* ZLLayoutViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLLayoutViewController.m; sourceTree = "<group>"; };
+		8432B3252ED68D4400617EFB /* ZLLayoutViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZLLayoutViewController.xib; sourceTree = "<group>"; };
+		8432B3282ED68D7500617EFB /* ZLConvenienceViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLConvenienceViewController.h; sourceTree = "<group>"; };
+		8432B3292ED68D7500617EFB /* ZLConvenienceViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLConvenienceViewController.m; sourceTree = "<group>"; };
+		8432B32A2ED68D7500617EFB /* ZLConvenienceViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZLConvenienceViewController.xib; sourceTree = "<group>"; };
+		8432B32D2ED68DA000617EFB /* ZLPopViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLPopViewController.h; sourceTree = "<group>"; };
+		8432B32E2ED68DA000617EFB /* ZLPopViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLPopViewController.m; sourceTree = "<group>"; };
+		8432B32F2ED68DA000617EFB /* ZLPopViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZLPopViewController.xib; sourceTree = "<group>"; };
+		8432B3322ED6909600617EFB /* ZLNavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLNavigationController.h; sourceTree = "<group>"; };
+		8432B3332ED6909600617EFB /* ZLNavigationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLNavigationController.m; sourceTree = "<group>"; };
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C02195E918605FD5BD61B2CA /* Pods_ZLPopView_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZLPopView_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE07456A427983C7B07A71EE /* Pods-ZLPopView_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZLPopView_Example.debug.xcconfig"; path = "Target Support Files/Pods-ZLPopView_Example/Pods-ZLPopView_Example.debug.xcconfig"; sourceTree = "<group>"; };
@@ -149,6 +167,7 @@
 		6003F593195388D20070C39A /* Example for ZLPopView */ = {
 			isa = PBXGroup;
 			children = (
+				8432B3222ED68D1E00617EFB /* viewcontrollers */,
 				6003F59C195388D20070C39A /* ZLAppDelegate.h */,
 				6003F59D195388D20070C39A /* ZLAppDelegate.m */,
 				873B8AEA1B1F5CCA007FD442 /* Main.storyboard */,
@@ -204,6 +223,24 @@
 				F511A3B34B91E7D04F2E6140 /* LICENSE */,
 			);
 			name = "Podspec Metadata";
+			sourceTree = "<group>";
+		};
+		8432B3222ED68D1E00617EFB /* viewcontrollers */ = {
+			isa = PBXGroup;
+			children = (
+				8432B3232ED68D4400617EFB /* ZLLayoutViewController.h */,
+				8432B3242ED68D4400617EFB /* ZLLayoutViewController.m */,
+				8432B3252ED68D4400617EFB /* ZLLayoutViewController.xib */,
+				8432B3282ED68D7500617EFB /* ZLConvenienceViewController.h */,
+				8432B3292ED68D7500617EFB /* ZLConvenienceViewController.m */,
+				8432B32A2ED68D7500617EFB /* ZLConvenienceViewController.xib */,
+				8432B32D2ED68DA000617EFB /* ZLPopViewController.h */,
+				8432B32E2ED68DA000617EFB /* ZLPopViewController.m */,
+				8432B32F2ED68DA000617EFB /* ZLPopViewController.xib */,
+				8432B3322ED6909600617EFB /* ZLNavigationController.h */,
+				8432B3332ED6909600617EFB /* ZLNavigationController.m */,
+			);
+			path = viewcontrollers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -294,8 +331,11 @@
 			files = (
 				873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */,
 				71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */,
+				8432B32C2ED68D7500617EFB /* ZLConvenienceViewController.xib in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
+				8432B3272ED68D4400617EFB /* ZLLayoutViewController.xib in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
+				8432B3312ED68DA000617EFB /* ZLPopViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -397,10 +437,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8432B3262ED68D4400617EFB /* ZLLayoutViewController.m in Sources */,
 				8432B31E2ED5C85D00617EFB /* ZLConfigure.m in Sources */,
 				8432B3212ED5C90500617EFB /* ZLCommonViews.m in Sources */,
 				6003F59E195388D20070C39A /* ZLAppDelegate.m in Sources */,
+				8432B3302ED68DA000617EFB /* ZLPopViewController.m in Sources */,
 				6003F5A7195388D20070C39A /* ZLViewController.m in Sources */,
+				8432B3342ED6909600617EFB /* ZLNavigationController.m in Sources */,
+				8432B32B2ED68D7500617EFB /* ZLConvenienceViewController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -535,6 +579,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ZLPopView/ZLPopView-Prefix.pch";
 				INFOPLIST_FILE = "ZLPopView/ZLPopView-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = com.wws.popview;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -556,6 +601,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ZLPopView/ZLPopView-Prefix.pch";
 				INFOPLIST_FILE = "ZLPopView/ZLPopView-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = com.wws.popview;
 				PRODUCT_NAME = "$(TARGET_NAME)";

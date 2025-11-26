@@ -859,12 +859,14 @@ static inline UIView* _getViewFromViewKFC(ViewKFCType viewKFC) {
 }
 - (id (^)(id))separatorColor {
     return  ^id(id color){
+        self.colorThicknessPriority = 1;
         self._separatorColor = __UIColorFromObj(color);
         return self;
     };
 }
 - (id (^)(CGFloat ))separatorThickness {
     return  ^id(CGFloat thickness){
+        self.colorThicknessPriority = 1;
         self._separatorThickness = thickness;
         return self;
     };
@@ -1207,12 +1209,17 @@ static inline UIView* _getViewFromViewKFC(ViewKFCType viewKFC) {
         }
     }];
     UIView* (^blankViewBlock)(void) = ^{
-        return UIView.new.kfc.tag(kIgnoreViewTag).view;
+        if (self.axis == UILayoutConstraintAxisHorizontal) {
+            return UIView.new.kfc.width(0.01).tag(kIgnoreViewTag).view;
+        }else {
+            return UIView.new.kfc.height(0.01).tag(kIgnoreViewTag).view;
+
+        }
     };
     if (self.mainAxisAlignment == ZLMainAxisAlignmentSpaceEvenly && stackView.arrangedSubviews.count > 1) {
         [stackView insertArrangedSubview:blankViewBlock() atIndex:0];
         [stackView addArrangedSubview:blankViewBlock()];
-        [stackView layoutIfNeeded];
+//        [stackView layoutIfNeeded];
     }
 
     if (self.mainAxisAlignment == ZLMainAxisAlignmentSpaceAround && stackView.arrangedSubviews.count > 1) {
@@ -1224,7 +1231,7 @@ static inline UIView* _getViewFromViewKFC(ViewKFCType viewKFC) {
             }
         }];
         [stackView insertArrangedSubview:blankViewBlock() atIndex:0];
-        [stackView layoutIfNeeded];
+//        [stackView layoutIfNeeded];
     }
     
     if (self.mainAxisAlignment == ZLMainAxisAlignmentStart) {

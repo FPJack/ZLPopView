@@ -1023,7 +1023,7 @@ static CGFloat _defaultThickness = 1.0f;
     return sepView;
 }
 - (ZLSeparatorView *)topSeparator {
-    ZLSeparatorView *view = [self.view viewWithTag:1];
+    ZLSeparatorView *view = [self.view viewWithTag:kTopSeparatorTag];
     if ([view isKindOfClass:ZLSeparatorView.class] && [view.superview isEqual:self.view]) return view;
     return [self _gm_createSepView].top;
 }
@@ -1032,7 +1032,7 @@ static CGFloat _defaultThickness = 1.0f;
     return self;
 }
 - (ZLSeparatorView *)bottomSeparator {
-    ZLSeparatorView *view = [self.view viewWithTag:3];
+    ZLSeparatorView *view = [self.view viewWithTag:kBottomSeparatorTag];
     if ([view isKindOfClass:ZLSeparatorView.class] && [view.superview isEqual:self.view]) return view;
     return [self _gm_createSepView].bottom;
 }
@@ -1041,7 +1041,7 @@ static CGFloat _defaultThickness = 1.0f;
     return self;
 }
 - (ZLSeparatorView *)leadingSeparator {
-    ZLSeparatorView *view = [self.view viewWithTag:2];
+    ZLSeparatorView *view = [self.view viewWithTag:kLeadingSeparatorTag];
     if ([view isKindOfClass:ZLSeparatorView.class] && [view.superview isEqual:self.view]) return view;
     return [self _gm_createSepView].leading;
 }
@@ -1050,7 +1050,7 @@ static CGFloat _defaultThickness = 1.0f;
     return self;
 }
 - (ZLSeparatorView *)trailingSeparator {
-    ZLSeparatorView *view = [self.view viewWithTag:4];
+    ZLSeparatorView *view = [self.view viewWithTag:kTrailingSeparatorTag];
     if ([view isKindOfClass:ZLSeparatorView.class] && [view.superview isEqual:self.view]) return view;
     return [self _gm_createSepView].trailing;
 }
