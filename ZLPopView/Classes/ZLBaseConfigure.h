@@ -400,6 +400,7 @@ typedef id<ZLViewProtocol> ViewKFCType;
 
 @interface ZLUISwitchConfigure : ZLBaseConfigure<ZLUISwitchConfigure *,UISwitch *>
 @property (nonatomic,readonly)ZLUISwitchConfigure* (^on)(BOOL);
+@property (nonatomic,readonly)ZLUISwitchConfigure* (^valueChanged)(void(^)(UISwitch *sw));
 @end
 
 

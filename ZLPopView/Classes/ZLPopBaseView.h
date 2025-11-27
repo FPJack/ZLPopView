@@ -245,7 +245,9 @@ typedef NS_ENUM(NSInteger, ZLPopOverDirection) {
 - (ZLPopOverView* (^)(CGPoint))setPoint;
 - (ZLPopOverView* (^)(CGFloat))setArrowWidth;
 - (ZLPopOverView* (^)(CGFloat))setArrowHeight;
+/// 设置安全区域边距
 - (ZLPopOverView* (^)(UIEdgeInsets ))setSafeAreaMarge;
+/// 设置箭头和指向点的间距
 - (ZLPopOverView* (^)(CGFloat ))setSpaceToPoint;
 - (ZLPopOverView* (^)(ZLPopOverDirection))setDirection;
 @end

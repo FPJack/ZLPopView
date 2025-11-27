@@ -18,15 +18,13 @@
 @property (nonatomic,copy)UIColor *_separatorColor;
 @property (nonatomic,assign)CGFloat _separatorThickness;
 @property (nonatomic,copy)UIColor *_spaceViewColor;
-@property (nonatomic,strong)GMActionViewsBK actionViewsBlock;
+@property (nonatomic,strong)ZLActionViewsBK actionViewsBlock;
 @end
 @implementation ZLPopViewBuilder (convenience)
 
 
 + (void)setDefaultTitleLabelBK:(ZLAllocViewBlock)defaultTitleLabel {
-    if (defaultTitleLabel) {
-        objc_setAssociatedObject(self, @selector(defaultTitleLabelBK), defaultTitleLabel, OBJC_ASSOCIATION_COPY_NONATOMIC);
-    }
+    objc_setAssociatedObject(self, @selector(defaultTitleLabelBK), defaultTitleLabel, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 + (ZLAllocViewBlock)defaultTitleLabelBK {
     ZLAllocViewBlock titleLabelBlock = _recursive_objc_getAssociatedObject(self, @selector(defaultTitleLabelBK));
@@ -47,9 +45,7 @@
     return titleLabelBlock;
 }
 + (void)setDefaultMessageLabelBK:(ZLAllocViewBlock)defaultMessageLabel {
-    if (defaultMessageLabel) {
-        objc_setAssociatedObject(self, @selector(defaultMessageLabelBK), defaultMessageLabel, OBJC_ASSOCIATION_COPY_NONATOMIC);
-    }
+    objc_setAssociatedObject(self, @selector(defaultMessageLabelBK), defaultMessageLabel, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 + (ZLAllocViewBlock)defaultMessageLabelBK {
     ZLAllocViewBlock messageLabelBlock = _recursive_objc_getAssociatedObject(self, @selector(defaultMessageLabelBK));
@@ -158,34 +154,28 @@
     return textFieldViewBlock;
 }
 + (void)setDefaultTextFieldViewBK:(ZLAllocTextFieldBK)defaultTextFieldViewBK {
-    if (defaultTextFieldViewBK) {
-        objc_setAssociatedObject(self, @selector(defaultTextFieldViewBK), defaultTextFieldViewBK, OBJC_ASSOCIATION_COPY_NONATOMIC);
-    }
+    objc_setAssociatedObject(self, @selector(defaultTextFieldViewBK), defaultTextFieldViewBK, OBJC_ASSOCIATION_COPY_NONATOMIC);
+
 }
 + (void)setDefaultButtonViewBK:(ZLAllocViewBlock)defaultButtonViewBK {
-    if (defaultButtonViewBK) {
-        objc_setAssociatedObject(self, @selector(defaultButtonViewBK), defaultButtonViewBK, OBJC_ASSOCIATION_COPY_NONATOMIC);
-    }
+    objc_setAssociatedObject(self, @selector(defaultButtonViewBK), defaultButtonViewBK, OBJC_ASSOCIATION_COPY_NONATOMIC);
+
 }
 + (void)setDefaultDeleteViewBK:(ZLAllocViewBlock)defaultDeleteViewBK {
-    if (defaultDeleteViewBK) {
-        objc_setAssociatedObject(self, @selector(defaultDeleteViewBK), defaultDeleteViewBK, OBJC_ASSOCIATION_COPY_NONATOMIC);
-    }
+    objc_setAssociatedObject(self, @selector(defaultDeleteViewBK), defaultDeleteViewBK, OBJC_ASSOCIATION_COPY_NONATOMIC);
+
 }
 + (void)setDefaultConfirmViewBK:(ZLAllocViewBlock)defaultConfirmViewBK {
-    if (defaultConfirmViewBK) {
-        objc_setAssociatedObject(self, @selector(defaultConfirmViewBK), defaultConfirmViewBK, OBJC_ASSOCIATION_COPY_NONATOMIC);
-    }
+    objc_setAssociatedObject(self, @selector(defaultConfirmViewBK), defaultConfirmViewBK, OBJC_ASSOCIATION_COPY_NONATOMIC);
+
 }
 + (void)setDefaultCancelViewBK:(ZLAllocViewBlock)defaultCancelViewBK {
-    if (defaultCancelViewBK) {
-        objc_setAssociatedObject(self, @selector(defaultCancelViewBK), defaultCancelViewBK, OBJC_ASSOCIATION_COPY_NONATOMIC);
-    }
+    objc_setAssociatedObject(self, @selector(defaultCancelViewBK), defaultCancelViewBK, OBJC_ASSOCIATION_COPY_NONATOMIC);
+
 }
 + (void)setDefaultAttributedViewBK:(ZLAllocAttributeViewBK)defaultAttributedViewBK {
-    if (defaultAttributedViewBK) {
-        objc_setAssociatedObject(self, @selector(defaultAttributedViewBK), defaultAttributedViewBK, OBJC_ASSOCIATION_COPY_NONATOMIC);
-    }
+    objc_setAssociatedObject(self, @selector(defaultAttributedViewBK), defaultAttributedViewBK, OBJC_ASSOCIATION_COPY_NONATOMIC);
+
 }
 + (ZLAllocAttributeViewBK)defaultAttributedViewBK {
     ZLAllocAttributeViewBK attributedViewBlock = _recursive_objc_getAssociatedObject(self, @selector(defaultAttributedViewBK));
@@ -246,8 +236,8 @@
         return self;
     };
 }
-- (ZLPopViewBuilder * _Nonnull (^)(GMActionViewsBK _Nonnull))addActionViewsContainerBK {
-    return ^ZLPopViewBuilder *(GMActionViewsBK block){
+- (ZLPopViewBuilder * _Nonnull (^)(ZLActionViewsBK _Nonnull))addActionViewsContainerBK {
+    return ^ZLPopViewBuilder *(ZLActionViewsBK block){
         self.actionViewsBlock = block;
         return self;
     };
@@ -307,6 +297,8 @@
         [self.views removeAllObjects];
         self.addView(contentView);
         if (self.cancelView) {
+            CGFloat radius = self.cancelView.layer.cornerRadius > 0 ?: (self.configObj.cornerRadius > 0 ? self.configObj.cornerRadius : 10);
+
             UIView *cancelView = self.cancelView.kfc
                 .cornerRadius(radius)
                 .backgroundColor(self.cancelView.backgroundColor ?: self.configObj.backgroundColor ?: UIColor.whiteColor)
@@ -335,6 +327,7 @@
             self.addSpaceView(8);
         }
         if (self.cancelView) {
+            CGFloat radius = self.cancelView.layer.cornerRadius > 0 ?: (self.configObj.cornerRadius > 0 ? self.configObj.cornerRadius : 10);
             UIView *cancelView = self.cancelView.kfc
                 .cornerRadius(radius)
                 .view;

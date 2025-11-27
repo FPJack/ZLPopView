@@ -31,6 +31,10 @@
 		8432B3302ED68DA000617EFB /* ZLPopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8432B32E2ED68DA000617EFB /* ZLPopViewController.m */; };
 		8432B3312ED68DA000617EFB /* ZLPopViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8432B32F2ED68DA000617EFB /* ZLPopViewController.xib */; };
 		8432B3342ED6909600617EFB /* ZLNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8432B3332ED6909600617EFB /* ZLNavigationController.m */; };
+		8486FEF12ED80E6D002D624E /* ZLCustomPopViewBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 8486FEEF2ED80E6D002D624E /* ZLCustomPopViewBuilder.m */; };
+		8486FEF22ED80E6D002D624E /* GMCommonPopViews.m in Sources */ = {isa = PBXBuildFile; fileRef = 8486FEED2ED80E6D002D624E /* GMCommonPopViews.m */; };
+		8486FEFB2ED8493A002D624E /* ZLPopOverViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8486FEFA2ED8493A002D624E /* ZLPopOverViewController.xib */; };
+		8486FEFC2ED8493A002D624E /* ZLPopOverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8486FEF92ED8493A002D624E /* ZLPopOverViewController.m */; };
 		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
 		EAF23DE298C7956171154492 /* Pods_ZLPopView_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C02195E918605FD5BD61B2CA /* Pods_ZLPopView_Tests.framework */; };
 /* End PBXBuildFile section */
@@ -87,6 +91,13 @@
 		8432B32F2ED68DA000617EFB /* ZLPopViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZLPopViewController.xib; sourceTree = "<group>"; };
 		8432B3322ED6909600617EFB /* ZLNavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLNavigationController.h; sourceTree = "<group>"; };
 		8432B3332ED6909600617EFB /* ZLNavigationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLNavigationController.m; sourceTree = "<group>"; };
+		8486FEEC2ED80E6D002D624E /* GMCommonPopViews.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GMCommonPopViews.h; sourceTree = "<group>"; };
+		8486FEED2ED80E6D002D624E /* GMCommonPopViews.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GMCommonPopViews.m; sourceTree = "<group>"; };
+		8486FEEE2ED80E6D002D624E /* ZLCustomPopViewBuilder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLCustomPopViewBuilder.h; sourceTree = "<group>"; };
+		8486FEEF2ED80E6D002D624E /* ZLCustomPopViewBuilder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLCustomPopViewBuilder.m; sourceTree = "<group>"; };
+		8486FEF82ED8493A002D624E /* ZLPopOverViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLPopOverViewController.h; sourceTree = "<group>"; };
+		8486FEF92ED8493A002D624E /* ZLPopOverViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLPopOverViewController.m; sourceTree = "<group>"; };
+		8486FEFA2ED8493A002D624E /* ZLPopOverViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZLPopOverViewController.xib; sourceTree = "<group>"; };
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C02195E918605FD5BD61B2CA /* Pods_ZLPopView_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZLPopView_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE07456A427983C7B07A71EE /* Pods-ZLPopView_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZLPopView_Example.debug.xcconfig"; path = "Target Support Files/Pods-ZLPopView_Example/Pods-ZLPopView_Example.debug.xcconfig"; sourceTree = "<group>"; };
@@ -228,6 +239,7 @@
 		8432B3222ED68D1E00617EFB /* viewcontrollers */ = {
 			isa = PBXGroup;
 			children = (
+				8486FEF02ED80E6D002D624E /* PopViewBuilder_CA */,
 				8432B3232ED68D4400617EFB /* ZLLayoutViewController.h */,
 				8432B3242ED68D4400617EFB /* ZLLayoutViewController.m */,
 				8432B3252ED68D4400617EFB /* ZLLayoutViewController.xib */,
@@ -237,10 +249,24 @@
 				8432B32D2ED68DA000617EFB /* ZLPopViewController.h */,
 				8432B32E2ED68DA000617EFB /* ZLPopViewController.m */,
 				8432B32F2ED68DA000617EFB /* ZLPopViewController.xib */,
+				8486FEF82ED8493A002D624E /* ZLPopOverViewController.h */,
+				8486FEF92ED8493A002D624E /* ZLPopOverViewController.m */,
+				8486FEFA2ED8493A002D624E /* ZLPopOverViewController.xib */,
 				8432B3322ED6909600617EFB /* ZLNavigationController.h */,
 				8432B3332ED6909600617EFB /* ZLNavigationController.m */,
 			);
 			path = viewcontrollers;
+			sourceTree = "<group>";
+		};
+		8486FEF02ED80E6D002D624E /* PopViewBuilder_CA */ = {
+			isa = PBXGroup;
+			children = (
+				8486FEEC2ED80E6D002D624E /* GMCommonPopViews.h */,
+				8486FEED2ED80E6D002D624E /* GMCommonPopViews.m */,
+				8486FEEE2ED80E6D002D624E /* ZLCustomPopViewBuilder.h */,
+				8486FEEF2ED80E6D002D624E /* ZLCustomPopViewBuilder.m */,
+			);
+			path = PopViewBuilder_CA;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -329,6 +355,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8486FEFB2ED8493A002D624E /* ZLPopOverViewController.xib in Resources */,
 				873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */,
 				71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */,
 				8432B32C2ED68D7500617EFB /* ZLConvenienceViewController.xib in Resources */,
@@ -437,8 +464,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8486FEFC2ED8493A002D624E /* ZLPopOverViewController.m in Sources */,
 				8432B3262ED68D4400617EFB /* ZLLayoutViewController.m in Sources */,
 				8432B31E2ED5C85D00617EFB /* ZLConfigure.m in Sources */,
+				8486FEF12ED80E6D002D624E /* ZLCustomPopViewBuilder.m in Sources */,
+				8486FEF22ED80E6D002D624E /* GMCommonPopViews.m in Sources */,
 				8432B3212ED5C90500617EFB /* ZLCommonViews.m in Sources */,
 				6003F59E195388D20070C39A /* ZLAppDelegate.m in Sources */,
 				8432B3302ED68DA000617EFB /* ZLPopViewController.m in Sources */,

@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 typedef UIView* _Nullable (^ZLAllocViewBlock)(ZLPopViewBuilder *builder,NSString *text);
 typedef UITextField* _Nullable (^ZLAllocTextFieldBK)(ZLPopViewBuilder *builder,NSString *placeholder);
 typedef UIView* _Nullable (^ZLAllocAttributeViewBK)(ZLPopViewBuilder *builder,NSAttributedString *attributedText);
-typedef UIView* _Nullable (^GMActionViewsBK)(NSArray<UIView *> *actionViews, ZLPopViewBuilder *builder);
+typedef UIView* _Nullable (^ZLActionViewsBK)(NSArray<UIView *> *actionViews, ZLPopViewBuilder *builder);
 
 
 @interface ZLPopViewBuilder (convenience)
@@ -37,7 +37,7 @@ typedef UIView* _Nullable (^GMActionViewsBK)(NSArray<UIView *> *actionViews, ZLP
 @property (nonatomic,readonly) ZLPopViewBuilder* (^addTextField)(void  (^ _Nullable textFieldBK)(UITextField *textField));
 
 ///自定义actionViews构建器弹出的时候,可以通过ZLStackViewBuilder来构建垂直或者水平的布局
-@property (nonatomic,readonly) ZLPopViewBuilder * (^addActionViewsContainerBK)(GMActionViewsBK actionViewsBK);
+@property (nonatomic,readonly) ZLPopViewBuilder * (^addActionViewsContainerBK)(ZLActionViewsBK actionViewsBK);
 
 ///是否点击actionView后自动dismiss弹窗，默认YES
 @property (nonatomic,readonly)ZLPopViewBuilder* (^autoDismissWhenTapActionView)(BOOL autoDismiss);

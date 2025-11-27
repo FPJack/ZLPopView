@@ -1443,7 +1443,9 @@ static CGFloat _defaultThickness = 1.0f;
     };
 }
 @end
-
+@interface ZLUISwitchConfigure()
+@property (nonatomic,copy)void(^valueChangedBlock)(UISwitch *sw);
+@end
 @implementation ZLUISwitchConfigure
 - (ZLUISwitchConfigure * _Nonnull (^)(BOOL))on {
     return ^ZLUISwitchConfigure* (BOOL isOn) {
@@ -1451,7 +1453,18 @@ static CGFloat _defaultThickness = 1.0f;
         return self;
     };
 }
-
+- (ZLUISwitchConfigure * _Nonnull (^)(void (^ _Nonnull)(UISwitch * _Nonnull)))valueChanged {
+    return ^ZLUISwitchConfigure* (void(^block)(UISwitch *sw)) {
+        [self.view addTarget:self action:@selector(switchValueChanged:) forControlEvents:UIControlEventValueChanged];
+        self.valueChangedBlock = block;
+        return self;
+    };
+}
+- (void)switchValueChanged:(UISwitch *)sw {
+    if (self.valueChangedBlock) {
+        self.valueChangedBlock(sw);
+    }
+}
 @end
 
 @implementation ZLUISliderConfigure

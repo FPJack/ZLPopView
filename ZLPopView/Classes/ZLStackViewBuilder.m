@@ -810,6 +810,7 @@ static inline UIView* _getViewFromViewKFC(ViewKFCType viewKFC) {
     return  ^id(NSArray<UIView * > * views){
         return views.count > 0 ?  self.addView(ZLStackViewBuilder
                                     .columnFillEqually
+                                    .alignmentFill
                                     .context(self.builderCtx)
                                     .addViews(views)
                                     .buildStackView) : self;
@@ -819,6 +820,7 @@ static inline UIView* _getViewFromViewKFC(ViewKFCType viewKFC) {
     return  ^id(NSArray<UIView * > * views){
         return views.count > 0 ?  self.addView(ZLStackViewBuilder
                                     .columnFillEqually
+                                    .alignmentFill
                                     .context(self.builderCtx)
                                     .addViewsWMS(views)
                                     .buildStackView) : self;
@@ -828,6 +830,7 @@ static inline UIView* _getViewFromViewKFC(ViewKFCType viewKFC) {
     return  ^id(NSArray<UIView * > * views){
         return views.count > 0 ? self.addViewWTS(ZLStackViewBuilder
                                     .columnFillEqually
+                                    .alignmentFill
                                     .context(self.builderCtx)
                                     .addViewsWMS(views)
                                     .buildStackView) : self;
@@ -1213,7 +1216,6 @@ static inline UIView* _getViewFromViewKFC(ViewKFCType viewKFC) {
             return UIView.new.kfc.width(0.01).tag(kIgnoreViewTag).view;
         }else {
             return UIView.new.kfc.height(0.01).tag(kIgnoreViewTag).view;
-
         }
     };
     if (self.mainAxisAlignment == ZLMainAxisAlignmentSpaceEvenly && stackView.arrangedSubviews.count > 1) {

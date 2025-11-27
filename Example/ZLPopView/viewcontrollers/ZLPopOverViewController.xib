@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ZLPopOverViewController">
+            <connections>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lps-op-Ibq">
+                    <rect key="frame" x="10" y="773" width="58" height="35"/>
+                    <color key="backgroundColor" systemColor="systemRedColor"/>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" title="点击"/>
+                    <connections>
+                        <action selector="leftBottom:" destination="-1" eventType="touchUpInside" id="4DO-B8-99z"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zkF-zm-OZO">
+                    <rect key="frame" x="10" y="408.66666666666669" width="58" height="35"/>
+                    <color key="backgroundColor" systemColor="systemRedColor"/>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" title="点击"/>
+                    <connections>
+                        <action selector="centerleft:" destination="-1" eventType="touchUpInside" id="4fC-hU-2RT"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G3l-Un-MeC">
+                    <rect key="frame" x="325" y="773" width="58" height="35"/>
+                    <color key="backgroundColor" systemColor="systemRedColor"/>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" title="点击"/>
+                    <connections>
+                        <action selector="rightButton:" destination="-1" eventType="touchUpInside" id="pQz-SN-c5r"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ATw-v1-MUE">
+                    <rect key="frame" x="325" y="408.66666666666669" width="58" height="35"/>
+                    <color key="backgroundColor" systemColor="systemRedColor"/>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" title="点击"/>
+                    <connections>
+                        <action selector="centerRight:" destination="-1" eventType="touchUpInside" id="gDX-PL-xgM"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" alpha="0.20999999999999999" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="点击屏幕自动计算随机弹窗" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ilk-lF-9tb">
+                    <rect key="frame" x="95.333333333333329" y="415.66666666666669" width="202.33333333333337" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="G3l-Un-MeC" secondAttribute="trailing" constant="10" id="1N9-bw-NT4"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="G3l-Un-MeC" secondAttribute="bottom" constant="10" id="87S-cH-wS8"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="ATw-v1-MUE" secondAttribute="trailing" constant="10" id="9xk-xa-N7I"/>
+                <constraint firstItem="zkF-zm-OZO" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="10" id="A47-lA-VSa"/>
+                <constraint firstItem="ATw-v1-MUE" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="BPV-aK-sZS"/>
+                <constraint firstItem="zkF-zm-OZO" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="K9S-u4-02b"/>
+                <constraint firstItem="ilk-lF-9tb" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="fCa-6U-6Bj"/>
+                <constraint firstItem="ilk-lF-9tb" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="hjO-wY-iiV"/>
+                <constraint firstItem="lps-op-Ibq" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="10" id="ici-ga-BE1"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="lps-op-Ibq" secondAttribute="bottom" constant="10" id="lCy-N7-aWM"/>
+            </constraints>
+            <point key="canvasLocation" x="140" y="21"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>

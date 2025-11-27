@@ -1,8 +1,8 @@
 //
-//  ZLCommonViews.h
-//  ZLPopView_Example
+//  GMCommonPopViews.h
+//  GMPopView_Example
 //
-//  Created by admin on 2025/11/25.
+//  Created by admin on 2025/8/21.
 //  Copyright © 2025 fanpeng. All rights reserved.
 //
 
@@ -23,28 +23,28 @@ NS_ASSUME_NONNULL_BEGIN
 #define kPopViewRowBuilder [ZLPopViewBuilder row]
 
 //常用按钮样式
-#define kConfirmStyleBtn [ZLCommonViews confirmStyleBtn]
-#define kCancelStyleBtn [ZLCommonViews cancelStyleBtn]
-#define kDeleteStyleBtn [ZLCommonViews deleteStyleBtn]
-#define kDefaultStyleBtn [ZLCommonViews defaultStyleBtn]
+#define kConfirmStyleBtn [GMCommonPopViews confirmStyleBtn]
+#define kCancelStyleBtn [GMCommonPopViews cancelStyleBtn]
+#define kDeleteStyleBtn [GMCommonPopViews deleteStyleBtn]
+#define kDefaultStyleBtn [GMCommonPopViews defaultStyleBtn]
 
 //常用Label样式
-#define kTitleStyleLabel(x) [ZLCommonViews titleStyleLabel].kfc.text(x).view
-#define kSubTitleStyleLabel(x) [ZLCommonViews subTitleStyleLabel].kfc.text(x).view
+#define kTitleStyleLabel(x) [GMCommonPopViews titleStyleLabel].kfc.text(x).view
+#define kSubTitleStyleLabel(x) [GMCommonPopViews subTitleStyleLabel].kfc.text(x).view
 #define kTextLabel(x) UILabel.new.kfc.text(x).view
 #define kTextButton(x) UIButton.customTypeButton.kfc.title(x).view
 //常用分割线
-#define kLineView [ZLCommonViews lineView]
-#define kHorizontalLineView [ZLCommonViews horizontalLineView]
-#define kVerticalLineView [ZLCommonViews verticalLineView]
+#define kLineView [GMCommonPopViews lineView]
+#define kHorizontalLineView [GMCommonPopViews horizontalLineView]
+#define kVerticalLineView [GMCommonPopViews verticalLineView]
 #define kSeparatorColor [UIColor.lightGrayColor colorWithAlphaComponent:0.2]
 #define kSeparatorHeight 0.7
-#define kSeparatorWidth 0.7
+#define kSeparatorWidth 0.7 
 
 //常用Builder配置
-#define kButtonsEqualWidthBuilder [ZLCommonViews equalButtonsStackViewBuilder]
-#define kViewsEqualWidthBuilder [ZLCommonViews equalWidthStackViewBuilder]
-@interface ZLCommonViews : NSObject
+#define kButtonsEqualWidthBuilder [GMCommonPopViews equalButtonsStackViewBuilder]
+#define kViewsEqualWidthBuilder [GMCommonPopViews equalWidthStackViewBuilder]
+@interface GMCommonPopViews : NSObject
 /// view 宽度相等
 + (ZLStackViewBuilder *)equalWidthStackViewBuilder;
 

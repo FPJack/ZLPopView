@@ -18,11 +18,7 @@
     [super viewDidLoad];
     self.title = @"UIStackView布局";
     self.edgesForExtendedLayout = UIRectEdgeNone;
-
-    UIView *view = [[self stackViewBuilder] buildScrollView];
-    [self.view addSubview:view];
-    [view.kfc edgeToView:self.view edge:UIEdgeInsetsZero];
-    
+    self.stackViewBuilder.buildScrollViewToSuperView(self.view);
 }
 - (ZLStackViewBuilder *)stackViewBuilder {
     ZLStackViewBuilder *builder = ZLStackViewBuilder
@@ -146,7 +142,7 @@
             .addView(self.randomColorView.kfc.addTrailingSeparator)
             .addFlexSpaceView()
             .buildStackView.kfc.height(100);
-    });;
+    });
     return builder;
 }
 - (UIView *)randomColorView {
