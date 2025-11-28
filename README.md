@@ -14,7 +14,7 @@ ZLPopView是一个基于UIStackView布局展示各种自定义视图的库。在
 10.支持手势穿透
 11.支持手势冲突处理
 12.支持自定义动画
-
+13.支持内容视图自动适应屏幕大小，超出屏幕时自动滚动显示
 ## Example
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
