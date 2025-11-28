@@ -21,7 +21,23 @@
     self.stackViewBuilder.buildScrollViewToSuperView(self.view);
 }
 - (ZLStackViewBuilder *)stackViewBuilder {
-  
+    ZLStackViewBuilder
+     //.row
+    .column
+    .space(10)
+    .distribution(ZLMainAxisAlignmentStart)
+    .alignment(UIStackViewAlignmentTop)
+    .padding(10, 10, 10, 10)
+    .separatorColor(UIColor.lightGrayColor)
+    .separatorThickness(0.5)
+    .addView(UILabel.kfc.text(@"UIStackView布局方式 添加Label"))
+    .addView(UILabel.kfc.text(@"UIStackView布局方式 添加Label"))
+    .addViewBK(^ViewKFCType  _Nonnull{
+        return UILabel.kfc.text(@"UIStackView布局方式 添加Label");
+    })
+    .addViewBK(^ViewKFCType  _Nonnull{
+        return UILabel.kfc.text(@"UIStackView布局方式 添加Label");
+    });
     
     
     

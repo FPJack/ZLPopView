@@ -47,7 +47,11 @@ UIStackView 布局
     .separatorThickness(0.5)
     //添加子视图View
     .addView(UILabel.kfc.text(@"UIStackView布局方式 添加Label"))
+    //视图View之间插入间距,可以覆盖全局space设置
+    .customSpace(20)
     .addView(UILabel.kfc.text(@"UIStackView布局方式 添加Label"))
+    //添加弹性空间View
+    .addFlexSpaceView()
     //Block添加子视图View
     .addViewBK(^ViewKFCType  _Nonnull{
         return UILabel.kfc.text(@"UIStackView布局方式 添加Label");
