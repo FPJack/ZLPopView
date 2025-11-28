@@ -220,8 +220,90 @@ ZLPopOverView 更多请参考  ZLPopOverView.h 文件和demo
         .showActionSheet
         //系统Alert
         .showAlert;
-```                    
-        
+```  
+
+
+默认样式配置                  
+``` ruby
+    BOOL isDark = self.isDark;
+    ZLPopViewBuilder.defaultConfigureBK = ^(ZLBuildConfigObj * _Nonnull configure) {
+        configure.tapMaskDismiss = YES;
+        configure.enableDragDismiss = YES;
+        configure.shadowColor = UIColor.blackColor;
+        configure.shadowOpacity = 0.2;
+        configure.cornerRadius = 10;
+        configure.corners = UIRectCornerAllCorners;
+        configure.tapMaskDismiss = YES;
+        configure.enableDragDismiss = YES;
+        configure.backgroundColor = isDark ? DARK_BG_COLOR : LIGHT_BG_COLOR;
+    };
+    
+    ZLPopViewBuilder.defaultSeparatorColor = isDark ? DARK_LINE_COLOR : LIGHT_LINE_COLOR;
+    ZLPopViewBuilder.defaultSeparatorThickness = 0.5;
+    
+    ZLPopViewBuilder.defaultTitleLabelBK = ^UILabel * _Nullable(ZLPopViewBuilder * _Nonnull builder, NSString * _Nonnull text) {
+        return kTitleStyleLabel(text).kfc.textColor(isDark ? DARK_TITLE_COLOR : LIGHT_TITLE_COLOR).margeHorizontal(10).view;
+    };
+    ZLPopViewBuilder.defaultMessageLabelBK = ^UILabel * _Nullable(ZLPopViewBuilder * _Nonnull builder, NSString * _Nonnull text) {
+        return kSubTitleStyleLabel(text).kfc.textColor(isDark ? DARK_SUBTITLE_COLOR : LIGHT_SUBTITLE_COLOR).margeHorizontal(10).view;
+    };
+    ZLPopViewBuilder.defaultAttributedViewBK = ^(ZLPopViewBuilder *builder, NSAttributedString *attributedString){
+        return UILabel.new.kfc
+            .multipleLines
+            .spacing(32)
+            .frontSpacing(10)
+            .margeHorizontal(10)
+            .attributedText(attributedString)
+            .view;
+    };
+    
+    ZLPopViewBuilder.defaultTextFieldViewBK = ^UITextField * _Nullable(ZLPopViewBuilder * _Nonnull builder, NSString * _Nonnull placeholder) {
+        return UITextField.new.kfc
+            .leftPadding(10)
+            .placeholder(placeholder)
+            .spacing(15)
+            .clearButtonMode(UITextFieldViewModeWhileEditing)
+            .returnKeyType(UIReturnKeyDone)
+            .keyboardType(UIKeyboardTypeDefault)
+            .borderWidth(0.5)
+            .borderColor(UIColor.lightGrayColor)
+            .cornerRadius(5)
+            .margeHorizontal(15)
+            .height(40)
+            .view;
+    };
+    UIColor *highlightBgColor = isDark ? [UIColor.darkGrayColor colorWithAlphaComponent:0.5] : [UIColor.lightGrayColor colorWithAlphaComponent:0.1];
+    ZLPopViewBuilder.defaultDeleteViewBK = ^UIView * _Nullable(ZLPopViewBuilder * _Nonnull builder, NSString * _Nonnull text) {
+        UIColor *color = isDark ? DARK_DESTRUCTIVE_COLOR : LIGHT_DESTRUCTIVE_COLOR;
+        return kDeleteStyleBtn.kfc.title(text)
+            .titleColor(color)
+            .highlightBgColor(highlightBgColor)
+            .view;
+    };
+    ZLPopViewBuilder.defaultConfirmViewBK = ^UIView * _Nullable(ZLPopViewBuilder * _Nonnull builder, NSString * _Nonnull text) {
+        UIColor *color = isDark ? DARK_BUTTON_COLOR : LIGHT_BUTTON_COLOR;
+        return kConfirmStyleBtn.kfc
+            .title(text)
+            .titleColor(color)
+            .highlightBgColor(highlightBgColor)
+            .view;
+    };
+    ZLPopViewBuilder.defaultButtonViewBK = ^UIView * _Nullable(ZLPopViewBuilder * _Nonnull builder, NSString * _Nonnull text) {
+        UIColor *color = isDark ? DARK_BUTTON_COLOR : LIGHT_BUTTON_COLOR;
+        return kConfirmStyleBtn.kfc.title(text)
+            .titleColor(color)
+            .highlightBgColor(highlightBgColor)
+            .view;
+    };
+    ZLPopViewBuilder.defaultCancelViewBK = ^UIView * _Nullable(ZLPopViewBuilder * _Nonnull builder, NSString * _Nonnull text) {
+        UIColor *color = isDark ? DARK_CANCEL_COLOR : LIGHT_CANCEL_COLOR;
+        return kCancelStyleBtn.kfc
+            .title(text)
+            .titleColor(color)
+            .highlightBgColor(highlightBgColor)
+            .view;
+    };
+```        
 
 ## Author
 
