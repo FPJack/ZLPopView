@@ -13,14 +13,11 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Installation
 
-<img src="https://github.com/FPJack/ZLPopView/blob/master/test.GIF" width="40%" height="40%">
-<img src="https://github.com/FPJack/ZLPopView/blob/master/test.GIF" width="40%" height="40%">
-<img src="https://github.com/FPJack/ZLPopView/blob/master/test.GIF" width="40%" height="40%">
-<img src="https://github.com/FPJack/ZLPopView/blob/master/test.GIF" width="40%" height="40%">
-<img src="https://github.com/FPJack/ZLPopView/blob/master/test.GIF" width="40%" height="40%">
-<img src="https://github.com/FPJack/ZLPopView/blob/master/test.GIF" width="40%" height="40%">
-<img src="https://github.com/FPJack/ZLPopView/blob/master/test.GIF" width="40%" height="40%">
-<img src="https://github.com/FPJack/ZLPopView/blob/master/test.GIF" width="40%" height="40%">
+<img src="https://github.com/FPJack/ZLPopView/blob/master/IMG_4774.GIF" width="40%" height="40%">
+<img src="https://github.com/FPJack/ZLPopView/blob/master/IMG_4775.GIF" width="40%" height="40%">
+<img src="https://github.com/FPJack/ZLPopView/blob/master/IMG_4776.GIF" width="40%" height="40%">
+<img src="https://github.com/FPJack/ZLPopView/blob/master/IMG_4777.GIF" width="40%" height="40%">
+
 
 
 
