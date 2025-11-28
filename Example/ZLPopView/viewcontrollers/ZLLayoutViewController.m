@@ -21,23 +21,78 @@
     self.stackViewBuilder.buildScrollViewToSuperView(self.view);
 }
 - (ZLStackViewBuilder *)stackViewBuilder {
-    ZLPopViewBuilder
-     //.row
-    .column
-    .space(10)
-    .distribution(ZLMainAxisAlignmentStart)
-    .alignment(UIStackViewAlignmentTop)
-    .padding(10, 10, 10, 10)
-    .separatorColor(UIColor.lightGrayColor)
-    .separatorThickness(0.5)
-    .addView(UILabel.kfc.text(@"UIStackView布局方式 添加Label"))
-    .addView(UILabel.kfc.text(@"UIStackView布局方式 添加Label"))
-    .addViewBK(^ViewKFCType  _Nonnull{
-        return UILabel.kfc.text(@"UIStackView布局方式 添加Label");
-    })
-    .addViewBK(^ViewKFCType  _Nonnull{
-        return UILabel.kfc.text(@"UIStackView布局方式 添加Label");
-    });
+    ZLPopBaseView *popView = ZLPopViewBuilder
+                    //水平布局
+                     //.row
+                    //垂直布局
+                    .column
+                    //设置间距
+                    .space(10)
+                    .popViewMarge(10, 10, 10, 10)
+                    .inset(10, 10, 10, 10)
+                    .marge(10, 10, 10, 10)
+                    .wrapScrollView
+                    .enableScrollWhenOutBounds
+                    .width(300)
+                    .height(400)
+                    .maxWidth(350)
+                    .maxHeight(500)
+                    .maxWidthMultiplier(0.9)
+                    .maxHeightMultiplier(0.8)
+                    .widthMultiplier(0.8)
+                    .heightMultiplier(0.5)
+                    .touchPenetrate
+                    .enableDragDismiss
+                    .addDragGesture
+                    .dragDismissIfGreaterThanDistance(50)
+                    .tapMaskDismiss
+                    .animateIn(0.25)
+                    .animateOut(0.25)
+                    .corners(UIRectCornerAllCorners)
+                    .cornerRadius(10)
+                    .shadowColor(UIColor.blackColor)
+                    .shadowRadius(5)
+                    .shadowOffset(CGSizeMake(0, 0))
+                    .shadowOpacity(0.2)
+                    .maskColor([UIColor.blackColor colorWithAlphaComponent:0.3])
+                    .backgroundColor(UIColor.whiteColor)
+                    .avoidKeyboardType(ZLAvoidKeyboardTypeFirstResponder)
+                    .bottomOffsetToKeyboardTop(10)
+                    //.popSuperView(viewcontroller.view)
+                    //设置分布方式
+                    .distribution(ZLMainAxisAlignmentStart)
+                    //设置对齐方式
+                    .alignment(UIStackViewAlignmentTop)
+                    //设置内边距
+                    .padding(10, 10, 10, 10)
+                    //设置分割线颜色
+                    .separatorColor(UIColor.lightGrayColor)
+                    //设置分割线粗细
+                    .separatorThickness(0.5)
+                    //添加子视图View
+                    .addView(UILabel.kfc.text(@"UIStackView布局方式 添加Label"))
+                    //视图View之间插入间距,可以覆盖全局space设置
+                    .customSpace(20)
+                    .addView(UILabel.kfc.text(@"UIStackView布局方式 添加Label"))
+                    //添加弹性空间View
+                    .addFlexSpaceView()
+                    //Block添加子视图View
+                    .addViewBK(^ViewKFCType  _Nonnull{
+                        return UILabel.kfc.text(@"UIStackView布局方式 添加Label");
+                    })
+                    .addViewBK(^ViewKFCType  _Nonnull{
+                        return UILabel.kfc.text(@"UIStackView布局方式 添加Label");
+                    })
+                    .buildRightPopView
+                    //.buildLeftPopView
+                    //.buildCenterPopView
+                    //.buildBottomPopView
+                    //.buildTopPopView;
+                //.showLeftPopView()
+                //.showCenterPopView()
+                //.showTopPopView()
+                //.showBottomPopView()
+
     
     
     
