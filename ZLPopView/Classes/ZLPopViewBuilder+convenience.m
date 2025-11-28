@@ -72,7 +72,7 @@
             return UIButton.customTypeButton.kfc
                 .title(title ?: @"取消")
                 .titleSystemFontSizeMedium(14)
-                .titleColor(UIColor.systemBlueColor)
+                .titleColor(UIColor.systemRedColor)
                 .height(50)
                 .dismissPopViewWhenTap
                 .defaultHighlightBgColor
@@ -344,6 +344,10 @@
             }else {
                 self.addRowEWViewsWTMS(self.customActionViews);
             }
+        }else {
+            if (self.cancelView) {
+                self.addView(self.cancelView);
+            }
         }
     }
     self.cancelView = nil;
@@ -413,7 +417,7 @@
 }
 - (ZLPopViewBuilder * _Nonnull (^)(void (^ _Nonnull)(UIView * _Nonnull)))addCancelViewStyleAction {
     return ^ZLPopViewBuilder *(void(^action)(UIView *view)){
-        return [self addCancelStyleActionView:self.cancelView handler:action];
+        return [self addCancelStyleActionViewText:nil handler:action];
     };
 }
 - (instancetype)addCancelStyleActionViewText:(NSString *)text handler:(void(^)(UIView *view))action {

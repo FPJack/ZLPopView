@@ -11,7 +11,7 @@
 #import "GMCommonPopViews.h"
 #import "TableView.h"
 
-@interface ZLPopViewController ()
+@interface ZLPopViewController ()<ZLPopViewDelegate>
 
 @end
 
@@ -20,7 +20,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = UIColor.orangeColor;
-    ///
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+
     ZLPopViewBuilder.defaultConfigureBK = ^(ZLBuildConfigObj * _Nonnull configure) {
         configure.tapMaskDismiss = YES;
         configure.enableDragDismiss = YES;
@@ -54,6 +55,27 @@
     .addView(UILabel.kfc.text(@"右边弹出").tapAction(^(__kindof UIView * _Nonnull view) {
         self.showTopBuilder.showRightPopView();
     }))
+    .addView(UILabel.kfc.text(@"自定义动画").tapAction(^(__kindof UIView * _Nonnull view) {
+        [self customAnimate];
+    }))
+    .addView(UILabel.kfc.text(@"输入框底部自动避开键盘(设置间距20)").tapAction(^(__kindof UIView * _Nonnull view) {
+        self.showBottomTextInput1
+            .avoidKeyboardFirstResponderBottom
+            .bottomOffsetToKeyboardTop(10)
+            .showBottomPopView();
+    }))
+    .addView(UILabel.kfc.text(@"弹窗底部自动避开键盘(设置间距0)").tapAction(^(__kindof UIView * _Nonnull view) {
+        self.showBottomTextInput1
+            .avoidKeyboardPopViewBottom
+            .bottomOffsetToKeyboardTop(0)
+            .showBottomPopView();
+    }))
+    .addView(UILabel.kfc.text(@"设置最大高度200（超出不可滑动）").tapAction(^(__kindof UIView * _Nonnull view) {
+        [self showCenterMax200Builder];
+    }))
+    .addView(UILabel.kfc.text(@"设置最大高度200（超出可滑动）").tapAction(^(__kindof UIView * _Nonnull view) {
+        [self showCenterMax200ScrollView];
+    }))
     .addView(UILabel.kfc.text(@"顶部通知栏消息").tapAction(^(__kindof UIView * _Nonnull view) {
         ZLPopBaseView *popView = self.notificationMessageBuilder.buildTopPopView;
         [popView show];
@@ -83,7 +105,7 @@
     .addView(UILabel.kfc.text(@"tableView拖拽悬浮").tapAction(^(__kindof UIView * _Nonnull view) {
         [self showTableViewBottomFloat];
     }))
-    .buildStackViewToSuperView(self.view);
+    .buildScrollViewToSuperView(self.view);
     
 }
 - (ZLPopViewBuilder *)showTopBuilder {
@@ -96,6 +118,61 @@
         .addView(kCancelStyleBtn)
     ;
     return builder;
+}
+- (void )showCenterMax200Builder {
+    ZLPopViewBuilder.column
+        .alertWidth270
+        .maxHeight(200)
+        .wrapScrollView
+        .title(@"提示框")
+        .message(@"这是一个简单的提示。")
+        .addView(kConfirmStyleBtn)
+        .addView(kDeleteStyleBtn)
+        .addView(kCancelStyleBtn)
+        .addView(kConfirmStyleBtn)
+        .addView(kDeleteStyleBtn)
+        .addView(kCancelStyleBtn)
+        .showCenterPopView();
+}
+- (void )showCenterMax200ScrollView {
+    ZLPopViewBuilder.column
+        .alertWidth270
+        .maxHeight(200)
+        .wrapScrollView
+        .enableScrollWhenOutBounds
+        .title(@"提示框")
+        .message(@"这是一个简单的提示。")
+        .addView(kConfirmStyleBtn)
+        .addView(kDeleteStyleBtn)
+        .addView(kCancelStyleBtn)
+        .addView(kConfirmStyleBtn)
+        .addView(kDeleteStyleBtn)
+        .addView(kCancelStyleBtn)
+        .showCenterPopView();
+}
+- (ZLPopViewBuilder *)showBottomTextInput1 {
+    ZLPopViewBuilder *builder = kPopViewColumnBuilder
+        .marge(0,0,0,0)
+        .insetVertical(20,self.view.safeAreaInsets.bottom)
+        .tapMaskDismiss
+        .avoidKeyboardFirstResponderBottom
+        .bottomOffsetToKeyboardTop(20)
+        .topCorners(10);
+   
+    builder
+        .title(@"提示框")
+        .message(@"这是一个简单的提示框，您可以在这里添加更多内容。")
+        .addTextField(^(UITextField * _Nonnull textField) {
+            textField.placeholder = @"输入框";
+            [textField.kfc becomeFirstResponderWhenPopViewAppear];
+        })
+        .addCancelViewStyleAction(^(UIView * _Nonnull view) {
+            
+        })
+        .addConfirmViewStyleActionText(@"确认", nil);
+        
+    return builder;
+    
 }
 - (ZLPopViewBuilder *)notificationMessageBuilder {
     NSString *text = @"这是一个通知消息这是一个通知消息这是一个通知消息这是一个通知消息这是一个通知消息";
@@ -227,5 +304,59 @@
         .buildBottomPopFloatView
         .setFloatHeight(200)
         .showExpand;
+}
+
+- (void)customAnimate {
+    ZLPopViewBuilder *builder = ZLPopViewBuilder.column
+        .animateIn(0)
+        .animateOut(0)
+        .alertWidth270
+        .insetTop(20);
+    
+    ZLPopCenterView *centerView = builder
+        .addView(kTitleStyleLabel(@"提示框"))
+        .addView(kSubTitleStyleLabel(@"这是一个自定义弹性放大缩小动画"))
+        .addCancelViewStyleActionText(@"取消", nil)
+        .addConfirmViewStyleActionText(@"确认", nil)
+        .buildCenterPopView.delegate(self);
+    centerView.tag = 988;
+    [centerView show];
+}
+#pragma mark - ZLPopViewDelegate
+- (void)popViewWillShow:(ZLPopBaseView *)popView {
+    NSLog(@"popViewWillShow");
+}
+- (void)popViewDidShow:(ZLPopBaseView *)popView {
+    NSLog(@"popViewDidShow");
+    popView.containerView.transform = CGAffineTransformMakeScale(0.01, 0.01);
+    popView.containerView.hidden = NO;
+    [UIView animateWithDuration:1
+                          delay:0.0
+         usingSpringWithDamping:0.6
+          initialSpringVelocity:0.8
+                        options:UIViewAnimationOptionCurveEaseOut
+                     animations:^{
+        popView.containerView.transform = CGAffineTransformIdentity;
+    } completion:^(BOOL finished) {
+        NSLog(@"弹性动画完成");
+    }];
+}
+- (void)popViewWillHidden:(ZLPopBaseView *)popView {
+    NSLog(@"popViewWillHidden");
+    [UIView animateWithDuration:0.5 animations:^{
+        popView.containerView.transform = CGAffineTransformMakeScale(0.01, 0.01);
+    } completion:^(BOOL finished) {
+        //自定义动画完成后需要手动移除popView
+        [popView removeFromSuperview];
+    }];
+    
+}
+- (void)popViewDidHidden:(ZLPopBaseView *)popView {
+    NSLog(@"popViewDidHidden");
+    
+}
+- (BOOL)popViewShouldRemoveFromSuperView:(ZLPopBaseView *)popView {
+    //自定义动画告诉内部不需要自动移除popView，外部自行控制
+    return popView.tag == 988 ? NO : YES;
 }
 @end

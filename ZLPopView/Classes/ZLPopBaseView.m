@@ -415,15 +415,15 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
     return ZLKeyboardEvent.share.keyboardIsShowing;
 }
 - (void)popViewWillShow:(ZLPopBaseView *)popView {
-    if ([self.delegate respondsToSelector:_cmd]) {
-        [self.delegate popViewWillShow:self];
+    if ([self.delegateObj respondsToSelector:_cmd]) {
+        [self.delegateObj popViewWillShow:self];
     }
     self.pageState = ZLPopViewPageStateShowing;
 }
 - (void)popViewDidShow:(ZLPopBaseView *)popView {
     
-    if ([self.delegate respondsToSelector:_cmd]) {
-        [self.delegate popViewDidShow:self];
+    if ([self.delegateObj respondsToSelector:_cmd]) {
+        [self.delegateObj popViewDidShow:self];
     }
     if (self.keyboardIsShowing && self.configObj.avoidKeyboardType != ZLAvoidKeyboardTypeNone) {
         [self showKeyboardEvent:ZLKeyboardEvent.share.keyboardHeight duration:0];
@@ -457,14 +457,14 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
     if (firstResponderView) [firstResponderView becomeFirstResponder];
 }
 - (void)popViewWillHidden:(ZLPopBaseView *)popView {
-    if ([self.delegate respondsToSelector:_cmd]) {
-        [self.delegate popViewWillHidden:self];
+    if ([self.delegateObj respondsToSelector:_cmd]) {
+        [self.delegateObj popViewWillHidden:self];
     }
     self.pageState = ZLPopViewPageStateDismissing;
 }
 - (void)popViewDidHidden:(ZLPopBaseView *)popView {
-    if ([self.delegate respondsToSelector:_cmd]) {
-        [self.delegate popViewDidHidden:self];
+    if ([self.delegateObj respondsToSelector:_cmd]) {
+        [self.delegateObj popViewDidHidden:self];
     }
     self.pageState = ZLPopViewPageStateDidDismissed;
     if (self.didHiddenBlock) self.didHiddenBlock(self);
@@ -476,8 +476,8 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
     };
 }
 - (void)popViewDealloc:(ZLPopBaseView *)popView {
-    if ([self.delegate respondsToSelector:_cmd]) {
-        [self.delegate popViewDidHidden:self];
+    if ([self.delegateObj respondsToSelector:_cmd]) {
+        [self.delegateObj popViewDealloc:self];
     }
 }
 - (void)removeFromSuperview {
@@ -490,19 +490,19 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
     }
 }
 - (BOOL)popViewShouldRemoveFromSuperView:(ZLPopBaseView *)popView {
-    if ([self.delegate respondsToSelector:_cmd]) {
-        return  [self.delegate popViewShouldRemoveFromSuperView:self];
+    if ([self.delegateObj respondsToSelector:_cmd]) {
+        return  [self.delegateObj popViewShouldRemoveFromSuperView:self];
     }
     return  YES;
 }
 - (void)popViewShowExpand:(ZLPopBaseView *)popView {
-    if ([self.delegate respondsToSelector:_cmd]) {
-        [self.delegate popViewShowExpand:self];
+    if ([self.delegateObj respondsToSelector:_cmd]) {
+        [self.delegateObj popViewShowExpand:self];
     }
 }
 - (void)popViewShowTight:(ZLPopBaseView *)popView{
-    if ([self.delegate respondsToSelector:_cmd]) {
-        [self.delegate popViewShowTight:self];
+    if ([self.delegateObj respondsToSelector:_cmd]) {
+        [self.delegateObj popViewShowTight:self];
     }
 }
 
@@ -874,7 +874,7 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
     if (self.pageState == ZLPopViewPageStateDismissing || self.pageState == ZLPopViewPageStateDidDismissed) return;
     [self popViewWillHidden:self];
     if (self.configObj.animationOut <= 0) {
-        [self.delegate popViewDidHidden:self];
+        [self popViewDidHidden:self];
         [self removeSelfFromSuperview];
         return;
     }
@@ -1046,7 +1046,7 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
     }
     [self popViewWillHidden:self];
     if (self.configObj.animationOut <= 0) {
-        [self.delegate popViewDidHidden:self];
+        [self popViewDidHidden:self];
         [self removeSelfFromSuperview];
         return;
     }
@@ -1399,7 +1399,7 @@ horizontalMarge {return 0;}
     if (self.pageState == ZLPopViewPageStateDismissing || self.pageState == ZLPopViewPageStateDidDismissed) return;
     [self popViewWillHidden:self];
     if (self.configObj.animationOut <= 0) {
-        [self.delegate popViewDidHidden:self];
+        [self popViewDidHidden:self];
         [self removeSelfFromSuperview];
         return;
     }
