@@ -22,7 +22,7 @@ it, simply add the following line to your Podfile:
 pod 'ZLPopView'
 ```
 
-UIStackView 布局 更多请参考  ZLStackViewBuilder.h 文件和demo
+##UIStackView 布局 更多请参考  ZLStackViewBuilder.h 文件和demo
 ```ruby
 UIView *view  = ZLStackViewBuilder
             //水平布局
@@ -61,7 +61,7 @@ UIView *view  = ZLStackViewBuilder
             .buildStackView;
 ```
 
-ZLPopViewBuilder继承自ZLStackViewBuilder,更多请参考  ZLPopViewBuilder.h 文件和demo
+##ZLPopViewBuilder继承自ZLStackViewBuilder,更多请参考  ZLPopViewBuilder.h 文件和demo
 ```ruby
     ZLPopBaseView *popView = ZLPopViewBuilder
                     //水平布局
@@ -171,7 +171,7 @@ ZLPopViewBuilder继承自ZLStackViewBuilder,更多请参考  ZLPopViewBuilder.h 
 
 ```
     
-ZLPopOverView 更多请参考  ZLPopOverView.h 文件和demo    
+##ZLPopOverView 更多请参考  ZLPopOverView.h 文件和demo    
 ```ruby
                     ZLPopViewBuilder
                     .column
@@ -199,7 +199,7 @@ ZLPopOverView 更多请参考  ZLPopOverView.h 文件和demo
                     .showPopView();
 ```
 
-快捷弹窗
+##快捷弹窗
 ```ruby
 
         kPopViewColumnBuilder
@@ -223,9 +223,10 @@ ZLPopOverView 更多请参考  ZLPopOverView.h 文件和demo
 ```  
 
 
-默认样式配置                  
+##默认样式配置                  
 ``` ruby
     BOOL isDark = self.isDark;
+    //默认弹窗属性配置
     ZLPopViewBuilder.defaultConfigureBK = ^(ZLBuildConfigObj * _Nonnull configure) {
         configure.tapMaskDismiss = YES;
         configure.enableDragDismiss = YES;
@@ -238,15 +239,22 @@ ZLPopOverView 更多请参考  ZLPopOverView.h 文件和demo
         configure.backgroundColor = isDark ? DARK_BG_COLOR : LIGHT_BG_COLOR;
     };
     
+    //默认线条样式配置
     ZLPopViewBuilder.defaultSeparatorColor = isDark ? DARK_LINE_COLOR : LIGHT_LINE_COLOR;
     ZLPopViewBuilder.defaultSeparatorThickness = 0.5;
     
+    
+    //返回自定义展示Title的UILabel
     ZLPopViewBuilder.defaultTitleLabelBK = ^UILabel * _Nullable(ZLPopViewBuilder * _Nonnull builder, NSString * _Nonnull text) {
         return kTitleStyleLabel(text).kfc.textColor(isDark ? DARK_TITLE_COLOR : LIGHT_TITLE_COLOR).margeHorizontal(10).view;
     };
+    
+    //返回自定义展示Message的UILabel
     ZLPopViewBuilder.defaultMessageLabelBK = ^UILabel * _Nullable(ZLPopViewBuilder * _Nonnull builder, NSString * _Nonnull text) {
         return kSubTitleStyleLabel(text).kfc.textColor(isDark ? DARK_SUBTITLE_COLOR : LIGHT_SUBTITLE_COLOR).margeHorizontal(10).view;
     };
+    
+    //返回自定义展示AttributedMessage的UILabel
     ZLPopViewBuilder.defaultAttributedViewBK = ^(ZLPopViewBuilder *builder, NSAttributedString *attributedString){
         return UILabel.new.kfc
             .multipleLines
@@ -257,6 +265,7 @@ ZLPopOverView 更多请参考  ZLPopOverView.h 文件和demo
             .view;
     };
     
+    //返回自定义展示TextField的UITextField
     ZLPopViewBuilder.defaultTextFieldViewBK = ^UITextField * _Nullable(ZLPopViewBuilder * _Nonnull builder, NSString * _Nonnull placeholder) {
         return UITextField.new.kfc
             .leftPadding(10)
@@ -272,7 +281,10 @@ ZLPopOverView 更多请参考  ZLPopOverView.h 文件和demo
             .height(40)
             .view;
     };
+    
+    
     UIColor *highlightBgColor = isDark ? [UIColor.darkGrayColor colorWithAlphaComponent:0.5] : [UIColor.lightGrayColor colorWithAlphaComponent:0.1];
+    //返回自定义展示删除样式按钮的UIView
     ZLPopViewBuilder.defaultDeleteViewBK = ^UIView * _Nullable(ZLPopViewBuilder * _Nonnull builder, NSString * _Nonnull text) {
         UIColor *color = isDark ? DARK_DESTRUCTIVE_COLOR : LIGHT_DESTRUCTIVE_COLOR;
         return kDeleteStyleBtn.kfc.title(text)
@@ -280,6 +292,8 @@ ZLPopOverView 更多请参考  ZLPopOverView.h 文件和demo
             .highlightBgColor(highlightBgColor)
             .view;
     };
+    
+    //返回自定义展示确认样式按钮的UIView
     ZLPopViewBuilder.defaultConfirmViewBK = ^UIView * _Nullable(ZLPopViewBuilder * _Nonnull builder, NSString * _Nonnull text) {
         UIColor *color = isDark ? DARK_BUTTON_COLOR : LIGHT_BUTTON_COLOR;
         return kConfirmStyleBtn.kfc
@@ -288,6 +302,8 @@ ZLPopOverView 更多请参考  ZLPopOverView.h 文件和demo
             .highlightBgColor(highlightBgColor)
             .view;
     };
+    
+    //返回自定义展示普通样式按钮的UIView
     ZLPopViewBuilder.defaultButtonViewBK = ^UIView * _Nullable(ZLPopViewBuilder * _Nonnull builder, NSString * _Nonnull text) {
         UIColor *color = isDark ? DARK_BUTTON_COLOR : LIGHT_BUTTON_COLOR;
         return kConfirmStyleBtn.kfc.title(text)
@@ -295,6 +311,8 @@ ZLPopOverView 更多请参考  ZLPopOverView.h 文件和demo
             .highlightBgColor(highlightBgColor)
             .view;
     };
+    
+    //返回自定义展示取消样式按钮的UIView
     ZLPopViewBuilder.defaultCancelViewBK = ^UIView * _Nullable(ZLPopViewBuilder * _Nonnull builder, NSString * _Nonnull text) {
         UIColor *color = isDark ? DARK_CANCEL_COLOR : LIGHT_CANCEL_COLOR;
         return kCancelStyleBtn.kfc
