@@ -166,6 +166,9 @@ ZLPopViewBuilder继承自ZLStackViewBuilder,更多请参考  ZLPopViewBuilder.h 
                     //.buildBottomPopView
                     //屏幕顶部弹出
                     //.buildTopPopView;
+    //设置代理（监听页面生命周期）并显示
+    popView.delegate(self).showPopView();
+
 ```
     
 

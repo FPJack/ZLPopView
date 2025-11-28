@@ -83,7 +83,7 @@
                     .addViewBK(^ViewKFCType  _Nonnull{
                         return UILabel.kfc.text(@"UIStackView布局方式 添加Label");
                     })
-                    .buildRightPopView
+                    .buildRightPopView;
                     //.buildLeftPopView
                     //.buildCenterPopView
                     //.buildBottomPopView
@@ -92,8 +92,7 @@
                 //.showCenterPopView()
                 //.showTopPopView()
                 //.showBottomPopView()
-
-    
+    popView.delegate(self).showPopView();
     
     
     ZLStackViewBuilder *builder = ZLStackViewBuilder
