@@ -1,5 +1,19 @@
 # ZLPopView
 
+ZLPopView是一个基于UIStackView布局展示各种自定义视图的库。在系统UIStackView布局的基础上扩展了弹性布局.
+同时封装了多种弹出视图展示方式，支持多种弹出样式（顶部、底部、左侧、右侧、中间、气泡等），并且支持键盘避免遮挡，拖拽关闭，点击遮罩关闭等功能。方便开发者快速创建各种自定义弹窗视图。
+1. 支持水平和垂直布局
+2. 支持内边距和间距设置
+3. 支持分割线设置
+4. 支持弹出视图展示和配置
+5. 支持键盘避免遮挡
+6. 支持拖拽关闭和点击遮罩关闭
+7. 支持多种弹出样式（顶部、底部、左侧、右侧、中间、气泡等）
+8. 支持默认样式配置，方便全局统一设置弹窗样式
+9. 支持快捷弹窗创建（类似系统Alert和ActionSheet和微信）
+10.支持手势穿透
+11.支持手势冲突处理
+12.支持自定义动画
 
 ## Example
 
@@ -7,20 +21,20 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Requirements
 
-## Installation
+
 
 <img src="https://github.com/FPJack/ZLPopView/blob/master/IMG_4774.GIF" width="40%" height="40%">   <img src="https://github.com/FPJack/ZLPopView/blob/master/IMG_4775.GIF" width="40%" height="40%">
 <img src="https://github.com/FPJack/ZLPopView/blob/master/IMG_4776.GIF" width="40%" height="40%">   <img src="https://github.com/FPJack/ZLPopView/blob/master/IMG_4777.GIF" width="40%" height="40%">
 
 
 
-
-ZLPopView is available through [CocoaPods](https://cocoapods.org). To install
-it, simply add the following line to your Podfile:
+## Installation
 
 ```ruby
 pod 'ZLPopView'
 ```
+
+
 
 ## UIStackView 布局 更多请参考  ZLStackViewBuilder.h 文件和demo
 ```ruby
