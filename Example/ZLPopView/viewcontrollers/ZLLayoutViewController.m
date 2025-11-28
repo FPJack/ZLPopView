@@ -21,30 +21,9 @@
     self.stackViewBuilder.buildScrollViewToSuperView(self.view);
 }
 - (ZLStackViewBuilder *)stackViewBuilder {
-                    ZLPopViewBuilder
-                    .column
-                    //添加子视图View
-                    .addView(UILabel.kfc.text(@"UIStackView布局方式 添加Label"))
-                    //视图View之间插入间距,可以覆盖全局space设置
-                    .addView(UILabel.kfc.text(@"UIStackView布局方式 添加Label"))
-                    //构建ZLPopOverView
-                    .buildPopOverView
-                    //设置在哪个view周边弹出
-                    .setFromView(UIButton.new)
-                    //设置弹出点位置
-                    .setPoint(CGPointMake(100, 100))
-                    //设置箭头指向弹出点的距离
-                    .setSpaceToPoint(5)
-                    //设置箭头宽度
-                    .setArrowWidth(20)
-                    //设置箭头高度
-                    .setArrowHeight(10)
-                    //设置PopOverView四周安全区域间距
-                    .setSafeAreaMarge(UIEdgeInsetsMake(10, 10, 10, 10))
-                    //设置PopOverView箭头方向
-                    .setDirection(ZLPopOverDirectionAuto)
-                    //显示PopOverView
-                    .showPopView();
+                    
+        
+        
     
                     
       

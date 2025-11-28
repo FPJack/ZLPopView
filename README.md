@@ -199,8 +199,29 @@ ZLPopOverView 更多请参考  ZLPopOverView.h 文件和demo
                     .showPopView();
 ```
 
-                    
+快捷弹窗
+```ruby
 
+        kPopViewColumnBuilder
+        .title(@"标题")
+        .message(@"这是展示的内容")
+        .addTextField(^(UITextField * _Nonnull textField) {
+            textField.placeholder = @"请输入内容";
+        })
+        .addCancelViewStyleActionText(@"取消", ^(UIView * _Nonnull view) {
+            
+        })
+        .addConfirmViewStyleActionText(@"确认", ^(UIView * _Nonnull view) {
+            
+        })
+        //微信样式弹窗
+        .showWXActionSheet
+        //系统样式弹窗
+        .showActionSheet
+        //系统Alert
+        .showAlert;
+```                    
+        
 
 ## Author
 
