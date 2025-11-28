@@ -37,19 +37,20 @@
 
     // 设置 TabBarItem（图标可以换成你项目的图片）
     homeVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"首页"
-                                                      image:[UIImage imageNamed:@"tab_home"]
-                                              selectedImage:[UIImage imageNamed:@"tab_home_sel"]];
+                                                      image:[UIImage systemImageNamed:@"house"]
+                                              selectedImage:[UIImage systemImageNamed:@"house.fill"]];
 
     discoverVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"发现"
-                                                          image:[UIImage imageNamed:@"tab_discover"]
-                                                  selectedImage:[UIImage imageNamed:@"tab_discover_sel"]];
+                                                          image:[UIImage systemImageNamed:@"safari"]
+                                                  selectedImage:[UIImage systemImageNamed:@"safari.fill"]];
 
     messageVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"消息"
-                                                         image:[UIImage imageNamed:@"tab_message"]
-                                                 selectedImage:[UIImage imageNamed:@"tab_message_sel"]];
-    popOverVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"popover弹窗"
-                                                         image:[UIImage imageNamed:@"tab_message"]
-                                                 selectedImage:[UIImage imageNamed:@"tab_message_sel"]];
+                                                         image:[UIImage systemImageNamed:@"message"]
+                                                 selectedImage:[UIImage systemImageNamed:@"message.fill"]];
+
+    popOverVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"弹窗"
+                                                         image:[UIImage systemImageNamed:@"square.stack"]
+                                                 selectedImage:[UIImage systemImageNamed:@"square.stack.fill"]];
 
         // 每个 VC 放入导航控制器（可选）
         UINavigationController *nav1 = [[ZLNavigationController alloc] initWithRootViewController:homeVC];
