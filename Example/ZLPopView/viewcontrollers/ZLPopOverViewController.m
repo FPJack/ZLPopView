@@ -18,9 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.edgesForExtendedLayout = UIRectEdgeNone;
-
     self.navigationController.navigationBarHidden = NO;
-    // Do any additional setup after loading the view from its nib.
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     [btn setTitle:@"菜单" forState:UIControlStateNormal];
     [btn setBackgroundColor:UIColor.grayColor];

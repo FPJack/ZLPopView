@@ -243,7 +243,7 @@
 
 
 - (void)showCustomActionViews {
-    ZLCustomPopViewBuilder *builder = (ZLCustomPopViewBuilder *)ZLCustomPopViewBuilder.column
+    ZLPopViewBuilder *builder = ZLPopViewBuilder.column
         .alertWidth270
         .title(@"提示框")
         .message(@"这是一个简单的提示。")
@@ -273,7 +273,7 @@
     .showCenterPopView();
 }
 - (void)showCustomActionViews3 {
-    ZLCustomPopViewBuilder *builder = (ZLCustomPopViewBuilder *)ZLCustomPopViewBuilder.column
+    ZLPopViewBuilder *builder = ZLPopViewBuilder.column
         .alertWidth270
         .title(@"提示框")
         .message(@"这是一个简单的提示。")
@@ -288,7 +288,7 @@
     .showBottomPopView();
 }
 - (void)showCustomActionViews4 {
-    ZLCustomPopViewBuilder *builder = (ZLCustomPopViewBuilder *)ZLCustomPopViewBuilder.column
+    ZLPopViewBuilder *builder =ZLPopViewBuilder.column
         .paddingBottom(20)
         .alertWidth270
         .title(@"提示框")

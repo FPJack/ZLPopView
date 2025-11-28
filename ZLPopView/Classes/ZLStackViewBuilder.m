@@ -1213,9 +1213,9 @@ static inline UIView* _getViewFromViewKFC(ViewKFCType viewKFC) {
     }];
     UIView* (^blankViewBlock)(void) = ^{
         if (self.axis == UILayoutConstraintAxisHorizontal) {
-            return UIView.new.kfc.width(0.01).tag(kIgnoreViewTag).view;
+            return UIView.kfc.userInteractionEnabled(NO).width(0.01).tag(kIgnoreViewTag).view;
         }else {
-            return UIView.new.kfc.height(0.01).tag(kIgnoreViewTag).view;
+            return UIView.kfc.userInteractionEnabled(NO).height(0.01).tag(kIgnoreViewTag).view;
         }
     };
     if (self.mainAxisAlignment == ZLMainAxisAlignmentSpaceEvenly && stackView.arrangedSubviews.count > 1) {
