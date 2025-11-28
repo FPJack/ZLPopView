@@ -76,7 +76,7 @@
 		606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
 		71719F9E1E33DC2100824A3D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		731DC839FB505222550A1E37 /* Pods_ZLPopView_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZLPopView_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		738EE6DD1C1509D48AF976BA /* ZLPopView.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = ZLPopView.podspec; path = ../ZLPopView.podspec; sourceTree = "<group>"; };
+		738EE6DD1C1509D48AF976BA /* ZLPopView.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = ZLPopView.podspec; path = ../ZLPopView.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		8432B31C2ED5C85D00617EFB /* ZLConfigure.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLConfigure.h; sourceTree = "<group>"; };
 		8432B31D2ED5C85D00617EFB /* ZLConfigure.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLConfigure.m; sourceTree = "<group>"; };
 		8432B31F2ED5C90500617EFB /* ZLCommonViews.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLCommonViews.h; sourceTree = "<group>"; };
