@@ -37,7 +37,9 @@
     })
     .addViewBK(^ViewKFCType  _Nonnull{
         return UILabel.kfc.text(@"UIStackView布局方式 添加Label");
-    });
+    })
+    .buildScrollView
+    .buildStackView;
     
     
     

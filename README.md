@@ -58,7 +58,11 @@ UIStackView 布局 更多请参考  ZLStackViewBuilder.h 文件
     })
     .addViewBK(^ViewKFCType  _Nonnull{
         return UILabel.kfc.text(@"UIStackView布局方式 添加Label");
-    });
+    })
+    //生成UIScrollView,超出固定高度时可以滚动显示
+    .buildScrollView
+    //生成UIStackView
+    .buildStackView;
 ```
 
 ## Author
