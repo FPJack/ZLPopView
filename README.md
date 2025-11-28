@@ -26,6 +26,37 @@ it, simply add the following line to your Podfile:
 pod 'ZLPopView'
 ```
 
+UIStackView 布局
+```objc
+    ZLStackViewBuilder
+    //水平布局
+     //.row
+    //垂直布局 
+    .column
+    //设置间距
+    .space(10)
+    //设置分布方式
+    .distribution(ZLMainAxisAlignmentStart)
+    //设置对齐方式
+    .alignment(UIStackViewAlignmentTop)
+    //设置内边距
+    .padding(10, 10, 10, 10)
+    //设置分割线颜色
+    .separatorColor(UIColor.lightGrayColor)
+    //设置分割线粗细
+    .separatorThickness(0.5)
+    //添加子视图View
+    .addView(UILabel.kfc.text(@"UIStackView布局方式 添加Label"))
+    .addView(UILabel.kfc.text(@"UIStackView布局方式 添加Label"))
+    //Block添加子视图View
+    .addViewBK(^ViewKFCType  _Nonnull{
+        return UILabel.kfc.text(@"UIStackView布局方式 添加Label");
+    })
+    .addViewBK(^ViewKFCType  _Nonnull{
+        return UILabel.kfc.text(@"UIStackView布局方式 添加Label");
+    });
+```
+
 ## Author
 
 fanpeng, 2551412939@qq.com
