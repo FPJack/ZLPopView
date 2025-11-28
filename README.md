@@ -26,7 +26,7 @@ it, simply add the following line to your Podfile:
 pod 'ZLPopView'
 ```
 
-UIStackView 布局
+UIStackView 布局 更多请参考  ZLStackViewBuilder.h 文件
 ```objc
     ZLStackViewBuilder
     //水平布局
