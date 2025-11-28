@@ -1,9 +1,5 @@
 # ZLPopView
 
-[![CI Status](https://img.shields.io/travis/fanpeng/ZLPopView.svg?style=flat)](https://travis-ci.org/fanpeng/ZLPopView)
-[![Version](https://img.shields.io/cocoapods/v/ZLPopView.svg?style=flat)](https://cocoapods.org/pods/ZLPopView)
-[![License](https://img.shields.io/cocoapods/l/ZLPopView.svg?style=flat)](https://cocoapods.org/pods/ZLPopView)
-[![Platform](https://img.shields.io/cocoapods/p/ZLPopView.svg?style=flat)](https://cocoapods.org/pods/ZLPopView)
 
 ## Example
 
@@ -13,8 +9,8 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Installation
 
-<img src="https://github.com/FPJack/ZLPopView/blob/master/IMG_4774.GIF" width="40%" height="40%"><img src="https://github.com/FPJack/ZLPopView/blob/master/IMG_4775.GIF" width="40%" height="40%">
-<img src="https://github.com/FPJack/ZLPopView/blob/master/IMG_4776.GIF" width="40%" height="40%"><img src="https://github.com/FPJack/ZLPopView/blob/master/IMG_4777.GIF" width="40%" height="40%">
+<img src="https://github.com/FPJack/ZLPopView/blob/master/IMG_4774.GIF" width="40%" height="40%">   <img src="https://github.com/FPJack/ZLPopView/blob/master/IMG_4775.GIF" width="40%" height="40%">
+<img src="https://github.com/FPJack/ZLPopView/blob/master/IMG_4776.GIF" width="40%" height="40%">   <img src="https://github.com/FPJack/ZLPopView/blob/master/IMG_4777.GIF" width="40%" height="40%">
 
 
 
@@ -26,7 +22,7 @@ it, simply add the following line to your Podfile:
 pod 'ZLPopView'
 ```
 
-UIStackView 布局 更多请参考  ZLStackViewBuilder.h 文件
+UIStackView 布局 更多请参考  ZLStackViewBuilder.h 文件和demo
 ```objc
 UIView *view  = ZLStackViewBuilder
             //水平布局
