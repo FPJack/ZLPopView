@@ -22,7 +22,7 @@ it, simply add the following line to your Podfile:
 pod 'ZLPopView'
 ```
 
-##UIStackView 布局 更多请参考  ZLStackViewBuilder.h 文件和demo
+## UIStackView 布局 更多请参考  ZLStackViewBuilder.h 文件和demo
 ```ruby
 UIView *view  = ZLStackViewBuilder
             //水平布局
@@ -61,7 +61,7 @@ UIView *view  = ZLStackViewBuilder
             .buildStackView;
 ```
 
-##ZLPopViewBuilder继承自ZLStackViewBuilder,更多请参考  ZLPopViewBuilder.h 文件和demo
+## ZLPopViewBuilder继承自ZLStackViewBuilder,更多请参考  ZLPopViewBuilder.h 文件和demo
 ```ruby
     ZLPopBaseView *popView = ZLPopViewBuilder
                     //水平布局
@@ -171,7 +171,7 @@ UIView *view  = ZLStackViewBuilder
 
 ```
     
-##ZLPopOverView 更多请参考  ZLPopOverView.h 文件和demo    
+## ZLPopOverView 更多请参考  ZLPopOverView.h 文件和demo    
 ```ruby
                     ZLPopViewBuilder
                     .column
@@ -199,7 +199,7 @@ UIView *view  = ZLStackViewBuilder
                     .showPopView();
 ```
 
-##快捷弹窗
+## 快捷弹窗
 ```ruby
 
         kPopViewColumnBuilder
@@ -223,7 +223,7 @@ UIView *view  = ZLStackViewBuilder
 ```  
 
 
-##默认样式配置                  
+## 默认样式配置                  
 ``` ruby
     BOOL isDark = self.isDark;
     //默认弹窗属性配置
