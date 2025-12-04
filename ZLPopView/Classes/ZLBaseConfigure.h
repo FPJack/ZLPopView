@@ -232,6 +232,8 @@ typedef id<ZLViewProtocol> ViewKFCType;
 - (ObjectType)whiteBgColor;
 - (ObjectType)blackBgColor;
 - (ObjectType)clearBgColor;
+@property (nonatomic,readonly)ObjectType (^contentMode)(UIViewContentMode mode);
+
 
 
 ///UIColor or #333333

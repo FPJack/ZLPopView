@@ -921,6 +921,12 @@ static CGFloat _defaultThickness = 1.0f;
 - (instancetype)clearBgColor {
     return self.backgroundColor(UIColor.clearColor);
 }
+- (id  _Nonnull (^)(UIViewContentMode))contentMode {
+    return ^id (UIViewContentMode mode) {
+        self.view.contentMode = mode;
+        return self;
+    };
+}
 - (instancetype (^)(CGFloat ))cornerRadius {
     return  ^ZLBaseConfigure*(CGFloat cornerRadius){
         self.view.layer.cornerRadius = cornerRadius;
