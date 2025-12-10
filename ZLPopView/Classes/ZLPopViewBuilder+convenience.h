@@ -9,9 +9,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef UIView* _Nullable (^ZLAllocViewBlock)(ZLPopViewBuilder *builder,NSString *text);
-typedef UITextField* _Nullable (^ZLAllocTextFieldBK)(ZLPopViewBuilder *builder,NSString *placeholder);
-typedef UIView* _Nullable (^ZLAllocAttributeViewBK)(ZLPopViewBuilder *builder,NSAttributedString *attributedText);
+typedef UIView* _Nullable (^ZLAllocViewBlock)(ZLPopViewBuilder * _Nullable builder,NSString *text);
+typedef UITextField* _Nullable (^ZLAllocTextFieldBK)(ZLPopViewBuilder * _Nullable builder,NSString *placeholder);
+typedef UIView* _Nullable (^ZLAllocAttributeViewBK)(ZLPopViewBuilder * _Nullable builder,NSAttributedString *attributedText);
 typedef UIView* _Nullable (^ZLActionViewsBK)(NSArray<UIView *> *actionViews, ZLPopViewBuilder *builder);
 
 
