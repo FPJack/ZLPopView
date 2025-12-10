@@ -70,11 +70,14 @@
             .bottomOffsetToKeyboardTop(0)
             .showBottomPopView();
     }))
-    .addView(UILabel.kfc.text(@"设置最大高度200（超出不可滑动）").tapAction(^(__kindof UIView * _Nonnull view) {
+    .addView(UILabel.kfc.text(@"设置整体最大高度200（超出不可滑动）").tapAction(^(__kindof UIView * _Nonnull view) {
         [self showCenterMax200Builder];
     }))
-    .addView(UILabel.kfc.text(@"设置最大高度200（超出可滑动）").tapAction(^(__kindof UIView * _Nonnull view) {
+    .addView(UILabel.kfc.text(@"设置整体最大高度200（超出可滑动）").tapAction(^(__kindof UIView * _Nonnull view) {
         [self showCenterMax200ScrollView];
+    }))
+    .addView(UILabel.kfc.text(@"设置部分内容最大高度300（超出可滑动）").tapAction(^(__kindof UIView * _Nonnull view) {
+        [self showBottomMax200ScrollView];
     }))
     .addView(UILabel.kfc.text(@"顶部通知栏消息").tapAction(^(__kindof UIView * _Nonnull view) {
         ZLPopBaseView *popView = self.notificationMessageBuilder.buildTopPopView;
@@ -149,6 +152,18 @@
         .addView(kDeleteStyleBtn)
         .addView(kCancelStyleBtn)
         .showCenterPopView();
+}
+- (void )showBottomMax200ScrollView {
+    UILabel *longLabel = UILabel.kfc.text(@"kStackViewColumnBuilderkStackViewColumnBuilder kStackViewColumnBuilderkStackViewColumnBuilderkStackViewColumnBuilderkStackViewColumnBuilderkStackViewColumnBuilderkStackViewColumnBuilderkStackViewColumnBuilderkStackViewColumnBuilderkStackViewColumnBuilderkStackViewColumnBuilderkStackViewColumnBuilderkStackViewColumnBuilderkStackViewColumnBuilderkStackViewColumnBuilderkStackViewColumnBuilderkStackViewColumnBuilderkStackViewColumnBuilderkStackViewColumnBuilderkStackViewColumnBuilderkStackViewColumnBuilderkStackViewColumnBuilderkStackViewColumnBuilderkStackViewColumnBuilderkStackViewColumnBuilderkStackViewColumnBuilderkStackViewColumnBuilderkStackViewColumnBuilderkStackViewColumnBuilderkStackViewColumnBuilderkStackViewColumnBuilderkStackViewColumnBuilderkStackViewColumnBuilderkStackViewColumnBuilderkStackViewColumnBuilder").multipleLines.textAlignmentCenter.view;
+    UIScrollView *scrollView = kStackViewColumnBuilder.addView(longLabel).buildScrollView.kfc.maxHeight(300).view;
+    ZLPopViewBuilder.column
+        .paddingHorLT(20, 20)
+        .paddingBottom(30)
+        .title(@"提示框")
+        .addView(scrollView)
+        .customSpace(30)
+        .addCancelViewStyleActionText(@"取消", nil)
+        .showBottomPopView();
 }
 - (ZLPopViewBuilder *)showBottomTextInput1 {
     ZLPopViewBuilder *builder = kPopViewColumnBuilder

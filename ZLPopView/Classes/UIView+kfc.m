@@ -117,6 +117,8 @@ static inline UIColor *_UIColorFromHexString(NSString *hexStr) {
         configureCls = ZLUIStackViewConfigure.class;
     }else if ([self isKindOfClass:UISwitch.class]) {
         configureCls = ZLUISwitchConfigure.class;
+    }else if ([self isKindOfClass:UIScrollView.class]) {
+        configureCls = ZLUIScrollViewConfigure.class;
     }else if ([self isKindOfClass:UIView.class]) {
         configureCls = ZLUIViewConfigure.class;
     }

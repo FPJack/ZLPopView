@@ -35,7 +35,7 @@ static inline UITextField * _Nullable kIS_UITextField(id obj) {
 static inline UISwitch * _Nullable kIS_UISwitch(id obj) {
     return [obj isKindOfClass:[UISwitch class]] ? (UISwitch *)obj : nil;
 }
-@class ZLUIViewConfigure,ZLUILabelConfigure,ZLUITextFieldConfigure,ZLUITextViewConfigure,ZLUIButtonConfigure,ZLUIImageViewConfigure,ZLUISwitchConfigure,ZLUISliderConfigure,ZLUIStackViewConfigure,ZLUIScrollView,ZLPopBaseView;
+@class ZLUIViewConfigure,ZLUILabelConfigure,ZLUITextFieldConfigure,ZLUITextViewConfigure,ZLUIButtonConfigure,ZLUIImageViewConfigure,ZLUISwitchConfigure,ZLUISliderConfigure,ZLUIStackViewConfigure,ZLUIScrollView,ZLPopBaseView,ZLUIScrollViewConfigure;
 @class ZLBuilderContext;
 
 typedef NS_ENUM(NSInteger, ZLCrossAxisAlignment) {
@@ -411,6 +411,9 @@ typedef id<ZLViewProtocol> ViewKFCType;
 @end
 
 @interface ZLUIStackViewConfigure : ZLBaseConfigure<ZLUIStackViewConfigure *,UIStackView *>
+
+@end
+@interface ZLUIScrollViewConfigure : ZLBaseConfigure<ZLUIScrollViewConfigure *,UIScrollView *>
 
 @end
 

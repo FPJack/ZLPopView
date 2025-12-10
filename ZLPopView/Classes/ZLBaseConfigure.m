@@ -1481,3 +1481,7 @@ static CGFloat _defaultThickness = 1.0f;
 
 @end
 
+@implementation ZLUIScrollViewConfigure
+
+@end
+

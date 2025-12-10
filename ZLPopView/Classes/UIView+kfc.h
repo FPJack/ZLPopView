@@ -45,8 +45,8 @@ static inline UIColor * __UIColorFromObj(NSObject * obj);
 @property (nonatomic,strong,readonly,class)ZLUITextViewConfigure *kfc;
 @end
 @interface UIScrollView(kfc)
-@property (nonatomic,strong,readonly)ZLBaseConfigure<ZLUIViewConfigure *,UIScrollView *> *kfc;
-@property (nonatomic,strong,readonly,class)ZLBaseConfigure<ZLUIViewConfigure *,UIScrollView *> *kfc;
+@property (nonatomic,strong,readonly)ZLUIScrollViewConfigure *kfc;
+@property (nonatomic,strong,readonly,class)ZLUIScrollViewConfigure *kfc;
 @end
 @interface UIButton (kfc)
 @property (nonatomic,strong,readonly)ZLUIButtonConfigure *kfc;
