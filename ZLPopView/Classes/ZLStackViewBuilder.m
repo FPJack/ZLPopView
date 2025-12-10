@@ -1375,8 +1375,18 @@ static inline UIView* _getViewFromViewKFC(ViewKFCType viewKFC) {
     NSLayoutConstraint *axisLayout;
     if (self.axis == UILayoutConstraintAxisHorizontal) {
         axisLayout =  [stackView.heightAnchor constraintEqualToAnchor:scrollView.heightAnchor];
+        //（1）scrollView 的宽度 = stackView 宽度（低优先级）
+        NSLayoutConstraint *equalHeight =
+        [scrollView.widthAnchor constraintEqualToAnchor:stackView.widthAnchor];
+        equalHeight.priority = UILayoutPriorityDefaultLow;   // 低优先级
+        equalHeight.active = YES;
     }else {
         axisLayout =  [stackView.widthAnchor constraintEqualToAnchor:scrollView.widthAnchor];
+        //（1）scrollView 的高度 = stackView 高度（低优先级）
+        NSLayoutConstraint *equalHeight =
+            [scrollView.heightAnchor constraintEqualToAnchor:stackView.heightAnchor];
+        equalHeight.priority = UILayoutPriorityDefaultLow;   // 低优先级
+        equalHeight.active = YES;
     }
     axisLayout.active = YES;
     [NSLayoutConstraint activateConstraints:[stackView.kfc edgeToView:scrollView edge:UIEdgeInsetsZero]];

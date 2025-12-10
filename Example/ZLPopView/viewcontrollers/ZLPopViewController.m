@@ -319,6 +319,12 @@
         .addCancelViewStyleActionText(@"取消", nil)
         .addConfirmViewStyleActionText(@"确认", nil)
         .buildCenterPopView.delegate(self);
+    centerView.didShowBK(^(ZLPopBaseView * _Nonnull popView) {
+        
+    })
+    .didHiddenBK(^(ZLPopBaseView * _Nonnull popView) {
+        
+    });
     centerView.tag = 988;
     [centerView show];
 }
