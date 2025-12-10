@@ -30,7 +30,7 @@
     ZLAllocViewBlock titleLabelBlock = _recursive_objc_getAssociatedObject(self, @selector(defaultTitleLabelBK));
     if (!titleLabelBlock) {
         titleLabelBlock = ^(ZLPopViewBuilder *builder, NSString *title){
-            return UILabel.new.kfc
+            return UILabel.kfc
                 .text(title)
                 .systemFontSizeMedium(18)
                 .textColor(UIColor.blackColor)
@@ -51,7 +51,7 @@
     ZLAllocViewBlock messageLabelBlock = _recursive_objc_getAssociatedObject(self, @selector(defaultMessageLabelBK));
     if (!messageLabelBlock) {
         messageLabelBlock = ^(ZLPopViewBuilder *builder, NSString *message){
-            return UILabel.new.kfc
+            return UILabel.kfc
                 .text(message)
                 .systemFontSize(14)
                 .textColor([UIColor.blackColor colorWithAlphaComponent:0.5])
@@ -69,7 +69,7 @@
     ZLAllocViewBlock cancelViewBlock = _recursive_objc_getAssociatedObject(self, @selector(defaultCancelViewBK));
     if (!cancelViewBlock) {
         cancelViewBlock = ^(ZLPopViewBuilder *builder, NSString *title){
-            return UIButton.customTypeButton.kfc
+            return UIButton.kfc
                 .title(title ?: @"取消")
                 .titleSystemFontSizeMedium(14)
                 .titleColor(UIColor.systemRedColor)
@@ -86,7 +86,7 @@
     ZLAllocViewBlock confirmViewBlock = _recursive_objc_getAssociatedObject(self, @selector(defaultConfirmViewBK));
     if (!confirmViewBlock) {
         confirmViewBlock = ^(ZLPopViewBuilder *builder, NSString *title){
-            return UIButton.customTypeButton.kfc
+            return UIButton.kfc
                 .title(title ?: @"确定")
                 .titleSystemFontSizeMedium(14)
                 .titleColor(UIColor.systemBlueColor)
@@ -102,7 +102,7 @@
     ZLAllocViewBlock deleteViewBlock = _recursive_objc_getAssociatedObject(self, @selector(defaultDeleteViewBK));
     if (!deleteViewBlock) {
         deleteViewBlock = ^(ZLPopViewBuilder *builder, NSString *title){
-            return UIButton.customTypeButton.kfc
+            return UIButton.kfc
                 .title(title ?: @"删除")
                 .titleSystemFontSizeMedium(14)
                 .titleColor(UIColor.systemRedColor)
@@ -119,7 +119,7 @@
     ZLAllocViewBlock buttonViewBlock = _recursive_objc_getAssociatedObject(self, @selector(defaultButtonViewBK));
     if (!buttonViewBlock) {
         buttonViewBlock = ^(ZLPopViewBuilder *builder, NSString *title){
-            return UIButton.customTypeButton.kfc
+            return UIButton.kfc
                 .title(title ?: @"按钮")
                 .titleSystemFontSizeMedium(14)
                 .titleColor(UIColor.systemBlueColor)
@@ -135,7 +135,7 @@
     ZLAllocTextFieldBK textFieldViewBlock = _recursive_objc_getAssociatedObject(self, @selector(defaultTextFieldViewBK));
     if (!textFieldViewBlock) {
         textFieldViewBlock = ^(ZLPopViewBuilder *builder, NSString *placeholder){
-            return UITextField.new.kfc
+            return UITextField.kfc
                 .placeholder(placeholder)
                 .frontSpacing(20)
                 .spacing(15)
@@ -181,7 +181,7 @@
     ZLAllocAttributeViewBK attributedViewBlock = _recursive_objc_getAssociatedObject(self, @selector(defaultAttributedViewBK));
     if (!attributedViewBlock) {
         attributedViewBlock = ^(ZLPopViewBuilder *builder, NSAttributedString *attributedString){
-            return UILabel.new.kfc
+            return UILabel.kfc
                 .multipleLines
                 .spacing(32)
                 .margeHorizontal(10)
