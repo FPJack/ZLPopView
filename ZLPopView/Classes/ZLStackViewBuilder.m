@@ -656,6 +656,12 @@ static inline UIView* _getViewFromViewKFC(ViewKFCType viewKFC) {
 - (void)addObject:(ZLItemViewObj *)obj {
     [self.views addObject:obj];
 }
+- (id  _Nonnull (^)(void (^ _Nonnull)(__kindof ZLBaseStackViewBuilder * _Nonnull)))applyBuildBK {
+    return ^id (void (^buildBK)(__kindof ZLBaseStackViewBuilder *builder)){
+        if (buildBK) buildBK(self);
+        return self;
+    };
+}
 - (id (^)(ViewKFCType _Nullable view))addView {
     return  ^id (ViewKFCType _Nullable viewKFC){
         UIView *view = _getViewFromViewKFC(viewKFC);
@@ -1478,5 +1484,6 @@ static inline UIView* _getViewFromViewKFC(ViewKFCType viewKFC) {
 
 
 @implementation ZLStackViewBuilder
+@dynamic applyBuildBK;
 
 @end

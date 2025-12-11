@@ -94,6 +94,8 @@ id _recursive_objc_getAssociatedObject(id _Nonnull object, const void * _Nonnull
 + (instancetype)column;
 + (instancetype)columnFillEqually;
 
+///复用同样的构建步骤进行构建
+@property (nonatomic, copy, readonly)ObjectType (^applyBuildBK)(void(^)(__kindof ZLBaseStackViewBuilder* builder));
 /// 添加view or view.kfc
 /// - Parameter view: <#view description#>
 @property (nonatomic,readonly)ObjectType (^addView)(ViewKFCType _Nullable view);
@@ -272,6 +274,7 @@ id _recursive_objc_getAssociatedObject(id _Nonnull object, const void * _Nonnull
 
 @class ZLStackViewBuilder;
 @interface ZLStackViewBuilder : ZLBaseStackViewBuilder<ZLStackViewBuilder *>
+@property (nonatomic, copy, readonly)ZLStackViewBuilder* (^applyBuildBK)(void(^)(ZLStackViewBuilder* builder));
 @end
 
 

@@ -23,6 +23,8 @@ typedef void(^GMConfigureBlock)(ZLBuildConfigObj *configure);
 @property (nonatomic,readonly)ZLPopViewBuilder * (^horizontalLayoutConstraint)(ZLHorizontalLayoutConstraint);
 @property (nonatomic,readonly)ZLPopViewBuilder *horizontalLayoutConstraintCenter;
 
+@property (nonatomic, copy, readonly)ZLPopViewBuilder* (^applyBuildBK)(void(^)(ZLPopViewBuilder* builder));
+
 /// popView四边距
 //@property (nonatomic,readonly)ZLPopViewBuilder * (^popViewMarge)(UIEdgeInsets);
 @property (nonatomic,readonly)ZLPopViewBuilder * (^popViewMarge)(CGFloat leading,CGFloat top,CGFloat trailing,CGFloat bottom);
