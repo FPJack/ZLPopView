@@ -300,6 +300,7 @@ typedef id<ZLViewProtocol> ViewKFCType;
 @property (nonatomic,readonly)ZLUILabelConfigure* (^updateViewModelBK)(void(^)(__kindof UILabel* label,id viewModel,BOOL isUpdate));
 @property (nonatomic,readonly)ZLUILabelConfigure* (^enableConfigBK)(void(^)(__kindof UILabel* label,id viewModel));
 @property (nonatomic,readonly)ZLUILabelConfigure* (^disableConfigBK)(void(^)(__kindof UILabel* label,id viewModel));
+@property (nonatomic, copy, readonly)ZLUILabelConfigure* (^applyStyle)(void(^)(__kindof UILabel* label));
 
 
 @property (nonatomic,readonly)ZLUILabelConfigure* (^font)(UIFont *);
@@ -327,6 +328,7 @@ typedef id<ZLViewProtocol> ViewKFCType;
 @property (nonatomic,readonly)ZLUITextFieldConfigure* (^updateViewModelBK)(void(^)(__kindof UITextField* textField,id viewModel,BOOL isUpdate));
 @property (nonatomic,readonly)ZLUITextFieldConfigure* (^enableConfigBK)(void(^)(__kindof UITextField* textField,id viewModel));
 @property (nonatomic,readonly)ZLUITextFieldConfigure* (^disableConfigBK)(void(^)(__kindof UITextField* textField,id viewModel));
+@property (nonatomic, copy, readonly)ZLUITextFieldConfigure* (^applyStyle)(void(^)(__kindof UITextField* textField));
 
 
 @property (nonatomic,readonly)ZLUITextFieldConfigure* (^font)(UIFont *);
@@ -353,6 +355,8 @@ typedef id<ZLViewProtocol> ViewKFCType;
 @property (nonatomic,readonly)ZLUITextViewConfigure* (^updateViewModelBK)(void(^)(__kindof UITextView* textView,id viewModel,BOOL isUpdate));
 @property (nonatomic,readonly)ZLUITextViewConfigure* (^enableConfigBK)(void(^)(__kindof UITextView* textView,id viewModel));
 @property (nonatomic,readonly)ZLUITextViewConfigure* (^disableConfigBK)(void(^)(__kindof UITextView* textView,id viewModel));
+@property (nonatomic, copy, readonly)ZLUITextViewConfigure* (^applyStyle)(void(^)(__kindof UITextView* textView));
+
 @end
 
 
@@ -363,6 +367,7 @@ typedef id<ZLViewProtocol> ViewKFCType;
 @property (nonatomic,readonly)ZLUIButtonConfigure* (^enableConfigBK)(void(^)(__kindof UIButton* button,id viewModel));
 ///view userInteractionEnabled = NO 不可接收点击的时候调用在这个block里面进行相关属性配置
 @property (nonatomic,readonly)ZLUIButtonConfigure* (^disableConfigBK)(void(^)(__kindof UIButton* button,id viewModel));
+@property (nonatomic, copy, readonly)ZLUIButtonConfigure* (^applyStyle)(void(^)(__kindof UIButton* button));
 
 
 /// 添加按钮点击事件，多次传入block只调用最后一次
@@ -398,22 +403,29 @@ typedef id<ZLViewProtocol> ViewKFCType;
 @interface ZLUIImageViewConfigure : ZLBaseConfigure<ZLUIImageViewConfigure *,UIImageView *>
 ///UIImage or #imageName or UIColor or #333333
 @property (nonatomic,readonly)ZLUIImageViewConfigure* (^image)(id);
+@property (nonatomic, copy, readonly)ZLUIImageViewConfigure* (^applyStyle)(void(^)(__kindof UIImageView* imageView));
+
 @end
 
 @interface ZLUISwitchConfigure : ZLBaseConfigure<ZLUISwitchConfigure *,UISwitch *>
 @property (nonatomic,readonly)ZLUISwitchConfigure* (^on)(BOOL);
 @property (nonatomic,readonly)ZLUISwitchConfigure* (^valueChanged)(void(^)(UISwitch *sw));
+@property (nonatomic, copy, readonly)ZLUISwitchConfigure* (^applyStyle)(void(^)(__kindof UISwitch* sw));
+
 @end
 
 
 @interface ZLUISliderConfigure : ZLBaseConfigure<ZLUISliderConfigure *,UISlider *>
+@property (nonatomic, copy, readonly)ZLUISliderConfigure* (^applyStyle)(void(^)(__kindof UISlider* slider));
 
 @end
 
 @interface ZLUIStackViewConfigure : ZLBaseConfigure<ZLUIStackViewConfigure *,UIStackView *>
+@property (nonatomic, copy, readonly)ZLUIStackViewConfigure* (^applyStyle)(void(^)(__kindof UIStackView* stackView));
 
 @end
 @interface ZLUIScrollViewConfigure : ZLBaseConfigure<ZLUIScrollViewConfigure *,UIScrollView *>
+@property (nonatomic, copy, readonly)ZLUIScrollViewConfigure* (^applyStyle)(void(^)(__kindof UIScrollView* scrollView));
 
 @end
 
