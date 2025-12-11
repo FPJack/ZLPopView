@@ -418,7 +418,7 @@
 }
 - (ZLPopViewBuilder * _Nonnull (^)(void (^ _Nonnull)(UIView * _Nonnull)))addCancelViewStyleAction {
     return ^ZLPopViewBuilder *(void(^action)(UIView *view)){
-        return [self addCancelStyleActionViewText:nil handler:action];
+        return [self addCancelStyleActionViewText:@"取消" handler:action];
     };
 }
 - (instancetype)addCancelStyleActionViewText:(NSString *)text handler:(void(^)(UIView *view))action {
