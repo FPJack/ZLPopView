@@ -912,6 +912,12 @@ static CGFloat _defaultThickness = 1.0f;
         return self;
     };
 }
+- (id  _Nonnull (^)(void (^ _Nonnull)(__kindof UIView * _Nonnull)))applyStyle {
+    return ^id (void(^block)(__kindof UIView *view)) {
+        if (block) block(self.view);
+        return self;
+    };
+}
 - (instancetype)whiteBgColor {
     return self.backgroundColor(UIColor.whiteColor);
 }

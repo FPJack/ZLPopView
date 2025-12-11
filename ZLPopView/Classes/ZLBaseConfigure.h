@@ -167,9 +167,6 @@ typedef id<ZLViewProtocol> ViewKFCType;
 ///设置view的userInteractionEnabled属性
 @property (nonatomic,readonly)ObjectType (^userInteractionEnabled)(BOOL isUserInteractionEnabled);
 
-
-
-
 /// 根据tag获取子视图
 @property (nonatomic,readonly)UIView* (^viewTag)(NSInteger tag);
 
@@ -228,6 +225,9 @@ typedef id<ZLViewProtocol> ViewKFCType;
 
 ///消除编译器警告
 @property (nonatomic,readonly) void (^Void)(void);
+
+///复用样式
+@property (nonatomic, copy, readonly) ObjectType (^applyStyle)(void(^)(__kindof UIView *view));
 
 - (ObjectType)whiteBgColor;
 - (ObjectType)blackBgColor;
