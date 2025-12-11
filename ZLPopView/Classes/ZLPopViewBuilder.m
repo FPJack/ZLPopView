@@ -95,6 +95,19 @@ static GMConfigureBlock configureBlock;
         return self;
     };
 }
+- (ZLPopViewBuilder * _Nonnull (^)(ZLAnimationBlock _Nonnull))animationInBK {
+    return ^ZLPopViewBuilder* (ZLAnimationBlock animationIn){
+        self.configObj.animationInBlock = animationIn;
+        return self;
+    };
+}
+- (ZLPopViewBuilder * _Nonnull (^)(ZLAnimationBlock _Nonnull))animationOutBK {
+    return ^ZLPopViewBuilder* (ZLAnimationBlock animationOut){
+        self.configObj.animationOutBlock = animationOut;
+        return self;
+    };
+}
+
 - (ZLPopViewBuilder* (^)(UIRectCorner))corners {
     return  ^ZLPopViewBuilder*(UIRectCorner corners){
         self.configObj.corners = corners;
@@ -424,8 +437,8 @@ static GMConfigureBlock configureBlock;
     return self.avoidKeyboardType(ZLAvoidKeyboardTypeAlwaysCenter);
 }
 
-- (ZLPopViewBuilder * _Nonnull (^)(GMOrientationChangeBK _Nonnull))orientationChangeBK {
-    return ^ZLPopViewBuilder* (GMOrientationChangeBK bk){
+- (ZLPopViewBuilder * _Nonnull (^)(ZLOrientationChangeBK _Nonnull))orientationChangeBK {
+    return ^ZLPopViewBuilder* (ZLOrientationChangeBK bk){
         self.configObj.orientationChangeBk = bk;
         return self;
     };

@@ -11,8 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 #define kPopViewRowBuilder  [ZLPopViewBuilder row]
 #define kPopViewColumnBuilder  [ZLPopViewBuilder column]
-typedef void(^GMBuildedCallback)(ZLBuilderContext *context);
-typedef void(^GMOrientationChangeBK)(ZLLayoutConstraintObj *constraintObj,ZLBuildConfigObj *configureObj,BOOL isLandscape);
+typedef void(^ZLOrientationChangeBK)(ZLLayoutConstraintObj *constraintObj,ZLBuildConfigObj *configureObj,BOOL isLandscape);
 @class ZLPopViewBuilder;
 typedef void(^GMConfigureBlock)(ZLBuildConfigObj *configure);
 @interface ZLPopViewBuilder : ZLBaseStackViewBuilder<ZLPopViewBuilder * >
@@ -102,6 +101,10 @@ typedef void(^GMConfigureBlock)(ZLBuildConfigObj *configure);
 @property (nonatomic,readonly)ZLPopViewBuilder * (^backgroundColor)(id bgColor);
 /// 背景蒙版颜色
 @property (nonatomic,readonly)ZLPopViewBuilder * (^maskColor)(id color);
+
+@property (nonatomic,readonly)ZLPopViewBuilder * (^animationInBK)(ZLAnimationBlock aniationIn);
+@property (nonatomic,readonly)ZLPopViewBuilder * (^animationOutBK)(ZLAnimationBlock aniationOut);
+
 /// 设置空白区域事件是否穿透到父视图
 - (instancetype)touchPenetrate;
 /// 点击蒙版是否dismiss,只有 setTouchPenetrate 为NO的时候才有效果
@@ -119,7 +122,7 @@ typedef void(^GMConfigureBlock)(ZLBuildConfigObj *configure);
 - (instancetype)avoidKeyboardFirstResponderBottom;
 - (instancetype)avoidKeyboardAlwaysCenter;
 ///屏幕旋转监听回调, isLandscape 是否横屏,可拿到相对应的约束对象自行改变布局约束
-@property (nonatomic,readonly)ZLPopViewBuilder * (^orientationChangeBK)(GMOrientationChangeBK);
+@property (nonatomic,readonly)ZLPopViewBuilder * (^orientationChangeBK)(ZLOrientationChangeBK);
 /// 底部到键盘的间距
 @property (nonatomic,readonly)ZLPopViewBuilder * (^bottomOffsetToKeyboardTop)(CGFloat );
 /// 设置父视图，默认window

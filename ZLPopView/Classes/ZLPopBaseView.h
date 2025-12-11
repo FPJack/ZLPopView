@@ -10,6 +10,12 @@
 NS_ASSUME_NONNULL_BEGIN
 @class ZLPopBaseView;
 
+typedef void (^ZLCompeteBlock)(BOOL finished);
+typedef void(^ZLAnimationComplete)(ZLPopBaseView *popView,ZLCompeteBlock complete);
+
+typedef void(^ZLAnimationBlock)(ZLPopBaseView *popView,ZLCompeteBlock complete);
+
+
 typedef NS_OPTIONS(NSUInteger, ZLPanGestureActionType) {
     ZLPanGestureActionTypeNone,
     ZLPanGestureActionTypeHor,
@@ -104,6 +110,8 @@ typedef void(^PopViewCallbackBK) (ZLPopBaseView *popView);
 @property (nonatomic,assign)CGFloat heightMultiplier;
 @property (nonatomic,assign)CGFloat maxHeightMultiplier;
 @property (nonatomic,strong)UIBlurEffect* blurEffect;
+@property (nonatomic,copy)ZLAnimationBlock animationInBlock;
+@property (nonatomic,copy)ZLAnimationBlock animationOutBlock;
 
 
 @property (nonatomic,assign)ZLHorizontalLayoutConstraint horizontalLayout;

@@ -329,6 +329,18 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
 - (void)setMarge:(UIEdgeInsets)marge {
     _marge = UIEdgeInsetsMake(marge.top, marge.left, -marge.bottom, -marge.right);
 }
+- (CGFloat)animationIn {
+    if (self.animationInBlock) {
+        return 0.0;
+    }
+    return MAX(0.0, _animationIn);
+}
+- (CGFloat)animationOut {
+    if (self.animationOutBlock) {
+        return 0.0;
+    }
+    return MAX(0.0, _animationOut);
+}
 @end
 @implementation ZLLayoutConstraintObj
 
@@ -428,6 +440,11 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
     if ([self.delegateObj respondsToSelector:_cmd]) {
         [self.delegateObj popViewDidShow:self];
     }
+    if (self.configObj.animationInBlock) {
+        self.configObj.animationInBlock(self, ^(BOOL finished) {
+            
+        });
+    }
     if (self.keyboardIsShowing && self.configObj.avoidKeyboardType != ZLAvoidKeyboardTypeNone) {
         [self showKeyboardEvent:ZLKeyboardEvent.share.keyboardHeight duration:0];
     }
@@ -464,6 +481,13 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
         [self.delegateObj popViewWillHidden:self];
     }
     self.pageState = ZLPopViewPageStateDismissing;
+    
+    if (self.configObj.animationOutBlock) {
+        __weak typeof(self) weakSelf = self;
+        self.configObj.animationOutBlock(self, ^(BOOL finished) {
+            [weakSelf removeFromSuperview];
+        });
+    }
 }
 - (void)popViewDidHidden:(ZLPopBaseView *)popView {
     if ([self.delegateObj respondsToSelector:_cmd]) {
@@ -488,6 +512,9 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
     [super removeFromSuperview];
 }
 - (void)removeSelfFromSuperview {
+    if (self.configObj.animationOutBlock) {
+        return;
+    }
     if ([self popViewShouldRemoveFromSuperView:self]) {
         [self removeFromSuperview];
     }
