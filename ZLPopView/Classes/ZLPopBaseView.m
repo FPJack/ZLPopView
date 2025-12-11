@@ -592,13 +592,11 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
     return self;
 }
 - (UIVisualEffectView *)blurView {
-    if (!_blurView) {
-        if (!self.configObj.blurEffect) return nil;
+    if (self.configObj.blurEffect && !_blurView) {
         _blurView = [[UIVisualEffectView alloc] initWithEffect:self.configObj.blurEffect];
         _blurView.userInteractionEnabled = NO;
-        _blurView.frame = self.bounds;
-        _blurView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         [self insertSubview:_blurView atIndex:0];
+        [_blurView.kfc edgeToView:self edge:UIEdgeInsetsZero];
     }
     return _blurView;
 }
@@ -690,6 +688,7 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
     if (j.avoidKeyboardType != ZLAvoidKeyboardTypeNone) {
         [keyboardViews addObject:self];
     }
+    [self blurView];
     [self.containerView.contentView addSubview:self.buildView];
     [self addSubview:self.containerView];
     UIView *parentView = self.parentView ? self.parentView : [self getKeyWindow];
@@ -855,13 +854,6 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
         }
     }
     return self.configObj.touchPenetrate ? nil : self;
-}
-
-- (void)layoutSubviews {
-    [super layoutSubviews];
-    if (self.blurView && !CGRectEqualToRect(self.blurView.frame, self.bounds)) {
-        self.blurView.frame = self.bounds;
-    }
 }
 @end
 
