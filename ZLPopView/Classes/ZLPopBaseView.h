@@ -103,6 +103,8 @@ typedef void(^PopViewCallbackBK) (ZLPopBaseView *popView);
 @property (nonatomic,assign)CGFloat height;
 @property (nonatomic,assign)CGFloat heightMultiplier;
 @property (nonatomic,assign)CGFloat maxHeightMultiplier;
+@property (nonatomic,strong)UIBlurEffect* blurEffect;
+
 
 @property (nonatomic,assign)ZLHorizontalLayoutConstraint horizontalLayout;
 @property (nonatomic,assign)UIEdgeInsets inset;

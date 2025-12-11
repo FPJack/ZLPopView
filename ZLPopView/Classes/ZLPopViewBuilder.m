@@ -274,6 +274,12 @@ static GMConfigureBlock configureBlock;
 //        return self;
 //    };
 //}
+- (ZLPopViewBuilder * _Nonnull (^)(UIBlurEffectStyle))blurEffectStyle {
+    return ^ZLPopViewBuilder* (UIBlurEffectStyle style){
+        self.configObj.blurEffect = [UIBlurEffect effectWithStyle:style];
+        return self;
+    };
+}
 - (ZLPopViewBuilder * _Nonnull (^)(CGFloat, CGFloat, CGFloat, CGFloat))inset {
     return  ^ZLPopViewBuilder*(CGFloat top,CGFloat left,CGFloat bottom,CGFloat right){
         self.configObj.inset = UIEdgeInsetsMake(top, left, bottom, right);

@@ -65,7 +65,8 @@ typedef void(^GMConfigureBlock)(ZLBuildConfigObj *configure);
 
 /// 如果可以滑动外部配置ScrollView
 - (ZLPopViewBuilder* (^)(void (^)(UIScrollView *)))configureScrollView;
-
+/// 毛玻璃效果
+@property (nonatomic,readonly)ZLPopViewBuilder * (^blurEffectStyle)(UIBlurEffectStyle style);
 
 /// 内边距
 //@property (nonatomic,readonly)ZLPopViewBuilder * (^inset)(UIEdgeInsets);

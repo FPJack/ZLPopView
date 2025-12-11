@@ -376,6 +376,9 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
 @property (nonatomic,copy)PopViewCallbackBK initStateBlock;
 @property (nonatomic,weak,readwrite)id<ZLPopViewDelegate> delegateObj;
 
+@property (nonatomic,strong)UIVisualEffectView *blurView;
+
+
 
 - (void)gm_pan:(UIPanGestureRecognizer *)gesture;
 - (void)popViewWillShow:(ZLPopBaseView *)popView;
@@ -587,6 +590,17 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
                                                       object:nil];
     }
     return self;
+}
+- (UIVisualEffectView *)blurView {
+    if (!_blurView) {
+        if (!self.configObj.blurEffect) return nil;
+        _blurView = [[UIVisualEffectView alloc] initWithEffect:self.configObj.blurEffect];
+        _blurView.userInteractionEnabled = NO;
+        _blurView.frame = self.bounds;
+        _blurView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        [self insertSubview:_blurView atIndex:0];
+    }
+    return _blurView;
 }
 - (ZLLayoutConstraintObj *)constraintObj   {
     if (!_constraintObj) _constraintObj = ZLLayoutConstraintObj.new;
@@ -841,6 +855,13 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
         }
     }
     return self.configObj.touchPenetrate ? nil : self;
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    if (self.blurView && !CGRectEqualToRect(self.blurView.frame, self.bounds)) {
+        self.blurView.frame = self.bounds;
+    }
 }
 @end
 
