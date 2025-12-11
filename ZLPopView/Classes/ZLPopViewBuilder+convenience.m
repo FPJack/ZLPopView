@@ -236,7 +236,8 @@
         return self;
     };
 }
-- (ZLPopViewBuilder * _Nonnull (^)(ZLActionViewsBK _Nonnull))addActionViewsContainerBK {
+
+- (ZLPopViewBuilder * _Nonnull (^)(ZLActionViewsBK _Nonnull))applyActionViewsContainerBK {
     return ^ZLPopViewBuilder *(ZLActionViewsBK block){
         self.actionViewsBlock = block;
         return self;

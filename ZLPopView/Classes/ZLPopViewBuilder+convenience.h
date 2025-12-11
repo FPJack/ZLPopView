@@ -37,7 +37,8 @@ typedef UIView* _Nullable (^ZLActionViewsBK)(NSArray<UIView *> *actionViews, ZLP
 @property (nonatomic,readonly) ZLPopViewBuilder* (^addTextField)(void  (^ _Nullable textFieldBK)(UITextField *textField));
 
 ///自定义actionViews构建器弹出的时候,可以通过ZLStackViewBuilder来构建垂直或者水平的布局
-@property (nonatomic,readonly) ZLPopViewBuilder * (^addActionViewsContainerBK)(ZLActionViewsBK actionViewsBK);
+@property (nonatomic,readonly) ZLPopViewBuilder * (^applyActionViewsContainerBK)(ZLActionViewsBK actionViewsBK);
+
 
 ///是否点击actionView后自动dismiss弹窗，默认YES
 @property (nonatomic,readonly)ZLPopViewBuilder* (^autoDismissWhenTapActionView)(BOOL autoDismiss);

@@ -247,7 +247,7 @@
         .alertWidth270
         .title(@"提示框")
         .message(@"这是一个简单的提示。")
-        .addActionViewsContainerBK(kBottomActionViewsBK);
+        .applyActionViewsContainerBK(kBottomActionViewsBK);
     
     builder.addCustomViewAction(kDefaultStyleBtn.kfc.roundCorner.backgroundColor(UIColor.redColor).view, ^(UIView * _Nonnull view) {
     })
@@ -262,7 +262,7 @@
         .alertWidth270
         .title(@"提示框")
         .message(@"这是一个简单的提示。")
-        .addActionViewsContainerBK(kBottomActionViewsColumnBK);
+        .applyActionViewsContainerBK(kBottomActionViewsColumnBK);
     
     builder.addCustomViewAction(kDefaultStyleBtn.kfc.roundCorner.backgroundColor(UIColor.redColor).view, ^(UIView * _Nonnull view) {
     })
@@ -277,7 +277,7 @@
         .alertWidth270
         .title(@"提示框")
         .message(@"这是一个简单的提示。")
-        .addActionViewsContainerBK(kBottomActionViewsColumnBK);
+        .applyActionViewsContainerBK(kBottomActionViewsColumnBK);
     
     builder.addCustomViewAction(kDefaultStyleBtn.kfc.roundCorner.backgroundColor(UIColor.redColor).view, ^(UIView * _Nonnull view) {
     })
@@ -293,7 +293,7 @@
         .alertWidth270
         .title(@"提示框")
         .message(@"这是一个简单的提示。")
-        .addActionViewsContainerBK(kBottomActionViewsBK);
+        .applyActionViewsContainerBK(kBottomActionViewsBK);
     
     builder.addCustomViewAction(kDefaultStyleBtn.kfc.roundCorner.backgroundColor(UIColor.redColor).view, ^(UIView * _Nonnull view) {
     })

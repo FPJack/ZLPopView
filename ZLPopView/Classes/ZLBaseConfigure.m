@@ -912,7 +912,7 @@ static CGFloat _defaultThickness = 1.0f;
         return self;
     };
 }
-- (id  _Nonnull (^)(void (^ _Nonnull)(__kindof UIView * _Nonnull)))applyStyle {
+- (id  _Nonnull (^)(void (^ _Nonnull)(__kindof UIView * _Nonnull)))applyStyleBK {
     return ^id (void(^block)(__kindof UIView *view)) {
         if (block) block(self.view);
         return self;
