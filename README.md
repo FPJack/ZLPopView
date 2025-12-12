@@ -171,6 +171,31 @@ UIView *view  = ZLStackViewBuilder
                     .addViewBK(^ViewKFCType  _Nonnull{
                         return UILabel.kfc.text(@"UIStackView布局方式 添加Label");
                     })
+                    //自定义进场动画
+                    .animationInBK(^(ZLPopBaseView * _Nonnull popView, ZLCompeteBlock  _Nonnull complete) {
+                        popView.containerView.transform = CGAffineTransformMakeTranslation(0, -self.view.bounds.size.height);
+                        popView.backgroundColor = UIColor.clearColor;
+                        [UIView animateWithDuration:1
+                                              delay:0.0
+                             usingSpringWithDamping:0.6
+                              initialSpringVelocity:0.8
+                                            options:UIViewAnimationOptionCurveEaseOut
+                                         animations:^{
+                            popView.containerView.transform = CGAffineTransformIdentity;
+                            popView.backgroundColor = popView.configObj.maskColor;
+                        } completion:^(BOOL finished) {
+                            complete(finished);
+                        }];
+                    })
+                    //自定关闭动画
+                    .animationOutBK(^(ZLPopBaseView * _Nonnull popView, ZLCompeteBlock  _Nonnull complete) {
+                        [UIView animateWithDuration:0.5 animations:^{
+                            popView.containerView.transform = CGAffineTransformMakeScale(0.01, 0.01);
+                            popView.backgroundColor = UIColor.clearColor;
+                        } completion:^(BOOL finished) {
+                            complete(finished);
+                        }];
+                    })
                     //屏幕右侧弹出
                     .buildRightPopView
                     //屏幕左侧弹出
