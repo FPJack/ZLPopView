@@ -177,18 +177,26 @@
     
 }
 - (void)showAlert {
-    
+  
         NSArray *colors = @[(__bridge id)__UIColorFromObj(@"#95FF08").CGColor,
                      (__bridge id)__UIColorFromObj(@"#B2FC48").CGColor,
                      (__bridge id)__UIColorFromObj(@"#EFF7E0").CGColor,
                      (__bridge id)__UIColorFromObj(@"#FFFFFF").CGColor,];
+    UIImageView *imgView = UIImageView.new;
+    imgView.image = [UIImage imageNamed:@"infor_popshare_qq_nor"];
+    imgView.frame = CGRectMake(200, -50, 50, 50);
+    imgView.kfc.tapAction(^(__kindof UIView * _Nonnull view) {
+        NSLog(@"dddd");
+    });
+    imgView.tag = 101;
+    ZLPopBaseView *view =
         ZLPopViewBuilder.column
         .title(@"提示框")
         .message(@"这是一个简单的提示。")
-        .height(344)
         .avoidKeyboardPopViewBottom
         .bottomOffsetToKeyboardTop(50)
         .bgGradientColors(colors)
+        .alertWidth270
         .addTextField(^(UITextField * _Nonnull textField) {
             textField.placeholder = @"请输入内容";
         })
@@ -198,7 +206,15 @@
         .addButtonViewStyleActionText(@"按钮", ^(UIView * _Nonnull view) {
             
         })
-        .showAlert();
+        .buildCenterPopView
+        .hitTestBK(^UIView * _Nullable(ZLPopBaseView * _Nonnull popView, CGPoint point, UIEvent * _Nonnull event, BOOL * _Nonnull stop) {
+            return imgView;
+        })
+        .layoutSubviewBK(^(ZLPopBaseView * _Nonnull popView) {
+            imgView.frame = CGRectMake((popView.containerView.frame.size.width - 50) / 2, popView.containerView.frame.size.height + 50, 50, 50);
+            [popView.containerView addSubview:imgView];
+        });
+    [view show];
 }
 - (NSAttributedString *)textAttr {
     NSAttributedString *attrMessage = [[NSAttributedString alloc] initWithString:@"这是一个简单的提示。" attributes:@{NSForegroundColorAttributeName:UIColor.redColor,NSFontAttributeName:[UIFont systemFontOfSize:16]}];

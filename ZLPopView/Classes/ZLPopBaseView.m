@@ -389,9 +389,11 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
 @property (nonatomic,copy)PopViewCallbackBK didHiddenBlock;
 @property (nonatomic,copy)PopViewCallbackBK deallocBlock;
 @property (nonatomic,copy)PopViewCallbackBK initStateBlock;
+@property (nonatomic,copy)PopViewCallbackBK layoutSubviewBlock;
 @property (nonatomic,weak,readwrite)id<ZLPopViewDelegate> delegateObj;
 @property (nonatomic,strong,readwrite)UIVisualEffectView *blurView;
 @property (nonatomic,strong)CAGradientLayer *gradLayer;
+@property (nonatomic,copy)ZLHitTestBK hitTestBlock;
 
 
 - (void)gm_pan:(UIPanGestureRecognizer *)gesture;
@@ -469,6 +471,12 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
 - (ZLPopBaseView * _Nonnull (^)(PopViewCallbackBK _Nonnull))didShowBK {
     return ^ZLPopBaseView *(PopViewCallbackBK callback) {
         self.didShowBlock = callback;
+        return self;
+    };
+}
+- (ZLPopBaseView * _Nonnull (^)(PopViewCallbackBK _Nonnull))layoutSubviewBK {
+    return ^ZLPopBaseView *(PopViewCallbackBK callback) {
+        self.layoutSubviewBlock = callback;
         return self;
     };
 }
@@ -864,11 +872,21 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
         return self;
     };
 }
+- (ZLPopBaseView * _Nonnull (^)(ZLHitTestBK _Nonnull))hitTestBK {
+    return ^ZLPopBaseView *(ZLHitTestBK block) {
+        self.hitTestBlock = block;
+        return self;
+    };
+}
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
-    if (self.hitTestBK) {
+    if (self.hitTestBlock) {
         BOOL stop = NO;
-        UIView *hitView = self.hitTestBK(self, point, event,&stop);
+        UIView *hitView = self.hitTestBlock(self, point, event,&stop);
         if (stop) return hitView;
+        CGPoint convertedPoint = [hitView convertPoint:point fromView:self];
+        if ([hitView hitTest:convertedPoint withEvent:event]) {
+            return hitView;
+        }
     }
     
     if (self.userInteractionEnabled == NO ||
@@ -894,6 +912,9 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
     if (self.configObj.bgGradientColors.count > 0) {
         self.gradLayer.frame = self.containerView.bounds;
         [self.containerView.contentView.layer insertSublayer:self.gradLayer atIndex:0];
+    }
+    if (self.layoutSubviewBlock) {
+        self.layoutSubviewBlock(self);
     }
 }
 @end

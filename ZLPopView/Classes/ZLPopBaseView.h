@@ -171,14 +171,14 @@ typedef void(^PopViewCallbackBK) (ZLPopBaseView *popView);
 @property (nonatomic,assign)UIRectCorner corners;
 @end
 
-
+typedef UIView* _Nullable (^ZLHitTestBK)(ZLPopBaseView *popView,CGPoint point,UIEvent *event,BOOL *stop);
 
 //ParentView -> self -> ContainerView->contentView -> buildView
 @interface ZLPopBaseView : UIView
 ///强引用对象，在某些特殊场合用来保存一些对象，防止被销毁，不需要额外全局去保存对象
 @property (nonatomic,strong)id strongObj;
-/// 外部控制响应者链的hitTest回调
-@property (nonatomic,copy)UIView* (^hitTestBK)(ZLPopBaseView *popView,CGPoint point,UIEvent *event,BOOL *stop);
+/// 外部控制响应者链的hitTest回调,优先返回响应的view，
+@property (nonatomic,readonly)ZLPopBaseView *(^hitTestBK)(ZLHitTestBK block);
 /// 页面状态
 @property (nonatomic,assign,readonly)ZLPopViewPageState pageState;
 ///内容视图
@@ -206,6 +206,9 @@ typedef void(^PopViewCallbackBK) (ZLPopBaseView *popView);
 @property (nonatomic,copy,nullable)ZLPopBaseView *(^didHiddenBK)(PopViewCallbackBK callback);
 /// 设置代理对象
 @property (nonatomic,copy,nullable)ZLPopBaseView *(^delegate)(id<ZLPopViewDelegate> delegate);
+///
+@property (nonatomic,copy,nullable)ZLPopBaseView *(^layoutSubviewBK)(PopViewCallbackBK callback);
+
 /// 弹出popView
 @property (nonatomic,readonly)void (^showPopView)(void);
 /// 消失popView

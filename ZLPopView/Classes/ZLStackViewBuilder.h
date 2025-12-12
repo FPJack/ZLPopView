@@ -9,6 +9,15 @@
 #import "ZLBaseConfigure.h"
 #define kStackViewRowBuilder [ZLStackViewBuilder row]
 #define kStackViewColumnBuilder [ZLStackViewBuilder column]
+
+///底部安全区域
+#define kZLSafeAreaBottom \
+({CGFloat bottom = 0; \
+if (@available(iOS 11.0, *)) { \
+    UIWindow *window = UIApplication.sharedApplication.windows.firstObject; \
+    bottom = window.safeAreaInsets.bottom; \
+} \
+bottom;})
 NS_ASSUME_NONNULL_BEGIN
 //参考flutter Row的MainAxisAlignment属性
 typedef NS_ENUM(NSInteger, ZLMainAxisAlignment) {
