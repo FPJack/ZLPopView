@@ -98,11 +98,14 @@ typedef void(^GMConfigureBlock)(ZLBuildConfigObj *configure);
 @property (nonatomic,readonly)ZLPopViewBuilder * (^borderColor)(id color);
 @property (nonatomic,readonly)ZLPopViewBuilder * (^borderWidth)(CGFloat);
 @property (nonatomic,readonly)ZLPopViewBuilder * (^cornerRadius)(CGFloat);
+
+///内容视图的背景色
 @property (nonatomic,readonly)ZLPopViewBuilder * (^backgroundColor)(id bgColor);
 /// 背景蒙版颜色
 @property (nonatomic,readonly)ZLPopViewBuilder * (^maskColor)(id color);
-
+///自定义进入动画
 @property (nonatomic,readonly)ZLPopViewBuilder * (^animationInBK)(ZLAnimationBlock aniationIn);
+///自定义消失动画
 @property (nonatomic,readonly)ZLPopViewBuilder * (^animationOutBK)(ZLAnimationBlock aniationOut);
 
 /// 设置空白区域事件是否穿透到父视图

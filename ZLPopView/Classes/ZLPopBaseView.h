@@ -152,9 +152,7 @@ typedef void(^PopViewCallbackBK) (ZLPopBaseView *popView);
 - (void)popViewDidHidden:(ZLPopBaseView *)popView;
 /// PopView销毁的时候调用
 - (void)popViewDealloc:(ZLPopBaseView *)popView;
-/// 外部自定义消失动画的时候，自己控制动画结束后手动移除
-/// - Parameter popView: <#popView description#>
-- (BOOL)popViewShouldRemoveFromSuperView:(ZLPopBaseView *)popView;
+
 - (void)popViewShowExpand:(ZLPopBaseView *)popView;
 - (void)popViewShowTight:(ZLPopBaseView *)popView;
 
@@ -176,14 +174,13 @@ typedef void(^PopViewCallbackBK) (ZLPopBaseView *popView);
 
 //ParentView -> self -> ContainerView->contentView -> buildView
 @interface ZLPopBaseView : UIView
-
 ///强引用对象，在某些特殊场合用来保存一些对象，防止被销毁，不需要额外全局去保存对象
 @property (nonatomic,strong)id strongObj;
 /// 外部控制响应者链的hitTest回调
 @property (nonatomic,copy)UIView* (^hitTestBK)(ZLPopBaseView *popView,CGPoint point,UIEvent *event,BOOL *stop);
 /// 页面状态
 @property (nonatomic,assign,readonly)ZLPopViewPageState pageState;
-
+///内容视图
 @property (nonatomic,strong,readonly)_ZLView *containerView;
 /// 所有约束对象
 @property (nonatomic,strong,readonly)ZLLayoutConstraintObj *constraintObj;
@@ -225,7 +222,6 @@ typedef void(^PopViewCallbackBK) (ZLPopBaseView *popView);
 @interface ZLPopHorizontalView : ZLPopBaseView
 /// 垂直方向中心偏移量
 - (ZLPopHorizontalView* (^)(CGFloat ))setCenterYOffset;
-
 @end
 @interface ZLPopRightView : ZLPopHorizontalView
 @end

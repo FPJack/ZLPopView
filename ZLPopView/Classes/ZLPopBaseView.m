@@ -512,19 +512,10 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
     [super removeFromSuperview];
 }
 - (void)removeSelfFromSuperview {
-    if (self.configObj.animationOutBlock) {
-        return;
-    }
-    if ([self popViewShouldRemoveFromSuperView:self]) {
-        [self removeFromSuperview];
-    }
+    if (self.configObj.animationOutBlock) return;
+    [self removeFromSuperview];
 }
-- (BOOL)popViewShouldRemoveFromSuperView:(ZLPopBaseView *)popView {
-    if ([self.delegateObj respondsToSelector:_cmd]) {
-        return  [self.delegateObj popViewShouldRemoveFromSuperView:self];
-    }
-    return  YES;
-}
+
 - (void)popViewShowExpand:(ZLPopBaseView *)popView {
     if ([self.delegateObj respondsToSelector:_cmd]) {
         [self.delegateObj popViewShowExpand:self];

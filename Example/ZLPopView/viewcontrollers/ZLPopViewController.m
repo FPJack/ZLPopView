@@ -335,7 +335,8 @@
         .addCancelViewStyleActionText(@"取消", nil)
         .addConfirmViewStyleActionText(@"确认", nil)
         .animationInBK(^(ZLPopBaseView * _Nonnull popView, ZLCompeteBlock  _Nonnull complete) {
-            popView.containerView.transform = CGAffineTransformMakeScale(0.01, 0.01);
+            popView.containerView.transform = CGAffineTransformMakeTranslation(0, -self.view.bounds.size.height);
+            popView.backgroundColor = UIColor.clearColor;
             [UIView animateWithDuration:1
                                   delay:0.0
                  usingSpringWithDamping:0.6
@@ -343,6 +344,7 @@
                                 options:UIViewAnimationOptionCurveEaseOut
                              animations:^{
                 popView.containerView.transform = CGAffineTransformIdentity;
+                popView.backgroundColor = popView.configObj.maskColor;
             } completion:^(BOOL finished) {
                 complete(finished);
             }];
@@ -350,6 +352,7 @@
         .animationOutBK(^(ZLPopBaseView * _Nonnull popView, ZLCompeteBlock  _Nonnull complete) {
             [UIView animateWithDuration:0.5 animations:^{
                 popView.containerView.transform = CGAffineTransformMakeScale(0.01, 0.01);
+                popView.backgroundColor = UIColor.clearColor;
             } completion:^(BOOL finished) {
                 complete(finished);
             }];
@@ -362,36 +365,13 @@
     NSLog(@"popViewWillShow");
 }
 - (void)popViewDidShow:(ZLPopBaseView *)popView {
-    NSLog(@"popViewDidShow");
-    popView.containerView.transform = CGAffineTransformMakeScale(0.01, 0.01);
-    popView.containerView.hidden = NO;
-    [UIView animateWithDuration:1
-                          delay:0.0
-         usingSpringWithDamping:0.6
-          initialSpringVelocity:0.8
-                        options:UIViewAnimationOptionCurveEaseOut
-                     animations:^{
-        popView.containerView.transform = CGAffineTransformIdentity;
-    } completion:^(BOOL finished) {
-        NSLog(@"弹性动画完成");
-    }];
 }
 - (void)popViewWillHidden:(ZLPopBaseView *)popView {
-    NSLog(@"popViewWillHidden");
-    [UIView animateWithDuration:0.5 animations:^{
-        popView.containerView.transform = CGAffineTransformMakeScale(0.01, 0.01);
-    } completion:^(BOOL finished) {
-        //自定义动画完成后需要手动移除popView
-        [popView removeFromSuperview];
-    }];
     
 }
 - (void)popViewDidHidden:(ZLPopBaseView *)popView {
     NSLog(@"popViewDidHidden");
     
 }
-- (BOOL)popViewShouldRemoveFromSuperView:(ZLPopBaseView *)popView {
-    //自定义动画告诉内部不需要自动移除popView，外部自行控制
-    return popView.tag == 988 ? NO : YES;
-}
+
 @end

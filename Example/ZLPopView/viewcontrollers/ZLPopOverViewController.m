@@ -42,9 +42,7 @@
     int randomValue = arc4random_uniform(4) + 1; // 结果为0、1、2、3中的一个
     [self show:randomValue sender:sender];
 }
-- (BOOL)popViewShouldRemoveFromSuperView:(ZLPopBaseView *)popView {
-    return NO;
-}
+
 - (void)popViewWillHidden:(ZLPopBaseView *)popView {
     [UIView animateWithDuration:0.25 animations:^{
         popView.alpha = 0;
