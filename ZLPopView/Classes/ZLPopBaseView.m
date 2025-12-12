@@ -387,10 +387,7 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
 @property (nonatomic,copy)PopViewCallbackBK deallocBlock;
 @property (nonatomic,copy)PopViewCallbackBK initStateBlock;
 @property (nonatomic,weak,readwrite)id<ZLPopViewDelegate> delegateObj;
-
-@property (nonatomic,strong)UIVisualEffectView *blurView;
-
-
+@property (nonatomic,strong,readwrite)UIVisualEffectView *blurView;
 
 - (void)gm_pan:(UIPanGestureRecognizer *)gesture;
 - (void)popViewWillShow:(ZLPopBaseView *)popView;
@@ -700,6 +697,9 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
     }
 }
 - (void)show {
+    
+    
+    
     [self removeConstraints:self.constraints];
     [self.layer removeAllAnimations];
     ZLBuildConfigObj *j = self.configObj;

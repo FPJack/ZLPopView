@@ -191,6 +191,8 @@ typedef void(^PopViewCallbackBK) (ZLPopBaseView *popView);
 
 ///只有当设置了宽或高的参数的时候为scrollview对象才有值
 @property (nonatomic,weak)ZLUIScrollView *scrollView;
+///高斯模糊view
+@property (nonatomic,strong,readonly)UIVisualEffectView *blurView;
 /// 生命周期代理对象
 @property (nonatomic,weak,readonly)id<ZLPopViewDelegate> delegateObj;
 /// 页面销毁回调
