@@ -10,8 +10,6 @@
 		0104977F50A324681C504F3CA7B2BE17 /* MJRefreshGifHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 6188AAF2BB1BB6A02416D21D396E68FA /* MJRefreshGifHeader.m */; };
 		0114B8F5F20574BB892ACFE2B202D95C /* MJRefreshTrailer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6BAE13DBD85D4AD078F29072D408D87A /* MJRefreshTrailer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0AE1FFAA4390B36294D9A3C1E9A2D181 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26BC96F34E43FA0A3AE93B3C2C4595E5 /* XCTest.framework */; };
-		0AFC45702844EB81149A0E75E47CA698 /* ZLPopView.h in Headers */ = {isa = PBXBuildFile; fileRef = 3A156AC86775E16058B0BAC0C4A5A44F /* ZLPopView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0B7D1EF70EE42443753DC374B6F0D237 /* ZLPopBaseView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4452CE59167A070CFA7DBB51D3C17D99 /* ZLPopBaseView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0C91F1C99A35729020707737A2FEDD00 /* UIView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A47D6983D94BD746A8CB64A056F3CE2 /* UIView+MJExtension.m */; };
 		0FB199C06866EC3D430A3E21C4850C87 /* MJRefreshConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 0293D69C717C4F42FBC88BAFBD8417BF /* MJRefreshConst.m */; };
 		12C8FD3D06F867281B3C87497145DC65 /* FBSnapshotTestCase.h in Headers */ = {isa = PBXBuildFile; fileRef = 8507411CE7DFBB90C0D23E0CF84FB1E1 /* FBSnapshotTestCase.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -19,11 +17,13 @@
 		181E5F4343C6D3625AE04C1B0D70F0C7 /* MJRefreshAutoStateFooter.h in Headers */ = {isa = PBXBuildFile; fileRef = C7AF36F88D9845DC939665CD0271B9E2 /* MJRefreshAutoStateFooter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1CA7ADC37A1FB17AA6DDF31CFABF90B2 /* MJRefreshAutoFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = F5109987DBB03F1C1A0A8DE372AB7D10 /* MJRefreshAutoFooter.m */; };
 		1CDB03419D31CB46D2DDA3BDBFE54FA0 /* MJRefreshAutoFooter.h in Headers */ = {isa = PBXBuildFile; fileRef = 2FCEA580BBDB42E141E8EA35906A3D76 /* MJRefreshAutoFooter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1EE1805E1B677DF9424A26875C6EBAC0 /* ZLPopViewBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = 35487D24E9377838AEFED8B6734A8132 /* ZLPopViewBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		267AEE0BF1514767DD64B50559013EB3 /* FBSnapshotTestController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEABC08EA9A08AE9743301AC67DFCF3E /* FBSnapshotTestController.m */; };
 		26A3DE3437CC7F7DD97F8225B1609A3E /* UIScrollView+MJRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B030EE3A4EB09A1F86462A5978EC73F /* UIScrollView+MJRefresh.m */; };
+		26BE3848D45C44E54567BA0128E4B50D /* ZLPopView-ZLPopView in Resources */ = {isa = PBXBuildFile; fileRef = 7F053E914C57A22C719CE404834C4F06 /* ZLPopView-ZLPopView */; };
 		276C2BC0275A2B947BBDAF45A87536FD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 692D29656528FA94A71ECFB8FEB6DC0B /* Foundation.framework */; };
+		28398C5586093CC55700407A46F9AD60 /* ZLPopView-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C6ABF6360174A4D8D07FDDE77B95027 /* ZLPopView-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2A9D5705BAF7401932B6DF298D2B00FE /* MJRefreshBackNormalFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = D3DE55C9D68DA431BD42D8018C7742CD /* MJRefreshBackNormalFooter.m */; };
-		2E1CE0DFF41A0C6A03F4CA026DCABA12 /* ZLBaseConfigure.h in Headers */ = {isa = PBXBuildFile; fileRef = 3D879792BB500259B89A0355B38062B7 /* ZLBaseConfigure.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		33E349E32C64A93B3CAC6A2667583E98 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E6B5E773973965C73BC40D4388B4C07 /* QuartzCore.framework */; };
 		3769DDC469C4CECA0F9883481E631CC2 /* MJRefreshGifHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = D5295900E63B1E93A142FDF79C97C869 /* MJRefreshGifHeader.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3777A70A61ED49FCDDB07BE5F0A1C4B4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4138A0A13FF7F7B73435E87E54C56C18 /* UIKit.framework */; };
@@ -32,21 +32,22 @@
 		3BF27A2A6F27DCE9645039383FCE19F0 /* FBSnapshotTestCase-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 64D025D90E8CBA4560353534355E794D /* FBSnapshotTestCase-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3E4A12CB055C805955E4FF61F90E2868 /* MJRefreshStateHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 82740977E2CF61C9AF52407FA49D878F /* MJRefreshStateHeader.m */; };
 		3EEBA74A9D3A19D1182B1EA522DA9362 /* MJRefreshConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C22EE2D7E7E318D6813DC6B4BCF73C3 /* MJRefreshConfig.m */; };
+		43B9DD08E5FACE210FBA5548D9F9451F /* ZLPopView-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE609E940179413F2CFBF0062DC0A85 /* ZLPopView-dummy.m */; };
 		4467676F0FE19FAC276C293C627F7BB0 /* MJRefreshBackGifFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 3097D899FAAF5A0537C3D4C12BC7FC7E /* MJRefreshBackGifFooter.m */; };
-		45A1AE4603439976D4AB59B5077629A8 /* UITextImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = CA5D6D24CB2D167D9C910468BAD4B326 /* UITextImageView.m */; };
 		4B611DDF30DBEAF7EF202508B70C40C1 /* MJRefreshNormalHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C9DD29FF9B02EB567EC2F0DCD64F3DC /* MJRefreshNormalHeader.m */; };
-		4C47BEB13B617D5A2CE42E8F9BCFB57E /* ZLPopView-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0146774B15718E1930DE80C7BAB232A8 /* ZLPopView-dummy.m */; };
+		51FDED1D73739C5233BB3D94EAF35EC2 /* ZLPopView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DD2E5B11F6D0FB65F9E6BC9E8F9B828 /* ZLPopView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		55D9D4D1609F1F4929E1BA1A1B562445 /* FBSnapshotTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 920AFA5DA50196B15D29398CCB1F6161 /* FBSnapshotTestCase.m */; };
 		58468E17F31D90388F73D03FA03D9896 /* NSBundle+MJRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = C3BA8A77A6B1F1170CF60AE42C5B3EB0 /* NSBundle+MJRefresh.m */; };
 		58B1051758A1FA76C2B9F8C07AC1E55C /* MJRefreshBackNormalFooter.h in Headers */ = {isa = PBXBuildFile; fileRef = F8C6DB01BFF68E7315CE7F073F439F52 /* MJRefreshBackNormalFooter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5901084F0039F17126684A022E5F84B5 /* MJRefreshConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = BB4F9F1FEAEA751B4E4AFFB59CDB483C /* MJRefreshConfig.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		593CC778281D0C5DAFD70A5E285DA86A /* UIImage+Compare.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D9F575B85B0D537C71FCA0A820A3BBE /* UIImage+Compare.m */; };
+		599BC8C6F7A4759829ABBA48E8FB3C7F /* ZLBaseConfigure.m in Sources */ = {isa = PBXBuildFile; fileRef = CF1BA6BB0AC9DB7BE037A81E69F07909 /* ZLBaseConfigure.m */; };
+		5ADE705C7CE977E8B60551D080130270 /* ZLStackViewBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = 7D795E146B0B7654A0B81793E4129273 /* ZLStackViewBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5C50F36F9CB20A20396364C601DB40B0 /* MJRefreshBackStateFooter.h in Headers */ = {isa = PBXBuildFile; fileRef = BCFA8C4D41C47C58DC41276003E2C9F0 /* MJRefreshBackStateFooter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5F2622E174BFC945E9C40B8BFFC9BC82 /* MJRefresh.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3745D9EA9865C238AA8E606FE9EE7050 /* MJRefresh.bundle */; };
 		5FF1C3AF7672F55437688FC35E2E6A71 /* MJRefresh.h in Headers */ = {isa = PBXBuildFile; fileRef = 96A14F0A384E174D850B40E90ED42C7C /* MJRefresh.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		61F706F2C53FEB0851B318203876B9CE /* MJRefreshNormalTrailer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B5DBA8CE359CE0FE2C8C5C38359E663 /* MJRefreshNormalTrailer.m */; };
 		64066CA793C90CA645A6D2031654D2CC /* UIImage+Snapshot.h in Headers */ = {isa = PBXBuildFile; fileRef = D8F5445D628FE16F67388B40A537C13F /* UIImage+Snapshot.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		65DF26E79C3F20C0B587E35A27AC1DAF /* ZLBaseConfigure.m in Sources */ = {isa = PBXBuildFile; fileRef = 363EAE9C497BDC077D153EE342126CA2 /* ZLBaseConfigure.m */; };
 		673F3289BD02C39B6886B916436FDB06 /* MJRefreshFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 30208AC8AEDDF11A07F8A58A36D322B1 /* MJRefreshFooter.m */; };
 		6E2F3922AEF4EFA5B8013B25ED7F6F19 /* MJRefreshStateTrailer.m in Sources */ = {isa = PBXBuildFile; fileRef = 826A39239F8DE0645421E469588F607D /* MJRefreshStateTrailer.m */; };
 		6F5475F142A1E83603DB1B357605096D /* MJRefreshComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 21F9788F7AA78A62C0C0BF97B0E0DF4F /* MJRefreshComponent.m */; };
@@ -55,182 +56,191 @@
 		766F6429966FBFF2E2E6A2991BDAFDA9 /* UIImage+Diff.m in Sources */ = {isa = PBXBuildFile; fileRef = 455EBA7B413793FB79E20653F5A7899B /* UIImage+Diff.m */; };
 		7787E98AB72EF9A3CA7A4DFB8C55E767 /* Pods-ZLPopView_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = DE4BCCC3AC7E8C27555E760CF4C6A4A2 /* Pods-ZLPopView_Tests-dummy.m */; };
 		7979AA0F93C47F3FB78AA5785CDCEA64 /* MJRefreshHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = BEACF6CAFF59914EFBD790C0F29CD9E0 /* MJRefreshHeader.m */; };
-		7AD5C2247C330B697D3BE1C46B3C2DF3 /* ZLPopView-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = FD7BE768A67A4EEF0952AFAE397E37B7 /* ZLPopView-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7CA66236CDA347ACA342DBCAA0F75C7A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 692D29656528FA94A71ECFB8FEB6DC0B /* Foundation.framework */; };
 		8077A41ACD375F4384A97031D20DA8C2 /* MJRefreshAutoGifFooter.h in Headers */ = {isa = PBXBuildFile; fileRef = 7E2AE8BA06BFBEB08B8AE940260CAA61 /* MJRefreshAutoGifFooter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		81B1B8D29C0AF033C9F296B242331D94 /* MJRefreshTrailer.m in Sources */ = {isa = PBXBuildFile; fileRef = 207854E07B483900810C162FB9D919C8 /* MJRefreshTrailer.m */; };
-		81F058523AA4489DFB924D93A4BF7EB2 /* ZLStackViewBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = A79CC4FA6195D06DB07E711B75A2194D /* ZLStackViewBuilder.m */; };
 		837AA8FACF31CBD17473CF3A52B5802E /* MJRefresh-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = AF28A77729BDA5F772914DA933A3D182 /* MJRefresh-dummy.m */; };
 		83F998B922A93E344FCFDE01E46119F3 /* Pods-ZLPopView_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = FE2EA0D475BCAE259C4D76F42488C48B /* Pods-ZLPopView_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		863265A549BF19D79A4EBB25C183DC7F /* MJRefreshAutoNormalFooter.h in Headers */ = {isa = PBXBuildFile; fileRef = BA86C3E46B9E9A3D70AAD87E5F5EAFD7 /* MJRefreshAutoNormalFooter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		872255DF5938025A047335FA0F17DAC5 /* ZLPopViewBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C2D1CC6CE875870290658A21C65D2C0 /* ZLPopViewBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		89235D5EC1FA4F0FD6165B17B542D714 /* MJRefreshConst.h in Headers */ = {isa = PBXBuildFile; fileRef = 6706E4E43BDB6A74A08D74E9C5BEE5FE /* MJRefreshConst.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		8C94C9A51301526A19C5E5806F82018A /* ZLPopBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 95BFB6959F1A4AB569A68C18B1192A53 /* ZLPopBaseView.m */; };
+		8FAC1EB7FB2968BA61406BE5E4A1FFDC /* UIView+kfc.m in Sources */ = {isa = PBXBuildFile; fileRef = 32D4198789953A08F77931F4626CE6D1 /* UIView+kfc.m */; };
 		8FD1AB468AF7F87112C3674006F6BC6E /* SwiftSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FFA218004755EAAC74B08B997650357 /* SwiftSupport.swift */; };
 		98F3E3E30CB29B6D33FEC344656DE2B1 /* MJRefreshBackGifFooter.h in Headers */ = {isa = PBXBuildFile; fileRef = 58BD679909CC876A2FC838BE367566F1 /* MJRefreshBackGifFooter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		9D545B8D7DDB05080E9F14CE56CF409D /* ZLPopViewBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A9E90CA9775D55F89C92DDC710497B5 /* ZLPopViewBuilder.m */; };
+		9B55418A09B8C6842F5CB700B2406632 /* ZLStackViewBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 3755A07D8632E3C13B592979BD7A0AD6 /* ZLStackViewBuilder.m */; };
 		9E2E34918A66B77BF8E6BFDE8FBCA2A0 /* MJRefreshAutoNormalFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = E060CB891E97E9BDB75A9040DF7C5D5B /* MJRefreshAutoNormalFooter.m */; };
+		9EB08D5C60B47147BEE66BF210D31F93 /* ZLPopBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 082CEC3E863FC513E5F1F1550EC6897D /* ZLPopBaseView.m */; };
 		A32C79A703440A6FD893D2EC99C8A50B /* MJRefreshBackFooter.h in Headers */ = {isa = PBXBuildFile; fileRef = 34D7E51AD544181F50FE61E4CBBB2C2E /* MJRefreshBackFooter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A50CBF529E0AD2866F97E8C8C030540B /* ZLBaseConfigure.h in Headers */ = {isa = PBXBuildFile; fileRef = 22D34EA2883A192F485A39934E4C0909 /* ZLBaseConfigure.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AD252D1167344111C849B31B565E1834 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 173D714655724571B85014D1580FC99E /* PrivacyInfo.xcprivacy */; };
+		AEA4E04E1CDAAD9D1CC6449586F689E3 /* UITextImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 462569F06CD8420AB6EF4EDE56C6AB6F /* UITextImageView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AEFB700F9EE77EE9848A8AC8C3F00A7F /* FBSnapshotTestCasePlatform.m in Sources */ = {isa = PBXBuildFile; fileRef = 704ADCDD26F90B812225B301ECF0E090 /* FBSnapshotTestCasePlatform.m */; };
 		AFAAE42DF4585633FA1A217A0E811856 /* MJRefreshHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = 0763092A5E275DCA0D7F0E9B290E43FA /* MJRefreshHeader.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B11D964D81D0EF31D61552C5631E7A3F /* NSBundle+MJRefresh.h in Headers */ = {isa = PBXBuildFile; fileRef = 737CBC29B93FBA94EEB6B022A224F1A5 /* NSBundle+MJRefresh.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B1307BCEFA623FF242109620B14A08BA /* MJRefresh-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 0459B19A1F666CA748B01A079DB964A8 /* MJRefresh-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B71C2849138EBB8BC056950B8CB07552 /* UITextImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = E7DE85AE802EDE04B8615FF7B8AAA1A7 /* UITextImageView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C1FCAFB399322BB09DFADDA1A08DEF13 /* UIView+kfc.h in Headers */ = {isa = PBXBuildFile; fileRef = A172C7AD6F26841C4CA5C18F549623DB /* UIView+kfc.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B8D0733033F5B348907DA9E51ECC4F43 /* ZLPopViewBuilder+convenience.h in Headers */ = {isa = PBXBuildFile; fileRef = 2182A3561B98FC0BC8B905456F320927 /* ZLPopViewBuilder+convenience.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BC6D83E4F201DB1CD006564DC1D65238 /* ZLPopViewBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = C1077929D8932CC4A7397CCF2804A8B7 /* ZLPopViewBuilder.m */; };
 		C2667A6393A22577C16D8E3A6FA12B00 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 692D29656528FA94A71ECFB8FEB6DC0B /* Foundation.framework */; };
 		CC4F11DE003A880456411027726DC0F4 /* MJRefreshComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = 93FBBD636990BD8E510D67D3B27A0C1B /* MJRefreshComponent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CE0DC4614B4FF855B2101D7F74A710AC /* UIApplication+StrictKeyWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 6ED6074A0FCFC1010E9A732E1B751603 /* UIApplication+StrictKeyWindow.m */; };
+		CE53323D3D2B33E917B227DD44C24360 /* ZLPopViewBuilder+convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = FEEF293296EBB2285F0A2687E020775B /* ZLPopViewBuilder+convenience.m */; };
 		CE9BCBAD24F7170954A9C7C0B9CB762F /* MJRefreshStateHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = B08ADA3BAA3C3FCE790C0F9491864315 /* MJRefreshStateHeader.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CF65A6A0F5F9A6A9FBF5501610AAD758 /* FBSnapshotTestController.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B156DE1DAA81CA6417C6EF52D457E27 /* FBSnapshotTestController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DA747A80391988F1202FF4989A0E12CF /* UIApplication+StrictKeyWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 57B9CD87A7A6D3669EBB604B9E8E467B /* UIApplication+StrictKeyWindow.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		E3073CA98E00E91598591BB39A850397 /* UIView+MJExtension.h in Headers */ = {isa = PBXBuildFile; fileRef = 0EEF9C046697B15DDB6A2440DF74EC70 /* UIView+MJExtension.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E4A373F7D10DC2147F358A7F84F1F353 /* ZLPopBaseView.h in Headers */ = {isa = PBXBuildFile; fileRef = 3D3E6E4B14888CD7E0FF31D4ED353C00 /* ZLPopBaseView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E4F6CF5EA1B12C55385D3CDC6BD1F4D8 /* UIImage+Compare.h in Headers */ = {isa = PBXBuildFile; fileRef = F45649C34C99BD7FC8925C53E083E9F4 /* UIImage+Compare.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		E70981F800C61DDBFC4EDC67C10C1726 /* Pods-ZLPopView_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = FCAA77D58ABBCD2F85F3A6AAD094C204 /* Pods-ZLPopView_Example-dummy.m */; };
 		E759C2EC9B730E3C9C562BBB533B85DC /* FBSnapshotTestCase-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A08ADD20B616F8162193AD6AEAED831 /* FBSnapshotTestCase-dummy.m */; };
-		E94D80F49E6EC3DA04E9F8D37E95704C /* UIView+kfc.m in Sources */ = {isa = PBXBuildFile; fileRef = 9168D1C2AE32CB6E0FDA0364CB6B3B0F /* UIView+kfc.m */; };
+		E99BDF885BCC10A69A37262C82981B28 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 692D29656528FA94A71ECFB8FEB6DC0B /* Foundation.framework */; };
 		EA5924031A71EF807EC467903E26FAC0 /* UIImage+Snapshot.m in Sources */ = {isa = PBXBuildFile; fileRef = 05F2E1BD6C92F9AEE8EAE96FEFD66E24 /* UIImage+Snapshot.m */; };
 		ECBC215883D3DF3A4E9971487E4DB260 /* MJRefreshFooter.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C99161868B86384E4374B32A29A36D6 /* MJRefreshFooter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ED5643D540AF7F9CAE442D0B8CEC5105 /* ZLStackViewBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = A62F78847A6B25E9C802F2F831B3A4DC /* ZLStackViewBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ED827C9A4615ECBD8EFFA1E2C2E59B92 /* UICollectionViewLayout+MJRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 023CE7B5723B0E43A0ECB676FD56EA22 /* UICollectionViewLayout+MJRefresh.m */; };
 		ED9C51A66341A9C0224E9E07AB1F38D7 /* UICollectionViewLayout+MJRefresh.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A7A7B408AFF5BB1BFFB6B8E72AED0B6 /* UICollectionViewLayout+MJRefresh.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ED9DF204D7A258AC0D46481D64BA438B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 692D29656528FA94A71ECFB8FEB6DC0B /* Foundation.framework */; };
-		EDC49EDC95421F8C07DC776351F398E5 /* ZLPopViewBuilder+convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = A15C1B0E09486E3FE437ABAA73850712 /* ZLPopViewBuilder+convenience.m */; };
-		EFFF59F5C619770C45D67363E3A29C7A /* ZLPopViewBuilder+convenience.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F437DF8C071F912902936668FBF18E7 /* ZLPopViewBuilder+convenience.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F514EA78D136755D0BC0C5D2778A4B73 /* MJRefreshStateTrailer.h in Headers */ = {isa = PBXBuildFile; fileRef = 287D629476F952C3631687B385913A8D /* MJRefreshStateTrailer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F52A27FAA0646504F274F1224366E858 /* MJRefreshNormalHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = CFFBCF82ADDE71684442AA276E518BF8 /* MJRefreshNormalHeader.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F5499380D2AFD9E13B8264CCD3AB3C9A /* MJRefreshBackStateFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B031B636A549C4DC4F54435DE6ABB05 /* MJRefreshBackStateFooter.m */; };
+		F7F4697C9CCB46831AE75FD426518AA5 /* UIView+kfc.h in Headers */ = {isa = PBXBuildFile; fileRef = 4A26F1F1C91364BEC2C834D68A9ABD42 /* UIView+kfc.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F822382AB9E7B343C04964B313B1743D /* UIImage+Diff.h in Headers */ = {isa = PBXBuildFile; fileRef = 2746359EEF90CA145C8FD61CD06DFE23 /* UIImage+Diff.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		FCE220703AC40587E7B281BCAD4F4FA2 /* UITextImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 747FEF0AD2FCEFF2CA46784E8794F2F7 /* UITextImageView.m */; };
 		FD7662803D266AB3603053D653FA601D /* UIScrollView+MJExtension.h in Headers */ = {isa = PBXBuildFile; fileRef = ADF6D9DB9DC17B17BE386A5C7104100B /* UIScrollView+MJExtension.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FD9E6A83907C18D2D5F5DD9E8E4FAA9D /* UIScrollView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 002ABCA09955A57D06C22468BF9F3078 /* UIScrollView+MJExtension.m */; };
-		FDE401955CF8E47828E34E1A4F99FC09 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 692D29656528FA94A71ECFB8FEB6DC0B /* Foundation.framework */; };
 		FE6264E3C4D12DBEE389996AFF918054 /* MJRefreshAutoGifFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7452F5983C92559DF2C0920A890CE206 /* MJRefreshAutoGifFooter.m */; };
 		FF5D09270B5A2A00D0E459592002D1F2 /* MJRefreshNormalTrailer.h in Headers */ = {isa = PBXBuildFile; fileRef = 17E45F02F62A7ECCC5648F1B2E56D862 /* MJRefreshNormalTrailer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		017B34D15C794A8D2041EB639BBD6B62 /* PBXContainerItemProxy */ = {
+		0AEE050558868F8CA956917D2B6840EA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 95859848E760808DE123B5CB96EBF2D6;
-			remoteInfo = ZLPopView;
+			remoteGlobalIDString = EAA41A0AC2E49A761632627797FB5C20;
+			remoteInfo = "ZLPopView-ZLPopView";
 		};
-		1361E27E0376322329F926C00BE21DFE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 98A98149697C80CEF8D5772791E92E66;
-			remoteInfo = FBSnapshotTestCase;
-		};
-		9B2E59B11DC8D7413834F814EE604AD4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 1D1F2F8C224D42A5422E0E4482BB783B;
-			remoteInfo = "Pods-ZLPopView_Example";
-		};
-		F196768AAB6F2BCF6536B61C4229824E /* PBXContainerItemProxy */ = {
+		1408C42BACBCE5DB98A7F99418BD5970 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 6868056D761E163D10FDAF8CF1C4D9B8;
 			remoteInfo = MJRefresh;
 		};
+		1E6D96692EE4517702A1B621DBF621C9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 95859848E760808DE123B5CB96EBF2D6;
+			remoteInfo = ZLPopView;
+		};
+		3A6731C1243AE039A047A2925525F1AB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 98A98149697C80CEF8D5772791E92E66;
+			remoteInfo = FBSnapshotTestCase;
+		};
+		F7C1B95E60B8A1B8F0CAB878A4DD54EE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1D1F2F8C224D42A5422E0E4482BB783B;
+			remoteInfo = "Pods-ZLPopView_Example";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		002ABCA09955A57D06C22468BF9F3078 /* UIScrollView+MJExtension.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIScrollView+MJExtension.m"; path = "MJRefresh/UIScrollView+MJExtension.m"; sourceTree = "<group>"; };
-		0146774B15718E1930DE80C7BAB232A8 /* ZLPopView-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "ZLPopView-dummy.m"; sourceTree = "<group>"; };
 		023CE7B5723B0E43A0ECB676FD56EA22 /* UICollectionViewLayout+MJRefresh.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UICollectionViewLayout+MJRefresh.m"; path = "MJRefresh/UICollectionViewLayout+MJRefresh.m"; sourceTree = "<group>"; };
 		0293D69C717C4F42FBC88BAFBD8417BF /* MJRefreshConst.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MJRefreshConst.m; path = MJRefresh/MJRefreshConst.m; sourceTree = "<group>"; };
 		0459B19A1F666CA748B01A079DB964A8 /* MJRefresh-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MJRefresh-umbrella.h"; sourceTree = "<group>"; };
 		05F2E1BD6C92F9AEE8EAE96FEFD66E24 /* UIImage+Snapshot.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImage+Snapshot.m"; path = "FBSnapshotTestCase/Categories/UIImage+Snapshot.m"; sourceTree = "<group>"; };
 		065D6DF6EC8D469EA11D74265772DEBD /* Pods-ZLPopView_Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-ZLPopView_Tests-frameworks.sh"; sourceTree = "<group>"; };
 		0763092A5E275DCA0D7F0E9B290E43FA /* MJRefreshHeader.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MJRefreshHeader.h; path = MJRefresh/Base/MJRefreshHeader.h; sourceTree = "<group>"; };
+		07664A51402FA039AA9BA9EF52659E94 /* ResourceBundle-ZLPopView-ZLPopView-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ResourceBundle-ZLPopView-ZLPopView-Info.plist"; sourceTree = "<group>"; };
+		082CEC3E863FC513E5F1F1550EC6897D /* ZLPopBaseView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ZLPopBaseView.m; path = ZLPopView/Classes/ZLPopBaseView.m; sourceTree = "<group>"; };
 		0ACB1E708CD70AC4D991C6020397A250 /* Pods-ZLPopView_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-ZLPopView_Example.modulemap"; sourceTree = "<group>"; };
 		0EEF9C046697B15DDB6A2440DF74EC70 /* UIView+MJExtension.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIView+MJExtension.h"; path = "MJRefresh/UIView+MJExtension.h"; sourceTree = "<group>"; };
 		15BCA0F5208BFCDB08C7ECA264EE8E9E /* Pods-ZLPopView_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ZLPopView_Example-acknowledgements.plist"; sourceTree = "<group>"; };
+		173D714655724571B85014D1580FC99E /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = ZLPopView/Resources/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		17E45F02F62A7ECCC5648F1B2E56D862 /* MJRefreshNormalTrailer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MJRefreshNormalTrailer.h; path = MJRefresh/Custom/Trailer/MJRefreshNormalTrailer.h; sourceTree = "<group>"; };
 		1940752A2C4BFB2A4158D5A92E0DBB61 /* Pods-ZLPopView_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ZLPopView_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		195E84E6D6EEBDAA68C4FE1D6A8F340A /* MJRefresh.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MJRefresh.debug.xcconfig; sourceTree = "<group>"; };
 		1982EE65FAD94DA9BB6BE06F49DFB3C8 /* MJRefreshAutoStateFooter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MJRefreshAutoStateFooter.m; path = MJRefresh/Custom/Footer/Auto/MJRefreshAutoStateFooter.m; sourceTree = "<group>"; };
 		19EB34D4C7E0264E132AEAFFEC5BAAA8 /* FBSnapshotTestCase.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = FBSnapshotTestCase.modulemap; sourceTree = "<group>"; };
 		207854E07B483900810C162FB9D919C8 /* MJRefreshTrailer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MJRefreshTrailer.m; path = MJRefresh/Base/MJRefreshTrailer.m; sourceTree = "<group>"; };
+		2182A3561B98FC0BC8B905456F320927 /* ZLPopViewBuilder+convenience.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "ZLPopViewBuilder+convenience.h"; path = "ZLPopView/Classes/ZLPopViewBuilder+convenience.h"; sourceTree = "<group>"; };
 		21F9788F7AA78A62C0C0BF97B0E0DF4F /* MJRefreshComponent.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MJRefreshComponent.m; path = MJRefresh/Base/MJRefreshComponent.m; sourceTree = "<group>"; };
+		22D34EA2883A192F485A39934E4C0909 /* ZLBaseConfigure.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ZLBaseConfigure.h; path = ZLPopView/Classes/ZLBaseConfigure.h; sourceTree = "<group>"; };
 		26BC96F34E43FA0A3AE93B3C2C4595E5 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		2746359EEF90CA145C8FD61CD06DFE23 /* UIImage+Diff.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIImage+Diff.h"; path = "FBSnapshotTestCase/Categories/UIImage+Diff.h"; sourceTree = "<group>"; };
 		287D629476F952C3631687B385913A8D /* MJRefreshStateTrailer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MJRefreshStateTrailer.h; path = MJRefresh/Custom/Trailer/MJRefreshStateTrailer.h; sourceTree = "<group>"; };
 		2B031B636A549C4DC4F54435DE6ABB05 /* MJRefreshBackStateFooter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MJRefreshBackStateFooter.m; path = MJRefresh/Custom/Footer/Back/MJRefreshBackStateFooter.m; sourceTree = "<group>"; };
-		2B0392D65155C919FC45ED30135B150F /* ZLPopView.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = ZLPopView.release.xcconfig; sourceTree = "<group>"; };
 		2D9F575B85B0D537C71FCA0A820A3BBE /* UIImage+Compare.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImage+Compare.m"; path = "FBSnapshotTestCase/Categories/UIImage+Compare.m"; sourceTree = "<group>"; };
 		2FCEA580BBDB42E141E8EA35906A3D76 /* MJRefreshAutoFooter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MJRefreshAutoFooter.h; path = MJRefresh/Base/MJRefreshAutoFooter.h; sourceTree = "<group>"; };
 		30208AC8AEDDF11A07F8A58A36D322B1 /* MJRefreshFooter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MJRefreshFooter.m; path = MJRefresh/Base/MJRefreshFooter.m; sourceTree = "<group>"; };
 		3097D899FAAF5A0537C3D4C12BC7FC7E /* MJRefreshBackGifFooter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MJRefreshBackGifFooter.m; path = MJRefresh/Custom/Footer/Back/MJRefreshBackGifFooter.m; sourceTree = "<group>"; };
+		32D4198789953A08F77931F4626CE6D1 /* UIView+kfc.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIView+kfc.m"; path = "ZLPopView/Classes/UIView+kfc.m"; sourceTree = "<group>"; };
 		34D7E51AD544181F50FE61E4CBBB2C2E /* MJRefreshBackFooter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MJRefreshBackFooter.h; path = MJRefresh/Base/MJRefreshBackFooter.h; sourceTree = "<group>"; };
-		363EAE9C497BDC077D153EE342126CA2 /* ZLBaseConfigure.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ZLBaseConfigure.m; path = ZLPopView/Classes/ZLBaseConfigure.m; sourceTree = "<group>"; };
+		35487D24E9377838AEFED8B6734A8132 /* ZLPopViewBuilder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ZLPopViewBuilder.h; path = ZLPopView/Classes/ZLPopViewBuilder.h; sourceTree = "<group>"; };
 		3745D9EA9865C238AA8E606FE9EE7050 /* MJRefresh.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = MJRefresh.bundle; path = MJRefresh/MJRefresh.bundle; sourceTree = "<group>"; };
-		3A156AC86775E16058B0BAC0C4A5A44F /* ZLPopView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ZLPopView.h; path = ZLPopView/Classes/ZLPopView.h; sourceTree = "<group>"; };
+		3755A07D8632E3C13B592979BD7A0AD6 /* ZLStackViewBuilder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ZLStackViewBuilder.m; path = ZLPopView/Classes/ZLStackViewBuilder.m; sourceTree = "<group>"; };
+		3810DB7CC0AAD896C5E51F1969DB53D6 /* ZLPopView-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ZLPopView-Info.plist"; sourceTree = "<group>"; };
 		3A15CE570C714B14AF8B633912D8EC66 /* Pods-ZLPopView_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-ZLPopView_Tests.modulemap"; sourceTree = "<group>"; };
-		3A87ABA7FC25D22D7B52AD54F7662BAE /* ZLPopView-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ZLPopView-prefix.pch"; sourceTree = "<group>"; };
 		3C22EE2D7E7E318D6813DC6B4BCF73C3 /* MJRefreshConfig.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MJRefreshConfig.m; path = MJRefresh/MJRefreshConfig.m; sourceTree = "<group>"; };
-		3D879792BB500259B89A0355B38062B7 /* ZLBaseConfigure.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ZLBaseConfigure.h; path = ZLPopView/Classes/ZLBaseConfigure.h; sourceTree = "<group>"; };
+		3D3E6E4B14888CD7E0FF31D4ED353C00 /* ZLPopBaseView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ZLPopBaseView.h; path = ZLPopView/Classes/ZLPopBaseView.h; sourceTree = "<group>"; };
 		4138A0A13FF7F7B73435E87E54C56C18 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
-		4452CE59167A070CFA7DBB51D3C17D99 /* ZLPopBaseView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ZLPopBaseView.h; path = ZLPopView/Classes/ZLPopBaseView.h; sourceTree = "<group>"; };
 		453E236CFBD7A3BA24628A36B2C226BA /* FBSnapshotTestCase.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = FBSnapshotTestCase.debug.xcconfig; sourceTree = "<group>"; };
 		455EBA7B413793FB79E20653F5A7899B /* UIImage+Diff.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImage+Diff.m"; path = "FBSnapshotTestCase/Categories/UIImage+Diff.m"; sourceTree = "<group>"; };
+		462569F06CD8420AB6EF4EDE56C6AB6F /* UITextImageView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = UITextImageView.h; path = ZLPopView/Classes/UITextImageView.h; sourceTree = "<group>"; };
+		4A26F1F1C91364BEC2C834D68A9ABD42 /* UIView+kfc.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIView+kfc.h"; path = "ZLPopView/Classes/UIView+kfc.h"; sourceTree = "<group>"; };
 		4AA5A2222783C675AE8059349FFB6884 /* MJRefresh.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MJRefresh.release.xcconfig; sourceTree = "<group>"; };
-		4C2D1CC6CE875870290658A21C65D2C0 /* ZLPopViewBuilder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ZLPopViewBuilder.h; path = ZLPopView/Classes/ZLPopViewBuilder.h; sourceTree = "<group>"; };
+		4C6ABF6360174A4D8D07FDDE77B95027 /* ZLPopView-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ZLPopView-umbrella.h"; sourceTree = "<group>"; };
 		4C99161868B86384E4374B32A29A36D6 /* MJRefreshFooter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MJRefreshFooter.h; path = MJRefresh/Base/MJRefreshFooter.h; sourceTree = "<group>"; };
 		4C9DD29FF9B02EB567EC2F0DCD64F3DC /* MJRefreshNormalHeader.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MJRefreshNormalHeader.m; path = MJRefresh/Custom/Header/MJRefreshNormalHeader.m; sourceTree = "<group>"; };
 		4D71BF39E03E2178450BAA696B0E96CC /* Pods-ZLPopView_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-ZLPopView_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
-		4F437DF8C071F912902936668FBF18E7 /* ZLPopViewBuilder+convenience.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "ZLPopViewBuilder+convenience.h"; path = "ZLPopView/Classes/ZLPopViewBuilder+convenience.h"; sourceTree = "<group>"; };
+		4DD2E5B11F6D0FB65F9E6BC9E8F9B828 /* ZLPopView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ZLPopView.h; path = ZLPopView/Classes/ZLPopView.h; sourceTree = "<group>"; };
 		57B9CD87A7A6D3669EBB604B9E8E467B /* UIApplication+StrictKeyWindow.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIApplication+StrictKeyWindow.h"; path = "FBSnapshotTestCase/Categories/UIApplication+StrictKeyWindow.h"; sourceTree = "<group>"; };
 		58BD679909CC876A2FC838BE367566F1 /* MJRefreshBackGifFooter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MJRefreshBackGifFooter.h; path = MJRefresh/Custom/Footer/Back/MJRefreshBackGifFooter.h; sourceTree = "<group>"; };
 		5A08ADD20B616F8162193AD6AEAED831 /* FBSnapshotTestCase-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "FBSnapshotTestCase-dummy.m"; sourceTree = "<group>"; };
 		5A47D6983D94BD746A8CB64A056F3CE2 /* UIView+MJExtension.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIView+MJExtension.m"; path = "MJRefresh/UIView+MJExtension.m"; sourceTree = "<group>"; };
+		5AF90A3826A1E51B182CB16225E8B2F3 /* ZLPopView.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = ZLPopView.debug.xcconfig; sourceTree = "<group>"; };
 		5B030EE3A4EB09A1F86462A5978EC73F /* UIScrollView+MJRefresh.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIScrollView+MJRefresh.m"; path = "MJRefresh/UIScrollView+MJRefresh.m"; sourceTree = "<group>"; };
 		5C4F31330DFA99D699E4BDC8C3573D73 /* FBSnapshotTestCase */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = FBSnapshotTestCase; path = FBSnapshotTestCase.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5CEEDBD9447D2F7F3F27005AE9CCB6F3 /* ZLPopView */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = ZLPopView; path = ZLPopView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E6B5E773973965C73BC40D4388B4C07 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
 		6188AAF2BB1BB6A02416D21D396E68FA /* MJRefreshGifHeader.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MJRefreshGifHeader.m; path = MJRefresh/Custom/Header/MJRefreshGifHeader.m; sourceTree = "<group>"; };
 		63FE80696C3F28F254AC56E09A12E86E /* MJRefresh-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MJRefresh-prefix.pch"; sourceTree = "<group>"; };
-		648636C7751A964F60B613123D576CC4 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
 		64D025D90E8CBA4560353534355E794D /* FBSnapshotTestCase-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FBSnapshotTestCase-umbrella.h"; sourceTree = "<group>"; };
 		64F6E84616A634B9707CA655078ED4B3 /* Pods-ZLPopView_Example-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ZLPopView_Example-Info.plist"; sourceTree = "<group>"; };
 		6706E4E43BDB6A74A08D74E9C5BEE5FE /* MJRefreshConst.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MJRefreshConst.h; path = MJRefresh/MJRefreshConst.h; sourceTree = "<group>"; };
 		67DB16E7810AC6DBC68A55474F4C236D /* FBSnapshotTestCasePlatform.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FBSnapshotTestCasePlatform.h; path = FBSnapshotTestCase/FBSnapshotTestCasePlatform.h; sourceTree = "<group>"; };
 		67EAFD5A5D345EFB7160E0E332068C3E /* Pods-ZLPopView_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ZLPopView_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		692D29656528FA94A71ECFB8FEB6DC0B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		6A9E90CA9775D55F89C92DDC710497B5 /* ZLPopViewBuilder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ZLPopViewBuilder.m; path = ZLPopView/Classes/ZLPopViewBuilder.m; sourceTree = "<group>"; };
 		6BAE13DBD85D4AD078F29072D408D87A /* MJRefreshTrailer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MJRefreshTrailer.h; path = MJRefresh/Base/MJRefreshTrailer.h; sourceTree = "<group>"; };
 		6ED6074A0FCFC1010E9A732E1B751603 /* UIApplication+StrictKeyWindow.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIApplication+StrictKeyWindow.m"; path = "FBSnapshotTestCase/Categories/UIApplication+StrictKeyWindow.m"; sourceTree = "<group>"; };
+		6FE609E940179413F2CFBF0062DC0A85 /* ZLPopView-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "ZLPopView-dummy.m"; sourceTree = "<group>"; };
 		6FFA218004755EAAC74B08B997650357 /* SwiftSupport.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SwiftSupport.swift; path = FBSnapshotTestCase/SwiftSupport.swift; sourceTree = "<group>"; };
 		704ADCDD26F90B812225B301ECF0E090 /* FBSnapshotTestCasePlatform.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FBSnapshotTestCasePlatform.m; path = FBSnapshotTestCase/FBSnapshotTestCasePlatform.m; sourceTree = "<group>"; };
 		72C833C7FCD6255AD278ED5DD17F49A5 /* Pods-ZLPopView_Example */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-ZLPopView_Example"; path = Pods_ZLPopView_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		737CBC29B93FBA94EEB6B022A224F1A5 /* NSBundle+MJRefresh.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSBundle+MJRefresh.h"; path = "MJRefresh/NSBundle+MJRefresh.h"; sourceTree = "<group>"; };
 		7452F5983C92559DF2C0920A890CE206 /* MJRefreshAutoGifFooter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MJRefreshAutoGifFooter.m; path = MJRefresh/Custom/Footer/Auto/MJRefreshAutoGifFooter.m; sourceTree = "<group>"; };
+		747FEF0AD2FCEFF2CA46784E8794F2F7 /* UITextImageView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = UITextImageView.m; path = ZLPopView/Classes/UITextImageView.m; sourceTree = "<group>"; };
 		7553EAA2FE99DCA785A95FDB5BD8B045 /* UIScrollView+MJRefresh.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIScrollView+MJRefresh.h"; path = "MJRefresh/UIScrollView+MJRefresh.h"; sourceTree = "<group>"; };
+		7D795E146B0B7654A0B81793E4129273 /* ZLStackViewBuilder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ZLStackViewBuilder.h; path = ZLPopView/Classes/ZLStackViewBuilder.h; sourceTree = "<group>"; };
 		7E2AE8BA06BFBEB08B8AE940260CAA61 /* MJRefreshAutoGifFooter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MJRefreshAutoGifFooter.h; path = MJRefresh/Custom/Footer/Auto/MJRefreshAutoGifFooter.h; sourceTree = "<group>"; };
+		7F053E914C57A22C719CE404834C4F06 /* ZLPopView-ZLPopView */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = "ZLPopView-ZLPopView"; path = ZLPopView.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		826A39239F8DE0645421E469588F607D /* MJRefreshStateTrailer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MJRefreshStateTrailer.m; path = MJRefresh/Custom/Trailer/MJRefreshStateTrailer.m; sourceTree = "<group>"; };
 		82740977E2CF61C9AF52407FA49D878F /* MJRefreshStateHeader.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MJRefreshStateHeader.m; path = MJRefresh/Custom/Header/MJRefreshStateHeader.m; sourceTree = "<group>"; };
 		8507411CE7DFBB90C0D23E0CF84FB1E1 /* FBSnapshotTestCase.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FBSnapshotTestCase.h; path = FBSnapshotTestCase/FBSnapshotTestCase.h; sourceTree = "<group>"; };
 		8802380979E8CD67A78E609600415803 /* Pods-ZLPopView_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-ZLPopView_Example-frameworks.sh"; sourceTree = "<group>"; };
-		8A91318796888AFA65543523AF25B52F /* ZLPopView.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = ZLPopView.debug.xcconfig; sourceTree = "<group>"; };
 		8B5DBA8CE359CE0FE2C8C5C38359E663 /* MJRefreshNormalTrailer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MJRefreshNormalTrailer.m; path = MJRefresh/Custom/Trailer/MJRefreshNormalTrailer.m; sourceTree = "<group>"; };
-		9168D1C2AE32CB6E0FDA0364CB6B3B0F /* UIView+kfc.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIView+kfc.m"; path = "ZLPopView/Classes/UIView+kfc.m"; sourceTree = "<group>"; };
 		920AFA5DA50196B15D29398CCB1F6161 /* FBSnapshotTestCase.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FBSnapshotTestCase.m; path = FBSnapshotTestCase/FBSnapshotTestCase.m; sourceTree = "<group>"; };
-		926C1741C26F1DC436AA65D48A22F1CD /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
 		93FBBD636990BD8E510D67D3B27A0C1B /* MJRefreshComponent.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MJRefreshComponent.h; path = MJRefresh/Base/MJRefreshComponent.h; sourceTree = "<group>"; };
-		95BFB6959F1A4AB569A68C18B1192A53 /* ZLPopBaseView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ZLPopBaseView.m; path = ZLPopView/Classes/ZLPopBaseView.m; sourceTree = "<group>"; };
 		96A14F0A384E174D850B40E90ED42C7C /* MJRefresh.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MJRefresh.h; path = MJRefresh/MJRefresh.h; sourceTree = "<group>"; };
+		96FA35C006A6A23CA896F753B38EF369 /* ZLPopView.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = ZLPopView.modulemap; sourceTree = "<group>"; };
 		9A7A7B408AFF5BB1BFFB6B8E72AED0B6 /* UICollectionViewLayout+MJRefresh.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UICollectionViewLayout+MJRefresh.h"; path = "MJRefresh/UICollectionViewLayout+MJRefresh.h"; sourceTree = "<group>"; };
 		9B156DE1DAA81CA6417C6EF52D457E27 /* FBSnapshotTestController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FBSnapshotTestController.h; path = FBSnapshotTestCase/FBSnapshotTestController.h; sourceTree = "<group>"; };
 		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		A15C1B0E09486E3FE437ABAA73850712 /* ZLPopViewBuilder+convenience.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "ZLPopViewBuilder+convenience.m"; path = "ZLPopView/Classes/ZLPopViewBuilder+convenience.m"; sourceTree = "<group>"; };
-		A172C7AD6F26841C4CA5C18F549623DB /* UIView+kfc.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIView+kfc.h"; path = "ZLPopView/Classes/UIView+kfc.h"; sourceTree = "<group>"; };
-		A62F78847A6B25E9C802F2F831B3A4DC /* ZLStackViewBuilder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ZLStackViewBuilder.h; path = ZLPopView/Classes/ZLStackViewBuilder.h; sourceTree = "<group>"; };
 		A671F39257EDD4A251963AA9475128BA /* MJRefreshBackFooter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MJRefreshBackFooter.m; path = MJRefresh/Base/MJRefreshBackFooter.m; sourceTree = "<group>"; };
-		A79CC4FA6195D06DB07E711B75A2194D /* ZLStackViewBuilder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ZLStackViewBuilder.m; path = ZLPopView/Classes/ZLStackViewBuilder.m; sourceTree = "<group>"; };
 		A816B6E880DEF332309B722260AEE610 /* FBSnapshotTestCase-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FBSnapshotTestCase-prefix.pch"; sourceTree = "<group>"; };
 		ADF6D9DB9DC17B17BE386A5C7104100B /* UIScrollView+MJExtension.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIScrollView+MJExtension.h"; path = "MJRefresh/UIScrollView+MJExtension.h"; sourceTree = "<group>"; };
 		AE1DF000D5D0C662B16CC7929F44E28B /* Pods-ZLPopView_Tests */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-ZLPopView_Tests"; path = Pods_ZLPopView_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -241,10 +251,12 @@
 		BB4F9F1FEAEA751B4E4AFFB59CDB483C /* MJRefreshConfig.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MJRefreshConfig.h; path = MJRefresh/MJRefreshConfig.h; sourceTree = "<group>"; };
 		BCFA8C4D41C47C58DC41276003E2C9F0 /* MJRefreshBackStateFooter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MJRefreshBackStateFooter.h; path = MJRefresh/Custom/Footer/Back/MJRefreshBackStateFooter.h; sourceTree = "<group>"; };
 		BEACF6CAFF59914EFBD790C0F29CD9E0 /* MJRefreshHeader.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MJRefreshHeader.m; path = MJRefresh/Base/MJRefreshHeader.m; sourceTree = "<group>"; };
+		C07E92A8CB9338997BB135168E29E950 /* ZLPopView.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = ZLPopView.release.xcconfig; sourceTree = "<group>"; };
+		C1077929D8932CC4A7397CCF2804A8B7 /* ZLPopViewBuilder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ZLPopViewBuilder.m; path = ZLPopView/Classes/ZLPopViewBuilder.m; sourceTree = "<group>"; };
 		C3BA8A77A6B1F1170CF60AE42C5B3EB0 /* NSBundle+MJRefresh.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSBundle+MJRefresh.m"; path = "MJRefresh/NSBundle+MJRefresh.m"; sourceTree = "<group>"; };
 		C7AF36F88D9845DC939665CD0271B9E2 /* MJRefreshAutoStateFooter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MJRefreshAutoStateFooter.h; path = MJRefresh/Custom/Footer/Auto/MJRefreshAutoStateFooter.h; sourceTree = "<group>"; };
-		CA5D6D24CB2D167D9C910468BAD4B326 /* UITextImageView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = UITextImageView.m; path = ZLPopView/Classes/UITextImageView.m; sourceTree = "<group>"; };
 		CEABC08EA9A08AE9743301AC67DFCF3E /* FBSnapshotTestController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FBSnapshotTestController.m; path = FBSnapshotTestCase/FBSnapshotTestController.m; sourceTree = "<group>"; };
+		CF1BA6BB0AC9DB7BE037A81E69F07909 /* ZLBaseConfigure.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ZLBaseConfigure.m; path = ZLPopView/Classes/ZLBaseConfigure.m; sourceTree = "<group>"; };
 		CF428972AC64516C6AB54BDD9B733CCC /* Pods-ZLPopView_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ZLPopView_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		CFFBCF82ADDE71684442AA276E518BF8 /* MJRefreshNormalHeader.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MJRefreshNormalHeader.h; path = MJRefresh/Custom/Header/MJRefreshNormalHeader.h; sourceTree = "<group>"; };
 		D035A66FF114C160F91503C08DB53254 /* MJRefresh.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = MJRefresh.modulemap; sourceTree = "<group>"; };
@@ -255,22 +267,22 @@
 		D74E8EAE836DEDA4BAB276722EF7D714 /* FBSnapshotTestCase-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "FBSnapshotTestCase-Info.plist"; sourceTree = "<group>"; };
 		D8F5445D628FE16F67388B40A537C13F /* UIImage+Snapshot.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIImage+Snapshot.h"; path = "FBSnapshotTestCase/Categories/UIImage+Snapshot.h"; sourceTree = "<group>"; };
 		D9553D47616377C420F98928C781E694 /* Pods-ZLPopView_Tests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ZLPopView_Tests-Info.plist"; sourceTree = "<group>"; };
-		DAB86602DED998F6F46CDA933EA6D74C /* ZLPopView-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ZLPopView-Info.plist"; sourceTree = "<group>"; };
+		DC32304FA1BCA54FB8AD69E0F98A4857 /* ZLPopView.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = ZLPopView.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		DE4BCCC3AC7E8C27555E760CF4C6A4A2 /* Pods-ZLPopView_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-ZLPopView_Tests-dummy.m"; sourceTree = "<group>"; };
 		E060CB891E97E9BDB75A9040DF7C5D5B /* MJRefreshAutoNormalFooter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MJRefreshAutoNormalFooter.m; path = MJRefresh/Custom/Footer/Auto/MJRefreshAutoNormalFooter.m; sourceTree = "<group>"; };
 		E07A8CB4E58426CB844CACFAEE5BC4E0 /* Pods-ZLPopView_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-ZLPopView_Tests-umbrella.h"; sourceTree = "<group>"; };
-		E09391411B1BA7A5DC5C275ACBF25DDE /* ZLPopView.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = ZLPopView.modulemap; sourceTree = "<group>"; };
+		E17AFAD6B0908558841972DB4A9B17CE /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
+		E1B3AECFC735A3B2B1A3B19904AD91B0 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
 		E49D6D248DD1CEE584E6776B9164A1B2 /* MJRefresh */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = MJRefresh; path = MJRefresh.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E76BC0A31FE7261C6B5B93B735B181A2 /* Pods-ZLPopView_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ZLPopView_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
-		E7DE85AE802EDE04B8615FF7B8AAA1A7 /* UITextImageView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = UITextImageView.h; path = ZLPopView/Classes/UITextImageView.h; sourceTree = "<group>"; };
-		EC2268466F3AAB57A62DF6A1D06146E7 /* ZLPopView.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = ZLPopView.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		ED07A3022FA29A2447951AB4034C5D2B /* ZLPopView-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ZLPopView-prefix.pch"; sourceTree = "<group>"; };
 		F45649C34C99BD7FC8925C53E083E9F4 /* UIImage+Compare.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIImage+Compare.h"; path = "FBSnapshotTestCase/Categories/UIImage+Compare.h"; sourceTree = "<group>"; };
 		F5109987DBB03F1C1A0A8DE372AB7D10 /* MJRefreshAutoFooter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MJRefreshAutoFooter.m; path = MJRefresh/Base/MJRefreshAutoFooter.m; sourceTree = "<group>"; };
 		F8C6DB01BFF68E7315CE7F073F439F52 /* MJRefreshBackNormalFooter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MJRefreshBackNormalFooter.h; path = MJRefresh/Custom/Footer/Back/MJRefreshBackNormalFooter.h; sourceTree = "<group>"; };
 		F94DFB1A3982FFEEA0A833EDE48DEC8F /* Pods-ZLPopView_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ZLPopView_Example.release.xcconfig"; sourceTree = "<group>"; };
 		FCAA77D58ABBCD2F85F3A6AAD094C204 /* Pods-ZLPopView_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-ZLPopView_Example-dummy.m"; sourceTree = "<group>"; };
-		FD7BE768A67A4EEF0952AFAE397E37B7 /* ZLPopView-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ZLPopView-umbrella.h"; sourceTree = "<group>"; };
 		FE2EA0D475BCAE259C4D76F42488C48B /* Pods-ZLPopView_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-ZLPopView_Example-umbrella.h"; sourceTree = "<group>"; };
+		FEEF293296EBB2285F0A2687E020775B /* ZLPopViewBuilder+convenience.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "ZLPopViewBuilder+convenience.m"; path = "ZLPopView/Classes/ZLPopViewBuilder+convenience.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -279,6 +291,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				276C2BC0275A2B947BBDAF45A87536FD /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3911B27EAF535052A835C3674919F8B7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E99BDF885BCC10A69A37262C82981B28 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -309,25 +329,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CAE0532D0CCFAE5F00852AD0B35F0F57 /* Frameworks */ = {
+		993166E7BCCD0C82E060B43062002C3B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FDE401955CF8E47828E34E1A4F99FC09 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		051FDC7F2FD09CFA10E2D5165A2C8C99 /* Development Pods */ = {
-			isa = PBXGroup;
-			children = (
-				9197FACF7794B66EB228EFCD00C8544D /* ZLPopView */,
-			);
-			name = "Development Pods";
-			sourceTree = "<group>";
-		};
 		079D146C3F7626C9DA5F80B3878C0C06 /* Core */ = {
 			isa = PBXGroup;
 			children = (
@@ -347,6 +358,16 @@
 				05F2E1BD6C92F9AEE8EAE96FEFD66E24 /* UIImage+Snapshot.m */,
 			);
 			name = Core;
+			sourceTree = "<group>";
+		};
+		122EF94DA2DFBBAE51955D458B3DBA8D /* Pod */ = {
+			isa = PBXGroup;
+			children = (
+				E1B3AECFC735A3B2B1A3B19904AD91B0 /* LICENSE */,
+				E17AFAD6B0908558841972DB4A9B17CE /* README.md */,
+				DC32304FA1BCA54FB8AD69E0F98A4857 /* ZLPopView.podspec */,
+			);
+			name = Pod;
 			sourceTree = "<group>";
 		};
 		1BD82322FC0ED9102D25DC9E710DF05A /* Pods-ZLPopView_Example */ = {
@@ -392,7 +413,15 @@
 			path = "Target Support Files/Pods-ZLPopView_Tests";
 			sourceTree = "<group>";
 		};
-		322CA0322FFD905467255E687D0C597A /* Products */ = {
+		342BDB0C31E90224B9621A8CF7747FD0 /* SwiftSupport */ = {
+			isa = PBXGroup;
+			children = (
+				6FFA218004755EAAC74B08B997650357 /* SwiftSupport.swift */,
+			);
+			name = SwiftSupport;
+			sourceTree = "<group>";
+		};
+		38185924EF44F86D4EAEEC6F3A581549 /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				5C4F31330DFA99D699E4BDC8C3573D73 /* FBSnapshotTestCase */,
@@ -400,16 +429,33 @@
 				72C833C7FCD6255AD278ED5DD17F49A5 /* Pods-ZLPopView_Example */,
 				AE1DF000D5D0C662B16CC7929F44E28B /* Pods-ZLPopView_Tests */,
 				5CEEDBD9447D2F7F3F27005AE9CCB6F3 /* ZLPopView */,
+				7F053E914C57A22C719CE404834C4F06 /* ZLPopView-ZLPopView */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		342BDB0C31E90224B9621A8CF7747FD0 /* SwiftSupport */ = {
+		3A5E0644967EEEEF2896ED266F68DD5D /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				6FFA218004755EAAC74B08B997650357 /* SwiftSupport.swift */,
+				07664A51402FA039AA9BA9EF52659E94 /* ResourceBundle-ZLPopView-ZLPopView-Info.plist */,
+				96FA35C006A6A23CA896F753B38EF369 /* ZLPopView.modulemap */,
+				6FE609E940179413F2CFBF0062DC0A85 /* ZLPopView-dummy.m */,
+				3810DB7CC0AAD896C5E51F1969DB53D6 /* ZLPopView-Info.plist */,
+				ED07A3022FA29A2447951AB4034C5D2B /* ZLPopView-prefix.pch */,
+				4C6ABF6360174A4D8D07FDDE77B95027 /* ZLPopView-umbrella.h */,
+				5AF90A3826A1E51B182CB16225E8B2F3 /* ZLPopView.debug.xcconfig */,
+				C07E92A8CB9338997BB135168E29E950 /* ZLPopView.release.xcconfig */,
 			);
-			name = SwiftSupport;
+			name = "Support Files";
+			path = "Example/Pods/Target Support Files/ZLPopView";
+			sourceTree = "<group>";
+		};
+		65A1EAA42C903BDAD27E9A476A81E2A0 /* Development Pods */ = {
+			isa = PBXGroup;
+			children = (
+				81F170EEA4D552874DECCFB835806A80 /* ZLPopView */,
+			);
+			name = "Development Pods";
 			sourceTree = "<group>";
 		};
 		680535E2ED44093FBC110885A10A437D /* Support Files */ = {
@@ -444,14 +490,30 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
-		87AF9F8B11C3908CCAB403AD9514C037 /* Pod */ = {
+		81F170EEA4D552874DECCFB835806A80 /* ZLPopView */ = {
 			isa = PBXGroup;
 			children = (
-				926C1741C26F1DC436AA65D48A22F1CD /* LICENSE */,
-				648636C7751A964F60B613123D576CC4 /* README.md */,
-				EC2268466F3AAB57A62DF6A1D06146E7 /* ZLPopView.podspec */,
+				173D714655724571B85014D1580FC99E /* PrivacyInfo.xcprivacy */,
+				462569F06CD8420AB6EF4EDE56C6AB6F /* UITextImageView.h */,
+				747FEF0AD2FCEFF2CA46784E8794F2F7 /* UITextImageView.m */,
+				4A26F1F1C91364BEC2C834D68A9ABD42 /* UIView+kfc.h */,
+				32D4198789953A08F77931F4626CE6D1 /* UIView+kfc.m */,
+				22D34EA2883A192F485A39934E4C0909 /* ZLBaseConfigure.h */,
+				CF1BA6BB0AC9DB7BE037A81E69F07909 /* ZLBaseConfigure.m */,
+				3D3E6E4B14888CD7E0FF31D4ED353C00 /* ZLPopBaseView.h */,
+				082CEC3E863FC513E5F1F1550EC6897D /* ZLPopBaseView.m */,
+				4DD2E5B11F6D0FB65F9E6BC9E8F9B828 /* ZLPopView.h */,
+				35487D24E9377838AEFED8B6734A8132 /* ZLPopViewBuilder.h */,
+				C1077929D8932CC4A7397CCF2804A8B7 /* ZLPopViewBuilder.m */,
+				2182A3561B98FC0BC8B905456F320927 /* ZLPopViewBuilder+convenience.h */,
+				FEEF293296EBB2285F0A2687E020775B /* ZLPopViewBuilder+convenience.m */,
+				7D795E146B0B7654A0B81793E4129273 /* ZLStackViewBuilder.h */,
+				3755A07D8632E3C13B592979BD7A0AD6 /* ZLStackViewBuilder.m */,
+				122EF94DA2DFBBAE51955D458B3DBA8D /* Pod */,
+				3A5E0644967EEEEF2896ED266F68DD5D /* Support Files */,
 			);
-			name = Pod;
+			name = ZLPopView;
+			path = ../..;
 			sourceTree = "<group>";
 		};
 		89736692DF329F0B9BF3EFFCEA69EA54 /* iOS */ = {
@@ -463,31 +525,6 @@
 				26BC96F34E43FA0A3AE93B3C2C4595E5 /* XCTest.framework */,
 			);
 			name = iOS;
-			sourceTree = "<group>";
-		};
-		9197FACF7794B66EB228EFCD00C8544D /* ZLPopView */ = {
-			isa = PBXGroup;
-			children = (
-				E7DE85AE802EDE04B8615FF7B8AAA1A7 /* UITextImageView.h */,
-				CA5D6D24CB2D167D9C910468BAD4B326 /* UITextImageView.m */,
-				A172C7AD6F26841C4CA5C18F549623DB /* UIView+kfc.h */,
-				9168D1C2AE32CB6E0FDA0364CB6B3B0F /* UIView+kfc.m */,
-				3D879792BB500259B89A0355B38062B7 /* ZLBaseConfigure.h */,
-				363EAE9C497BDC077D153EE342126CA2 /* ZLBaseConfigure.m */,
-				4452CE59167A070CFA7DBB51D3C17D99 /* ZLPopBaseView.h */,
-				95BFB6959F1A4AB569A68C18B1192A53 /* ZLPopBaseView.m */,
-				3A156AC86775E16058B0BAC0C4A5A44F /* ZLPopView.h */,
-				4C2D1CC6CE875870290658A21C65D2C0 /* ZLPopViewBuilder.h */,
-				6A9E90CA9775D55F89C92DDC710497B5 /* ZLPopViewBuilder.m */,
-				4F437DF8C071F912902936668FBF18E7 /* ZLPopViewBuilder+convenience.h */,
-				A15C1B0E09486E3FE437ABAA73850712 /* ZLPopViewBuilder+convenience.m */,
-				A62F78847A6B25E9C802F2F831B3A4DC /* ZLStackViewBuilder.h */,
-				A79CC4FA6195D06DB07E711B75A2194D /* ZLStackViewBuilder.m */,
-				87AF9F8B11C3908CCAB403AD9514C037 /* Pod */,
-				F45DFEDE85C139B03A9CD7D4870F092C /* Support Files */,
-			);
-			name = ZLPopView;
-			path = ../..;
 			sourceTree = "<group>";
 		};
 		BA4F31F07263C99FC76E66D632A59F09 /* Frameworks */ = {
@@ -587,27 +624,12 @@
 			isa = PBXGroup;
 			children = (
 				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
-				051FDC7F2FD09CFA10E2D5165A2C8C99 /* Development Pods */,
+				65A1EAA42C903BDAD27E9A476A81E2A0 /* Development Pods */,
 				BA4F31F07263C99FC76E66D632A59F09 /* Frameworks */,
 				1CC8C4EEAD95CF8F2E53EE43203C08BD /* Pods */,
-				322CA0322FFD905467255E687D0C597A /* Products */,
+				38185924EF44F86D4EAEEC6F3A581549 /* Products */,
 				7C1ABF2DEE337C7D6FFCC99BCD507701 /* Targets Support Files */,
 			);
-			sourceTree = "<group>";
-		};
-		F45DFEDE85C139B03A9CD7D4870F092C /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				E09391411B1BA7A5DC5C275ACBF25DDE /* ZLPopView.modulemap */,
-				0146774B15718E1930DE80C7BAB232A8 /* ZLPopView-dummy.m */,
-				DAB86602DED998F6F46CDA933EA6D74C /* ZLPopView-Info.plist */,
-				3A87ABA7FC25D22D7B52AD54F7662BAE /* ZLPopView-prefix.pch */,
-				FD7BE768A67A4EEF0952AFAE397E37B7 /* ZLPopView-umbrella.h */,
-				8A91318796888AFA65543523AF25B52F /* ZLPopView.debug.xcconfig */,
-				2B0392D65155C919FC45ED30135B150F /* ZLPopView.release.xcconfig */,
-			);
-			name = "Support Files";
-			path = "Example/Pods/Target Support Files/ZLPopView";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -646,6 +668,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		5C1369559D3056C240BE01789340B27D /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AEA4E04E1CDAAD9D1CC6449586F689E3 /* UITextImageView.h in Headers */,
+				F7F4697C9CCB46831AE75FD426518AA5 /* UIView+kfc.h in Headers */,
+				A50CBF529E0AD2866F97E8C8C030540B /* ZLBaseConfigure.h in Headers */,
+				E4A373F7D10DC2147F358A7F84F1F353 /* ZLPopBaseView.h in Headers */,
+				51FDED1D73739C5233BB3D94EAF35EC2 /* ZLPopView.h in Headers */,
+				28398C5586093CC55700407A46F9AD60 /* ZLPopView-umbrella.h in Headers */,
+				1EE1805E1B677DF9424A26875C6EBAC0 /* ZLPopViewBuilder.h in Headers */,
+				B8D0733033F5B348907DA9E51ECC4F43 /* ZLPopViewBuilder+convenience.h in Headers */,
+				5ADE705C7CE977E8B60551D080130270 /* ZLStackViewBuilder.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6A11A4ED6C92ACA1C089260BA3F0C776 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -658,22 +696,6 @@
 				E4F6CF5EA1B12C55385D3CDC6BD1F4D8 /* UIImage+Compare.h in Headers */,
 				F822382AB9E7B343C04964B313B1743D /* UIImage+Diff.h in Headers */,
 				64066CA793C90CA645A6D2031654D2CC /* UIImage+Snapshot.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		741C29A8ED830FECD566B8945EC35468 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				B71C2849138EBB8BC056950B8CB07552 /* UITextImageView.h in Headers */,
-				C1FCAFB399322BB09DFADDA1A08DEF13 /* UIView+kfc.h in Headers */,
-				2E1CE0DFF41A0C6A03F4CA026DCABA12 /* ZLBaseConfigure.h in Headers */,
-				0B7D1EF70EE42443753DC374B6F0D237 /* ZLPopBaseView.h in Headers */,
-				0AFC45702844EB81149A0E75E47CA698 /* ZLPopView.h in Headers */,
-				7AD5C2247C330B697D3BE1C46B3C2DF3 /* ZLPopView-umbrella.h in Headers */,
-				872255DF5938025A047335FA0F17DAC5 /* ZLPopViewBuilder.h in Headers */,
-				EFFF59F5C619770C45D67363E3A29C7A /* ZLPopViewBuilder+convenience.h in Headers */,
-				ED5643D540AF7F9CAE442D0B8CEC5105 /* ZLStackViewBuilder.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -708,8 +730,8 @@
 			buildRules = (
 			);
 			dependencies = (
-				F18D96340F150B77CC8D72693625C832 /* PBXTargetDependency */,
-				D22E5450CBF70EE467E8A0324ED28DF0 /* PBXTargetDependency */,
+				AE7D04EF132B7EF02812E1BF102BA55A /* PBXTargetDependency */,
+				81DBE8E09B04EB4680890CB2425D5ABF /* PBXTargetDependency */,
 			);
 			name = "Pods-ZLPopView_Example";
 			productName = Pods_ZLPopView_Example;
@@ -728,8 +750,8 @@
 			buildRules = (
 			);
 			dependencies = (
-				E93F154E7991CEFA5351AA14EC46E968 /* PBXTargetDependency */,
-				6BBC0FF43F5646EA9A70079B26D602F1 /* PBXTargetDependency */,
+				965CAB6EF46AEF0AFB08F6516A115BB6 /* PBXTargetDependency */,
+				4F01961065F013FC16C7534E211F889B /* PBXTargetDependency */,
 			);
 			name = "Pods-ZLPopView_Tests";
 			productName = Pods_ZLPopView_Tests;
@@ -756,16 +778,17 @@
 		};
 		95859848E760808DE123B5CB96EBF2D6 /* ZLPopView */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = EFD01318948FEBF54119E22A64A1E621 /* Build configuration list for PBXNativeTarget "ZLPopView" */;
+			buildConfigurationList = A70217677A4774951041A71AEC751673 /* Build configuration list for PBXNativeTarget "ZLPopView" */;
 			buildPhases = (
-				741C29A8ED830FECD566B8945EC35468 /* Headers */,
-				A668F71B190EA4619CF532152DA7DDDE /* Sources */,
-				CAE0532D0CCFAE5F00852AD0B35F0F57 /* Frameworks */,
-				3C360E2548E9D598CEF81CD0BE3B086E /* Resources */,
+				5C1369559D3056C240BE01789340B27D /* Headers */,
+				1A019BB4B2629CBE36DBA83C00F8808A /* Sources */,
+				3911B27EAF535052A835C3674919F8B7 /* Frameworks */,
+				5E85C7AB2067695DB65DB15E6AF2363D /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				3FFF37FEE43A101761932B28A74BF5E2 /* PBXTargetDependency */,
 			);
 			name = ZLPopView;
 			productName = ZLPopView;
@@ -790,6 +813,23 @@
 			productReference = 5C4F31330DFA99D699E4BDC8C3573D73 /* FBSnapshotTestCase */;
 			productType = "com.apple.product-type.framework";
 		};
+		EAA41A0AC2E49A761632627797FB5C20 /* ZLPopView-ZLPopView */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E210FDED023C196CD3636F2CF1A35EA1 /* Build configuration list for PBXNativeTarget "ZLPopView-ZLPopView" */;
+			buildPhases = (
+				5D521753988B6D19DD267758E4AB5A3C /* Sources */,
+				993166E7BCCD0C82E060B43062002C3B /* Frameworks */,
+				EB5BE74E646F37BA5DD75CD65D903B2E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "ZLPopView-ZLPopView";
+			productName = ZLPopView;
+			productReference = 7F053E914C57A22C719CE404834C4F06 /* ZLPopView-ZLPopView */;
+			productType = "com.apple.product-type.bundle";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -810,7 +850,7 @@
 			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
 			minimizedProjectReferenceProxies = 0;
 			preferredProjectObjectVersion = 77;
-			productRefGroup = 322CA0322FFD905467255E687D0C597A /* Products */;
+			productRefGroup = 38185924EF44F86D4EAEEC6F3A581549 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -819,23 +859,25 @@
 				1D1F2F8C224D42A5422E0E4482BB783B /* Pods-ZLPopView_Example */,
 				4E5AE87452E1DE4A3C232DE41AF31C64 /* Pods-ZLPopView_Tests */,
 				95859848E760808DE123B5CB96EBF2D6 /* ZLPopView */,
+				EAA41A0AC2E49A761632627797FB5C20 /* ZLPopView-ZLPopView */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		3C360E2548E9D598CEF81CD0BE3B086E /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		4FFE6EAC99DFE8941FFB61B891AB92B9 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				5F2622E174BFC945E9C40B8BFFC9BC82 /* MJRefresh.bundle in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5E85C7AB2067695DB65DB15E6AF2363D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				26BE3848D45C44E54567BA0128E4B50D /* ZLPopView-ZLPopView in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -860,9 +902,39 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		EB5BE74E646F37BA5DD75CD65D903B2E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AD252D1167344111C849B31B565E1834 /* PrivacyInfo.xcprivacy in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		1A019BB4B2629CBE36DBA83C00F8808A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FCE220703AC40587E7B281BCAD4F4FA2 /* UITextImageView.m in Sources */,
+				8FAC1EB7FB2968BA61406BE5E4A1FFDC /* UIView+kfc.m in Sources */,
+				599BC8C6F7A4759829ABBA48E8FB3C7F /* ZLBaseConfigure.m in Sources */,
+				9EB08D5C60B47147BEE66BF210D31F93 /* ZLPopBaseView.m in Sources */,
+				43B9DD08E5FACE210FBA5548D9F9451F /* ZLPopView-dummy.m in Sources */,
+				BC6D83E4F201DB1CD006564DC1D65238 /* ZLPopViewBuilder.m in Sources */,
+				CE53323D3D2B33E917B227DD44C24360 /* ZLPopViewBuilder+convenience.m in Sources */,
+				9B55418A09B8C6842F5CB700B2406632 /* ZLStackViewBuilder.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5D521753988B6D19DD267758E4AB5A3C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		601E1460F7B3F8E4025E77C18A5AE419 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -892,21 +964,6 @@
 				593CC778281D0C5DAFD70A5E285DA86A /* UIImage+Compare.m in Sources */,
 				766F6429966FBFF2E2E6A2991BDAFDA9 /* UIImage+Diff.m in Sources */,
 				EA5924031A71EF807EC467903E26FAC0 /* UIImage+Snapshot.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		A668F71B190EA4619CF532152DA7DDDE /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				45A1AE4603439976D4AB59B5077629A8 /* UITextImageView.m in Sources */,
-				E94D80F49E6EC3DA04E9F8D37E95704C /* UIView+kfc.m in Sources */,
-				65DF26E79C3F20C0B587E35A27AC1DAF /* ZLBaseConfigure.m in Sources */,
-				8C94C9A51301526A19C5E5806F82018A /* ZLPopBaseView.m in Sources */,
-				4C47BEB13B617D5A2CE42E8F9BCFB57E /* ZLPopView-dummy.m in Sources */,
-				9D545B8D7DDB05080E9F14CE56CF409D /* ZLPopViewBuilder.m in Sources */,
-				EDC49EDC95421F8C07DC776351F398E5 /* ZLPopViewBuilder+convenience.m in Sources */,
-				81F058523AA4489DFB924D93A4BF7EB2 /* ZLStackViewBuilder.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -945,29 +1002,35 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		6BBC0FF43F5646EA9A70079B26D602F1 /* PBXTargetDependency */ = {
+		3FFF37FEE43A101761932B28A74BF5E2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "ZLPopView-ZLPopView";
+			target = EAA41A0AC2E49A761632627797FB5C20 /* ZLPopView-ZLPopView */;
+			targetProxy = 0AEE050558868F8CA956917D2B6840EA /* PBXContainerItemProxy */;
+		};
+		4F01961065F013FC16C7534E211F889B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "Pods-ZLPopView_Example";
 			target = 1D1F2F8C224D42A5422E0E4482BB783B /* Pods-ZLPopView_Example */;
-			targetProxy = 9B2E59B11DC8D7413834F814EE604AD4 /* PBXContainerItemProxy */;
+			targetProxy = F7C1B95E60B8A1B8F0CAB878A4DD54EE /* PBXContainerItemProxy */;
 		};
-		D22E5450CBF70EE467E8A0324ED28DF0 /* PBXTargetDependency */ = {
+		81DBE8E09B04EB4680890CB2425D5ABF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = ZLPopView;
 			target = 95859848E760808DE123B5CB96EBF2D6 /* ZLPopView */;
-			targetProxy = 017B34D15C794A8D2041EB639BBD6B62 /* PBXContainerItemProxy */;
+			targetProxy = 1E6D96692EE4517702A1B621DBF621C9 /* PBXContainerItemProxy */;
 		};
-		E93F154E7991CEFA5351AA14EC46E968 /* PBXTargetDependency */ = {
+		965CAB6EF46AEF0AFB08F6516A115BB6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = FBSnapshotTestCase;
 			target = 98A98149697C80CEF8D5772791E92E66 /* FBSnapshotTestCase */;
-			targetProxy = 1361E27E0376322329F926C00BE21DFE /* PBXContainerItemProxy */;
+			targetProxy = 3A6731C1243AE039A047A2925525F1AB /* PBXContainerItemProxy */;
 		};
-		F18D96340F150B77CC8D72693625C832 /* PBXTargetDependency */ = {
+		AE7D04EF132B7EF02812E1BF102BA55A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = MJRefresh;
 			target = 6868056D761E163D10FDAF8CF1C4D9B8 /* MJRefresh */;
-			targetProxy = F196768AAB6F2BCF6536B61C4229824E /* PBXContainerItemProxy */;
+			targetProxy = 1408C42BACBCE5DB98A7F99418BD5970 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1007,41 +1070,6 @@
 			};
 			name = Release;
 		};
-		1957B130525EA27FBAAD44306EF27303 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8A91318796888AFA65543523AF25B52F /* ZLPopView.debug.xcconfig */;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_MODULE_VERIFIER = NO;
-				ENABLE_USER_SCRIPT_SANDBOXING = NO;
-				GCC_PREFIX_HEADER = "Target Support Files/ZLPopView/ZLPopView-prefix.pch";
-				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = "Target Support Files/ZLPopView/ZLPopView-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/ZLPopView/ZLPopView.modulemap";
-				PRODUCT_MODULE_NAME = ZLPopView;
-				PRODUCT_NAME = ZLPopView;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_INSTALL_OBJC_HEADER = YES;
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
 		2418242654E62540D0496D4B0F4C1BAB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 195E84E6D6EEBDAA68C4FE1D6A8F340A /* MJRefresh.debug.xcconfig */;
@@ -1075,6 +1103,23 @@
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
+		};
+		3C305E3FE26BCE47A383D73A66A10FC7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C07E92A8CB9338997BB135168E29E950 /* ZLPopView.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGNING_ALLOWED = NO;
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/ZLPopView";
+				IBSC_MODULE = ZLPopView;
+				INFOPLIST_FILE = "Target Support Files/ZLPopView/ResourceBundle-ZLPopView-ZLPopView-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				PRODUCT_NAME = ZLPopView;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Release;
 		};
 		3FE83BAB7DB2C28A7B50146787FB6B81 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -1175,6 +1220,42 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		5C6DB83FAB3B4A5E59888A748D67EF5C /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C07E92A8CB9338997BB135168E29E950 /* ZLPopView.release.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GCC_PREFIX_HEADER = "Target Support Files/ZLPopView/ZLPopView-prefix.pch";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "Target Support Files/ZLPopView/ZLPopView-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/ZLPopView/ZLPopView.modulemap";
+				PRODUCT_MODULE_NAME = ZLPopView;
+				PRODUCT_NAME = ZLPopView;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_INSTALL_OBJC_HEADER = YES;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1349,9 +1430,9 @@
 			};
 			name = Release;
 		};
-		C521FB0949D1E4B8E88DCFF5377D36B6 /* Release */ = {
+		8E2F9BB3EBD9916B6A337E47D42E32C2 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2B0392D65155C919FC45ED30135B150F /* ZLPopView.release.xcconfig */;
+			baseConfigurationReference = 5AF90A3826A1E51B182CB16225E8B2F3 /* ZLPopView.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1379,11 +1460,27 @@
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
-			name = Release;
+			name = Debug;
+		};
+		CDA08D95AF35C8AB7545FD6A86A41980 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5AF90A3826A1E51B182CB16225E8B2F3 /* ZLPopView.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGNING_ALLOWED = NO;
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/ZLPopView";
+				IBSC_MODULE = ZLPopView;
+				INFOPLIST_FILE = "Target Support Files/ZLPopView/ResourceBundle-ZLPopView-ZLPopView-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				PRODUCT_NAME = ZLPopView;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
 		};
 		D299434AB35E7FD6F7921C8EF24742FF /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -1499,11 +1596,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		EFD01318948FEBF54119E22A64A1E621 /* Build configuration list for PBXNativeTarget "ZLPopView" */ = {
+		A70217677A4774951041A71AEC751673 /* Build configuration list for PBXNativeTarget "ZLPopView" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				1957B130525EA27FBAAD44306EF27303 /* Debug */,
-				C521FB0949D1E4B8E88DCFF5377D36B6 /* Release */,
+				8E2F9BB3EBD9916B6A337E47D42E32C2 /* Debug */,
+				5C6DB83FAB3B4A5E59888A748D67EF5C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E210FDED023C196CD3636F2CF1A35EA1 /* Build configuration list for PBXNativeTarget "ZLPopView-ZLPopView" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CDA08D95AF35C8AB7545FD6A86A41980 /* Debug */,
+				3C305E3FE26BCE47A383D73A66A10FC7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

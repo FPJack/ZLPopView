@@ -126,7 +126,7 @@
     return builder;
 }
 - (void )showCenterMax200Builder {
-    ZLPopViewBuilder.column
+        ZLPopViewBuilder.column
         .alertWidth270
         .maxHeight(200)
         .wrapScrollView

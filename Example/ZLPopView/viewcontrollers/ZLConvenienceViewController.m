@@ -180,7 +180,8 @@
         ZLPopViewBuilder.column
         .title(@"提示框")
         .message(@"这是一个简单的提示。")
-        .avoidKeyboardAlwaysCenter
+        .avoidKeyboardPopViewBottom
+        .bottomOffsetToKeyboardTop(50)
         .addTextField(^(UITextField * _Nonnull textField) {
             textField.placeholder = @"请输入内容";
         })

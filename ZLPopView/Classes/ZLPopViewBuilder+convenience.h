@@ -66,13 +66,12 @@ typedef UIView* _Nullable (^ZLActionViewsBK)(NSArray<UIView *> *actionViews, ZLP
 ///添加取消样式view ，只能添加一个取消样式view ， 可通过defaultCancelViewBK 设置默认的cancelView样式
 @property (nonatomic,readonly) ZLPopViewBuilder* (^addCancelViewStyleActionText)(NSString  * _Nullable text, void(^ _Nullable action)(UIView *view));
 
-
 ///展示alert
-- (void (^)(void))showAlert;
+@property (nonatomic,readonly)void (^showAlert)(void);
 ///展示actionSheet
-- (void (^)(void))showActionSheet;
+@property (nonatomic,readonly)void (^showActionSheet)(void);
 ///展示类似微信的actionSheet
-- (void (^)(void))showWXActionSheet;
+@property (nonatomic,readonly)void (^showWXActionSheet)(void);
 @end
 
 NS_ASSUME_NONNULL_END

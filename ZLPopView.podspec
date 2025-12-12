@@ -31,7 +31,8 @@ TODO: Add long description of the pod here.
   s.ios.deployment_target = '10.0'
 
   s.source_files = 'ZLPopView/Classes/**/*'
-  
+  s.resource_bundles = {'ZLPopView' => ['ZLPopView/Resources/PrivacyInfo.xcprivacy']}
+
   # s.resource_bundles = {
   #   'ZLPopView' => ['ZLPopView/Assets/*.png']
   # }
