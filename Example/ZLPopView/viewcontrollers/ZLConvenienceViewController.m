@@ -177,11 +177,18 @@
     
 }
 - (void)showAlert {
+    
+        NSArray *colors = @[(__bridge id)__UIColorFromObj(@"#95FF08").CGColor,
+                     (__bridge id)__UIColorFromObj(@"#B2FC48").CGColor,
+                     (__bridge id)__UIColorFromObj(@"#EFF7E0").CGColor,
+                     (__bridge id)__UIColorFromObj(@"#FFFFFF").CGColor,];
         ZLPopViewBuilder.column
         .title(@"提示框")
         .message(@"这是一个简单的提示。")
+        .height(344)
         .avoidKeyboardPopViewBottom
         .bottomOffsetToKeyboardTop(50)
+        .bgGradientColors(colors)
         .addTextField(^(UITextField * _Nonnull textField) {
             textField.placeholder = @"请输入内容";
         })

@@ -17,6 +17,8 @@
 #define kBT @"BT"
 #define kBB @"BB"
 static NSHashTable<ZLPopBaseView *> *keyboardViews;
+@interface _ZLView ()
+@end
 @implementation _ZLView
 - (UIView *)contentView {
     if (!_contentView){
@@ -27,6 +29,7 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
     };
     return _contentView;
 }
+
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
@@ -388,6 +391,8 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
 @property (nonatomic,copy)PopViewCallbackBK initStateBlock;
 @property (nonatomic,weak,readwrite)id<ZLPopViewDelegate> delegateObj;
 @property (nonatomic,strong,readwrite)UIVisualEffectView *blurView;
+@property (nonatomic,strong)CAGradientLayer *gradLayer;
+
 
 - (void)gm_pan:(UIPanGestureRecognizer *)gesture;
 - (void)popViewWillShow:(ZLPopBaseView *)popView;
@@ -556,6 +561,16 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
         _panGesture.delegate = self;
     }
     return _panGesture;
+}
+- (CAGradientLayer *)gradLayer {
+    if (!_gradLayer) {
+        CAGradientLayer *layer = [CAGradientLayer layer];
+        layer.startPoint = CGPointMake(0.5, 0); // 中上
+        layer.endPoint = CGPointMake(0.5, 1); // 中上
+        layer.colors = self.configObj.bgGradientColors;
+        _gradLayer = layer;
+    }
+    return _gradLayer;
 }
 - (void)gm_tap {
     [self dismiss];
@@ -872,6 +887,14 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
         }
     }
     return self.configObj.touchPenetrate ? nil : self;
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    if (self.configObj.bgGradientColors.count > 0) {
+        self.gradLayer.frame = self.containerView.bounds;
+        [self.containerView.contentView.layer insertSublayer:self.gradLayer atIndex:0];
+    }
 }
 @end
 
