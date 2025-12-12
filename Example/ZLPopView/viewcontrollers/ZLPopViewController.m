@@ -58,6 +58,9 @@
     .addView(UILabel.kfc.text(@"自定义动画").tapAction(^(__kindof UIView * _Nonnull view) {
         [self customAnimate];
     }))
+    .addView(UILabel.kfc.text(@"自定义动画(背景高斯模糊)").tapAction(^(__kindof UIView * _Nonnull view) {
+        [self customBlurAnimate];
+    }))
     .addView(UILabel.kfc.text(@"输入框底部自动避开键盘(设置间距20)").tapAction(^(__kindof UIView * _Nonnull view) {
         self.showBottomTextInput1
             .avoidKeyboardFirstResponderBottom
@@ -322,7 +325,45 @@
         .setFloatHeight(200)
         .showExpand;
 }
-
+- (void)customBlurAnimate {
+    ZLPopViewBuilder *builder = ZLPopViewBuilder.column
+        .alertWidth270
+        .blurEffectStyle(UIBlurEffectStyleRegular)
+        .insetTop(20);
+    
+    ZLPopCenterView *centerView =
+    builder
+        .addView(kTitleStyleLabel(@"提示框"))
+        .addView(kSubTitleStyleLabel(@"这是一个自定义弹性放大缩小动画"))
+        .addCancelViewStyleActionText(@"取消", nil)
+        .addConfirmViewStyleActionText(@"确认", nil)
+        .animationInBK(^(ZLPopBaseView * _Nonnull popView, ZLCompeteBlock  _Nonnull complete) {
+            popView.containerView.transform = CGAffineTransformMakeTranslation(0, -self.view.bounds.size.height);
+            popView.backgroundColor = UIColor.clearColor;
+            popView.blurView.alpha = 0;
+            [UIView animateWithDuration:1
+                                  delay:0.0
+                 usingSpringWithDamping:0.6
+                  initialSpringVelocity:0.8
+                                options:UIViewAnimationOptionCurveEaseOut
+                             animations:^{
+                popView.containerView.transform = CGAffineTransformIdentity;
+                popView.blurView.alpha = 1;
+            } completion:^(BOOL finished) {
+                complete(finished);
+            }];
+        })
+        .animationOutBK(^(ZLPopBaseView * _Nonnull popView, ZLCompeteBlock  _Nonnull complete) {
+            [UIView animateWithDuration:0.5 animations:^{
+                popView.containerView.transform = CGAffineTransformMakeScale(0.01, 0.01);
+                popView.blurView.alpha = 0;
+            } completion:^(BOOL finished) {
+                complete(finished);
+            }];
+        })
+        .buildCenterPopView;
+    [centerView show];
+}
 - (void)customAnimate {
     ZLPopViewBuilder *builder = ZLPopViewBuilder.column
         .alertWidth270
