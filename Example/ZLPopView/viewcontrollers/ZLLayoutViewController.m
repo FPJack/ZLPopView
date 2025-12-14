@@ -116,7 +116,8 @@
     })
     .addView(UILabel.kfc.text(@"设置view的前后间距"))
     .addViewBK(^ViewKFCType _Nonnull{
-        return kStackViewRowBuilder
+        UIStackView *stackView =
+        kStackViewRowBuilder
             .alignmentStart
             .space(10)
             .addView(self.randomColorView)
@@ -128,6 +129,8 @@
             .addView(self.randomColorView)
             .addFlexSpaceView()
             .buildStackView;
+        
+        return stackView;
     })
     .addView(UILabel.kfc.text(@"给view4个方向添加线条"))
     .addViewBK(^ViewKFCType _Nonnull{

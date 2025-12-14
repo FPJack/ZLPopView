@@ -513,7 +513,9 @@ static inline UIView* _getViewFromViewKFC(ViewKFCType viewKFC) {
 - (void)addStartConstraint:(UIView *)v {
     UIEdgeInsets marge = self.layoutMargins;
     ZLViewConfigObj *config = v.kfc.layoutInStackView;
-    self.axis == UILayoutConstraintAxisHorizontal ? (config.startCons = [v.kfc topToView:v.superview offset:marge.top + config.alignmentMarge]) : (config.startCons = [v.kfc leadingToView:v.superview offset:marge.left + config.alignmentMarge]);
+    //self.axis == UILayoutConstraintAxisHorizontal ? (config.startCons = [v.kfc topToView:v.superview offset:marge.top + config.alignmentMarge]) : (config.startCons = [v.kfc leadingToView:v.superview offset:marge.left + config.alignmentMarge]);
+    self.axis == UILayoutConstraintAxisHorizontal ? (config.startCons = [v.topAnchor constraintEqualToAnchor:v.superview.layoutMarginsGuide.topAnchor constant:config.alignmentMarge].gm_enableActive) : (config.startCons = [v.leadingAnchor constraintEqualToAnchor:v.superview.layoutMarginsGuide.leadingAnchor constant:config.alignmentMarge].gm_enableActive);
+
     v.kfc.layoutInStackView.didSetupConstraints = YES;
     v.kfc.layoutInStackView.needUpdateConstraints = NO;
   
@@ -521,7 +523,9 @@ static inline UIView* _getViewFromViewKFC(ViewKFCType viewKFC) {
 - (void)addEndConstraint:(UIView *)v {
     UIEdgeInsets marge = self.layoutMargins;
     ZLViewConfigObj *config = v.kfc.layoutInStackView;
-    self.axis == UILayoutConstraintAxisHorizontal ?  (config.endCons=[v.kfc bottomToView:v.superview offset:-marge.bottom - config.alignmentMarge]):(config.endCons=[v.kfc trailingToView:v.superview offset:-marge.right - config.alignmentMarge]);
+    //self.axis == UILayoutConstraintAxisHorizontal ?  (config.endCons=[v.kfc bottomToView:v.superview offset:-marge.bottom - config.alignmentMarge]):(config.endCons=[v.kfc trailingToView:v.superview offset:-marge.right - config.alignmentMarge]);
+    self.axis == UILayoutConstraintAxisHorizontal ?  (config.endCons=[v.bottomAnchor constraintEqualToAnchor:v.superview.layoutMarginsGuide.bottomAnchor constant:-config.alignmentMarge].gm_enableActive):(config.endCons=[v.trailingAnchor constraintEqualToAnchor:v.superview.layoutMarginsGuide.trailingAnchor constant:-config.alignmentMarge].gm_enableActive);
+
     v.kfc.layoutInStackView.didSetupConstraints = YES;
     v.kfc.layoutInStackView.needUpdateConstraints = NO;
    
@@ -531,9 +535,12 @@ static inline UIView* _getViewFromViewKFC(ViewKFCType viewKFC) {
     UIEdgeInsets marge = self.layoutMargins;
     ZLViewConfigObj *config = v.kfc.layoutInStackView;
     if (self.axis == UILayoutConstraintAxisHorizontal) {
-        config.endCons = [v.kfc.view.bottomAnchor constraintLessThanOrEqualToAnchor:v.superview.bottomAnchor constant:-marge.bottom - config.alignmentMarge].gm_enableActive;
+        config.endCons = [[v.bottomAnchor constraintLessThanOrEqualToAnchor:v.superview.layoutMarginsGuide.bottomAnchor constant:-config.alignmentMarge] gm_enableActive];
+       // config.endCons = [v.kfc.view.bottomAnchor constraintLessThanOrEqualToAnchor:v.superview.bottomAnchor constant:-marge.bottom - config.alignmentMarge].gm_enableActive;
     }else {
-        config.endCons = [v.kfc.view.trailingAnchor constraintLessThanOrEqualToAnchor:v.superview.trailingAnchor constant:-marge.right - config.alignmentMarge].gm_enableActive;
+        //config.endCons = [v.kfc.view.trailingAnchor constraintLessThanOrEqualToAnchor:v.superview.trailingAnchor constant:-marge.right - config.alignmentMarge].gm_enableActive;
+        config.endCons = [v.trailingAnchor constraintLessThanOrEqualToAnchor:v.superview.layoutMarginsGuide.trailingAnchor constant:- config.alignmentMarge].gm_enableActive;
+
     }
 }
 
@@ -541,9 +548,13 @@ static inline UIView* _getViewFromViewKFC(ViewKFCType viewKFC) {
     UIEdgeInsets marge = self.layoutMargins;
     ZLViewConfigObj *config = v.kfc.layoutInStackView;
     if (self.axis == UILayoutConstraintAxisHorizontal) {
-        config.startCons = [v.kfc.view.topAnchor constraintGreaterThanOrEqualToAnchor:v.superview.topAnchor constant:marge.top + config.alignmentMarge].gm_enableActive;
+        //config.startCons = [v.kfc.view.topAnchor constraintGreaterThanOrEqualToAnchor:v.superview.topAnchor constant:marge.top + config.alignmentMarge].gm_enableActive;
+        config.startCons = [v.topAnchor constraintGreaterThanOrEqualToAnchor:v.superview.layoutMarginsGuide.topAnchor constant:config.alignmentMarge].gm_enableActive;
+
     }else {
-        config.startCons = [v.kfc.view.leadingAnchor constraintGreaterThanOrEqualToAnchor:v.superview.leadingAnchor constant:marge.left + config.alignmentMarge].gm_enableActive;
+        //config.startCons = [v.kfc.view.leadingAnchor constraintGreaterThanOrEqualToAnchor:v.superview.leadingAnchor constant:marge.left + config.alignmentMarge].gm_enableActive;
+        config.startCons = [v.leadingAnchor constraintGreaterThanOrEqualToAnchor:v.superview.layoutMarginsGuide.leadingAnchor constant:config.alignmentMarge].gm_enableActive;
+
     }
 }
 
