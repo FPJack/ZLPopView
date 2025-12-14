@@ -131,9 +131,9 @@ typedef void(^GMConfigureBlock)(ZLBuildConfigObj *configure);
 ///屏幕旋转监听回调, isLandscape 是否横屏,可拿到相对应的约束对象自行改变布局约束
 @property (nonatomic,readonly)ZLPopViewBuilder * (^orientationChangeBK)(ZLOrientationChangeBK);
 /// 底部到键盘的间距
-@property (nonatomic,readonly)ZLPopViewBuilder * (^bottomOffsetToKeyboardTop)(CGFloat );
+@property (nonatomic,readonly)ZLPopViewBuilder * (^bottomOffsetToKeyboardTop)(CGFloat offset);
 /// 设置父视图，默认window
-@property (nonatomic,readonly)ZLPopViewBuilder * (^popSuperView)(UIView *);
+@property (nonatomic,readonly)ZLPopViewBuilder * (^popSuperView)(UIView * superview);
 /// 顶部弹出
 - (ZLPopTopView* )buildTopPopView;
 @property (nonatomic,readonly)void (^showTopPopView)(void);
