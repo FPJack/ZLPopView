@@ -430,9 +430,9 @@ typedef id<ZLViewLayoutProtocol> ViewLayoutType;
 @property (nonatomic,readonly)ZLUIButtonConfigure* (^titleSystemFontSize)(CGFloat);
 @property (nonatomic,readonly)ZLUIButtonConfigure* (^titleSystemFontSizeMedium)(CGFloat);
 //UIColor or #333333
-@property (nonatomic,readonly)ZLUIButtonConfigure* (^titleColor)(id);
+@property (nonatomic,readonly)ZLUIButtonConfigure* (^titleColor)(id colorOrHex);
 ///UIColor or #333333
-@property (nonatomic,readonly)ZLUIButtonConfigure* (^titleColorForState)(id,UIControlState);
+@property (nonatomic,readonly)ZLUIButtonConfigure* (^titleColorForState)(id colorOrHex,UIControlState);
 @property (nonatomic,readonly)ZLUIButtonConfigure* (^selected)(BOOL);
 @property (nonatomic,readonly)ZLUIButtonConfigure* (^title)(NSString *);
 @property (nonatomic,readonly)ZLUIButtonConfigure* (^titleForState)(NSString *,UIControlState);
@@ -440,13 +440,13 @@ typedef id<ZLViewLayoutProtocol> ViewLayoutType;
 - (instancetype)titleAlignmentCenter;
 - (instancetype)titleAlignmentLeft;
 - (instancetype)titleAlignmentRight;
-@property (nonatomic,readonly)ZLUIButtonConfigure* (^highlightBgColor)(id);
+@property (nonatomic,readonly)ZLUIButtonConfigure* (^highlightBgColor)(id colorOrHex);
 - (instancetype)defaultHighlightBgColor;
 ///UIImage or #imageName
-@property (nonatomic,readonly)ZLUIButtonConfigure* (^imageForState)(id,UIControlState);
+@property (nonatomic,readonly)ZLUIButtonConfigure* (^imageForState)(id imageOrName,UIControlState state);
 ///设置normal状态下图片
-@property (nonatomic,readonly)ZLUIButtonConfigure* (^image)(id);
-@property (nonatomic,readonly)ZLUIButtonConfigure* (^imageForSelected)(id);
+@property (nonatomic,readonly)ZLUIButtonConfigure* (^image)(id imageOrName);
+@property (nonatomic,readonly)ZLUIButtonConfigure* (^imageForSelected)(id imageOrName);
 - (instancetype)blackTitleColor;
 - (instancetype)whiteTitleColor;
 @end
