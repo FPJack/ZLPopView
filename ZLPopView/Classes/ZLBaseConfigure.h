@@ -117,7 +117,20 @@ typedef NS_ENUM(NSInteger, ZLCrossAxisAlignment) {
 //@property (nonatomic,readonly)UIView *view;
 @end
 typedef id<ZLViewProtocol> ViewKFCType;
-@interface UIView()<ZLViewProtocol>
+
+
+@protocol ZLViewLayoutProtocol <NSObject>
+@end
+
+typedef id<ZLViewLayoutProtocol> ViewLayoutType;
+
+@interface UIView()<ZLViewProtocol,ZLViewLayoutProtocol>
+@end
+
+
+
+
+@interface NSLayoutAnchor()<ZLViewLayoutProtocol>
 @end
 
 
@@ -239,6 +252,37 @@ typedef id<ZLViewProtocol> ViewKFCType;
 ///UIColor or #333333
 @property (nonatomic,readonly) ObjectType (^borderColor)(id);
 @property (nonatomic,readonly) ObjectType (^borderWidth)(CGFloat);
+
+
+
+
+@property (nonatomic,readonly) ObjectType (^topTo)(ViewLayoutType _Nullable viewLayout,CGFloat constant);
+@property (nonatomic,readonly) ObjectType (^top)(CGFloat constant);
+
+@property (nonatomic,readonly) ObjectType (^bottomTo)(ViewLayoutType _Nullable viewLayout,CGFloat constant);
+@property (nonatomic,readonly) ObjectType (^bottom)(CGFloat constant);
+
+@property (nonatomic,readonly) ObjectType (^leadingTo)(ViewLayoutType _Nullable viewLayout,CGFloat constant);
+@property (nonatomic,readonly) ObjectType (^leading)(CGFloat constant);
+
+@property (nonatomic,readonly) ObjectType (^trailingTo)(ViewLayoutType _Nullable viewLayout,CGFloat constant);
+@property (nonatomic,readonly) ObjectType (^trailing)(CGFloat constant);
+
+@property (nonatomic,readonly) ObjectType (^centerTo)(UIView  * _Nullable view);
+
+@property (nonatomic,readonly) ObjectType (^centerXTo)(ViewLayoutType _Nullable viewLayout,CGFloat constant);
+@property (nonatomic,readonly) ObjectType (^centerX)(CGFloat constant);
+
+@property (nonatomic,readonly) ObjectType (^centerYTo)(ViewLayoutType _Nullable viewLayout,CGFloat constant);
+@property (nonatomic,readonly) ObjectType (^centerY)(CGFloat constant);
+
+
+@property (nonatomic,readonly) ObjectType (^heightTo)(ViewLayoutType  viewLayout);
+@property (nonatomic,readonly) ObjectType (^widthTo)(ViewLayoutType viewLayout);
+
+
+
+
 
 - (NSLayoutConstraint *)topToView:(UIView *)view offset:(CGFloat)offset;
 - (NSLayoutConstraint *)bottomToView:(UIView *)view offset:(CGFloat)offset;

@@ -178,10 +178,8 @@
 }
 - (void)showAlert {
   
-        NSArray *colors = @[(__bridge id)__UIColorFromObj(@"#95FF08").CGColor,
-                     (__bridge id)__UIColorFromObj(@"#B2FC48").CGColor,
-                     (__bridge id)__UIColorFromObj(@"#EFF7E0").CGColor,
-                     (__bridge id)__UIColorFromObj(@"#FFFFFF").CGColor,];
+
+    NSArray *colors = @[@"#95FF08",@"#B2FC48",@"#EFF7E0",@"#FFFFFF"];
     UIImageView *imgView = UIImageView.new;
     imgView.image = [UIImage imageNamed:@"infor_popshare_qq_nor"];
     imgView.frame = CGRectMake(200, -50, 50, 50);
@@ -211,8 +209,8 @@
             return imgView;
         })
         .layoutSubviewBK(^(ZLPopBaseView * _Nonnull popView) {
-            imgView.frame = CGRectMake((popView.containerView.frame.size.width - 50) / 2, popView.containerView.frame.size.height + 50, 50, 50);
             [popView.containerView addSubview:imgView];
+            imgView.kfc.size(50).centerTo(nil);
         });
     [view show];
 }

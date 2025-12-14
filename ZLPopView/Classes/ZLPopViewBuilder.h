@@ -101,8 +101,8 @@ typedef void(^GMConfigureBlock)(ZLBuildConfigObj *configure);
 
 ///内容视图的背景色
 @property (nonatomic,readonly)ZLPopViewBuilder * (^backgroundColor)(id bgColor);
-///  内容背景渐变色
-@property (nonatomic, readonly)ZLPopViewBuilder * (^bgGradientColors)(NSArray<UIColor *> * colors);
+///  内容背景渐变色,UIColor or #333333
+@property (nonatomic, readonly)ZLPopViewBuilder * (^bgGradientColors)(NSArray * colors);
 
 
 /// 背景蒙版颜色

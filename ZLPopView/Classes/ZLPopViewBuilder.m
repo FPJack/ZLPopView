@@ -89,8 +89,8 @@ static GMConfigureBlock configureBlock;
         return self;
     };
 }
-- (ZLPopViewBuilder * _Nonnull (^)(NSArray<UIColor *> * _Nonnull))bgGradientColors {
-    return ^ZLPopViewBuilder* (NSArray<UIColor *> * colors){
+- (ZLPopViewBuilder * _Nonnull (^)(NSArray* _Nonnull))bgGradientColors {
+    return ^ZLPopViewBuilder* (NSArray * colors){
         self.configObj.bgGradientColors = colors;
         return self;
     };

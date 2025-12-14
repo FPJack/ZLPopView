@@ -575,7 +575,15 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
         CAGradientLayer *layer = [CAGradientLayer layer];
         layer.startPoint = CGPointMake(0.5, 0); // 中上
         layer.endPoint = CGPointMake(0.5, 1); // 中上
-        layer.colors = self.configObj.bgGradientColors;
+        NSMutableArray *colors = NSMutableArray.array;
+        [self.configObj.bgGradientColors enumerateObjectsUsingBlock:^(UIColor * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            UIColor *color = __UIColorFromObj(obj);
+            if (color) {
+                [colors addObject:(__bridge id)color.CGColor];
+            }
+        }];
+        layer.colors = colors;
+        
         _gradLayer = layer;
     }
     return _gradLayer;

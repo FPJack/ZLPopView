@@ -743,6 +743,123 @@ static CGFloat _defaultThickness = 1.0f;
         }
     }];
 }
+
+- (id  _Nonnull (^)(ViewLayoutType _Nullable, CGFloat))topTo {
+    return ^id (ViewLayoutType _Nullable view, CGFloat c) {
+        view = view ?: self.view;
+        id anchor = [view isKindOfClass:UIView.class] ? ((UIView *)view).topAnchor : view;
+        [self translatesAutoresizingMaskIntoConstraints:NO];
+        [[self.view.topAnchor constraintEqualToAnchor:anchor constant:c] gm_enableActive];
+        return self;
+    };
+}
+- (id  _Nonnull (^)(CGFloat))top {
+    return ^id (CGFloat c) {
+        return self.topTo(self.view.superview,c);
+    };
+}
+
+- (id  _Nonnull (^)(ViewLayoutType _Nullable, CGFloat))bottomTo {
+    return ^id (ViewLayoutType _Nullable view, CGFloat c) {
+        view = view ?: self.view;
+        id anchor = [view isKindOfClass:UIView.class] ? ((UIView *)view).bottomAnchor : view;
+        [self translatesAutoresizingMaskIntoConstraints:NO];
+        [[self.view.bottomAnchor constraintEqualToAnchor:anchor constant:c] gm_enableActive];
+        return self;
+    };
+}
+
+- (id  _Nonnull (^)(CGFloat))bottom {
+    return ^id (CGFloat c) {
+        return self.bottomTo(self.view.superview,c);
+    };
+}
+
+- (id  _Nonnull (^)(ViewLayoutType _Nullable, CGFloat))leadingTo {
+    return ^id (ViewLayoutType _Nullable view, CGFloat c) {
+        view = view ?: self.view;
+        id anchor = [view isKindOfClass:UIView.class] ? ((UIView *)view).leadingAnchor : view;
+        [self translatesAutoresizingMaskIntoConstraints:NO];
+        [[self.view.leadingAnchor constraintEqualToAnchor:anchor constant:c] gm_enableActive];
+        return self;
+    };
+}
+- (id  _Nonnull (^)(CGFloat))leading {
+    return ^id (CGFloat c) {
+        return self.leadingTo(self.view.superview,c);
+    };
+}
+
+- (id  _Nonnull (^)(ViewLayoutType _Nullable, CGFloat))trailingTo {
+    return ^id (ViewLayoutType _Nullable view, CGFloat c) {
+        view = view ?: self.view;
+        id anchor = [view isKindOfClass:UIView.class] ? ((UIView *)view).trailingAnchor : view;
+        [self translatesAutoresizingMaskIntoConstraints:NO];
+        [[self.view.trailingAnchor constraintEqualToAnchor:anchor constant:c] gm_enableActive];
+        return self;
+    };
+}
+- (id  _Nonnull (^)(CGFloat))trailing {
+    return ^id (CGFloat c) {
+        return self.trailingTo(self.view.superview,c);
+    };
+}
+- (id  _Nonnull (^)(UIView * _Nullable))centerTo {
+    return ^id (UIView *  _Nullable view) {
+        self.centerX(0);
+        self.centerY(0);
+        return self;
+    };
+}
+- (id  _Nonnull (^)(ViewLayoutType _Nullable, CGFloat))centerXTo {
+    return ^id (ViewLayoutType _Nullable view, CGFloat c) {
+        view = view ?: self.view;
+        id anchor = [view isKindOfClass:UIView.class] ? ((UIView *)view).centerXAnchor : view;
+        [self translatesAutoresizingMaskIntoConstraints:NO];
+        [[self.view.centerXAnchor constraintEqualToAnchor:anchor constant:c] gm_enableActive];
+        return self;
+    };
+}
+- (id  _Nonnull (^)(CGFloat))centerX {
+    return ^id (CGFloat c) {
+        return self.centerXTo(self.view.superview,c);
+    };
+}
+
+- (id  _Nonnull (^)(ViewLayoutType _Nullable, CGFloat))centerYTo {
+    return ^id (ViewLayoutType _Nullable view, CGFloat c) {
+        view = view ?: self.view;
+        id anchor = [view isKindOfClass:UIView.class] ? ((UIView *)view).centerYAnchor : view;
+        [self translatesAutoresizingMaskIntoConstraints:NO];
+        [[self.view.centerYAnchor constraintEqualToAnchor:anchor constant:c] gm_enableActive];
+        return self;
+    };
+}
+- (id  _Nonnull (^)(CGFloat))centerY {
+    return ^id (CGFloat c) {
+        return self.centerYTo(self.view.superview,c);
+    };
+}
+- (id  _Nonnull (^)(ViewLayoutType _Nonnull))heightTo {
+    return ^id (ViewLayoutType _Nullable view) {
+        view = view ?: self.view;
+        id anchor = [view isKindOfClass:UIView.class] ? ((UIView *)view).heightAnchor : view;
+        [self translatesAutoresizingMaskIntoConstraints:NO];
+        [[self.view.heightAnchor constraintEqualToAnchor:anchor constant:0] gm_enableActive];
+        return self;
+    };
+}
+
+- (id  _Nonnull (^)(ViewLayoutType _Nonnull))widthTo {
+    return ^id (ViewLayoutType _Nullable view) {
+        view = view ?: self.view;
+        id anchor = [view isKindOfClass:UIView.class] ? ((UIView *)view).widthAnchor : view;
+        [self translatesAutoresizingMaskIntoConstraints:NO];
+        [[self.view.widthAnchor constraintEqualToAnchor:anchor constant:0] gm_enableActive];
+        return self;
+    };
+}
+
 - (NSLayoutConstraint *)topToView:(UIView *)view offset:(CGFloat)offset {
     if (!view) return nil;
     [self translatesAutoresizingMaskIntoConstraints:NO];
