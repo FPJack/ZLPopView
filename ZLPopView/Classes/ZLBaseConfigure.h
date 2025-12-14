@@ -277,8 +277,8 @@ typedef id<ZLViewLayoutProtocol> ViewLayoutType;
 @property (nonatomic,readonly) ObjectType (^centerY)(CGFloat constant);
 
 
-@property (nonatomic,readonly) ObjectType (^heightTo)(ViewLayoutType  viewLayout);
-@property (nonatomic,readonly) ObjectType (^widthTo)(ViewLayoutType viewLayout);
+@property (nonatomic,readonly) ObjectType (^heightEqTo)(ViewLayoutType  viewLayout);
+@property (nonatomic,readonly) ObjectType (^widthEqTo)(ViewLayoutType viewLayout);
 
 
 

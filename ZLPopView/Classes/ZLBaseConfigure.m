@@ -840,7 +840,7 @@ static CGFloat _defaultThickness = 1.0f;
         return self.centerYTo(self.view.superview,c);
     };
 }
-- (id  _Nonnull (^)(ViewLayoutType _Nonnull))heightTo {
+- (id  _Nonnull (^)(ViewLayoutType _Nonnull))heightEqTo {
     return ^id (ViewLayoutType _Nullable view) {
         view = view ?: self.view;
         id anchor = [view isKindOfClass:UIView.class] ? ((UIView *)view).heightAnchor : view;
@@ -850,7 +850,7 @@ static CGFloat _defaultThickness = 1.0f;
     };
 }
 
-- (id  _Nonnull (^)(ViewLayoutType _Nonnull))widthTo {
+- (id  _Nonnull (^)(ViewLayoutType _Nonnull))widthEqTo {
     return ^id (ViewLayoutType _Nullable view) {
         view = view ?: self.view;
         id anchor = [view isKindOfClass:UIView.class] ? ((UIView *)view).widthAnchor : view;
