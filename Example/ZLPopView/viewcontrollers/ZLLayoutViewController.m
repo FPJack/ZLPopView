@@ -105,12 +105,13 @@
     })
     .addView(UILabel.kfc.text(@"Column里面单独设置子view纵向对齐方式和间距"))
     .addViewBK(^ViewKFCType _Nonnull{
-        return kStackViewColumnBuilder
+       return kStackViewColumnBuilder
             .addView(self.randomColorView.kfc.startAlignment)
             .addView(self.randomColorView.kfc.endAlignment)
             .addView(self.randomColorView.kfc.centerAlignment)
             .addView(self.randomColorView.kfc.startAlign(20))
             .addView(self.randomColorView.kfc.endAlign(40))
+            .padding(10, 20, 30, 40)
             .buildStackView.kfc
             .backgroundColor(UIColor.redColor);
     })
@@ -129,7 +130,6 @@
             .addView(self.randomColorView)
             .addFlexSpaceView()
             .buildStackView;
-        
         return stackView;
     })
     .addView(UILabel.kfc.text(@"给view4个方向添加线条"))
