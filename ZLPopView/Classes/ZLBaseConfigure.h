@@ -254,8 +254,7 @@ typedef id<ZLViewLayoutProtocol> ViewLayoutType;
 @property (nonatomic,readonly) ObjectType (^borderWidth)(CGFloat);
 
 
-
-
+///布局方法，stackviiewbuilder里面使用无效，针对addSubview：对view进行手动布局
 @property (nonatomic,readonly) ObjectType (^topTo)(ViewLayoutType _Nullable viewLayout,CGFloat constant);
 @property (nonatomic,readonly) ObjectType (^top)(CGFloat constant);
 
@@ -280,6 +279,9 @@ typedef id<ZLViewLayoutProtocol> ViewLayoutType;
 @property (nonatomic,readonly) ObjectType (^heightEqTo)(ViewLayoutType  viewLayout);
 @property (nonatomic,readonly) ObjectType (^widthEqTo)(ViewLayoutType viewLayout);
 
+
+@property (nonatomic,readonly) ObjectType (^edgeTo)(UIView * _Nullable view,CGFloat top,CGFloat leading,CGFloat  bottom,CGFloat trailing);
+@property (nonatomic,readonly) ObjectType (^edge)(CGFloat top,CGFloat leading,CGFloat  bottom,CGFloat trailing);
 
 
 

@@ -180,13 +180,7 @@
   
 
     NSArray *colors = @[@"#95FF08",@"#B2FC48",@"#EFF7E0",@"#FFFFFF"];
-    UIImageView *imgView = UIImageView.new;
-    imgView.image = [UIImage imageNamed:@"infor_popshare_qq_nor"];
-    imgView.frame = CGRectMake(200, -50, 50, 50);
-    imgView.kfc.tapAction(^(__kindof UIView * _Nonnull view) {
-        NSLog(@"dddd");
-    });
-    imgView.tag = 101;
+    
     ZLPopBaseView *view =
         ZLPopViewBuilder.column
         .title(@"提示框")
@@ -205,12 +199,16 @@
             
         })
         .buildCenterPopView
-        .hitTestBK(^UIView * _Nullable(ZLPopBaseView * _Nonnull popView, CGPoint point, UIEvent * _Nonnull event, BOOL * _Nonnull stop) {
-            return imgView;
-        })
-        .layoutSubviewBK(^(ZLPopBaseView * _Nonnull popView) {
+        .initStateBK(^(ZLPopBaseView * _Nonnull popView) {
+            UIImageView *imgView = UIImageView.kfc.tag(101).image(@"infor_popshare_qq_nor")
+                .tapAction(^(__kindof UIView * _Nonnull view) {
+                NSLog(@"dddd");
+            }).view;
             [popView.containerView addSubview:imgView];
-            imgView.kfc.size(50).centerTo(nil);
+            imgView.kfc.size(50).centerX(0).topTo(popView.containerView.bottomAnchor, 50);
+        })
+        .hitTestBK(^UIView * _Nullable(ZLPopBaseView * _Nonnull popView, CGPoint point, UIEvent * _Nonnull event, BOOL * _Nonnull stop) {
+            return [popView viewWithTag:101];
         });
     [view show];
 }

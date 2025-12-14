@@ -746,7 +746,7 @@ static CGFloat _defaultThickness = 1.0f;
 
 - (id  _Nonnull (^)(ViewLayoutType _Nullable, CGFloat))topTo {
     return ^id (ViewLayoutType _Nullable view, CGFloat c) {
-        view = view ?: self.view;
+        view = view ?: self.view.superview;
         id anchor = [view isKindOfClass:UIView.class] ? ((UIView *)view).topAnchor : view;
         [self translatesAutoresizingMaskIntoConstraints:NO];
         [[self.view.topAnchor constraintEqualToAnchor:anchor constant:c] gm_enableActive];
@@ -761,7 +761,7 @@ static CGFloat _defaultThickness = 1.0f;
 
 - (id  _Nonnull (^)(ViewLayoutType _Nullable, CGFloat))bottomTo {
     return ^id (ViewLayoutType _Nullable view, CGFloat c) {
-        view = view ?: self.view;
+        view = view ?: self.view.superview;
         id anchor = [view isKindOfClass:UIView.class] ? ((UIView *)view).bottomAnchor : view;
         [self translatesAutoresizingMaskIntoConstraints:NO];
         [[self.view.bottomAnchor constraintEqualToAnchor:anchor constant:c] gm_enableActive];
@@ -777,7 +777,7 @@ static CGFloat _defaultThickness = 1.0f;
 
 - (id  _Nonnull (^)(ViewLayoutType _Nullable, CGFloat))leadingTo {
     return ^id (ViewLayoutType _Nullable view, CGFloat c) {
-        view = view ?: self.view;
+        view = view ?: self.view.superview;
         id anchor = [view isKindOfClass:UIView.class] ? ((UIView *)view).leadingAnchor : view;
         [self translatesAutoresizingMaskIntoConstraints:NO];
         [[self.view.leadingAnchor constraintEqualToAnchor:anchor constant:c] gm_enableActive];
@@ -792,7 +792,7 @@ static CGFloat _defaultThickness = 1.0f;
 
 - (id  _Nonnull (^)(ViewLayoutType _Nullable, CGFloat))trailingTo {
     return ^id (ViewLayoutType _Nullable view, CGFloat c) {
-        view = view ?: self.view;
+        view = view ?: self.view.superview;
         id anchor = [view isKindOfClass:UIView.class] ? ((UIView *)view).trailingAnchor : view;
         [self translatesAutoresizingMaskIntoConstraints:NO];
         [[self.view.trailingAnchor constraintEqualToAnchor:anchor constant:c] gm_enableActive];
@@ -813,7 +813,7 @@ static CGFloat _defaultThickness = 1.0f;
 }
 - (id  _Nonnull (^)(ViewLayoutType _Nullable, CGFloat))centerXTo {
     return ^id (ViewLayoutType _Nullable view, CGFloat c) {
-        view = view ?: self.view;
+        view = view ?: self.view.superview;
         id anchor = [view isKindOfClass:UIView.class] ? ((UIView *)view).centerXAnchor : view;
         [self translatesAutoresizingMaskIntoConstraints:NO];
         [[self.view.centerXAnchor constraintEqualToAnchor:anchor constant:c] gm_enableActive];
@@ -828,7 +828,7 @@ static CGFloat _defaultThickness = 1.0f;
 
 - (id  _Nonnull (^)(ViewLayoutType _Nullable, CGFloat))centerYTo {
     return ^id (ViewLayoutType _Nullable view, CGFloat c) {
-        view = view ?: self.view;
+        view = view ?: self.view.superview;
         id anchor = [view isKindOfClass:UIView.class] ? ((UIView *)view).centerYAnchor : view;
         [self translatesAutoresizingMaskIntoConstraints:NO];
         [[self.view.centerYAnchor constraintEqualToAnchor:anchor constant:c] gm_enableActive];
@@ -842,7 +842,7 @@ static CGFloat _defaultThickness = 1.0f;
 }
 - (id  _Nonnull (^)(ViewLayoutType _Nonnull))heightEqTo {
     return ^id (ViewLayoutType _Nullable view) {
-        view = view ?: self.view;
+        if (!view) return self;
         id anchor = [view isKindOfClass:UIView.class] ? ((UIView *)view).heightAnchor : view;
         [self translatesAutoresizingMaskIntoConstraints:NO];
         [[self.view.heightAnchor constraintEqualToAnchor:anchor constant:0] gm_enableActive];
@@ -852,11 +852,30 @@ static CGFloat _defaultThickness = 1.0f;
 
 - (id  _Nonnull (^)(ViewLayoutType _Nonnull))widthEqTo {
     return ^id (ViewLayoutType _Nullable view) {
-        view = view ?: self.view;
+        if (!view) return self;
         id anchor = [view isKindOfClass:UIView.class] ? ((UIView *)view).widthAnchor : view;
         [self translatesAutoresizingMaskIntoConstraints:NO];
         [[self.view.widthAnchor constraintEqualToAnchor:anchor constant:0] gm_enableActive];
         return self;
+    };
+}
+
+- (id  _Nonnull (^)(UIView *view, CGFloat, CGFloat, CGFloat, CGFloat))edgeTo   {
+    return ^id (UIView * view, CGFloat t,CGFloat l,CGFloat b,CGFloat trailing) {
+        view = view ?: self.view.superview;
+        [self translatesAutoresizingMaskIntoConstraints:NO];
+        [NSLayoutConstraint activateConstraints:@[
+            [self.view.topAnchor constraintEqualToAnchor:view.topAnchor constant:t],
+            [self.view.leadingAnchor constraintEqualToAnchor:view.leadingAnchor constant:l],
+            [self.view.bottomAnchor constraintEqualToAnchor:view.bottomAnchor constant:b],
+            [self.view.trailingAnchor constraintEqualToAnchor:view.trailingAnchor constant:trailing],
+        ]];
+        return self;
+    };
+}
+- (id  _Nonnull (^)(CGFloat, CGFloat, CGFloat, CGFloat))edge {
+    return ^id (CGFloat t,CGFloat l,CGFloat b,CGFloat trailing) {
+        return self.edgeTo(self.view.superview,t,l,b,trailing);
     };
 }
 
