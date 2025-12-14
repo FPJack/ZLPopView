@@ -282,6 +282,8 @@ typedef id<ZLViewLayoutProtocol> ViewLayoutType;
 
 @property (nonatomic,readonly) ObjectType (^edgeTo)(UIView * _Nullable view,CGFloat top,CGFloat leading,CGFloat  bottom,CGFloat trailing);
 @property (nonatomic,readonly) ObjectType (^edge)(CGFloat top,CGFloat leading,CGFloat  bottom,CGFloat trailing);
+@property (nonatomic,readonly) ObjectType (^edgeZero)(void);
+
 
 
 

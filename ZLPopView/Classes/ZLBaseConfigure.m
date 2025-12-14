@@ -878,7 +878,11 @@ static CGFloat _defaultThickness = 1.0f;
         return self.edgeTo(self.view.superview,t,l,b,trailing);
     };
 }
-
+- (id  _Nonnull (^)(void))edgeZero {
+    return ^id (void) {
+        return self.edge(0,0,0,0);
+    };
+}
 - (NSLayoutConstraint *)topToView:(UIView *)view offset:(CGFloat)offset {
     if (!view) return nil;
     [self translatesAutoresizingMaskIntoConstraints:NO];
@@ -1225,6 +1229,7 @@ static CGFloat _defaultThickness = 1.0f;
 @dynamic enableConfigBK;
 @dynamic disableConfigBK;
 @dynamic updateViewModelBK;
+@dynamic applyStyleBK;
 - (ZLUILabelConfigure* (^)(UIFont *))font {
     return  ^ZLUILabelConfigure*(UIFont *font){
         self.view.font = font;
@@ -1321,6 +1326,8 @@ static CGFloat _defaultThickness = 1.0f;
 @dynamic enableConfigBK;
 @dynamic disableConfigBK;
 @dynamic updateViewModelBK;
+@dynamic applyStyleBK;
+
 - (ZLUITextFieldConfigure* (^)(UIFont *))font{
     return  ^ZLUITextFieldConfigure*(UIFont *font){
         self.view.font = font;
@@ -1410,6 +1417,8 @@ static CGFloat _defaultThickness = 1.0f;
 @dynamic enableConfigBK;
 @dynamic disableConfigBK;
 @dynamic updateViewModelBK;
+@dynamic applyStyleBK;
+
 @end
 
 @interface ZLUIButtonConfigure()
@@ -1420,6 +1429,8 @@ static CGFloat _defaultThickness = 1.0f;
 @dynamic enableConfigBK;
 @dynamic disableConfigBK;
 @dynamic updateViewModelBK;
+@dynamic applyStyleBK;
+
 - (NSMutableArray *)touchBlocks {
     if (!_touchBlocks) {
         _touchBlocks = [NSMutableArray array];
@@ -1572,6 +1583,8 @@ static CGFloat _defaultThickness = 1.0f;
 
 
 @implementation ZLUIImageViewConfigure
+@dynamic applyStyleBK;
+
 - (ZLUIImageViewConfigure * (^)(id ))image {
     return  ^ZLUIImageViewConfigure *(id image){
         UIImage *img = nil;
@@ -1595,6 +1608,8 @@ static CGFloat _defaultThickness = 1.0f;
 @property (nonatomic,copy)void(^valueChangedBlock)(UISwitch *sw);
 @end
 @implementation ZLUISwitchConfigure
+@dynamic applyStyleBK;
+
 - (ZLUISwitchConfigure * _Nonnull (^)(BOOL))on {
     return ^ZLUISwitchConfigure* (BOOL isOn) {
         self.view.on = isOn;
@@ -1616,14 +1631,17 @@ static CGFloat _defaultThickness = 1.0f;
 @end
 
 @implementation ZLUISliderConfigure
+@dynamic applyStyleBK;
 
 @end
 
 @implementation ZLUIStackViewConfigure
+@dynamic applyStyleBK;
 
 @end
 
 @implementation ZLUIScrollViewConfigure
+@dynamic applyStyleBK;
 
 @end
 
