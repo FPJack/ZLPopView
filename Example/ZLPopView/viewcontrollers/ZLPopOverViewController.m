@@ -29,9 +29,9 @@
 }
 - (UIView *)addItem {
     return ZLStackViewBuilder.row.addViewBK(^UIView * _Nonnull{
-        return [UIButton buttonWithType:UIButtonTypeContactAdd];
+        return [UIButton buttonWithType:UIButtonTypeContactAdd].kfc.size(30).view;
     }).addViewBK(^UIView * _Nonnull{
-        return UILabel.new.kfc.text([self text]).view;
+        return UILabel.new.kfc.multipleLines.text([self text]).view;
     }).space(20).buildStackView;
 }
 
@@ -114,6 +114,7 @@
         .borderColor(UIColor.redColor)
         .borderWidth(2)
         .inset(10, 10, 10, 10)
+    .maxWidth(150)
 //        .setInset(UIEdgeInsetsZero)
         .maskColor([UIColor.blackColor colorWithAlphaComponent:0.3])
         .corners(UIRectCornerAllCorners)
@@ -127,7 +128,7 @@
         .showPopView();
 }
 - (NSString *)text {
-    NSUInteger length = arc4random_uniform(20) + 1; // 1~1000
+    NSUInteger length = arc4random_uniform(50) + 1; // 1~1000
     NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     NSMutableString *randomString = [NSMutableString stringWithCapacity:length];
     for (NSUInteger i = 0; i < length; i++) {
