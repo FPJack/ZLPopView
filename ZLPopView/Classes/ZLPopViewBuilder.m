@@ -95,6 +95,19 @@ static GMConfigureBlock configureBlock;
         return self;
     };
 }
+- (ZLPopViewBuilder * _Nonnull (^)(id _Nonnull))bgImage {
+    return ^ZLPopViewBuilder* (id image){
+        self.configObj.bgImage = image;
+        return self;
+    };
+}
+- (ZLPopViewBuilder * _Nonnull (^)(UIViewContentMode))bgImgageContentMode {
+    return ^ZLPopViewBuilder* (UIViewContentMode mode){
+        self.configObj.bgImgageContentMode = mode;
+        return self;
+    };
+    
+}
 - (ZLPopViewBuilder* (^)(id ))maskColor {
     return  ^ZLPopViewBuilder*(id color){
         self.configObj.maskColor = __UIColorFromObj(color);

@@ -188,6 +188,8 @@
         .bottomOffsetToKeyboardTop(50)
         .bgGradientColors(colors)
         .alertWidth270
+        .bgImage(@"infor_popshare_friends_nor")
+        .bgImgageContentMode(UIViewContentModeScaleAspectFit)
         .addTextField(^(UITextField * _Nonnull textField) {
             textField.placeholder = @"请输入内容";
         })

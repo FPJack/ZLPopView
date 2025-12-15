@@ -20,6 +20,7 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
 @interface _ZLView ()
 @end
 @implementation _ZLView
+
 - (UIView *)contentView {
     if (!_contentView){
         _contentView = UIView.new;
@@ -395,6 +396,8 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
 @property (nonatomic,strong)CAGradientLayer *gradLayer;
 @property (nonatomic,copy)ZLHitTestBK hitTestBlock;
 
+@property (nonatomic,strong)UIImageView *bgImageView;
+
 
 - (void)gm_pan:(UIPanGestureRecognizer *)gesture;
 - (void)popViewWillShow:(ZLPopBaseView *)popView;
@@ -588,6 +591,16 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
     }
     return _gradLayer;
 }
+- (UIImageView *)bgImageView {
+    if (!_bgImageView) {
+        _bgImageView =  UIImageView.kfc
+            .image(self.configObj.bgImage)
+            .contentMode(self.configObj.bgImgageContentMode)
+            .addedToSuperview(self.containerView.contentView)
+            .edgeZero().view;
+    }
+    return _bgImageView;
+}
 - (void)gm_tap {
     [self dismiss];
 }
@@ -738,6 +751,10 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
         [keyboardViews addObject:self];
     }
     [self blurView];
+    
+    if (j.bgImage) [self bgImageView];
+    
+    
     [self.containerView.contentView addSubview:self.buildView];
     [self addSubview:self.containerView];
     UIView *parentView = self.parentView ? self.parentView : [self getKeyWindow];

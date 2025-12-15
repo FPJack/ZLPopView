@@ -97,6 +97,8 @@ typedef void(^PopViewCallbackBK) (ZLPopBaseView *popView);
 @property (nonatomic,strong)UIView *containerView;
 @property (nonatomic,copy)UIColor *backgroundColor;
 @property (nonatomic, strong) NSArray *bgGradientColors;
+@property (nonatomic, strong) id bgImage;
+@property (nonatomic,assign)UIViewContentMode bgImgageContentMode;
 @property (nonatomic,strong)UIStackView *stackView;
 @property (nonatomic,strong)UIColor *maskColor;
 @property (nonatomic,assign)UIRectCorner corners;
