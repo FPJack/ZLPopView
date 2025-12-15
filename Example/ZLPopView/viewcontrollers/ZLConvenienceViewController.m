@@ -186,19 +186,22 @@
         .message(@"这是一个简单的提示。")
         .avoidKeyboardPopViewBottom
         .bottomOffsetToKeyboardTop(50)
-        .bgGradientColors(colors)
+//        .bgGradientColors(colors)
+        .maskColor(UIColor.black80)
+        .backgroundColor(UIColor.clearColor)
         .alertWidth270
-        .bgImage(@"infor_popshare_friends_nor")
-        .bgImgageContentMode(UIViewContentModeScaleAspectFit)
-        .addTextField(^(UITextField * _Nonnull textField) {
-            textField.placeholder = @"请输入内容";
-        })
-        .addCancelViewStyleActionText(@"取消", ^(UIView * _Nonnull view) {
-            
-        })
-        .addButtonViewStyleActionText(@"按钮", ^(UIView * _Nonnull view) {
-            
-        })
+        .height(270 * 1323.0 / 1125)
+        .bgImage(@"pic-bg1")
+        .bgImgageContentMode(UIViewContentModeScaleAspectFill)
+//        .addTextField(^(UITextField * _Nonnull textField) {
+//            textField.placeholder = @"请输入内容";
+//        })
+//        .addCancelViewStyleActionText(@"取消", ^(UIView * _Nonnull view) {
+//            
+//        })
+//        .addButtonViewStyleActionText(@"按钮", ^(UIView * _Nonnull view) {
+//            
+//        })
         .buildCenterPopView
         .initStateBK(^(ZLPopBaseView * _Nonnull popView) {
                 UIImageView.kfc

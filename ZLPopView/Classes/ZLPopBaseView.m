@@ -18,6 +18,8 @@
 #define kBB @"BB"
 static NSHashTable<ZLPopBaseView *> *keyboardViews;
 @interface _ZLView ()
+@property (nonatomic,assign)UIViewContentMode bgImageContentMode;
+@property (nonatomic,copy)UIImage *image;
 @end
 @implementation _ZLView
 
@@ -116,6 +118,135 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
 - (void)setBorderWidth:(CGFloat)borderWidth {
     _borderWidth = borderWidth;
     [self setNeedsLayout];
+}
+- (void)setImage:(UIImage *)image {
+    _image = image;
+    [self setNeedsDisplay];
+}
+- (void)drawRect:(CGRect)rect {
+    [super drawRect:rect];
+    if (!self.image || ![self.image isKindOfClass:UIImage.class]) return;
+    
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    if (!context) return;
+    
+    // 计算绘制区域
+    CGRect drawRect = [self rectForContentModeInBounds:self.bounds imageSize:self.image.size];
+    
+    // 绘制图片
+    [self.image drawInRect:drawRect];
+}
+- (CGRect)rectForContentModeInBounds:(CGRect)bounds imageSize:(CGSize)imageSize {
+    if (imageSize.width == 0 || imageSize.height == 0) {
+        return CGRectZero;
+    }
+    CGRect rect = CGRectZero;
+    CGFloat viewRatio = bounds.size.width / bounds.size.height;
+    CGFloat imageRatio = imageSize.width / imageSize.height;
+    
+    switch (self.bgImageContentMode) {
+        case UIViewContentModeScaleToFill:
+            rect = bounds;
+            break;
+            
+        case UIViewContentModeScaleAspectFit: {
+            if (viewRatio > imageRatio) {
+                // 视图更宽，按高度缩放
+                CGFloat width = bounds.size.height * imageRatio;
+                rect = CGRectMake((bounds.size.width - width) * 0.5,
+                                  0,
+                                  width,
+                                  bounds.size.height);
+            } else {
+                // 视图更高，按宽度缩放
+                CGFloat height = bounds.size.width / imageRatio;
+                rect = CGRectMake(0,
+                                  (bounds.size.height - height) * 0.5,
+                                  bounds.size.width,
+                                  height);
+            }
+            break;
+        }
+            
+        case UIViewContentModeScaleAspectFill: {
+            if (viewRatio > imageRatio) {
+                // 视图更宽，按宽度缩放，裁剪上下
+                CGFloat height = bounds.size.width / imageRatio;
+                rect = CGRectMake(0,
+                                  (bounds.size.height - height) * 0.5,
+                                  bounds.size.width,
+                                  height);
+            } else {
+                // 视图更高，按高度缩放，裁剪左右
+                CGFloat width = bounds.size.height * imageRatio;
+                rect = CGRectMake((bounds.size.width - width) * 0.5,
+                                  0,
+                                  width,
+                                  bounds.size.height);
+            }
+            break;
+        }
+            
+        case UIViewContentModeCenter:
+            rect = CGRectMake((bounds.size.width - imageSize.width) * 0.5,
+                              (bounds.size.height - imageSize.height) * 0.5,
+                              imageSize.width,
+                              imageSize.height);
+            break;
+            
+        case UIViewContentModeTop:
+            rect = CGRectMake((bounds.size.width - imageSize.width) * 0.5,
+                              0,
+                              imageSize.width,
+                              imageSize.height);
+            break;
+            
+        case UIViewContentModeBottom:
+            rect = CGRectMake((bounds.size.width - imageSize.width) * 0.5,
+                              bounds.size.height - imageSize.height,
+                              imageSize.width,
+                              imageSize.height);
+            break;
+            
+        case UIViewContentModeLeft:
+            rect = CGRectMake(0,
+                              (bounds.size.height - imageSize.height) * 0.5,
+                              imageSize.width,
+                              imageSize.height);
+            break;
+            
+        case UIViewContentModeRight:
+            rect = CGRectMake(bounds.size.width - imageSize.width,
+                              (bounds.size.height - imageSize.height) * 0.5,
+                              imageSize.width,
+                              imageSize.height);
+            break;
+            
+        case UIViewContentModeTopLeft:
+            rect = CGRectMake(0, 0, imageSize.width, imageSize.height);
+            break;
+            
+        case UIViewContentModeTopRight:
+            rect = CGRectMake(bounds.size.width - imageSize.width, 0, imageSize.width, imageSize.height);
+            break;
+            
+        case UIViewContentModeBottomLeft:
+            rect = CGRectMake(0, bounds.size.height - imageSize.height, imageSize.width, imageSize.height);
+            break;
+            
+        case UIViewContentModeBottomRight:
+            rect = CGRectMake(bounds.size.width - imageSize.width,
+                              bounds.size.height - imageSize.height,
+                              imageSize.width,
+                              imageSize.height);
+            break;
+            
+        default:
+            rect = bounds;
+            break;
+    }
+    
+    return rect;
 }
 @end
 
@@ -396,8 +527,6 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
 @property (nonatomic,strong)CAGradientLayer *gradLayer;
 @property (nonatomic,copy)ZLHitTestBK hitTestBlock;
 
-@property (nonatomic,strong)UIImageView *bgImageView;
-
 
 - (void)gm_pan:(UIPanGestureRecognizer *)gesture;
 - (void)popViewWillShow:(ZLPopBaseView *)popView;
@@ -591,16 +720,7 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
     }
     return _gradLayer;
 }
-- (UIImageView *)bgImageView {
-    if (!_bgImageView) {
-        _bgImageView =  UIImageView.kfc
-            .image(self.configObj.bgImage)
-            .contentMode(self.configObj.bgImgageContentMode)
-            .addedToSuperview(self.containerView.contentView)
-            .edgeZero().view;
-    }
-    return _bgImageView;
-}
+
 - (void)gm_tap {
     [self dismiss];
 }
@@ -751,8 +871,12 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
         [keyboardViews addObject:self];
     }
     [self blurView];
-    
-    if (j.bgImage) [self bgImageView];
+
+    if (j.bgImage) {
+        UIImage *image = [j.bgImage isKindOfClass:UIImage.class] ? (UIImage*)j.bgImage : [UIImage imageNamed:j.bgImage];
+        self.containerView.bgImageContentMode = j.bgImgageContentMode;
+        self.containerView.image = image;
+    }
     
     
     [self.containerView.contentView addSubview:self.buildView];
@@ -1876,7 +2000,7 @@ horizontalMarge {return 0;}
         }else{
             offset = rH / 2;
         }
-        offset -= self.aH/2;
+        offset -= self.aW/2;
         oX = d == ZLPopOverDirectionLeft ? oX + (rW+_aH)/2 : oX - (rW+_aH)/2;
     }
     CGFloat s = _s;
