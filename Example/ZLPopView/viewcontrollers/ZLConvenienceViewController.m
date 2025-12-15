@@ -179,7 +179,7 @@
 - (void)showAlert {
   
 
-    NSArray *colors = @[@"#95FF08",@"#B2FC48",@"#EFF7E0",@"#FFFFFF"];
+    NSArray *colors = @[@"#D2F999",@"#EFF7E0",@"#FFFFFF"];
     ZLPopBaseView *view =
         ZLPopViewBuilder.column
         .title(@"提示框")
@@ -201,7 +201,7 @@
         .initStateBK(^(ZLPopBaseView * _Nonnull popView) {
                 UIImageView.kfc
                 .tag(101).image(@"infor_popshare_qq_nor")
-                .addedSuperview(popView.containerView)
+                .addedToSuperview(popView.containerView)
                 .size(50).centerX(0).topTo(popView.containerView.bottomAnchor, 50)
                 .tapAction(^(__kindof UIView * _Nonnull view) {
                     NSLog(@"dddd");

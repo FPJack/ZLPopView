@@ -743,7 +743,7 @@ static CGFloat _defaultThickness = 1.0f;
         }
     }];
 }
-- (id  _Nonnull (^)(UIView * _Nonnull))addedSuperview {
+- (id  _Nonnull (^)(UIView * _Nonnull))addedToSuperview {
     return ^id (UIView *superview) {
         if ([superview isKindOfClass:UIView.class] && ![superview isEqual:self.view]) {
             [superview addSubview:self.view];
