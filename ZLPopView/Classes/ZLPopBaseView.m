@@ -1750,19 +1750,7 @@ horizontalMarge {return 0;}
     }
     return self;
 }
-- (void)setD:(ZLPopOverDirection)d {
-    if (d == ZLPopOverDirectionLeft || d == ZLPopOverDirectionRight) {
-        if ([UIView userInterfaceLayoutDirectionForSemanticContentAttribute:UIView.appearance.semanticContentAttribute] == UIUserInterfaceLayoutDirectionRightToLeft) {
-            if (d == ZLPopOverDirectionLeft) {
-                _d = ZLPopOverDirectionRight;
-            }else {
-                _d = ZLPopOverDirectionLeft;
-            }
-            return;
-        }
-    }
-    _d = d;
-}
+
 - (void)setConfigObj:(ZLBuildConfigObj *)configObj {
     [super setConfigObj: configObj];
     self.containerView.shadowColor = UIColor.clearColor;
@@ -1814,6 +1802,15 @@ horizontalMarge {return 0;}
 - (void)show{
     if (self.pageState == ZLPopViewPageStateShowing || self.pageState == ZLPopViewPageStateDidShow) return;
     [super show];
+    if (self.d == ZLPopOverDirectionLeft || self.d == ZLPopOverDirectionRight) {
+        if ([UIView userInterfaceLayoutDirectionForSemanticContentAttribute:UIView.appearance.semanticContentAttribute] == UIUserInterfaceLayoutDirectionRightToLeft) {
+            if (self.d == ZLPopOverDirectionLeft) {
+                self.d = ZLPopOverDirectionRight;
+            }else {
+                self.d = ZLPopOverDirectionLeft;
+            }
+        }
+    }
     ZLBuildConfigObj *j = self.configObj;
     UIView *view = self.containerView;
     //如果分开写约束top 约束一定要写到bottom约束的前面，不然布局有问题
