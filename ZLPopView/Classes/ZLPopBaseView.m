@@ -1750,6 +1750,19 @@ horizontalMarge {return 0;}
     }
     return self;
 }
+- (void)setD:(ZLPopOverDirection)d {
+    if (d == ZLPopOverDirectionLeft || d == ZLPopOverDirectionRight) {
+        if ([UIView userInterfaceLayoutDirectionForSemanticContentAttribute:UIView.appearance.semanticContentAttribute] == UIUserInterfaceLayoutDirectionRightToLeft) {
+            if (d == ZLPopOverDirectionLeft) {
+                _d = ZLPopOverDirectionRight;
+            }else {
+                _d = ZLPopOverDirectionLeft;
+            }
+            return;
+        }
+    }
+    _d = d;
+}
 - (void)setConfigObj:(ZLBuildConfigObj *)configObj {
     [super setConfigObj: configObj];
     self.containerView.shadowColor = UIColor.clearColor;
