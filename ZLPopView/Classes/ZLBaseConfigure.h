@@ -289,7 +289,7 @@ typedef id<ZLViewLayoutProtocol> ViewLayoutType;
 
 
 
-
+- (instancetype)removeAllConstraints;
 - (NSLayoutConstraint *)topToView:(UIView *)view offset:(CGFloat)offset;
 - (NSLayoutConstraint *)bottomToView:(UIView *)view offset:(CGFloat)offset;
 - (NSLayoutConstraint *)leadingToView:(UIView *)view offset:(CGFloat)offset;

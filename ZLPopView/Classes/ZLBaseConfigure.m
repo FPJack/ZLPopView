@@ -963,7 +963,25 @@ static CGFloat _defaultThickness = 1.0f;
         [self.view.trailingAnchor constraintEqualToAnchor:view.trailingAnchor constant:edge.right].gm_enableActive
     ];
 }
+- (instancetype)removeAllConstraints{
+    UIView *view = self.view;
+    // 1. 移除自身约束
+    [view removeConstraints:view.constraints];
 
+    // 2. 移除父视图中引用该 view 的约束
+    UIView *superView = view.superview;
+    if (!superView) return self;
+
+    NSMutableArray *toRemove = [NSMutableArray array];
+    for (NSLayoutConstraint *constraint in superView.constraints) {
+        if (constraint.firstItem == view ||
+            constraint.secondItem == view) {
+            [toRemove addObject:constraint];
+        }
+    }
+    [superView removeConstraints:toRemove];
+    return self;
+}
 - (instancetype (^)(CGFloat ))height{
     return ^ZLBaseConfigure* (CGFloat height) {
         [[self setViewHeight:height] gm_enableActive];

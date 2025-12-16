@@ -190,18 +190,17 @@
         .maskColor(UIColor.black80)
         .backgroundColor(UIColor.clearColor)
         .alertWidth270
-        .height(270 * 1323.0 / 1125)
 //        .bgImage(@"pic-bg1")
         .bgImgageContentMode(UIViewContentModeScaleAspectFill)
-//        .addTextField(^(UITextField * _Nonnull textField) {
-//            textField.placeholder = @"请输入内容";
-//        })
-//        .addCancelViewStyleActionText(@"取消", ^(UIView * _Nonnull view) {
-//            
-//        })
-//        .addButtonViewStyleActionText(@"按钮", ^(UIView * _Nonnull view) {
-//            
-//        })
+        .addTextField(^(UITextField * _Nonnull textField) {
+            textField.placeholder = @"请输入内容";
+        })
+        .addCancelViewStyleActionText(@"取消", ^(UIView * _Nonnull view) {
+            
+        })
+        .addButtonViewStyleActionText(@"按钮", ^(UIView * _Nonnull view) {
+            
+        })
         .buildCenterPopView
         .initStateBK(^(ZLPopBaseView * _Nonnull popView) {
                 UIImageView.kfc
