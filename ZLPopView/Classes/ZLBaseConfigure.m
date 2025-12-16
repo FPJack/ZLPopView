@@ -93,7 +93,6 @@
 @interface ZLBaseConfigure()
 @property (nonatomic,weak,readwrite)UIView *view;
 @property (nonatomic,copy)void(^tapActionBlock)(id view);
-@property (nonatomic,assign,readwrite)BOOL shoulddismissPopViewWhenTap;
 @property (nonatomic,assign,readwrite)BOOL isFirstResponder;
 @property (nonatomic,strong)ZLViewConfigObj *layoutInStackView;
 @property (nonatomic,assign,readwrite)UIEdgeInsets margeViewInset;

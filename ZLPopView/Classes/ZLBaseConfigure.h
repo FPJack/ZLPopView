@@ -138,7 +138,6 @@ typedef id<ZLViewLayoutProtocol> ViewLayoutType;
 @property (nonatomic,weak,readonly)ObjectView view;
 ///返回view或者view的父视图(设置了marge参数的时候)
 @property (nonatomic,weak,readonly)UIView *margeView;
-@property (nonatomic,assign,readonly)BOOL shoulddismissPopViewWhenTap;
 @property (nonatomic,assign,readonly)BOOL isFirstResponder;
 @property (nonatomic,assign,readonly)CGFloat alignmentMarge;
 @property (nonatomic,assign,readonly)ZLCrossAxisAlignment alignment;

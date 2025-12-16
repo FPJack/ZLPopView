@@ -190,7 +190,7 @@
         .maskColor(UIColor.black80)
         .backgroundColor(UIColor.clearColor)
         .alertWidth270
-//        .bgImage(@"pic-bg1")
+        //.bgImage(@"pic-bg1")
         .bgImgageContentMode(UIViewContentModeScaleAspectFill)
         .addTextField(^(UITextField * _Nonnull textField) {
             textField.placeholder = @"请输入内容";
@@ -203,11 +203,11 @@
         })
         .buildCenterPopView
         .initStateBK(^(ZLPopBaseView * _Nonnull popView) {
-            UIButton.kfc
+                UIButton.kfc
                 .tag(101).image(@"close")
+                .dismissPopViewWhenTap
                 .addedToSuperview(popView.containerView)
-                .centerX(0).topTo(popView.containerView.bottomAnchor, 50)
-                .dismissPopViewWhenTap;
+                .centerX(0).topTo(popView.containerView.bottomAnchor, 50);
         })
         .hitTestBK(^UIView * _Nullable(ZLPopBaseView * _Nonnull popView, CGPoint point, UIEvent * _Nonnull event, BOOL * _Nonnull stop) {
             return [popView viewWithTag:101];
