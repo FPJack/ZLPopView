@@ -91,11 +91,11 @@
     [self show:ZLPopOverDirectionDown sender:sender];
 }
 - (IBAction)centerleft:(id)sender {
-    [self show:ZLPopOverDirectionLeft sender:sender];
+    [self show:ZLPopOverDirectionLeading sender:sender];
 
 }
 - (IBAction)centerRight:(id)sender {
-    [self show:ZLPopOverDirectionRight sender:sender];
+    [self show:ZLPopOverDirectionTrailing sender:sender];
 
 }
 

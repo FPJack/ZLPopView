@@ -359,7 +359,7 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
             [trianglePath closePath];
             break;
         }
-        case ZLPopOverDirectionLeft: {
+        case ZLPopOverDirectionLeading: {
             [mainPath moveToPoint:CGPointMake(th, topLeft)];
             [mainPath addLineToPoint:CGPointMake(th, offset)];
             [mainPath addLineToPoint:CGPointMake(0, offset + tw/2)];
@@ -387,7 +387,7 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
             [trianglePath closePath];
             break;
         }
-        case ZLPopOverDirectionRight: {
+        case ZLPopOverDirectionTrailing: {
             [mainPath moveToPoint:CGPointMake(0, topLeft)];
             if (topLeft > 0) {
                 [mainPath addQuadCurveToPoint:CGPointMake(topLeft, 0) controlPoint:CGPointMake(0, 0)];
@@ -1802,12 +1802,12 @@ horizontalMarge {return 0;}
 - (void)show{
     if (self.pageState == ZLPopViewPageStateShowing || self.pageState == ZLPopViewPageStateDidShow) return;
     [super show];
-    if (self.d == ZLPopOverDirectionLeft || self.d == ZLPopOverDirectionRight) {
+    if (self.d == ZLPopOverDirectionLeading || self.d == ZLPopOverDirectionTrailing) {
         if ([UIView userInterfaceLayoutDirectionForSemanticContentAttribute:UIView.appearance.semanticContentAttribute] == UIUserInterfaceLayoutDirectionRightToLeft) {
-            if (self.d == ZLPopOverDirectionLeft) {
-                self.d = ZLPopOverDirectionRight;
+            if (self.d == ZLPopOverDirectionLeading) {
+                self.d = ZLPopOverDirectionTrailing;
             }else {
-                self.d = ZLPopOverDirectionLeft;
+                self.d = ZLPopOverDirectionLeading;
             }
         }
     }
@@ -1819,10 +1819,10 @@ horizontalMarge {return 0;}
     {
         CGFloat maxWidth = self.frame.size.width - self.safeAreaMarge.left - self.safeAreaMarge.right;
         CGFloat maxHeight = self.frame.size.height - self.safeAreaMarge.top - self.safeAreaMarge.bottom;
-        if (self.d == ZLPopOverDirectionLeft) {
+        if (self.d == ZLPopOverDirectionLeading) {
              maxWidth = self.frame.size.width - self.p.x - self.safeAreaMarge.right  - self.aH - self.s;
              maxHeight = self.frame.size.height - self.safeAreaMarge.bottom  - self.safeAreaMarge.top;
-        }else if (self.d == ZLPopOverDirectionRight) {
+        }else if (self.d == ZLPopOverDirectionTrailing) {
              maxWidth =  self.p.x - self.safeAreaMarge.left  - self.aH - self.s;
              maxHeight = self.frame.size.height - self.safeAreaMarge.bottom  - self.safeAreaMarge.top;
         }else if (self.d == ZLPopOverDirectionUp) {
@@ -1847,9 +1847,9 @@ horizontalMarge {return 0;}
         stackView.layoutMargins = UIEdgeInsetsMake(m.top + self.aH, m.left, m.bottom, m.right);
     }else if (self.d == ZLPopOverDirectionDown) {
         stackView.layoutMargins = UIEdgeInsetsMake(m.top, m.left, m.bottom + self.aH, m.right);
-    }else if (self.d == ZLPopOverDirectionLeft) {
+    }else if (self.d == ZLPopOverDirectionLeading) {
         stackView.layoutMargins = UIEdgeInsetsMake(m.top, m.left + self.aH, m.bottom + self.aH, m.right);
-    }else if (self.d == ZLPopOverDirectionRight) {
+    }else if (self.d == ZLPopOverDirectionTrailing) {
         stackView.layoutMargins = UIEdgeInsetsMake(m.top, m.left, m.bottom + self.aH, m.right + self.aH);
     }
 
@@ -1919,9 +1919,9 @@ horizontalMarge {return 0;}
         p = CGPointMake(arrowOffset/w,0);
     }else if (self.d == ZLPopOverDirectionDown) {
         p = CGPointMake(arrowOffset/w,1);
-    }else if (self.d == ZLPopOverDirectionLeft) {
+    }else if (self.d == ZLPopOverDirectionLeading) {
         p = CGPointMake(0,arrowOffset/h);
-    }else if (self.d == ZLPopOverDirectionRight) {
+    }else if (self.d == ZLPopOverDirectionTrailing) {
         p = CGPointMake(1,arrowOffset/h);
     }
     return p;
@@ -1956,7 +1956,7 @@ horizontalMarge {return 0;}
         }
     }
     {
-        d = ZLPopOverDirectionLeft;
+        d = ZLPopOverDirectionLeading;
         x = p.x + _s + self.safeAreaMarge.left;
         y = p.y - rH/2;
         CGRect inRect = CGRectMake(x, y, rW + _aH, rH);
@@ -1966,7 +1966,7 @@ horizontalMarge {return 0;}
         }
     }
     {
-        d = ZLPopOverDirectionRight;
+        d = ZLPopOverDirectionTrailing;
         x = p.x - rW - _aH - _s - self.safeAreaMarge.right;
         y = p.y - rH/2;
         CGRect inRect = CGRectMake(x, y, rW + _aH, rH);
@@ -1993,9 +1993,9 @@ horizontalMarge {return 0;}
             p = CGPointMake(fW/2, fH);
         }else if (d == ZLPopOverDirectionDown) {
             p = CGPointMake(fW/2, 0);
-        }else if (d == ZLPopOverDirectionLeft) {
+        }else if (d == ZLPopOverDirectionLeading) {
             p = CGPointMake(fW, fH/2);
-        }else if (d == ZLPopOverDirectionRight) {
+        }else if (d == ZLPopOverDirectionTrailing) {
             p = CGPointMake(0, fH/2);
         }
         return [fv convertPoint:p toView:self];
@@ -2027,7 +2027,7 @@ horizontalMarge {return 0;}
         }
         offset -= self.aW/2;
         oY = d == ZLPopOverDirectionUp ? oY + (rH + _aH)/2 : oY - (rH+_aH)/2;
-    }else if (d == ZLPopOverDirectionLeft || d == ZLPopOverDirectionRight){
+    }else if (d == ZLPopOverDirectionLeading || d == ZLPopOverDirectionTrailing){
         if (y < rH/2 + _safeAreaMarge.top) {
             offset = y;
         }else if (y > h - rH/2 - _safeAreaMarge.bottom){
@@ -2036,7 +2036,7 @@ horizontalMarge {return 0;}
             offset = rH / 2;
         }
         offset -= self.aW/2;
-        oX = d == ZLPopOverDirectionLeft ? oX + (rW+_aH)/2 : oX - (rW+_aH)/2;
+        oX = d == ZLPopOverDirectionLeading ? oX + (rW+_aH)/2 : oX - (rW+_aH)/2;
     }
     CGFloat s = _s;
     CGFloat marge = 0;
@@ -2051,7 +2051,7 @@ horizontalMarge {return 0;}
             *arrowOffset = offset;
         }
     }
-    if (d == ZLPopOverDirectionLeft || d == ZLPopOverDirectionRight) {
+    if (d == ZLPopOverDirectionLeading || d == ZLPopOverDirectionTrailing) {
         if (h - y < rH/2 + _safeAreaMarge.bottom) {
             marge = self.safeAreaMarge.bottom;
             *arrowOffset = offset + marge;
@@ -2059,7 +2059,7 @@ horizontalMarge {return 0;}
             marge = self.safeAreaMarge.top;
             *arrowOffset = offset  - marge;
         }else {
-            marge = d == ZLPopOverDirectionLeft ? self.safeAreaMarge.right : self.safeAreaMarge.left;
+            marge = d == ZLPopOverDirectionLeading ? self.safeAreaMarge.right : self.safeAreaMarge.left;
             *arrowOffset = offset;
         }
     }
@@ -2071,11 +2071,11 @@ horizontalMarge {return 0;}
         oY -= s;
         oX = MAX((rW-w)/2 + marge, MIN(oX, (w-rW)/2 - marge));
         oY = MAX((rH+_aH-h)/2 + marge, MIN(oY, (h-rH+_aH)/2 - marge));
-    }else if (d == ZLPopOverDirectionLeft) {
+    }else if (d == ZLPopOverDirectionLeading) {
         oX += s;
 //        oX = MAX((rW+_aH-w)/2 + marge, MIN(oX, (w-rW+_aH)/2 - marge));
         oY = MAX((rH-h)/2 + marge, MIN(oY, (h-rH)/2 - marge));
-    }else if (d == ZLPopOverDirectionRight) {
+    }else if (d == ZLPopOverDirectionTrailing) {
         oX -= s;
 //        oX = MAX((rW+_aH-w)/2 + marge, MIN(oX, (w-rW+_aH)/2 - marge));
         oY = MAX((rH-h)/2 + marge, MIN(oY, (h-rH)/2 - marge));

@@ -249,8 +249,8 @@ typedef NS_ENUM(NSInteger, ZLPopOverDirection) {
     ZLPopOverDirectionAuto = 0,   // 自动判断
     ZLPopOverDirectionUp,
     ZLPopOverDirectionDown,
-    ZLPopOverDirectionLeft,
-    ZLPopOverDirectionRight
+    ZLPopOverDirectionLeading,
+    ZLPopOverDirectionTrailing
 };
 @interface ZLPopOverView : ZLPopBaseView
 
