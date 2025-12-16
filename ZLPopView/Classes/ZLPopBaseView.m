@@ -1805,8 +1805,34 @@ horizontalMarge {return 0;}
     UIView *view = self.containerView;
     //如果分开写约束top 约束一定要写到bottom约束的前面，不然布局有问题
     [self addPopViewMargeCons];
+    
+    {
+        CGFloat maxWidth = self.frame.size.width - self.safeAreaMarge.left - self.safeAreaMarge.right;
+        CGFloat maxHeight = self.frame.size.height - self.safeAreaMarge.top - self.safeAreaMarge.bottom;
+        if (self.d == ZLPopOverDirectionLeft) {
+             maxWidth = self.frame.size.width - self.p.x - self.safeAreaMarge.right  - self.aH - self.s;
+             maxHeight = self.frame.size.height - self.safeAreaMarge.bottom  - self.safeAreaMarge.top;
+        }else if (self.d == ZLPopOverDirectionRight) {
+             maxWidth =  self.p.x - self.safeAreaMarge.left  - self.aH - self.s;
+             maxHeight = self.frame.size.height - self.safeAreaMarge.bottom  - self.safeAreaMarge.top;
+        }else if (self.d == ZLPopOverDirectionUp) {
+             maxHeight = self.frame.size.height - self.p.y - self.safeAreaMarge.bottom  - self.aW - self.s;
+             maxWidth =  self.frame.size.width - self.safeAreaMarge.left  - self.safeAreaMarge.right;
+        }else if (self.d == ZLPopOverDirectionDown) {
+             maxHeight = self.p.y - self.safeAreaMarge.top  - self.aW - self.s;
+             maxWidth = self.frame.size.width - self.safeAreaMarge.left  - self.safeAreaMarge.right;
+        }
+        self.containerView.kfc.maxHeight(maxHeight).maxWidth(maxWidth);
+    }
+    
     UIStackView *stackView = (UIStackView*)self.stackView;
     UIEdgeInsets m = stackView.layoutMargins;
+    
+    if (self.d == ZLPopOverDirectionAuto){
+        [self layoutIfNeeded];
+        self.d = [self directionWithAuto];
+    }
+
     if (self.d == ZLPopOverDirectionUp) {
         stackView.layoutMargins = UIEdgeInsetsMake(m.top + self.aH, m.left, m.bottom, m.right);
     }else if (self.d == ZLPopOverDirectionDown) {
@@ -1816,26 +1842,8 @@ horizontalMarge {return 0;}
     }else if (self.d == ZLPopOverDirectionRight) {
         stackView.layoutMargins = UIEdgeInsetsMake(m.top, m.left, m.bottom + self.aH, m.right + self.aH);
     }
+
     [self layoutIfNeeded];
-    NSLog(@"1----%f----%f",view.frame.size.height,view.frame.size.height);
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        NSLog(@"2----%f----%f",view.frame.size.height,view.frame.size.height);
-    });
-    if (self.d == ZLPopOverDirectionAuto) {
-        self.d = [self directionWithAuto];
-        if (self.d == ZLPopOverDirectionUp) {
-            stackView.layoutMargins = UIEdgeInsetsMake(m.top + self.aH, m.left, m.bottom, m.right);
-        }else if (self.d == ZLPopOverDirectionDown) {
-            stackView.layoutMargins = UIEdgeInsetsMake(m.top, m.left, m.bottom + self.aH, m.right);
-        }else if (self.d == ZLPopOverDirectionLeft) {
-            stackView.layoutMargins = UIEdgeInsetsMake(m.top, m.left + self.aH, m.bottom + self.aH, m.right);
-        }else if (self.d == ZLPopOverDirectionRight) {
-            stackView.layoutMargins = UIEdgeInsetsMake(m.top, m.left, m.bottom + self.aH, m.right + self.aH);
-        }
-        [self layoutIfNeeded];
-    }else{
-        
-    }
     
     CGFloat arrowOffset = 0;
     CGPoint center = [self centerPoint:&arrowOffset];
@@ -1896,29 +1904,16 @@ horizontalMarge {return 0;}
     CGPoint p =  CGPointZero;
     CGFloat w = CGRectGetWidth(self.containerView.frame);
     CGFloat h = self.containerHeight;
-    NSString *c;
-    CGFloat offset = _aH;
     arrowOffset += _aH/2;
     if (self.d == ZLPopOverDirectionUp) {
-        c = kBT;
         p = CGPointMake(arrowOffset/w,0);
     }else if (self.d == ZLPopOverDirectionDown) {
-        c = kBB;
-        offset = -offset;
         p = CGPointMake(arrowOffset/w,1);
     }else if (self.d == ZLPopOverDirectionLeft) {
-        c = kBL;
         p = CGPointMake(0,arrowOffset/h);
     }else if (self.d == ZLPopOverDirectionRight) {
-        c = kBR;
-        offset = -offset;
         p = CGPointMake(1,arrowOffset/h);
     }
-    [self.buildView.superview.constraints enumerateObjectsUsingBlock:^(__kindof NSLayoutConstraint * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if ([obj.identifier isEqualToString:c]) {
-            //obj.constant += offset;
-        }
-    }];
     return p;
 }
 - (ZLPopOverDirection)directionWithAuto {
@@ -1993,7 +1988,7 @@ horizontalMarge {return 0;}
         }else if (d == ZLPopOverDirectionRight) {
             p = CGPointMake(0, fH/2);
         }
-        return [fv convertPoint:p toView:self.superview];
+        return [fv convertPoint:p toView:self];
     }
     return _p;
 }
@@ -2068,11 +2063,11 @@ horizontalMarge {return 0;}
         oY = MAX((rH+_aH-h)/2 + marge, MIN(oY, (h-rH+_aH)/2 - marge));
     }else if (d == ZLPopOverDirectionLeft) {
         oX += s;
-        oX = MAX((rW+_aH-w)/2 + marge, MIN(oX, (w-rW+_aH)/2 - marge));
+//        oX = MAX((rW+_aH-w)/2 + marge, MIN(oX, (w-rW+_aH)/2 - marge));
         oY = MAX((rH-h)/2 + marge, MIN(oY, (h-rH)/2 - marge));
     }else if (d == ZLPopOverDirectionRight) {
         oX -= s;
-        oX = MAX((rW+_aH-w)/2 + marge, MIN(oX, (w-rW+_aH)/2 - marge));
+//        oX = MAX((rW+_aH-w)/2 + marge, MIN(oX, (w-rW+_aH)/2 - marge));
         oY = MAX((rH-h)/2 + marge, MIN(oY, (h-rH)/2 - marge));
     }
     return CGPointMake(oX ,oY);

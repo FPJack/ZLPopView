@@ -61,11 +61,21 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Xa-3u-Heg">
+                    <rect key="frame" x="167.66666666666666" y="408.66666666666669" width="58" height="35"/>
+                    <color key="backgroundColor" systemColor="systemRedColor"/>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" title="点击"/>
+                    <connections>
+                        <action selector="tapaction:" destination="-1" eventType="touchUpInside" id="uKe-ZQ-Zn7"/>
+                    </connections>
+                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="G3l-Un-MeC" secondAttribute="trailing" constant="10" id="1N9-bw-NT4"/>
+                <constraint firstItem="6Xa-3u-Heg" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="474-6U-uav"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="G3l-Un-MeC" secondAttribute="bottom" constant="10" id="87S-cH-wS8"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="ATw-v1-MUE" secondAttribute="trailing" constant="10" id="9xk-xa-N7I"/>
                 <constraint firstItem="zkF-zm-OZO" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="10" id="A47-lA-VSa"/>
@@ -75,6 +85,7 @@
                 <constraint firstItem="ilk-lF-9tb" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="hjO-wY-iiV"/>
                 <constraint firstItem="lps-op-Ibq" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="10" id="ici-ga-BE1"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="lps-op-Ibq" secondAttribute="bottom" constant="10" id="lCy-N7-aWM"/>
+                <constraint firstItem="6Xa-3u-Heg" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="nIn-4z-aBV"/>
             </constraints>
             <point key="canvasLocation" x="140" y="21"/>
         </view>
@@ -84,7 +95,7 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
