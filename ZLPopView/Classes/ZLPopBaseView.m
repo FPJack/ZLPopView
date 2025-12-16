@@ -1966,41 +1966,43 @@ horizontalMarge {return 0;}
     {
         d = ZLPopOverDirectionDown;
         x = p.x - rW / 2;
-        y = p.y - (rH+_aH) - _s - self.safeAreaMarge.bottom;
-        CGRect inRect = CGRectMake(x, y, rW, rH + _aH);
+        y = p.y - rH - _s;
+        CGRect inRect = CGRectMake(x, y, rW, rH);
+        if (CGRectContainsRect(outRect, inRect)) {
+            return d;
+        }
+        
+    }
+    
+    {
+        d = ZLPopOverDirectionUp;
+        x = p.x - rW / 2;
+        y = p.y + rH + _s;
+        CGRect inRect = CGRectMake(x, y, rW, rH);
         if (CGRectContainsRect(outRect, inRect)) {
             return d;
         }
     }
     
     {
-        d = ZLPopOverDirectionUp;
-        x = p.x - rW / 2;
-        y = p.y + rH + _aH + _s + self.safeAreaMarge.top;
-        CGRect inRect = CGRectMake(x, y, rW, rH + _aH);
-        if (CGRectContainsRect(outRect, inRect)) {
-            return d;
-        }
-    }
-    {
         d = ZLPopOverDirectionLeading;
-        x = p.x + _s + self.safeAreaMarge.left;
+        x = p.x + _s;
         y = p.y - rH/2;
-        CGRect inRect = CGRectMake(x, y, rW + _aH, rH);
-
+        CGRect inRect = CGRectMake(x, y, rW , rH);
         if (CGRectContainsRect(outRect, inRect)) {
             return d;
         }
+        
     }
     {
         d = ZLPopOverDirectionTrailing;
-        x = p.x - rW - _aH - _s - self.safeAreaMarge.right;
+        x = p.x - rW - _s ;
         y = p.y - rH/2;
-        CGRect inRect = CGRectMake(x, y, rW + _aH, rH);
-
+        CGRect inRect = CGRectMake(x, y, rW, rH);
         if (CGRectContainsRect(outRect, inRect)) {
             return d;
         }
+        
     }
     
     if (p.y - (rH + _aH)> CGRectGetHeight(outRect) / 2) {

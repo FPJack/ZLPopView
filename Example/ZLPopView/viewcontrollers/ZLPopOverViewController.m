@@ -131,7 +131,7 @@
         .showPopView();
 }
 - (NSString *)text {
-    NSUInteger length = arc4random_uniform(100) + 1; // 1~1000
+    NSUInteger length = arc4random_uniform(20) + 1; // 1~1000
     NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     NSMutableString *randomString = [NSMutableString stringWithCapacity:length];
     for (NSUInteger i = 0; i < length; i++) {
