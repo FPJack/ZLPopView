@@ -85,6 +85,11 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
         self.contentView.layer.borderWidth = 0;
         return;
     }
+    if (![self.superview isKindOfClass:ZLPopOverView.class]) {
+        self.contentView.layer.borderWidth = _borderWidth;
+        self.contentView.layer.borderColor = _borderColor.CGColor;
+        self.contentView.layer.cornerRadius = _cornerRadius;
+    }
 }
 #pragma mark - 属性设置方法
 - (void)setCorners:(UIRectCorner)corners {
