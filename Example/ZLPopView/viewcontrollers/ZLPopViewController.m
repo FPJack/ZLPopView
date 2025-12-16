@@ -158,12 +158,11 @@
 }
 - (void )showBottomMax200ScrollView {
     UILabel *longLabel = UILabel.kfc.text(@"kStackViewColumnBuilderkStackViewColumnBuilder kStackViewColumnBuilderkStackViewColumnBuilderkStackViewColumnBuilderkStackViewColumnBuilderkStackViewColumnBuilderkStackViewColumnBuilderkStackViewColumnBuilderkStackViewColumnBuilderkStackViewColumnBuilderkStackViewColumnBuilderkStackViewColumnBuilderkStackViewColumnBuilderkStackViewColumnBuilderkStackViewColumnBuilderkStackViewColumnBuilderkStackViewColumnBuilderkStackViewColumnBuilderkStackViewColumnBuilderkStackViewColumnBuilderkStackViewColumnBuilderkStackViewColumnBuilderkStackViewColumnBuilderkStackViewColumnBuilderkStackViewColumnBuilderkStackViewColumnBuilderkStackViewColumnBuilderkStackViewColumnBuilderkStackViewColumnBuilderkStackViewColumnBuilderkStackViewColumnBuilderkStackViewColumnBuilderkStackViewColumnBuilderkStackViewColumnBuilderkStackViewColumnBuilder").multipleLines.textAlignmentCenter.view;
-    UIScrollView *scrollView = kStackViewColumnBuilder.addView(longLabel).buildScrollView.kfc.maxHeight(300).view;
     ZLPopViewBuilder.column
         .paddingHorLT(20, 20)
         .paddingBottom(30)
         .title(@"提示框")
-        .addView(scrollView)
+        .addView(kStackViewColumnBuilder.addView(longLabel).buildScrollView.kfc.maxHeight(300))
         .customSpace(30)
         .addCancelViewStyleActionText(@"取消", nil)
         .showBottomPopView();

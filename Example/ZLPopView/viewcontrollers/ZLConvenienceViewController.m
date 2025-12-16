@@ -177,8 +177,6 @@
     
 }
 - (void)showAlert {
-  
-
     NSArray *colors = @[@"#D2F999",@"#EFF7E0",@"#FFFFFF"];
     ZLPopBaseView *view =
         ZLPopViewBuilder.column
@@ -186,21 +184,24 @@
         .message(@"这是一个简单的提示。")
         .avoidKeyboardPopViewBottom
         .bottomOffsetToKeyboardTop(50)
-        .bgGradientColors(colors)
+//        .bgGradientColors(colors)
         .maskColor(UIColor.black80)
-        .backgroundColor(UIColor.clearColor)
+//        .backgroundColor(UIColor.clearColor)
         .alertWidth270
+        .borderColor(UIColor.redColor)
+        .borderWidth(2)
+        .cornerRadius(10)
+        .shadowColor(UIColor.blackColor)
+        .shadowOpacity(0.2)
+        .borderColor(UIColor.redColor)
+        .borderWidth(2)
         //.bgImage(@"pic-bg1")
         .bgImgageContentMode(UIViewContentModeScaleAspectFill)
         .addTextField(^(UITextField * _Nonnull textField) {
             textField.placeholder = @"请输入内容";
         })
-        .addCancelViewStyleActionText(@"取消", ^(UIView * _Nonnull view) {
-            
-        })
-        .addButtonViewStyleActionText(@"按钮", ^(UIView * _Nonnull view) {
-            
-        })
+        .addCancelViewStyleActionText(@"取消", nil)
+        .addButtonViewStyleActionText(@"按钮", nil)
         .buildCenterPopView
         .initStateBK(^(ZLPopBaseView * _Nonnull popView) {
                 UIButton.kfc

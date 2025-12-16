@@ -1059,8 +1059,10 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
 - (void)layoutSubviews {
     [super layoutSubviews];
     if (self.configObj.bgGradientColors.count > 0) {
-        self.gradLayer.frame = self.containerView.bounds;
-        [self.containerView.contentView.layer insertSublayer:self.gradLayer atIndex:0];
+        if (![self isKindOfClass:ZLPopOverView.class]) {
+            self.gradLayer.frame = self.containerView.bounds;
+            [self.containerView.contentView.layer insertSublayer:self.gradLayer atIndex:0];
+        }
     }
     if (self.layoutSubviewBlock) {
         self.layoutSubviewBlock(self);
@@ -1889,6 +1891,26 @@ horizontalMarge {return 0;}
     [self popViewDidShow:self];
     self.backgroundColor = self.configObj.maskColor;
     self.buildView.kfc.cornerRadius(j.cornerRadius);
+}
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    if (self.configObj.bgGradientColors.count > 0) {
+        CGRect frame = self.containerView.contentView.bounds;
+        self.gradLayer.cornerRadius = self.configObj.cornerRadius;
+        self.gradLayer.masksToBounds = YES;
+        if (self.d == ZLPopOverDirectionUp){
+            self.gradLayer.frame = CGRectMake(frame.origin.x, self.aH, CGRectGetWidth(frame), CGRectGetHeight(frame) - self.aH);
+        }else if (self.d == ZLPopOverDirectionDown){
+            self.gradLayer.frame = CGRectMake(frame.origin.x, frame.origin.y, CGRectGetWidth(frame), CGRectGetHeight(frame) - self.aH);
+            
+        }else if (self.d == ZLPopOverDirectionLeading){
+            self.gradLayer.frame = CGRectMake(self.aH, frame.origin.y, CGRectGetWidth(frame) - self.aH, CGRectGetHeight(frame));
+            
+        }else if (self.d == ZLPopOverDirectionTrailing){
+            self.gradLayer.frame = CGRectMake(frame.origin.x, frame.origin.y, CGRectGetWidth(frame) - self.aH, CGRectGetHeight(frame));
+        }
+        [self.containerView.contentView.layer insertSublayer:self.gradLayer atIndex:0];
+    }
 }
 - (void)dismiss {
     if (self.pageState == ZLPopViewPageStateDismissing || self.pageState == ZLPopViewPageStateDidDismissed) return;

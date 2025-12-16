@@ -105,6 +105,8 @@
     for (int i = 0 ; i < randomValue; i ++) {
         builder.addView([self addItem]);
     }
+    NSArray *colors = @[@"#D2F999",@"#EFF7E0",@"#FFFFFF"];
+
         builder
         .animateOut(0)
         .tapMaskDismiss
@@ -114,9 +116,10 @@
         .borderColor(UIColor.redColor)
         .borderWidth(2)
         .inset(10, 10, 10, 10)
-    .maxWidth(150)
+        .maxWidth(150)
+        .bgGradientColors(colors)
 //        .setInset(UIEdgeInsetsZero)
-        .maskColor([UIColor.blackColor colorWithAlphaComponent:0.3])
+        .maskColor(UIColor.black20)
         .corners(UIRectCornerAllCorners)
         .buildPopOverView
         .setFromView(sender)
