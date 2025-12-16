@@ -1839,7 +1839,12 @@ horizontalMarge {return 0;}
              maxHeight = self.p.y - self.safeAreaMarge.top  - self.aW - self.s;
              maxWidth = self.frame.size.width - self.safeAreaMarge.left  - self.safeAreaMarge.right;
         }
-        self.containerView.kfc.maxHeight(maxHeight).maxWidth(maxWidth);
+        if (self.configObj.maxWidth <= 0 && self.configObj.width <= 0 && self.configObj.maxWidthMultiplier <= 0 ) {
+            self.containerView.kfc.maxWidth(maxWidth);
+        }
+        if (self.configObj.maxHeight <= 0 && self.configObj.width <= 0 && self.configObj.maxHeightMultiplier <= 0 ) {
+            self.containerView.kfc.maxHeight(maxHeight);
+        }
     }
     
     UIStackView *stackView = (UIStackView*)self.stackView;
@@ -2005,7 +2010,7 @@ horizontalMarge {return 0;}
         
     }
     
-    if (p.y - (rH + _aH)> CGRectGetHeight(outRect) / 2) {
+    if (p.y - rH / 2 - _s > 0) {
         return ZLPopOverDirectionDown;
     }else {
         return ZLPopOverDirectionUp;
