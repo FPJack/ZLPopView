@@ -1743,8 +1743,8 @@ horizontalMarge {return 0;}
 {
     self = [super init];
     if (self) {
-        _aW = 38;
-        _aH = 26;
+        _aW = 8;
+        _aH = 6;
         _safeAreaMarge = UIEdgeInsetsMake(50, 10, 20, 10);
         _s = 5;
     }
