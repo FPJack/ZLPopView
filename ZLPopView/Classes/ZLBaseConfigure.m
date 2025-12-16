@@ -467,7 +467,6 @@ static CGFloat _defaultThickness = 1.0f;
 }
 - (id  _Nonnull (^)(void (^ _Nonnull)(__kindof UIView * _Nonnull)))tapAction {
     return ^id (void(^block)(UIView *view)) {
-        self.shoulddismissPopViewWhenTap = NO;
         return [self addTapAction:block add:NO];
     };
 }
@@ -609,7 +608,16 @@ static CGFloat _defaultThickness = 1.0f;
     }];
 }
 - (instancetype)dismissPopViewWhenTap {
-    self.shoulddismissPopViewWhenTap = YES;
+    if ([self.view isKindOfClass:UIButton.class]) {
+        UIButton *btn = (UIButton *)self.view;
+        btn.kfc.touchUpAction(^(UIButton * _Nonnull button) {
+            [button.kfc.popView dismiss];
+        });
+    }else if([self.view isKindOfClass:UIView.class]) {
+        self.view.kfc.tapAction(^(UIView * _Nonnull view) {
+            [view.kfc.popView dismiss];
+        });
+    }
     return self;
 }
 - (instancetype )becomeFirstResponderWhenPopViewAppear{
@@ -1578,7 +1586,6 @@ static CGFloat _defaultThickness = 1.0f;
 }
 - (ZLUIButtonConfigure * _Nonnull (^)(void (^ _Nonnull)(UIButton * _Nonnull)))touchUpAction {
     return ^ZLUIButtonConfigure* (void(^block)(UIButton *button)) {
-        self.shoulddismissPopViewWhenTap = NO;
         return [self touchUpAction:block add:NO];
     };
 }

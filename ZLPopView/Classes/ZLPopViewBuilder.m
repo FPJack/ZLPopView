@@ -503,10 +503,8 @@ static GMConfigureBlock configureBlock;
         view.buildView = scrollView;
         view.stackView = (ZLUIStackView *)stackView;
         view.scrollView = scrollView;
-        [self traverseSubviewsOfView:stackView];
     }else {
         ZLUIStackView *stackView = [self buildStackView];
-        [self traverseSubviewsOfView:stackView];
         self.configObj.axis = stackView.axis;
         view.buildView = stackView;
         view.stackView = stackView;
@@ -514,24 +512,6 @@ static GMConfigureBlock configureBlock;
     [view setValue:self.configObj forKey:@"configObj"];
     return view;
 }
-- (void)traverseSubviewsOfView:(UIView *)view {
-    if (view.kfcCreated && view.kfc.shoulddismissPopViewWhenTap) {
-        if ([view isKindOfClass:UIButton.class]) {
-            UIButton *btn = (UIButton *)view;
-            btn.kfc.touchUpAction(^(UIButton * _Nonnull button) {
-                [button.kfc.popView dismiss];
-            });
-        }else if([view isKindOfClass:UIView.class]) {
-            view.kfc.tapAction(^(UIView * _Nonnull view) {
-                [view.kfc.popView dismiss];
-            });
-        }
-    }
-    for (UIView *subview in view.subviews) {
-        [self traverseSubviewsOfView:subview];
-    }
-}
-
 
 - (ZLPopBottomView* )buildBottomPopView{
     if (self.configObj.horizontalLayout == ZLHorizontalLayoutConstraintNone) {

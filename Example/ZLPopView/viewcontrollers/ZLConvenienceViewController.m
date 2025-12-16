@@ -203,13 +203,11 @@
         })
         .buildCenterPopView
         .initStateBK(^(ZLPopBaseView * _Nonnull popView) {
-                UIImageView.kfc
-                .tag(101).image(@"infor_popshare_qq_nor")
+            UIButton.kfc
+                .tag(101).image(@"close")
                 .addedToSuperview(popView.containerView)
-                .size(50).centerX(0).topTo(popView.containerView.bottomAnchor, 50)
-                .tapAction(^(__kindof UIView * _Nonnull view) {
-                    NSLog(@"dddd");
-                });
+                .centerX(0).topTo(popView.containerView.bottomAnchor, 50)
+                .dismissPopViewWhenTap;
         })
         .hitTestBK(^UIView * _Nullable(ZLPopBaseView * _Nonnull popView, CGPoint point, UIEvent * _Nonnull event, BOOL * _Nonnull stop) {
             return [popView viewWithTag:101];
