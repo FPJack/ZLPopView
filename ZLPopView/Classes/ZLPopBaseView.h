@@ -115,7 +115,7 @@ typedef void(^PopViewCallbackBK) (ZLPopBaseView *popView);
 @property (nonatomic,strong)UIBlurEffect* blurEffect;
 @property (nonatomic,copy)ZLAnimationBlock animationInBlock;
 @property (nonatomic,copy)ZLAnimationBlock animationOutBlock;
-
+@property (nonatomic, assign) BOOL reserveSafeAreaBottom;
 
 @property (nonatomic,assign)ZLHorizontalLayoutConstraint horizontalLayout;
 @property (nonatomic,assign)UIEdgeInsets inset;

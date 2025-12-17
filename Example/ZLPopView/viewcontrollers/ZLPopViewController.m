@@ -47,7 +47,7 @@
         self.showTopBuilder.showCenterPopView();
     }))
     .addView(UILabel.kfc.text(@"底部弹出").tapAction(^(__kindof UIView * _Nonnull view) {
-        self.showTopBuilder.showBottomPopView();
+        self.showTopBuilder.reserveSafeAreaBottomYes.showBottomPopView();
     }))
     .addView(UILabel.kfc.text(@"左边弹出").tapAction(^(__kindof UIView * _Nonnull view) {
         self.showTopBuilder.showLeftPopView();

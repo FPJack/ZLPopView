@@ -108,6 +108,16 @@ static GMConfigureBlock configureBlock;
     };
     
 }
+- (ZLPopViewBuilder * _Nonnull (^)(BOOL))reserveSafeAreaBottom {
+    return ^ZLPopViewBuilder* (BOOL reserve){
+        self.configObj.reserveSafeAreaBottom = reserve;
+        return self;
+    };
+}
+- (instancetype)reserveSafeAreaBottomYes {
+    self.configObj.reserveSafeAreaBottom = YES;
+    return self;
+}
 - (ZLPopViewBuilder* (^)(id ))maskColor {
     return  ^ZLPopViewBuilder*(id color){
         self.configObj.maskColor = __UIColorFromObj(color);
@@ -490,6 +500,7 @@ static GMConfigureBlock configureBlock;
         self.configObj.maskColor = [[UIColor blackColor] colorWithAlphaComponent:0.3];
     }
     if (self.configObj.touchPenetrate) j.tapMaskDismiss = NO;
+    UIStackView *stackV = nil;
     if (self.configObj.wrapScrollView ) {
         ZLUIScrollView *scrollView = [self buildScrollView];
         UIStackView *stackView = [scrollView viewWithTag:kZLUIStackViewTag];
@@ -503,11 +514,19 @@ static GMConfigureBlock configureBlock;
         view.buildView = scrollView;
         view.stackView = (ZLUIStackView *)stackView;
         view.scrollView = scrollView;
+        stackV = stackView;
     }else {
         ZLUIStackView *stackView = [self buildStackView];
         self.configObj.axis = stackView.axis;
         view.buildView = stackView;
         view.stackView = stackView;
+        stackV = stackView;
+    }
+    if (self.configObj.reserveSafeAreaBottom
+        && stackV.layoutMargins.bottom < kZLSafeAreaBottom
+        && -self.configObj.inset.bottom < kZLSafeAreaBottom
+        ) {
+        stackV.layoutMargins = UIEdgeInsetsMake(stackV.layoutMargins.top, stackV.layoutMargins.left, stackV.layoutMargins.bottom + kZLSafeAreaBottom, stackV.layoutMargins.right);
     }
     [view setValue:self.configObj forKey:@"configObj"];
     return view;

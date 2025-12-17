@@ -107,7 +107,9 @@ typedef void(^GMConfigureBlock)(ZLBuildConfigObj *configure);
 @property (nonatomic, readonly)ZLPopViewBuilder * (^bgImage)(id imageOrName);
 @property (nonatomic, readonly)ZLPopViewBuilder * (^bgImgageContentMode)(UIViewContentMode mode);
 
-
+///是否保留底部安全区域，默认NO
+@property (nonatomic, readonly)ZLPopViewBuilder * (^reserveSafeAreaBottom)(BOOL reserve);
+- (instancetype)reserveSafeAreaBottomYes;
 
 
 /// 背景蒙版颜色
