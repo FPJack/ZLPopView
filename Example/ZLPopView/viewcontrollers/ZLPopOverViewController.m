@@ -71,12 +71,11 @@
         .borderColor(UIColor.redColor)
         .borderWidth(2)
         .inset(10, 10, 10, 10)
-        .maxWidth(200)
         .corners(UIRectCornerAllCorners)
         .popSuperView(self.view)
         .buildPopOverView;
-    popView.setPoint(point)
-        .setSafeAreaMarge(UIEdgeInsetsZero)
+        popView.setPoint(point)
+       // .setSafeAreaMarge(UIEdgeInsetsZero)
         .setDirection(ZLPopOverDirectionAuto)
         .setSpaceToPoint(10)
         .showPopView();
@@ -101,7 +100,7 @@
 }
 
 - (void)show:(ZLPopOverDirection)d sender:(UIButton *)sender {
-    int randomValue = arc4random_uniform(5) + 4;
+    int randomValue = arc4random_uniform(5) + 10;
     ZLPopViewBuilder *builder = ZLPopViewBuilder.column;
     for (int i = 0 ; i < randomValue; i ++) {
         builder.addView([self addItem]);
@@ -109,7 +108,7 @@
     NSArray *colors = @[@"#D2F999",@"#EFF7E0",@"#FFFFFF"];
 
         builder
-        .animateOut(0)
+        .animateOut(0.25)
         .tapMaskDismiss
         .cornerRadius(10)
         .shadowColor(UIColor.blackColor)
@@ -119,6 +118,8 @@
         .inset(10, 10, 10, 10)
         .maxWidth(150)
         .bgGradientColors(colors)
+        .wrapScrollView
+        .enableScrollWhenOutBounds
 //        .setInset(UIEdgeInsetsZero)
         .maskColor(UIColor.black20)
         .corners(UIRectCornerAllCorners)

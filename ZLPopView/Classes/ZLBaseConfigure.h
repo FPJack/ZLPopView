@@ -156,7 +156,7 @@ typedef id<ZLViewLayoutProtocol> ViewLayoutType;
 @property (nonatomic,readonly)ObjectType (^addTapAction)(void(^)(__kindof UIView* view));
 
 
-@property (nonatomic,strong)id _Nullable viewModel;
+@property (nonatomic,strong,readonly)id _Nullable viewModel;
 ///如果设置了viewmodel的类型可以确保didUpdateViewModelBK传入的viewmodel是这个类型或者子类，viewmodel 如果为空也会调用这个block刷新view
 @property (nonatomic,readonly)ObjectType (^viewModelClass)(Class cls);
 - (ObjectType)viewModelIsStringClass;
@@ -164,6 +164,9 @@ typedef id<ZLViewLayoutProtocol> ViewLayoutType;
 
 ///viewmodel 更新的时候block刷新view,设置viewmodeBK会立即回调这个block,isUpdate为NO
 @property (nonatomic,readonly)ObjectType (^updateViewModelBK)(void(^)(__kindof UIView* view,id _Nullable viewModel,BOOL isUpdate));
+///id 相等的时候回调block
+@property (nonatomic,readonly)ObjectType (^updateViewModelBKWhen)(id viewModel, void(^)(__kindof UIView* view,id _Nullable viewModel));
+
 ///手动调用view以及子view的updateViewModelBK刷新view,isUpdate为YES
 - (void)updateViewModel;
 - (void)updateViewModel:(id _Nullable)viewModel;

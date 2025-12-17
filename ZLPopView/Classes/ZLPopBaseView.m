@@ -306,6 +306,9 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
     CGFloat bottomRight = (roundedCorners & UIRectCornerBottomRight) ? cr : 0;
     UIBezierPath *trianglePath = [UIBezierPath bezierPath];
     switch (direction) {
+        case ZLPopOverDirectionAuto: {
+            break;
+        }
         case ZLPopOverDirectionUp: {
             // 主体
             [mainPath moveToPoint:CGPointMake(topLeft, th)];

@@ -177,6 +177,7 @@
     
 }
 - (void)showAlert {
+   
     NSArray *colors = @[@"#D2F999",@"#EFF7E0",@"#FFFFFF"];
     ZLPopBaseView *view =
         ZLPopViewBuilder.column
@@ -196,6 +197,23 @@
         .borderWidth(2)
         //.bgImage(@"pic-bg1")
         .bgImgageContentMode(UIViewContentModeScaleAspectFill)
+        .addViewBK(^UIView * _Nonnull{
+            UIButton *btn =  UIButton.kfc.blackTitleColor.title(@"ddd").updateViewModelBK(^(__kindof UIButton * _Nonnull UIButton, id  _Nonnull viewModel, BOOL isUpdate) {
+                NSLog(@"");
+            }).view;
+            [btn.kfc updateViewModel:@"1"];
+           
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [btn.kfc updateViewModel:@"1"];
+            });
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [btn.kfc updateViewModel:@"2"];
+            });
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(15 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [btn.kfc updateViewModel:@"3"];
+            });
+            return btn;
+        })
         .addTextField(^(UITextField * _Nonnull textField) {
             textField.placeholder = @"请输入内容";
         })

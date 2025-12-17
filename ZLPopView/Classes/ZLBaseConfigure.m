@@ -105,6 +105,8 @@
 @property (nonatomic,weak,readwrite)ZLBuilderContext *context;
 @property (nonatomic,weak)Class viewModelCls;
 @property (nonatomic,strong)id observer;
+@property (nonatomic,strong,readwrite)id  viewModel;
+@property (nonatomic,strong)NSMutableDictionary *viewModelBlocksInfo;
 @end
 
 @interface ZLBuilderContext()
@@ -431,6 +433,12 @@ static CGFloat _defaultThickness = 1.0f;
     cfg.view = view;
     return cfg;
 }
+- (NSMutableDictionary *)viewModelBlocksInfo {
+    if (!_viewModelBlocksInfo) {
+        _viewModelBlocksInfo = [NSMutableDictionary dictionary];
+    }
+    return _viewModelBlocksInfo;
+}
 - (ZLPopBaseView *)popView {
     UIView *superView = self.view;
     while (superView && ![superView isKindOfClass:ZLPopBaseView.class]) superView = superView.superview;
@@ -496,9 +504,38 @@ static CGFloat _defaultThickness = 1.0f;
         return self;
     };
 }
+- (id  _Nonnull (^)(id _Nonnull, void (^ _Nonnull)(__kindof UIView * _Nonnull, id _Nullable)))updateViewModelBKWhen {
+    return ^id (id vm, void(^block)(__kindof UIView *view, id viewModel)) {
+        if (block && vm) {
+            [self.viewModelBlocksInfo setValue:block forKey:vm];
+            [self addRefreshConfigBKObserver];
+        }
+        return self;
+    };
+}
+
 - (void)updateViewModel {
     NSMutableDictionary *userInfo = NSMutableDictionary.dictionary;
     [userInfo setValue:self.view forKey:@"view"];
+    if (!self.observer && self.viewModel) {
+        if (_viewModelBlocksInfo && self.viewModelBlocksInfo.count > 0) {
+            void(^bk)(UIView *,id) = [self.viewModelBlocksInfo objectForKey:self.viewModel];
+            if (bk) {
+                bk(self.view,self.viewModel);
+            }
+        }
+    }
+    if (!self.observer && self.didUpdateViewModelBlock) {
+        BOOL isvalid = YES;
+        if (self.viewModelCls
+                && self.viewModel
+                && ![self.viewModel isKindOfClass:self.viewModelCls]) {
+            isvalid = NO;
+        }
+        if (isvalid) {
+            self.didUpdateViewModelBlock(self.view, self.viewModel, YES);
+        }
+    }
     [NSNotificationCenter.defaultCenter postNotificationName:kRefreshConfigBKNotification object:self.context userInfo:userInfo];
 }
 - (void)updateViewModel:(id)viewModel {
@@ -553,7 +590,7 @@ static CGFloat _defaultThickness = 1.0f;
 }
 - (void)setContext:(ZLBuilderContext *)context {
     _context = context;
-    if (self.didUpdateViewModelBlock) {
+    if (self.didUpdateViewModelBlock ||  (_viewModelBlocksInfo && self.viewModelBlocksInfo.count > 0)) {
         [self addRefreshConfigBKObserver];
     }
 }
@@ -569,15 +606,20 @@ static CGFloat _defaultThickness = 1.0f;
         UIView *view = [userInfo objectForKey:@"view"];
         if (!view || ![view isKindOfClass:UIView.class]) return;
         if (![weakSelf.view isDescendantOfView:view]) return;
-        if (weakSelf.didUpdateViewModelBlock)
-
-            if (weakSelf.viewModelCls
+        
+        void(^bk)(UIView *,id) = [weakSelf.viewModelBlocksInfo objectForKey:weakSelf.viewModel];
+        
+        if (bk) {
+            bk(weakSelf.view,weakSelf.viewModel);
+        }
+        if (weakSelf.viewModelCls
                 && weakSelf.viewModel
                 && ![weakSelf.viewModel isKindOfClass:weakSelf.viewModelCls]) {
                 return;
-            }
-        weakSelf.didUpdateViewModelBlock(weakSelf.view,weakSelf.viewModel,YES);
-
+        }
+        if (weakSelf.didUpdateViewModelBlock){
+            weakSelf.didUpdateViewModelBlock(weakSelf.view,weakSelf.viewModel,YES);
+        }
     }];
 }
 - (void)refreshConfigBK {
