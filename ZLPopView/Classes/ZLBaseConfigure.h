@@ -155,6 +155,9 @@ typedef id<ZLViewLayoutProtocol> ViewLayoutType;
 /// 添加单击事件并返回view，多次传入block会调用多次
 @property (nonatomic,readonly)ObjectType (^addTapAction)(void(^)(__kindof UIView* view));
 
+@property (nonatomic,readonly)ObjectType (^longPressAction)(void(^)(__kindof UIView* view,UILongPressGestureRecognizer *gesture));
+
+
 
 @property (nonatomic,strong,readonly)id _Nullable viewModel;
 ///如果设置了viewmodel的类型可以确保didUpdateViewModelBK传入的viewmodel是这个类型或者子类，viewmodel 如果为空也会调用这个block刷新view

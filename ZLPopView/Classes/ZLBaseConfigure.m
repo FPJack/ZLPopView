@@ -63,10 +63,25 @@
 @interface ZLViewConfigObj()
 @property (nonatomic,weak,readwrite)UIView *view;
 @end
-@interface __GMTapGestureRecognizer : UITapGestureRecognizer
+@interface __ZLTapGestureRecognizer : UITapGestureRecognizer
 @property (nonatomic,copy)void (^block)(UIView *);
 @end
-@implementation __GMTapGestureRecognizer
+@implementation __ZLTapGestureRecognizer
+@end
+
+@interface __ZLLongPressGestureRecognizer : UILongPressGestureRecognizer
+@property (nonatomic,copy)void (^block)(UIView *,UILongPressGestureRecognizer *);
+@end
+@implementation __ZLLongPressGestureRecognizer
+- (instancetype)init
+{
+    return  [super initWithTarget:self action:@selector(longPressAction:)];
+}
+- (void)longPressAction:(UILongPressGestureRecognizer *) gesture {
+    if (self.block) {
+        self.block(gesture.view,gesture);
+    }
+}
 @end
 @implementation NSLayoutConstraint(GMPopView)
 - (NSLayoutConstraint*)gm_enableActive {
@@ -454,13 +469,13 @@ static CGFloat _defaultThickness = 1.0f;
 - (instancetype )addTapAction:(void(^)(UIView *))block add:(BOOL)isAdd{
     __block BOOL isAddedTap = NO;
     [self.view.gestureRecognizers enumerateObjectsUsingBlock:^(__kindof UIGestureRecognizer * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if ([obj isKindOfClass:__GMTapGestureRecognizer.class]) {
+        if ([obj isKindOfClass:__ZLTapGestureRecognizer.class]) {
             isAddedTap = YES;
             *stop = YES;
         }
     }];
     if (!isAddedTap) {
-        __GMTapGestureRecognizer *tap = [[__GMTapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGestureAction:)];
+        __ZLTapGestureRecognizer *tap = [[__ZLTapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGestureAction:)];
         self.view.userInteractionEnabled = YES;
         [self.view addGestureRecognizer:tap];
     }
@@ -480,6 +495,25 @@ static CGFloat _defaultThickness = 1.0f;
 - (id  _Nonnull (^)(void (^ _Nonnull)(__kindof UIView * _Nonnull)))addTapAction {
     return ^id (void(^block)(UIView *view)) {
         return [self addTapAction:block add:YES];
+    };
+}
+- (id  _Nonnull (^)(void (^ _Nonnull)(__kindof UIView * _Nonnull,UILongPressGestureRecognizer *)))longPressAction {
+    return ^id (void(^block)(UIView *view,UILongPressGestureRecognizer *gesture)) {
+        __block BOOL  isAddedTap = NO;
+        [self.view.gestureRecognizers enumerateObjectsUsingBlock:^(__kindof __ZLLongPressGestureRecognizer * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if ([obj isKindOfClass:__ZLLongPressGestureRecognizer.class]) {
+                obj.block = block;
+                isAddedTap = YES;
+                *stop = YES;
+            }
+        }];
+        if (!isAddedTap) {
+            __ZLLongPressGestureRecognizer *tap = [[__ZLLongPressGestureRecognizer alloc] init];
+            tap.block = block;
+            self.view.userInteractionEnabled = YES;
+            [self.view addGestureRecognizer:tap];
+        }
+        return self;
     };
 }
 - (id  _Nonnull (^)(Class  _Nonnull __unsafe_unretained))viewModelClass {

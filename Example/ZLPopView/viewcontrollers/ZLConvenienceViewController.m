@@ -230,6 +230,11 @@
                 UIButton.kfc
                 .tag(101).image(@"close")
                 .dismissPopViewWhenTap
+                .longPressAction(^(__kindof UIView * _Nonnull view, UILongPressGestureRecognizer * _Nonnull gesture) {
+                    if (gesture.state == UIGestureRecognizerStateBegan) {
+                        
+                    }
+                })
                 .addedToSuperview(popView.containerView)
                 .centerX(0).topTo(popView.containerView.bottomAnchor, 50);
         })
