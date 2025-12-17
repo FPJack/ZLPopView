@@ -1746,6 +1746,7 @@ horizontalMarge {return 0;}
 @property (nonatomic,assign)CGFloat s;
 @property (nonatomic,assign)UIEdgeInsets safeAreaMarge;
 @property (nonatomic,assign)CGPoint ap;
+@property (nonatomic,copy)UIColor *arrColor;
 
 @end
 @implementation ZLPopOverView
@@ -1786,6 +1787,12 @@ horizontalMarge {return 0;}
 - (ZLPopOverView* (^)(CGFloat))setArrowHeight {
     return  ^ZLPopOverView*(CGFloat h){
         self.aH = h;
+        return self;
+    };
+}
+- (ZLPopOverView* (^)(id ))setArrowColor{
+    return ^ZLPopOverView*(id c){
+        self.arrColor = __UIColorFromObj(c);
         return self;
     };
 }
@@ -1884,7 +1891,7 @@ horizontalMarge {return 0;}
                               fillColor:j.backgroundColor ?: UIColor.whiteColor
                                         triangleWidth:self.aW
                                        triangleHeight:self.aH
-                                        triangleColor:j.backgroundColor ?: UIColor.whiteColor
+                          triangleColor:self.arrColor ?: (j.backgroundColor ?: UIColor.whiteColor)
                                             direction:self.d
                                        triangleOffset:arrowOffset
                            cornerRadius:j.cornerRadius > 0 ? j.cornerRadius : 10
