@@ -607,11 +607,13 @@ static CGFloat _defaultThickness = 1.0f;
         if (!view || ![view isKindOfClass:UIView.class]) return;
         if (![weakSelf.view isDescendantOfView:view]) return;
         
-        void(^bk)(UIView *,id) = [weakSelf.viewModelBlocksInfo objectForKey:weakSelf.viewModel];
-        
-        if (bk) {
-            bk(weakSelf.view,weakSelf.viewModel);
+        if (weakSelf.viewModel) {
+            void(^bk)(UIView *,id) = [weakSelf.viewModelBlocksInfo objectForKey:weakSelf.viewModel];
+            if (bk) {
+                bk(weakSelf.view,weakSelf.viewModel);
+            }
         }
+        
         if (weakSelf.viewModelCls
                 && weakSelf.viewModel
                 && ![weakSelf.viewModel isKindOfClass:weakSelf.viewModelCls]) {

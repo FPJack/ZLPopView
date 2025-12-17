@@ -164,7 +164,8 @@ typedef id<ZLViewLayoutProtocol> ViewLayoutType;
 
 ///viewmodel 更新的时候block刷新view,设置viewmodeBK会立即回调这个block,isUpdate为NO
 @property (nonatomic,readonly)ObjectType (^updateViewModelBK)(void(^)(__kindof UIView* view,id _Nullable viewModel,BOOL isUpdate));
-///id 相等的时候回调block
+
+///匹配到viewModel的的时候回调block
 @property (nonatomic,readonly)ObjectType (^updateViewModelBKWhen)(id viewModel, void(^)(__kindof UIView* view,id _Nullable viewModel));
 
 ///手动调用view以及子view的updateViewModelBK刷新view,isUpdate为YES

@@ -200,14 +200,17 @@
         .addViewBK(^UIView * _Nonnull{
             UIButton *btn =  UIButton.kfc.blackTitleColor.title(@"ddd").updateViewModelBK(^(__kindof UIButton * _Nonnull UIButton, id  _Nonnull viewModel, BOOL isUpdate) {
                 NSLog(@"");
+            }).updateViewModelBKWhen(@"3", ^(__kindof UIView * _Nonnull view, id  _Nullable viewModel) {
+                NSLog(@"");
             }).view;
+          
             [btn.kfc updateViewModel:@"1"];
            
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [btn.kfc updateViewModel:@"1"];
             });
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [btn.kfc updateViewModel:@"2"];
+                [btn.kfc updateViewModel:@"23"];
             });
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(15 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [btn.kfc updateViewModel:@"3"];
