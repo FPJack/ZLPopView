@@ -83,6 +83,37 @@
     }
 }
 @end
+
+typedef void(^_ZLActionBlock)(id);
+@interface ZLMultiActionObj : NSObject
+@property (nonatomic,strong)NSMutableArray<_ZLActionBlock> *blocks;
+@property (nonatomic,strong)_ZLActionBlock block;
+@property (nonatomic,weak)UIView *view;
+@end
+@implementation ZLMultiActionObj
+- (NSMutableArray<_ZLActionBlock> *)blocks {
+    if (!_blocks) {
+        _blocks = NSMutableArray.array;
+    }
+    return _blocks;
+}
+- (void)addBlock:(_ZLActionBlock)block {
+    if (block) [self.blocks  addObject:block];
+}
+- (void)setBlock:(_ZLActionBlock)block {
+    [self.blocks  removeObject:_block];
+    _block = block;
+    if (_block) [self.blocks addObject:_block];
+}
+- (void)action:(id)target {
+    if (_blocks) {
+        [self.blocks enumerateObjectsUsingBlock:^(_ZLActionBlock  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if (obj) obj(self.view);
+        }];
+    }
+}
+@end
+
 @implementation NSLayoutConstraint(GMPopView)
 - (NSLayoutConstraint*)gm_enableActive {
     self.active = YES;
@@ -107,12 +138,10 @@
 
 @interface ZLBaseConfigure()
 @property (nonatomic,weak,readwrite)UIView *view;
-@property (nonatomic,copy)void(^tapActionBlock)(id view);
 @property (nonatomic,assign,readwrite)BOOL isFirstResponder;
 @property (nonatomic,strong)ZLViewConfigObj *layoutInStackView;
 @property (nonatomic,assign,readwrite)UIEdgeInsets margeViewInset;
 @property (nonatomic,assign)BOOL isObservedBounds;
-@property (nonatomic,strong)NSMutableArray *actionBlocks;
 @property (nonatomic,copy)void (^enableConfigBlock) (UIView *,id);
 @property (nonatomic,copy)void (^disableConfigBlock) (UIView *,id);
 @property (nonatomic,copy)void (^didUpdateViewModelBlock) (__kindof UIView *, id,BOOL);
@@ -122,6 +151,10 @@
 @property (nonatomic,strong)id observer;
 @property (nonatomic,strong,readwrite)id  viewModel;
 @property (nonatomic,strong)NSMutableDictionary *viewModelBlocksInfo;
+
+@property  (nonatomic,readonly)ZLMultiActionObj *tapActionObj;
+@property  (nonatomic,readonly)ZLMultiActionObj *touchUpActionObj;
+@property  (nonatomic,strong)NSMutableDictionary<NSString *,ZLMultiActionObj *> *multiActionDic;
 @end
 
 @interface ZLBuilderContext()
@@ -409,13 +442,33 @@ static CGFloat _defaultThickness = 1.0f;
 
 
 @implementation ZLBaseConfigure
-
-- (NSMutableArray *)actionBlocks {
-    if (!_actionBlocks) {
-        _actionBlocks = [NSMutableArray array];
+- (NSMutableDictionary<NSString *,ZLMultiActionObj *> *)multiActionDic {
+    if (!_multiActionDic) {
+        _multiActionDic = [NSMutableDictionary dictionary];
     }
-    return _actionBlocks;
+    return _multiActionDic;
 }
+- (ZLMultiActionObj *)tapActionObj {
+    NSString   *key = NSStringFromSelector(_cmd);
+    ZLMultiActionObj *action =  self.multiActionDic[key];
+    if (!action) {
+        action = ZLMultiActionObj.new;
+        action.view = self.view;
+        [self.multiActionDic setValue:action forKey:key];
+    }
+    return action;
+}
+- (ZLMultiActionObj *)touchUpActionObj {
+    NSString   *key = NSStringFromSelector(_cmd);
+    ZLMultiActionObj *action =  self.multiActionDic[key];
+    if (!action) {
+        action = ZLMultiActionObj.new;
+        action.view = self.view;
+        [self.multiActionDic setValue:action forKey:key];
+    }
+    return action;
+}
+
 - (UIView *)margeView {
     if (UIEdgeInsetsEqualToEdgeInsets(self.margeViewInset, UIEdgeInsetsZero)) return self.view;
     GMUIContainerView *container;
@@ -475,15 +528,14 @@ static CGFloat _defaultThickness = 1.0f;
         }
     }];
     if (!isAddedTap) {
-        __ZLTapGestureRecognizer *tap = [[__ZLTapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGestureAction:)];
+        __ZLTapGestureRecognizer *tap = [[__ZLTapGestureRecognizer alloc] initWithTarget:self.tapActionObj action:@selector(action:)];
         self.view.userInteractionEnabled = YES;
         [self.view addGestureRecognizer:tap];
     }
-   
     if (isAdd) {
-        if (block) [self.actionBlocks addObject:block];
+        [self.tapActionObj addBlock:block];
     }else{
-        self.tapActionBlock = block;
+        self.tapActionObj.block = block;
     }
     return self;
 }
@@ -678,12 +730,6 @@ static CGFloat _defaultThickness = 1.0f;
     if (childView) [childView.kfc updateViewModel];
 }
 
-- (void)tapGestureAction:(ZLBaseConfigure *)cfg {
-    if (self.tapActionBlock) self.tapActionBlock(self.view);
-    [self.actionBlocks enumerateObjectsUsingBlock:^(void (^obj)(UIView *), NSUInteger idx, BOOL * _Nonnull stop) {
-        if (obj) obj(self.view);
-    }];
-}
 - (instancetype)dismissPopViewWhenTap {
     if ([self.view isKindOfClass:UIButton.class]) {
         UIButton *btn = (UIButton *)self.view;
@@ -1532,8 +1578,7 @@ static CGFloat _defaultThickness = 1.0f;
 @end
 
 @interface ZLUIButtonConfigure()
-@property (nonatomic,copy)void(^touchActionBlock)(id view);
-@property (nonatomic,strong)NSMutableArray *touchBlocks;
+
 @end
 @implementation ZLUIButtonConfigure
 @dynamic enableConfigBK;
@@ -1541,12 +1586,6 @@ static CGFloat _defaultThickness = 1.0f;
 @dynamic updateViewModelBK;
 @dynamic applyStyleBK;
 
-- (NSMutableArray *)touchBlocks {
-    if (!_touchBlocks) {
-        _touchBlocks = [NSMutableArray array];
-    }
-    return _touchBlocks;
-}
 - (ZLUIButtonConfigure* (^)(UIFont *))titleFont {
     return  ^ZLUIButtonConfigure*(UIFont *font){
         self.view.titleLabel.font = font;
@@ -1654,11 +1693,11 @@ static CGFloat _defaultThickness = 1.0f;
 }
 - (ZLUIButtonConfigure* )touchUpAction:(void(^)(UIButton *button))block add:(BOOL)isAdd{
     if (isAdd) {
-        if (block) [self.touchBlocks addObject:block];
+        [self.touchUpActionObj addBlock:block];
     }else {
-        self.touchActionBlock = block;
+        self.touchUpActionObj.block = block;
     }
-    [self.view addTarget:self action:@selector(touchAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addTarget:self.touchUpActionObj action:@selector(action:) forControlEvents:UIControlEventTouchUpInside];
     return self;
 }
 - (ZLUIButtonConfigure * _Nonnull (^)(void (^ _Nonnull)(UIButton * _Nonnull)))touchUpAction {
@@ -1671,15 +1710,7 @@ static CGFloat _defaultThickness = 1.0f;
         return [self touchUpAction:block add:YES];
     };
 }
-- (void)touchAction:(ZLUIButtonConfigure *)cfg{
-    if(self.touchActionBlock) {
-        self.touchActionBlock(self.view);
-    }
-    [self.touchBlocks enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        void(^actionBlock)(UIButton *button) = obj;
-        actionBlock(self.view);
-    }];
-}
+
 - (instancetype)blackTitleColor {
     [self.view setTitleColor:UIColor.blackColor forState:UIControlStateNormal];
     return self;

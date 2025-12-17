@@ -9,15 +9,32 @@
 #import "TableView.h"
 #import <MJRefresh/MJRefresh.h>
 #import <ZLPopView/ZLPopView.h>
+
+#define ZL_LAZY_OBJ_GETTER(ReturnType, container, methodName)  \
+- (ReturnType *)methodName {                                   \
+    NSString *key = NSStringFromSelector(_cmd);                \
+    ReturnType *obj = container[key];                           \
+    if (!obj) {                                                 \
+        obj = ReturnType.alloc;                                   \
+        container[key] = obj;                                   \
+    }                                                           \
+    return obj;                                                 \
+}
+
+
 @interface TableView()
-@property (nonatomic,weak)ZLPopBottomFloatView *popView;
+@property (nonatomic,readonly)ZLPopBottomFloatView *popView;
 @end
 @implementation TableView
+ZL_LAZY_OBJ_GETTER(UIView, NSMutableDictionary.dictionary, tapActionObj)
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
+        
+        
+      
         self.dataSource = self;
         self.delegate = self;
         [self registerClass:UITableViewCell.class forCellReuseIdentifier:@"cell"];
