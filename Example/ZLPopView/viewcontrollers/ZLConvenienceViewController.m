@@ -198,10 +198,12 @@
         //.bgImage(@"pic-bg1")
         .bgImgageContentMode(UIViewContentModeScaleAspectFill)
         .addViewBK(^UIView * _Nonnull{
-            UIButton *btn =  UIButton.kfc.blackTitleColor.title(@"ddd").updateViewModelBK(^(__kindof UIButton * _Nonnull UIButton, id  _Nonnull viewModel, BOOL isUpdate) {
+            UIButton *btn =  UIButton.kfc.blackTitleColor.title(@"ddd").updateViewModelBK(^(__kindof UIButton * _Nonnull button, id  _Nonnull viewModel, BOOL isUpdate) {
                 NSLog(@"");
+                button.kfc.title(viewModel);
             }).updateViewModelBKWhen(@"3", ^(__kindof UIView * _Nonnull view, id  _Nullable viewModel) {
                 NSLog(@"");
+                
             }).view;
           
             [btn.kfc updateViewModel:@"1"];

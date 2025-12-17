@@ -351,6 +351,8 @@ typedef id<ZLViewLayoutProtocol> ViewLayoutType;
 @interface ZLUILabelConfigure : ZLBaseConfigure<ZLUILabelConfigure *,UILabel*>
 
 @property (nonatomic,readonly)ZLUILabelConfigure* (^updateViewModelBK)(void(^)(__kindof UILabel* label,id viewModel,BOOL isUpdate));
+@property (nonatomic,readonly)ZLUILabelConfigure* (^updateViewModelBKWhen)(id viewModel, void(^)(UILabel* label,id _Nullable viewModel));
+
 @property (nonatomic,readonly)ZLUILabelConfigure* (^enableConfigBK)(void(^)(__kindof UILabel* label,id viewModel));
 @property (nonatomic,readonly)ZLUILabelConfigure* (^disableConfigBK)(void(^)(__kindof UILabel* label,id viewModel));
 @property (nonatomic, copy, readonly)ZLUILabelConfigure* (^applyStyleBK)(void(^)(__kindof UILabel* label));
@@ -379,6 +381,8 @@ typedef id<ZLViewLayoutProtocol> ViewLayoutType;
 
 @interface ZLUITextFieldConfigure : ZLBaseConfigure<ZLUITextFieldConfigure *,UITextField *>
 @property (nonatomic,readonly)ZLUITextFieldConfigure* (^updateViewModelBK)(void(^)(__kindof UITextField* textField,id viewModel,BOOL isUpdate));
+@property (nonatomic,readonly)ZLUITextFieldConfigure* (^updateViewModelBKWhen)(id viewModel, void(^)(UITextField* textField,id _Nullable viewModel));
+
 @property (nonatomic,readonly)ZLUITextFieldConfigure* (^enableConfigBK)(void(^)(__kindof UITextField* textField,id viewModel));
 @property (nonatomic,readonly)ZLUITextFieldConfigure* (^disableConfigBK)(void(^)(__kindof UITextField* textField,id viewModel));
 @property (nonatomic, copy, readonly)ZLUITextFieldConfigure* (^applyStyleBK)(void(^)(__kindof UITextField* textField));
@@ -406,6 +410,8 @@ typedef id<ZLViewLayoutProtocol> ViewLayoutType;
 @interface ZLUITextViewConfigure : ZLBaseConfigure<ZLUITextViewConfigure *,UITextView *>
 
 @property (nonatomic,readonly)ZLUITextViewConfigure* (^updateViewModelBK)(void(^)(__kindof UITextView* textView,id viewModel,BOOL isUpdate));
+@property (nonatomic,readonly)ZLUITextViewConfigure* (^updateViewModelBKWhen)(id viewModel, void(^)(UITextView* textView,id _Nullable viewModel));
+
 @property (nonatomic,readonly)ZLUITextViewConfigure* (^enableConfigBK)(void(^)(__kindof UITextView* textView,id viewModel));
 @property (nonatomic,readonly)ZLUITextViewConfigure* (^disableConfigBK)(void(^)(__kindof UITextView* textView,id viewModel));
 @property (nonatomic, copy, readonly)ZLUITextViewConfigure* (^applyStyleBK)(void(^)(__kindof UITextView* textView));
@@ -415,7 +421,9 @@ typedef id<ZLViewLayoutProtocol> ViewLayoutType;
 
 @interface ZLUIButtonConfigure : ZLBaseConfigure<ZLUIButtonConfigure *,UIButton *>
 
-@property (nonatomic,readonly)ZLUIButtonConfigure* (^updateViewModelBK)(void(^)(__kindof UIButton* UIButton,id viewModel,BOOL isUpdate));
+@property (nonatomic,readonly)ZLUIButtonConfigure* (^updateViewModelBK)(void(^)(__kindof UIButton* button,id viewModel,BOOL isUpdate));
+@property (nonatomic,readonly)ZLUIButtonConfigure* (^updateViewModelBKWhen)(id viewModel, void(^)(UIButton* button,id _Nullable viewModel));
+
 ///view userInteractionEnabled = YES 可接收点击的时候调用在这个block里面进行相关属性配置
 @property (nonatomic,readonly)ZLUIButtonConfigure* (^enableConfigBK)(void(^)(__kindof UIButton* button,id viewModel));
 ///view userInteractionEnabled = NO 不可接收点击的时候调用在这个block里面进行相关属性配置
@@ -457,6 +465,8 @@ typedef id<ZLViewLayoutProtocol> ViewLayoutType;
 ///UIImage or #imageName or UIColor or #333333
 @property (nonatomic,readonly)ZLUIImageViewConfigure* (^image)(id);
 @property (nonatomic, copy, readonly)ZLUIImageViewConfigure* (^applyStyleBK)(void(^)(__kindof UIImageView* imageView));
+@property (nonatomic,readonly)ZLUIImageViewConfigure* (^updateViewModelBKWhen)(id viewModel, void(^)(UIImageView* imageView,id _Nullable viewModel));
+
 
 @end
 
