@@ -64,6 +64,8 @@ id _recursive_objc_getAssociatedObject(id _Nonnull object, const void * _Nonnull
 - (void)insertArrangedSubview:(UIView *)view frontView:(UIView *)siblingSubview;
 ///刷新布局
 - (void)refreshArrangedViewsLayout;
+///排序arrangedSubviews 根据tag从小到大
+- (void)sortArrangedSubviewsByTag;
 @end
 
 @interface ZLItemViewObj : NSObject

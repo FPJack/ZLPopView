@@ -197,8 +197,9 @@
         .borderWidth(2)
         //.bgImage(@"pic-bg1")
         .bgImgageContentMode(UIViewContentModeScaleAspectFill)
+        .addView(UISwitch.kfc.tag(10))
         .addViewBK(^UIView * _Nonnull{
-            UIButton *btn =  UIButton.kfc.blackTitleColor.title(@"ddd").updateViewModelBK(^(__kindof UIButton * _Nonnull button, id  _Nonnull viewModel, BOOL isUpdate) {
+            UIButton *btn =  UIButton.kfc.tag(5).blackTitleColor.title(@"ddd").updateViewModelBK(^(__kindof UIButton * _Nonnull button, id  _Nonnull viewModel, BOOL isUpdate) {
                 NSLog(@"");
                 button.kfc.title(viewModel);
             }).updateViewModelBKWhen(@"3", ^(__kindof UIView * _Nonnull view, id  _Nullable viewModel) {
@@ -232,9 +233,14 @@
                 .addedToSuperview(popView.containerView)
                 .centerX(0).topTo(popView.containerView.bottomAnchor, 50);
         })
+    
         .hitTestBK(^UIView * _Nullable(ZLPopBaseView * _Nonnull popView, CGPoint point, UIEvent * _Nonnull event, BOOL * _Nonnull stop) {
             return [popView viewWithTag:101];
         });
+    view.didShowBK(^(ZLPopBaseView * _Nonnull popView) {
+        ZLUIStackView *stackView = popView.stackView;
+        [stackView sortArrangedSubviewsByTag];
+    });
     [view show];
 }
 - (NSAttributedString *)textAttr {

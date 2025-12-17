@@ -415,6 +415,27 @@ static inline UIView* _getViewFromViewKFC(ViewKFCType viewKFC) {
     [self layoutIfNeeded];
     [self refreshArrangedViewsLayoutWithoutLayoutIfNeeded];
 }
+- (void)sortArrangedSubviewsByTag {
+    NSArray<UIView *> *views = self.arrangedSubviews;
+    NSArray<UIView *> *sortedViews = [views sortedArrayUsingComparator:^NSComparisonResult(UIView *obj1, UIView *obj2) {
+        if (obj1.tag < obj2.tag) {
+            return NSOrderedAscending;
+        } else if (obj1.tag > obj2.tag) {
+            return NSOrderedDescending;
+        } else {
+            return NSOrderedSame;
+        }
+    }];
+    
+    [sortedViews enumerateObjectsUsingBlock:^(UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [self removeArrangedSubview:obj];
+        [obj removeFromSuperview];
+    }];
+    
+    [sortedViews enumerateObjectsUsingBlock:^(UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [self addArrangedSubview:obj];
+    }];
+}
 - (void)refreshArrangedViewsLayoutWithoutLayoutIfNeeded {
     __block BOOL adjustViewCrossLayout = NO;
     NSArray<UIView *> *views = self.arrangedSubviews;
