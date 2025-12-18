@@ -172,7 +172,7 @@
 - (ZLPopViewBuilder *)showBottomTextInput1 {
     ZLPopViewBuilder *builder = kPopViewColumnBuilder
         .marge(0,0,0,0)
-        .insetVertical(20,self.view.safeAreaInsets.bottom)
+        .insetVertical(20,kZLSafeAreaBottom)
         .tapMaskDismiss
         .avoidKeyboardFirstResponderBottom
         .bottomOffsetToKeyboardTop(20)

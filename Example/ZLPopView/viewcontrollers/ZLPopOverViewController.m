@@ -105,6 +105,16 @@
     for (int i = 0 ; i < randomValue; i ++) {
         builder.addView([self addItem]);
     }
+    UIImage *bgImg = [UIImage imageNamed:@"tk_pet_card_bg"];
+    // 方法1：调整capInsets
+    UIEdgeInsets insets = UIEdgeInsetsMake(40,
+                                           30,
+                                           10,
+                                           10);
+
+ 
+    UIImage *resibleImg = [bgImg resizableImageWithCapInsets:insets resizingMode:UIImageResizingModeStretch];
+
     NSArray *colors = @[@"#D2F999",@"#EFF7E0",@"#FFFFFF"];
 
         builder
@@ -113,11 +123,13 @@
         .cornerRadius(10)
         .shadowColor(UIColor.blackColor)
         .shadowOpacity(0.2)
-        .borderColor(UIColor.redColor)
-        .borderWidth(2)
+//        .borderColor(UIColor.redColor)
+//        .borderWidth(2)
         .inset(10, 10, 10, 10)
-        .maxWidth(150)
-        .bgGradientColors(colors)
+        .bgImage(resibleImg)
+        .bgImgageContentMode(UIViewContentModeScaleToFill)
+        //.bgGradientColors(colors)
+        .backgroundColor(UIColor.clearColor)
         .wrapScrollView
         .enableScrollWhenOutBounds
 //        .setInset(UIEdgeInsetsZero)
@@ -126,6 +138,9 @@
         .buildPopOverView
         .setFromView(sender)
         .setDirection(d)
+        .setArrowWidth(0)
+        .setArrowHeight(0)
+        .setSafeAreaMarge(UIEdgeInsetsMake(420, 10, kZLSafeAreaBottom, 20))
         .delegate(self)
 
 //        .setPopParentView(self.view)

@@ -177,76 +177,56 @@
     
 }
 - (void)showAlert {
-   
-    NSArray *colors = @[@"#D2F999",@"#EFF7E0",@"#FFFFFF"];
-    ZLPopBaseView *view =
-        ZLPopViewBuilder.column
-        .title(@"提示框")
-        .message(@"这是一个简单的提示。")
-        .avoidKeyboardPopViewBottom
-        .bottomOffsetToKeyboardTop(50)
-        .bgGradientColors(colors)
+        kPopViewColumnBuilder
+        .bgGradientColors(@[@"#D2F999",@"#EFF7E0",@"#FFFFFF"])
         .maskColor(UIColor.black50)
-//        .backgroundColor(UIColor.clearColor)
         .alertWidth270
-        .borderColor(UIColor.greenColor)
-        .borderWidth(2)
         .cornerRadius(10)
-        .shadowColor(UIColor.redColor)
-        .shadowOpacity(0.5)
-        .borderWidth(2)
-        //.bgImage(@"pic-bg1")
-        .bgImgageContentMode(UIViewContentModeScaleAspectFill)
-        .addView(UISwitch.kfc.tag(10))
+        .backgroundColor(UIColor.clearColor)
+        .padding(20, 20, 20, 20)
+        .space(12)
+        .addView(UILabel.kfc.text(@"新功能上线").textAlignmentLeft.systemFontSize(20))
         .addViewBK(^UIView * _Nonnull{
-            UIButton *btn =  UIButton.kfc.tag(5).blackTitleColor.title(@"ddd").updateViewModelBK(^(__kindof UIButton * _Nonnull button, id  _Nonnull viewModel, BOOL isUpdate) {
-                NSLog(@"");
-                button.kfc.title(viewModel);
-            }).updateViewModelBKWhen(@"3", ^(__kindof UIView * _Nonnull view, id  _Nullable viewModel) {
-                NSLog(@"");
-                
-            }).view;
-          
-            [btn.kfc updateViewModel:@"1"];
-           
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [btn.kfc updateViewModel:@"1"];
-            });
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [btn.kfc updateViewModel:@"23"];
-            });
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(15 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [btn.kfc updateViewModel:@"3"];
-            });
-            return btn;
+                UIStackView *stackView = kStackViewColumnBuilder
+                .alignmentStart
+                .space(5)
+                .padding(20, 12, 20, 12)
+                .addView(UILabel.kfc
+                         .text(@"我家的Wi-Fi")
+                         .systemFontSize(14))
+                .addView(UILabel.kfc
+                         .text(@"添加我家的Wi-Fi（信任Wi-Fi), 设备检测到该Wi-Fi后自动识别为安全区域，提升定位精度")
+                         .multipleLines
+                         .textColor(UIColor.black80)
+                         .systemFontSize(12))
+                .buildStackView;
+            return stackView.kfc.cornerRadius(12).whiteBgColor.view;
         })
-        .addTextField(^(UITextField * _Nonnull textField) {
-            textField.placeholder = @"请输入内容";
-        })
-        .addCancelViewStyleActionText(@"取消", nil)
-        .addButtonViewStyleActionText(@"按钮", nil)
+        .addView(UIButton.kfc
+                 .roundCorner
+                 .title(@"立即体验")
+                 .titleSystemFontSize(16)
+                 .height(50)
+                 .titleColor(UIColor.blackColor)
+                 .dismissPopViewWhenTap
+                 .backgroundColor(@"#7EE905"))
         .buildCenterPopView
         .initStateBK(^(ZLPopBaseView * _Nonnull popView) {
-                UIButton.kfc
+            UIButton.kfc
                 .tag(101).image(@"close")
                 .dismissPopViewWhenTap
-                .longPressAction(^(__kindof UIView * _Nonnull view, UILongPressGestureRecognizer * _Nonnull gesture) {
-                    if (gesture.state == UIGestureRecognizerStateBegan) {
-                        
-                    }
-                })
                 .addedToSuperview(popView.containerView)
-                .centerX(0).topTo(popView.containerView.bottomAnchor, 50);
+                .centerX(0).topTo(popView.containerView.bottomAnchor, 20);
+            UIImageView *imgView = UIImageView.kfc
+                .addedToSuperview(popView.containerView)
+                .image(@"newVersion_bag")
+                .trailing(-10).top(-30)
+                .view;
+            [popView.containerView insertSubview:imgView atIndex:0];
         })
-    
         .hitTestBK(^UIView * _Nullable(ZLPopBaseView * _Nonnull popView, CGPoint point, UIEvent * _Nonnull event, BOOL * _Nonnull stop) {
             return [popView viewWithTag:101];
-        });
-    view.didShowBK(^(ZLPopBaseView * _Nonnull popView) {
-        ZLUIStackView *stackView = popView.stackView;
-        [stackView sortArrangedSubviewsByTag];
-    });
-    [view show];
+        }).showPopView();
 }
 - (NSAttributedString *)textAttr {
     NSAttributedString *attrMessage = [[NSAttributedString alloc] initWithString:@"这是一个简单的提示。" attributes:@{NSForegroundColorAttributeName:UIColor.redColor,NSFontAttributeName:[UIFont systemFontOfSize:16]}];

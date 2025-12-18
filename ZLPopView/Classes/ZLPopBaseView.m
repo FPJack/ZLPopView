@@ -448,6 +448,131 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
 }
 @end
 
+@interface ZLGradientCornerLayer : CAGradientLayer
+@property (nonatomic) CGFloat topLeftRadius;
+@property (nonatomic) CGFloat topRightRadius;
+@property (nonatomic) CGFloat bottomLeftRadius;
+@property (nonatomic) CGFloat bottomRightRadius;
+@property (nonatomic, strong) CAShapeLayer *maskLayer;
+@end
+@implementation ZLGradientCornerLayer
+#pragma mark - Init
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        _maskLayer = [CAShapeLayer layer];
+        self.mask = _maskLayer;
+    }
+    return self;
+}
+
+#pragma mark - Override frame / bounds
+
+- (void)setFrame:(CGRect)frame {
+    [super setFrame:frame];
+    [self updateMaskPath];
+}
+
+- (void)setBounds:(CGRect)bounds {
+    [super setBounds:bounds];
+    [self updateMaskPath];
+}
+
+#pragma mark - Radius setters
+
+- (void)setTopLeftRadius:(CGFloat)topLeftRadius {
+    _topLeftRadius = topLeftRadius;
+    [self updateMaskPath];
+}
+
+- (void)setTopRightRadius:(CGFloat)topRightRadius {
+    _topRightRadius = topRightRadius;
+    [self updateMaskPath];
+}
+
+- (void)setBottomLeftRadius:(CGFloat)bottomLeftRadius {
+    _bottomLeftRadius = bottomLeftRadius;
+    [self updateMaskPath];
+}
+
+- (void)setBottomRightRadius:(CGFloat)bottomRightRadius {
+    _bottomRightRadius = bottomRightRadius;
+    [self updateMaskPath];
+}
+
+#pragma mark - Core
+
+- (void)updateMaskPath {
+    if (CGRectIsEmpty(self.bounds)) return;
+
+    CGRect rect = self.bounds;
+
+    CGFloat tl = MAX(0, self.topLeftRadius);
+    CGFloat tr = MAX(0, self.topRightRadius);
+    CGFloat bl = MAX(0, self.bottomLeftRadius);
+    CGFloat br = MAX(0, self.bottomRightRadius);
+
+    UIBezierPath *path = [UIBezierPath bezierPath];
+
+    // 起点：左上
+    [path moveToPoint:CGPointMake(CGRectGetMinX(rect) + tl,
+                                  CGRectGetMinY(rect))];
+
+    // 顶边
+    [path addLineToPoint:CGPointMake(CGRectGetMaxX(rect) - tr,
+                                     CGRectGetMinY(rect))];
+
+    // 右上角
+    [path addArcWithCenter:CGPointMake(CGRectGetMaxX(rect) - tr,
+                                        CGRectGetMinY(rect) + tr)
+                    radius:tr
+                startAngle:-M_PI_2
+                  endAngle:0
+                 clockwise:YES];
+
+    // 右边
+    [path addLineToPoint:CGPointMake(CGRectGetMaxX(rect),
+                                     CGRectGetMaxY(rect) - br)];
+
+    // 右下角
+    [path addArcWithCenter:CGPointMake(CGRectGetMaxX(rect) - br,
+                                        CGRectGetMaxY(rect) - br)
+                    radius:br
+                startAngle:0
+                  endAngle:M_PI_2
+                 clockwise:YES];
+
+    // 底边
+    [path addLineToPoint:CGPointMake(CGRectGetMinX(rect) + bl,
+                                     CGRectGetMaxY(rect))];
+
+    // 左下角
+    [path addArcWithCenter:CGPointMake(CGRectGetMinX(rect) + bl,
+                                        CGRectGetMaxY(rect) - bl)
+                    radius:bl
+                startAngle:M_PI_2
+                  endAngle:M_PI
+                 clockwise:YES];
+
+    // 左边
+    [path addLineToPoint:CGPointMake(CGRectGetMinX(rect),
+                                     CGRectGetMinY(rect) + tl)];
+
+    // 左上角
+    [path addArcWithCenter:CGPointMake(CGRectGetMinX(rect) + tl,
+                                        CGRectGetMinY(rect) + tl)
+                    radius:tl
+                startAngle:M_PI
+                  endAngle:3 * M_PI_2
+                 clockwise:YES];
+
+    [path closePath];
+    self.maskLayer.frame = rect;
+    self.maskLayer.path = path.CGPath;
+}
+
+@end
+
 
 @implementation ZLBuildConfigObj
 - (instancetype)init
@@ -532,7 +657,7 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
 @property (nonatomic,copy)PopViewCallbackBK layoutSubviewBlock;
 @property (nonatomic,weak,readwrite)id<ZLPopViewDelegate> delegateObj;
 @property (nonatomic,strong,readwrite)UIVisualEffectView *blurView;
-@property (nonatomic,strong)CAGradientLayer *gradLayer;
+@property (nonatomic,strong)ZLGradientCornerLayer *gradLayer;
 @property (nonatomic,copy)ZLHitTestBK hitTestBlock;
 
 
@@ -710,9 +835,9 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
     }
     return _panGesture;
 }
-- (CAGradientLayer *)gradLayer {
+- (ZLGradientCornerLayer *)gradLayer {
     if (!_gradLayer) {
-        CAGradientLayer *layer = [CAGradientLayer layer];
+        ZLGradientCornerLayer *layer = [ZLGradientCornerLayer layer];
         layer.startPoint = CGPointMake(0.5, 0); // 中上
         layer.endPoint = CGPointMake(0.5, 1); // 中上
         NSMutableArray *colors = NSMutableArray.array;
@@ -1069,7 +1194,13 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
     if (self.configObj.bgGradientColors.count > 0) {
         if (![self isKindOfClass:ZLPopOverView.class]) {
             self.gradLayer.frame = self.containerView.bounds;
-            [self.containerView.contentView.layer insertSublayer:self.gradLayer atIndex:0];
+            UIRectCorner corners = self.containerView.corners;
+            CGFloat radius = self.containerView.cornerRadius;
+            self.gradLayer.topLeftRadius  = (corners & UIRectCornerTopLeft) != 0 ? radius : 0;
+            self.gradLayer.topRightRadius = (corners & UIRectCornerTopRight) != 0 ? radius : 0;
+            self.gradLayer.bottomLeftRadius = (corners & UIRectCornerBottomLeft) != 0 ? radius : 0;
+            self.gradLayer.bottomRightRadius = (corners & UIRectCornerBottomRight) != 0 ? radius : 0;
+            [self.containerView.layer insertSublayer:self.gradLayer atIndex:0];
         }
     }
     if (self.layoutSubviewBlock) {
@@ -1929,7 +2060,13 @@ horizontalMarge {return 0;}
         }else if (self.d == ZLPopOverDirectionTrailing){
             self.gradLayer.frame = CGRectMake(frame.origin.x, frame.origin.y, CGRectGetWidth(frame) - self.aH, CGRectGetHeight(frame));
         }
-        [self.containerView.contentView.layer insertSublayer:self.gradLayer atIndex:0];
+        UIRectCorner corners = self.containerView.corners;
+        CGFloat radius = self.containerView.cornerRadius;
+        self.gradLayer.topLeftRadius  = (corners & UIRectCornerTopLeft) != 0 ? radius : 0;
+        self.gradLayer.topRightRadius = (corners & UIRectCornerTopRight) != 0 ? radius : 0;
+        self.gradLayer.bottomLeftRadius = (corners & UIRectCornerBottomLeft) != 0 ? radius : 0;
+        self.gradLayer.bottomRightRadius = (corners & UIRectCornerBottomRight) != 0 ? radius : 0;
+        [self.containerView.layer insertSublayer:self.gradLayer atIndex:0];
     }
 }
 - (void)dismiss {

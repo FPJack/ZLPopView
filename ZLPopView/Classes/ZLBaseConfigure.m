@@ -364,23 +364,7 @@ static CGFloat _defaultThickness = 1.0f;
     self.tag = kTrailingSeparatorTag;
     return self.layoutInset(UIEdgeInsetsMake(0, kSeptorDefaultHeight, 0, 0));
 }
-//- (instancetype)top{
-//    self.tag = 1;
-//    return self.layoutInset(UIEdgeInsetsMake(0, 0, kSeptorDefaultHeight, 0));
-//}
-//- (instancetype )bottom {
-//    self.tag = 3;
-//    return self.layoutInset(UIEdgeInsetsMake(kSeptorDefaultHeight, 0, 0, 0));
-//}
-//- (instancetype)leading {
-//    
-//    self.tag = 2;
-//    return self.layoutInset(UIEdgeInsetsMake(0, 0, 0, kSeptorDefaultHeight));
-//}
-//- (instancetype)trailing {
-//    self.tag = 4;
-//    return self.layoutInset(UIEdgeInsetsMake(0, kSeptorDefaultHeight, 0, 0));
-//}
+
 - (void)deactiveTopCons {
     if (_topCons) _topCons.active = NO;
 }
