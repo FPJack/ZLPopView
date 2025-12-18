@@ -141,6 +141,12 @@ typedef void(^PopViewCallbackBK) (ZLPopBaseView *popView);
 @property (nonatomic, strong) UIColor *borderColor;
 @property (nonatomic, assign) CGFloat borderWidth;
 @property (nonatomic, assign) CGFloat cornerRadius;
+
+@property (nonatomic) CGFloat topLeadingRadius;
+@property (nonatomic) CGFloat topTrailingRadius;
+@property (nonatomic) CGFloat bottomLeadingRadius;
+@property (nonatomic) CGFloat bottomTrailingRadius;
+
 @property(nonatomic,assign) UILayoutConstraintAxis axis;
 @property (nonatomic,copy)void (^orientationChangeBk)(ZLLayoutConstraintObj *constraintObj,ZLBuildConfigObj *configureObj,BOOL isLandscape);
 

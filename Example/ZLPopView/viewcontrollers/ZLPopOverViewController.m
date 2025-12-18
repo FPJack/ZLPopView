@@ -123,12 +123,10 @@
         .cornerRadius(10)
         .shadowColor(UIColor.blackColor)
         .shadowOpacity(0.2)
-//        .borderColor(UIColor.redColor)
-//        .borderWidth(2)
+        .borderColor(UIColor.redColor)
+        .borderWidth(2)
         .inset(10, 10, 10, 10)
-        .bgImage(resibleImg)
-        .bgImgageContentMode(UIViewContentModeScaleToFill)
-        //.bgGradientColors(colors)
+        .bgGradientColors(colors)
         .backgroundColor(UIColor.clearColor)
         .wrapScrollView
         .enableScrollWhenOutBounds
@@ -138,9 +136,6 @@
         .buildPopOverView
         .setFromView(sender)
         .setDirection(d)
-        .setArrowWidth(0)
-        .setArrowHeight(0)
-        .setSafeAreaMarge(UIEdgeInsetsMake(420, 10, kZLSafeAreaBottom, 20))
         .delegate(self)
 
 //        .setPopParentView(self.view)

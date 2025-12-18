@@ -185,17 +185,17 @@
         .backgroundColor(UIColor.clearColor)
         .padding(20, 20, 20, 20)
         .space(12)
-        .addView(UILabel.kfc.text(@"新功能上线").textAlignmentLeft.systemFontSize(20))
+        .addView(UILabel.kfc.text(@"新版本上线").textAlignmentLeft.systemFontSize(20))
         .addViewBK(^UIView * _Nonnull{
                 UIStackView *stackView = kStackViewColumnBuilder
                 .alignmentStart
                 .space(5)
                 .padding(20, 12, 20, 12)
                 .addView(UILabel.kfc
-                         .text(@"我家的Wi-Fi")
+                         .text(@"版本更新内容")
                          .systemFontSize(14))
                 .addView(UILabel.kfc
-                         .text(@"添加我家的Wi-Fi（信任Wi-Fi), 设备检测到该Wi-Fi后自动识别为安全区域，提升定位精度")
+                         .text(@"1. 全新界面设计，提升用户体验。\n2. 优化性能，提升运行速度。\n3. 修复已知问题，增强稳定性。")
                          .multipleLines
                          .textColor(UIColor.black80)
                          .systemFontSize(12))
@@ -212,11 +212,13 @@
                  .backgroundColor(@"#7EE905"))
         .buildCenterPopView
         .initStateBK(^(ZLPopBaseView * _Nonnull popView) {
+            
             UIButton.kfc
                 .tag(101).image(@"close")
                 .dismissPopViewWhenTap
                 .addedToSuperview(popView.containerView)
                 .centerX(0).topTo(popView.containerView.bottomAnchor, 20);
+            
             UIImageView *imgView = UIImageView.kfc
                 .addedToSuperview(popView.containerView)
                 .image(@"newVersion_bag")
@@ -227,6 +229,7 @@
         .hitTestBK(^UIView * _Nullable(ZLPopBaseView * _Nonnull popView, CGPoint point, UIEvent * _Nonnull event, BOOL * _Nonnull stop) {
             return [popView viewWithTag:101];
         }).showPopView();
+        
 }
 - (NSAttributedString *)textAttr {
     NSAttributedString *attrMessage = [[NSAttributedString alloc] initWithString:@"这是一个简单的提示。" attributes:@{NSForegroundColorAttributeName:UIColor.redColor,NSFontAttributeName:[UIFont systemFontOfSize:16]}];
