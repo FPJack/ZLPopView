@@ -122,7 +122,7 @@ static inline UIView* _getViewFromViewKFC(ViewKFCType viewKFC) {
 - (void)setAlignmentMarge:(CGFloat)alignmentMarge {
     if (_alignmentMarge != alignmentMarge) {
         _alignmentMarge = alignmentMarge;
-        self.view.gm_layoutConfigObj = YES;
+       // self.view.gm_layoutConfigObj = YES;
         self.needUpdateConstraints = YES;
         if (self.didSetupConstraints) [self.stackView refreshArrangedViewsLayout];
     }
@@ -543,6 +543,9 @@ static inline UIView* _getViewFromViewKFC(ViewKFCType viewKFC) {
 }
 - (void)addStartConstraint:(UIView *)v {
     UIEdgeInsets marge = self.layoutMargins;
+    if (v.tag == 33) {
+        NSLog(@"");
+    }
     ZLViewConfigObj *config = v.kfc.layoutInStackView;
     //self.axis == UILayoutConstraintAxisHorizontal ? (config.startCons = [v.kfc topToView:v.superview offset:marge.top + config.alignmentMarge]) : (config.startCons = [v.kfc leadingToView:v.superview offset:marge.left + config.alignmentMarge]);
     self.axis == UILayoutConstraintAxisHorizontal ? (config.startCons = [v.topAnchor constraintEqualToAnchor:v.superview.layoutMarginsGuide.topAnchor constant:config.alignmentMarge].gm_enableActive) : (config.startCons = [v.leadingAnchor constraintEqualToAnchor:v.superview.layoutMarginsGuide.leadingAnchor constant:config.alignmentMarge].gm_enableActive);
