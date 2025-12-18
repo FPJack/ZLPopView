@@ -50,6 +50,7 @@ id _recursive_objc_getAssociatedObject(id _Nonnull object, const void * _Nonnull
 - (instancetype )startAlignment;
 - (instancetype )endAlignment;
 - (instancetype )centerAlignment;
+- (instancetype )fillAlignment;
 - (ZLViewConfigObj* (^)(CGFloat marge))startAlign;
 - (ZLViewConfigObj* (^)(CGFloat marge))endAlign;
 - (ZLViewConfigObj* (^)(CGFloat offsetY))centerAlign;

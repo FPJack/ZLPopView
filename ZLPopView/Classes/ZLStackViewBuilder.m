@@ -157,6 +157,10 @@ static inline UIView* _getViewFromViewKFC(ViewKFCType viewKFC) {
     self.alignment = ZLCrossAxisAlignmentCenter;
     return self;
 }
+- (ZLViewConfigObj* )fillAlignment{
+    self.alignment = ZLCrossAxisAlignmentFill;
+    return self;
+}
 - (ZLViewConfigObj* (^)(CGFloat marge))startAlign {
     return  ^ZLViewConfigObj*(CGFloat marge){
         self.alignment = ZLCrossAxisAlignmentStart;
@@ -446,10 +450,13 @@ static inline UIView* _getViewFromViewKFC(ViewKFCType viewKFC) {
             if (self.alignment == UIStackViewAlignmentTop && alignment == ZLCrossAxisAlignmentStart) effectiveAlignment = ZLCrossAxisAlignmentAuto;
             if (self.alignment == UIStackViewAlignmentBottom && alignment == ZLCrossAxisAlignmentEnd) effectiveAlignment = ZLCrossAxisAlignmentAuto;
             if (self.alignment == UIStackViewAlignmentCenter && alignment == ZLCrossAxisAlignmentCenter) effectiveAlignment = ZLCrossAxisAlignmentAuto;
+            if (self.alignment == UIStackViewAlignmentFill && alignment == ZLCrossAxisAlignmentFill) effectiveAlignment = ZLCrossAxisAlignmentAuto;
+
         }else {
             if (self.alignment == UIStackViewAlignmentLeading && alignment == ZLCrossAxisAlignmentStart) effectiveAlignment = ZLCrossAxisAlignmentAuto;
             if (self.alignment == UIStackViewAlignmentTrailing && alignment == ZLCrossAxisAlignmentEnd) effectiveAlignment = ZLCrossAxisAlignmentAuto;
             if (self.alignment == UIStackViewAlignmentCenter && alignment == ZLCrossAxisAlignmentCenter) effectiveAlignment = ZLCrossAxisAlignmentAuto;
+            if (self.alignment == UIStackViewAlignmentFill && alignment == ZLCrossAxisAlignmentFill) effectiveAlignment = ZLCrossAxisAlignmentAuto;
         }
         if (effectiveAlignment != ZLCrossAxisAlignmentAuto) {
             adjustViewCrossLayout = YES;
@@ -529,6 +536,9 @@ static inline UIView* _getViewFromViewKFC(ViewKFCType viewKFC) {
             [self addGreaterThanStartConstraint:view];
             [self addLessThenEndConstraint:view];
         }
+    }else if (view.kfc.alignment == ZLCrossAxisAlignmentFill) {
+        [self addStartConstraint:view];
+        [self addEndConstraint:view];
     }
 }
 - (void)addStartConstraint:(UIView *)v {

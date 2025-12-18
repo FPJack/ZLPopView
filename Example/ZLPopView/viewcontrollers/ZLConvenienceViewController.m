@@ -180,12 +180,14 @@
         kPopViewColumnBuilder
         .bgGradientColors(@[@"#D2F999",@"#EFF7E0",@"#FFFFFF"])
         .maskColor(UIColor.black50)
-        .alertWidth270
+//        .alertWidth270
+        .width(300)
+        .alignmentCenter
         .cornerRadius(10)
         .backgroundColor(UIColor.clearColor)
         .padding(20, 20, 20, 20)
         .space(12)
-        .addView(UILabel.kfc.text(@"新版本上线").textAlignmentLeft.systemFontSize(20))
+        .addView(UILabel.kfc.startAlignment.text(@"新版本上线").textAlignmentLeft.systemFontSize(20))
         .addViewBK(^UIView * _Nonnull{
                 UIStackView *stackView = kStackViewColumnBuilder
                 .alignmentStart
@@ -200,13 +202,14 @@
                          .textColor(UIColor.black80)
                          .systemFontSize(12))
                 .buildStackView;
-            return stackView.kfc.cornerRadius(12).whiteBgColor.view;
+            return stackView.kfc.cornerRadius(12).fillAlignment.whiteBgColor.view;
         })
         .addView(UIButton.kfc
                  .roundCorner
                  .title(@"立即体验")
                  .titleSystemFontSize(16)
                  .height(50)
+                 .width(198)
                  .titleColor(UIColor.blackColor)
                  .dismissPopViewWhenTap
                  .backgroundColor(@"#7EE905"))

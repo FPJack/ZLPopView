@@ -1277,6 +1277,10 @@ static CGFloat _defaultThickness = 1.0f;
     [self.layoutInStackView centerAlignment];
     return self;
 }
+- (instancetype)fillAlignment {
+    [self.layoutInStackView fillAlignment];
+    return self;
+}
 - (id  (^)(CGFloat marge))startAlign {
     return ^ZLBaseConfigure* (CGFloat marge) {
         self.layoutInStackView.startAlign(marge);

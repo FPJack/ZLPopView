@@ -42,7 +42,8 @@ typedef NS_ENUM(NSInteger, ZLCrossAxisAlignment) {
     ZLCrossAxisAlignmentAuto = 0,//跟随UIStackView纵轴对齐方式
     ZLCrossAxisAlignmentCenter,
     ZLCrossAxisAlignmentStart,
-    ZLCrossAxisAlignmentEnd
+    ZLCrossAxisAlignmentEnd,
+    ZLCrossAxisAlignmentFill,
 };
 
 @interface GMUIContainerView<__covariant ObjectType: UIView *> : UIView
@@ -337,6 +338,7 @@ typedef id<ZLViewLayoutProtocol> ViewLayoutType;
 - (instancetype )startAlignment;
 - (instancetype )endAlignment;
 - (instancetype )centerAlignment;
+- (instancetype )fillAlignment;
 
 @property (nonatomic,readonly) ObjectType (^startAlign)(CGFloat marge);
 @property (nonatomic,readonly) ObjectType (^endAlign)(CGFloat marge);
