@@ -106,7 +106,7 @@
     .addView(UILabel.kfc.text(@"Column里面单独设置子view纵向对齐方式和间距"))
     .addViewBK(^ViewKFCType _Nonnull{
        return kStackViewColumnBuilder
-            .space(10)
+            .space(30)
             .addView(self.randomColorView.kfc.startAlignment)
             .addView(self.randomColorView.kfc.endAlignment)
             .addView(self.randomColorView.kfc.centerAlignment)

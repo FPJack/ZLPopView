@@ -179,11 +179,7 @@
 - (void)showAlert {
         kPopViewColumnBuilder
         .bgGradientColors(@[@"#D2F999",@"#EFF7E0",@"#FFFFFF"])
-        .maskColor(UIColor.black50)
-//        .alertWidth270
-        .width(300)
         .alignmentCenter
-        .cornerRadius(10)
         .backgroundColor(UIColor.clearColor)
         .padding(20, 20, 20, 20)
         .space(12)
@@ -215,13 +211,11 @@
                  .backgroundColor(@"#7EE905"))
         .buildCenterPopView
         .initStateBK(^(ZLPopBaseView * _Nonnull popView) {
-            
             UIButton.kfc
                 .tag(101).image(@"close")
                 .dismissPopViewWhenTap
                 .addedToSuperview(popView.containerView)
                 .centerX(0).topTo(popView.containerView.bottomAnchor, 20);
-            
             UIImageView *imgView = UIImageView.kfc
                 .addedToSuperview(popView.containerView)
                 .image(@"newVersion_bag")
@@ -232,7 +226,6 @@
         .hitTestBK(^UIView * _Nullable(ZLPopBaseView * _Nonnull popView, CGPoint point, UIEvent * _Nonnull event, BOOL * _Nonnull stop) {
             return [popView viewWithTag:101];
         }).showPopView();
-        
 }
 - (NSAttributedString *)textAttr {
     NSAttributedString *attrMessage = [[NSAttributedString alloc] initWithString:@"这是一个简单的提示。" attributes:@{NSForegroundColorAttributeName:UIColor.redColor,NSFontAttributeName:[UIFont systemFontOfSize:16]}];
