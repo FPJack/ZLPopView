@@ -900,6 +900,10 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
                                                     selector:@selector(deviceOrientationWillChange:)
                                                         name:UIApplicationWillChangeStatusBarOrientationNotification
                                                       object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                    selector:@selector(deviceOrientationDidChanged:)
+                                                     name:UIApplicationDidChangeStatusBarOrientationNotification
+                                                      object:nil];
     }
     return self;
 }
@@ -921,6 +925,9 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
     if (self.configObj.orientationChangeBk) {
         self.configObj.orientationChangeBk(self.constraintObj,self.configObj,!UIInterfaceOrientationIsPortrait(newOrientation));
     }
+}
+- (void)deviceOrientationDidChanged:(NSNotification *)notification{
+    
 }
 - (void)setConfigObj:(ZLBuildConfigObj *)configObj {
     _configObj = configObj;
@@ -1887,7 +1894,9 @@ horizontalMarge {return 0;}
     if (self) {
         _aW = 8;
         _aH = 6;
-        _safeAreaMarge = UIEdgeInsetsMake(50, 10, 20, 10);
+//        _safeAreaMarge = UIEdgeInsetsMake(50, 10, 20, 10);
+        _safeAreaMarge = UIEdgeInsetsMake(10, 10, 10, 10);
+
         _s = 5;
     }
     return self;
@@ -1964,29 +1973,7 @@ horizontalMarge {return 0;}
     //如果分开写约束top 约束一定要写到bottom约束的前面，不然布局有问题
     [self addPopViewMargeCons];
     
-    {
-        CGFloat maxWidth = self.frame.size.width - self.safeAreaMarge.left - self.safeAreaMarge.right;
-        CGFloat maxHeight = self.frame.size.height - self.safeAreaMarge.top - self.safeAreaMarge.bottom;
-        if (self.d == ZLPopOverDirectionLeading) {
-             maxWidth = self.frame.size.width - self.p.x - self.safeAreaMarge.right  - self.aH - self.s;
-             maxHeight = self.frame.size.height - self.safeAreaMarge.bottom  - self.safeAreaMarge.top;
-        }else if (self.d == ZLPopOverDirectionTrailing) {
-             maxWidth =  self.p.x - self.safeAreaMarge.left  - self.aH - self.s;
-             maxHeight = self.frame.size.height - self.safeAreaMarge.bottom  - self.safeAreaMarge.top;
-        }else if (self.d == ZLPopOverDirectionUp) {
-             maxHeight = self.frame.size.height - self.p.y - self.safeAreaMarge.bottom  - self.aW - self.s;
-             maxWidth =  self.frame.size.width - self.safeAreaMarge.left  - self.safeAreaMarge.right;
-        }else if (self.d == ZLPopOverDirectionDown) {
-             maxHeight = self.p.y - self.safeAreaMarge.top  - self.aW - self.s;
-             maxWidth = self.frame.size.width - self.safeAreaMarge.left  - self.safeAreaMarge.right;
-        }
-        if (self.configObj.maxWidth <= 0 && self.configObj.width <= 0 && self.configObj.maxWidthMultiplier <= 0 ) {
-            self.containerView.kfc.maxWidth(maxWidth);
-        }
-        if (self.configObj.maxHeight <= 0 && self.configObj.width <= 0 && self.configObj.maxHeightMultiplier <= 0 ) {
-            self.containerView.kfc.maxHeight(maxHeight);
-        }
-    }
+    [self addMaxWidthHeightConstraintsIfNeed];
     
     UIStackView *stackView = (UIStackView*)self.stackView;
     UIEdgeInsets m = stackView.layoutMargins;
@@ -2013,20 +2000,7 @@ horizontalMarge {return 0;}
     [view.kfc centerInView:view.superview centerOffset:center];
     self.ap = [self layerAnchorPoint:arrowOffset];
     [view.superview layoutIfNeeded];
-    [view addTrianglePopWithShadowColor:j.shadowColor
-                           shadowOffset:j.shadowOffset
-                           shadowRadius:j.shadowRadius
-                          shadowOpacity:j.shadowOpacity
-                            borderWidth:j.borderWidth
-                            borderColor:j.borderColor
-                              fillColor:j.backgroundColor ?: UIColor.whiteColor
-                                        triangleWidth:self.aW
-                                       triangleHeight:self.aH
-                          triangleColor:self.arrColor ?: (j.backgroundColor ?: UIColor.whiteColor)
-                                            direction:self.d
-                                       triangleOffset:arrowOffset
-                           cornerRadius:j.cornerRadius > 0 ? j.cornerRadius : 10
-                         roundedCorners:j.corners];
+    [self drawArrow:arrowOffset];
     [view.layer setAnchorPointWithoutMoving:self.ap];
     if (j.animationIn > 0) {
         view.transform = CGAffineTransformMakeScale(0, 0);
@@ -2042,6 +2016,47 @@ horizontalMarge {return 0;}
     [self popViewDidShow:self];
     self.backgroundColor = self.configObj.maskColor;
     self.buildView.kfc.cornerRadius(j.cornerRadius);
+}
+- (void)addMaxWidthHeightConstraintsIfNeed {
+    CGFloat maxWidth = self.frame.size.width - self.safeAreaMarge.left - self.safeAreaMarge.right;
+    CGFloat maxHeight = self.frame.size.height - self.safeAreaMarge.top - self.safeAreaMarge.bottom;
+    if (self.d == ZLPopOverDirectionLeading) {
+         maxWidth = self.frame.size.width - self.p.x - self.safeAreaMarge.right  - self.aH - self.s;
+         maxHeight = self.frame.size.height - self.safeAreaMarge.bottom  - self.safeAreaMarge.top;
+    }else if (self.d == ZLPopOverDirectionTrailing) {
+         maxWidth =  self.p.x - self.safeAreaMarge.left  - self.aH - self.s;
+         maxHeight = self.frame.size.height - self.safeAreaMarge.bottom  - self.safeAreaMarge.top;
+    }else if (self.d == ZLPopOverDirectionUp) {
+         maxHeight = self.frame.size.height - self.p.y - self.safeAreaMarge.bottom  - self.aW - self.s;
+         maxWidth =  self.frame.size.width - self.safeAreaMarge.left  - self.safeAreaMarge.right;
+    }else if (self.d == ZLPopOverDirectionDown) {
+         maxHeight = self.p.y - self.safeAreaMarge.top  - self.aW - self.s;
+         maxWidth = self.frame.size.width - self.safeAreaMarge.left  - self.safeAreaMarge.right;
+    }
+    if (self.configObj.maxWidth <= 0 && self.configObj.width <= 0 && self.configObj.maxWidthMultiplier <= 0 ) {
+        self.containerView.kfc.maxWidth(maxWidth);
+    }
+    if (self.configObj.maxHeight <= 0 && self.configObj.width <= 0 && self.configObj.maxHeightMultiplier <= 0 ) {
+        self.containerView.kfc.maxHeight(maxHeight);
+    }
+}
+- (void)drawArrow:(CGFloat)arrowOffset {
+    UIView *view = self.containerView;
+    ZLBuildConfigObj *j = self.configObj;
+    [view addTrianglePopWithShadowColor:j.shadowColor
+                           shadowOffset:j.shadowOffset
+                           shadowRadius:j.shadowRadius
+                          shadowOpacity:j.shadowOpacity
+                            borderWidth:j.borderWidth
+                            borderColor:j.borderColor
+                              fillColor:j.backgroundColor ?: UIColor.whiteColor
+                                        triangleWidth:self.aW
+                                       triangleHeight:self.aH
+                          triangleColor:self.arrColor ?: (j.backgroundColor ?: UIColor.whiteColor)
+                                            direction:self.d
+                                       triangleOffset:arrowOffset
+                           cornerRadius:j.cornerRadius > 0 ? j.cornerRadius : 10
+                         roundedCorners:j.corners];
 }
 - (void)layoutSubviews {
     [super layoutSubviews];
@@ -2179,7 +2194,8 @@ horizontalMarge {return 0;}
         }else if (d == ZLPopOverDirectionTrailing) {
             p = CGPointMake(0, fH/2);
         }
-        return [fv convertPoint:p toView:self];
+         p = [fv convertPoint:p toView:self];
+        return p;
     }
     return _p;
 }
@@ -2262,6 +2278,45 @@ horizontalMarge {return 0;}
         oY = MAX((rH-h)/2 + marge, MIN(oY, (h-rH)/2 - marge));
     }
     return CGPointMake(oX ,oY);
+}
+- (void)deviceOrientationWillChange:(NSNotification *)notification {
+    [super deviceOrientationWillChange:notification];
+   
+    
+}
+- (void)deviceOrientationDidChanged:(NSNotification *)notification{
+    [super deviceOrientationDidChanged:notification];
+    if (self.fV) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self addMaxWidthHeightConstraintsIfNeed];
+            [self layoutIfNeeded];
+            CGFloat arrowOffset = 0;
+            CGPoint center = [self centerPoint:&arrowOffset];
+            UIView *view = self.containerView;
+            [self removeCenterConstraintsForView:view];
+            [view.kfc centerInView:view.superview centerOffset:center];
+            self.ap = [self layerAnchorPoint:arrowOffset];
+//            [view.superview layoutIfNeeded];
+            [self drawArrow:arrowOffset];
+        });
+    }
+}
+- (void)removeCenterConstraintsForView:(UIView *)view {
+    UIView *superView = view.superview;
+    if (!superView) return;
+    NSMutableArray *toRemove = [NSMutableArray array];
+    for (NSLayoutConstraint *c in superView.constraints) {
+        BOOL isCenterX =
+        (c.firstItem == view && c.firstAttribute == NSLayoutAttributeCenterX) ||
+        (c.secondItem == view && c.secondAttribute == NSLayoutAttributeCenterX);
+        BOOL isCenterY =
+        (c.firstItem == view && c.firstAttribute == NSLayoutAttributeCenterY) ||
+        (c.secondItem == view && c.secondAttribute == NSLayoutAttributeCenterY);
+        if (isCenterX || isCenterY) {
+            [toRemove addObject:c];
+        }
+    }
+    [superView removeConstraints:toRemove];
 }
 @end
 

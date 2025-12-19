@@ -31,6 +31,8 @@
     return ZLStackViewBuilder.row.addViewBK(^UIView * _Nonnull{
         return [UIButton buttonWithType:UIButtonTypeContactAdd].kfc.size(30).view;
     }).addViewBK(^UIView * _Nonnull{
+//        return UILabel.new.kfc.multipleLines.text(@"UIButtonTypeContactAdd").view;
+
         return UILabel.new.kfc.multipleLines.text([self text]).view;
     }).space(20).buildStackView;
 }
@@ -101,6 +103,7 @@
 
 - (void)show:(ZLPopOverDirection)d sender:(UIButton *)sender {
     int randomValue = arc4random_uniform(5) + 10;
+//    randomValue = 2;
     ZLPopViewBuilder *builder = ZLPopViewBuilder.column;
     for (int i = 0 ; i < randomValue; i ++) {
         builder.addView([self addItem]);

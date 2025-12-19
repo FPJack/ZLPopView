@@ -127,7 +127,7 @@ typedef void(^_ZLActionBlock)(id);
 @implementation CALayer (AnchorPointAdjust)
 - (void)setAnchorPointWithoutMoving:(CGPoint)anchorPoint {
     CGPoint lastAnchor = self.anchorPoint;
-        self.anchorPoint = anchorPoint;
+    self.anchorPoint = anchorPoint;
     // 计算新的 position 以保持图层视觉位置不变
     CGFloat x = self.position.x + (anchorPoint.x - lastAnchor.x) * self.bounds.size.width;
     CGFloat y = self.position.y + (anchorPoint.y - lastAnchor.y) * self.bounds.size.height;

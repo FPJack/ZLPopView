@@ -260,7 +260,7 @@ typedef NS_ENUM(NSInteger, ZLPopOverDirection) {
 };
 @interface ZLPopOverView : ZLPopBaseView
 
-/// 优先级大于setPoint
+/// 优先级大于setPoint,传View支持横竖平切换
 - (ZLPopOverView* (^)(UIView *))setFromView;
 - (ZLPopOverView* (^)(CGPoint))setPoint;
 - (ZLPopOverView* (^)(CGFloat))setArrowWidth;
