@@ -213,6 +213,8 @@ UIView *view  = ZLStackViewBuilder
     
 ## ZLPopOverView 更多请参考  ZLPopOverView.h 文件和demo    
 ```ruby
+    支持横竖屏自动调整位置和方向，支持设置背景渐变色，支持设置背景图片，支持设置箭头宽高，支持设置安全区域间距等功能
+    
                     ZLPopViewBuilder
                     .column
                     //添加子视图View
