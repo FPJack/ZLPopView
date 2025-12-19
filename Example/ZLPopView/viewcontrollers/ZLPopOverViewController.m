@@ -123,11 +123,11 @@
         builder
         .animateOut(0.25)
         .tapMaskDismiss
-        .cornerRadius(10)
-        .shadowColor(UIColor.blackColor)
+        .cornerRadius(5)
+        .shadowColor(UIColor.redColor)
         .shadowOpacity(0.2)
-        .borderColor(UIColor.redColor)
-        .borderWidth(2)
+        .borderColor(UIColor.greenColor)
+        .borderWidth(1)
         .inset(10, 10, 10, 10)
         .bgGradientColors(colors)
         .backgroundColor(UIColor.clearColor)
@@ -138,6 +138,9 @@
         .corners(UIRectCornerAllCorners)
         .buildPopOverView
         .setFromView(sender)
+//        .setArrowColor(UIColor.blueColor)
+//        .setArrowWidth(20)
+//        .setArrowHeight(15)
         .setDirection(d)
         .delegate(self)
 

@@ -274,13 +274,101 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
                        roundedCorners:(UIRectCorner)roundedCorners
 {
     // 移除旧的shapeLayer
-    NSArray *oldLayers = [self.layer.sublayers copy];
-    for (CALayer *layer in oldLayers) {
-        if ([layer.name isEqualToString:@"TrianglePopShapeLayer"]) {
-            [layer removeFromSuperlayer];
-        }
-    }
-    
+       NSArray *oldLayers = [self.layer.sublayers copy];
+        CALayer *gradientLayer = nil;
+       for (CALayer *layer in oldLayers) {
+           if ([layer.name isEqualToString:@"TrianglePopShapeLayer"]) {
+               [layer removeFromSuperlayer];
+           }
+           if ([layer.name isEqualToString:@"ZLPopGradientLayer"]) {
+               gradientLayer = layer;
+           }
+       }
+       
+       CGFloat w = self.bounds.size.width;
+       CGFloat h = self.bounds.size.height;
+       CGFloat tw = triangleWidth;
+       CGFloat th = triangleHeight;
+       CGFloat offset = triangleOffset;
+       CGFloat cr = cornerRadius;
+       
+       // 限制三角形偏移量不超出边界
+       if (direction == ZLPopOverDirectionUp || direction == ZLPopOverDirectionDown) {
+           offset = MAX((roundedCorners & UIRectCornerTopLeft ? cr : 0),
+                        MIN(offset, w - (roundedCorners & UIRectCornerTopRight ? cr : 0) - tw));
+       } else {
+           offset = MAX((roundedCorners & UIRectCornerTopLeft ? cr : 0),
+                        MIN(offset, h - (roundedCorners & UIRectCornerBottomLeft ? cr : 0) - tw));
+       }
+       UIBezierPath *trianglePath = [UIBezierPath bezierPath];
+       switch (direction) {
+           case ZLPopOverDirectionAuto: {
+               break;
+           }
+           case ZLPopOverDirectionUp: {
+               
+               // 三角
+               [trianglePath moveToPoint:CGPointMake(offset, th)];
+               [trianglePath addLineToPoint:CGPointMake(offset + tw/2, 0)];
+               [trianglePath addLineToPoint:CGPointMake(offset + tw, th)];
+               [trianglePath closePath];
+               break;
+           }
+           case ZLPopOverDirectionDown: {
+               
+               [trianglePath moveToPoint:CGPointMake(offset, h - th)];
+               [trianglePath addLineToPoint:CGPointMake(offset + tw/2, h)];
+               [trianglePath addLineToPoint:CGPointMake(offset + tw, h - th)];
+               [trianglePath closePath];
+               break;
+           }
+           case ZLPopOverDirectionLeading: {
+               
+               [trianglePath moveToPoint:CGPointMake(th, offset)];
+               [trianglePath addLineToPoint:CGPointMake(0, offset + tw/2)];
+               [trianglePath addLineToPoint:CGPointMake(th, offset + tw)];
+               [trianglePath closePath];
+               break;
+           }
+           case ZLPopOverDirectionTrailing: {
+               
+               [trianglePath moveToPoint:CGPointMake(w - th, offset)];
+               [trianglePath addLineToPoint:CGPointMake(w, offset + tw/2)];
+               [trianglePath addLineToPoint:CGPointMake(w - th, offset + tw)];
+               [trianglePath closePath];
+               break;
+           }
+       }
+       UIBezierPath *path = [self createTriangleBorderWidth:borderWidth triangleWidth:triangleWidth triangleHeight:triangleHeight direction:direction triangleOffset:triangleOffset cornerRadius:cornerRadius roundedCorners:roundedCorners];
+       // 主体ShapeLayer
+       CAShapeLayer *shapeLayer = [CAShapeLayer layer];
+       shapeLayer.path = path.CGPath;
+       shapeLayer.fillColor = fillColor.CGColor;
+       shapeLayer.strokeColor = borderColor.CGColor;
+       shapeLayer.lineWidth = borderWidth;
+       shapeLayer.shadowColor = shadowColor.CGColor;
+       shapeLayer.shadowOffset = shadowOffset;
+       shapeLayer.shadowRadius = shadowRadius;
+       shapeLayer.shadowOpacity = shadowOpacity;
+       shapeLayer.name = @"TrianglePopShapeLayer";
+       [self.layer insertSublayer:shapeLayer above:gradientLayer];
+       
+       // 三角形ShapeLayer
+       CAShapeLayer *triangleLayer = [CAShapeLayer layer];
+       triangleLayer.path = trianglePath.CGPath;
+       triangleLayer.fillColor = triangleColor.CGColor;
+       triangleLayer.strokeColor = [UIColor clearColor].CGColor;
+       triangleLayer.name = @"TrianglePopShapeLayer";
+       [self.layer insertSublayer:triangleLayer above:shapeLayer];
+}
+- (UIBezierPath *)createTriangleBorderWidth:(CGFloat)borderWidth
+                        triangleWidth:(CGFloat)triangleWidth
+                       triangleHeight:(CGFloat)triangleHeight
+                            direction:(ZLPopOverDirection)direction
+                       triangleOffset:(CGFloat)triangleOffset
+                         cornerRadius:(CGFloat)cornerRadius
+                       roundedCorners:(UIRectCorner)roundedCorners
+{
     CGFloat w = self.bounds.size.width;
     CGFloat h = self.bounds.size.height;
     CGFloat tw = triangleWidth;
@@ -304,18 +392,23 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
     CGFloat topRight = (roundedCorners & UIRectCornerTopRight) ? cr : 0;
     CGFloat bottomLeft = (roundedCorners & UIRectCornerBottomLeft) ? cr : 0;
     CGFloat bottomRight = (roundedCorners & UIRectCornerBottomRight) ? cr : 0;
-    UIBezierPath *trianglePath = [UIBezierPath bezierPath];
     switch (direction) {
         case ZLPopOverDirectionAuto: {
             break;
         }
         case ZLPopOverDirectionUp: {
             // 主体
-            [mainPath moveToPoint:CGPointMake(topLeft, th)];
-            [mainPath addLineToPoint:CGPointMake(offset, th)];
-            [mainPath addLineToPoint:CGPointMake(offset + tw/2, 0)];
-            [mainPath addLineToPoint:CGPointMake(offset + tw, th)];
-            [mainPath addLineToPoint:CGPointMake(w - topRight, th)];
+            CGPoint aLeading = CGPointMake(topLeft, th);
+            CGPoint aTrailing = CGPointMake(w - topRight, th);
+
+            [mainPath moveToPoint:aLeading];
+            CGPoint aStart = CGPointMake(offset, th);
+            CGPoint aTop = CGPointMake(offset + tw/2, 0);
+            CGPoint aEnd = CGPointMake(offset + tw, th);
+            [mainPath addLineToPoint:aStart];
+            [mainPath addLineToPoint:aTop];
+            [mainPath addLineToPoint:aEnd];
+            [mainPath addLineToPoint:aTrailing];
             if (topRight > 0) {
                 [mainPath addQuadCurveToPoint:CGPointMake(w, th + topRight) controlPoint:CGPointMake(w, th)];
             }
@@ -332,11 +425,7 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
                 [mainPath addQuadCurveToPoint:CGPointMake(topLeft, th) controlPoint:CGPointMake(0, th)];
             }
             [mainPath closePath];
-            // 三角
-            [trianglePath moveToPoint:CGPointMake(offset, th)];
-            [trianglePath addLineToPoint:CGPointMake(offset + tw/2, 0)];
-            [trianglePath addLineToPoint:CGPointMake(offset + tw, th)];
-            [trianglePath closePath];
+ 
             break;
         }
         case ZLPopOverDirectionDown: {
@@ -361,10 +450,6 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
                 [mainPath addQuadCurveToPoint:CGPointMake(topLeft, 0) controlPoint:CGPointMake(0, 0)];
             }
             [mainPath closePath];
-            [trianglePath moveToPoint:CGPointMake(offset, h - th)];
-            [trianglePath addLineToPoint:CGPointMake(offset + tw/2, h)];
-            [trianglePath addLineToPoint:CGPointMake(offset + tw, h - th)];
-            [trianglePath closePath];
             break;
         }
         case ZLPopOverDirectionLeading: {
@@ -389,10 +474,6 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
                 [mainPath addQuadCurveToPoint:CGPointMake(th, topLeft) controlPoint:CGPointMake(th, 0)];
             }
             [mainPath closePath];
-            [trianglePath moveToPoint:CGPointMake(th, offset)];
-            [trianglePath addLineToPoint:CGPointMake(0, offset + tw/2)];
-            [trianglePath addLineToPoint:CGPointMake(th, offset + tw)];
-            [trianglePath closePath];
             break;
         }
         case ZLPopOverDirectionTrailing: {
@@ -417,34 +498,10 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
             }
             [mainPath addLineToPoint:CGPointMake(0, topLeft)];
             [mainPath closePath];
-            [trianglePath moveToPoint:CGPointMake(w - th, offset)];
-            [trianglePath addLineToPoint:CGPointMake(w, offset + tw/2)];
-            [trianglePath addLineToPoint:CGPointMake(w - th, offset + tw)];
-            [trianglePath closePath];
             break;
         }
     }
-    
-    // 主体ShapeLayer
-    CAShapeLayer *shapeLayer = [CAShapeLayer layer];
-    shapeLayer.path = mainPath.CGPath;
-    shapeLayer.fillColor = fillColor.CGColor;
-    shapeLayer.strokeColor = borderColor.CGColor;
-    shapeLayer.lineWidth = borderWidth;
-    shapeLayer.shadowColor = shadowColor.CGColor;
-    shapeLayer.shadowOffset = shadowOffset;
-    shapeLayer.shadowRadius = shadowRadius;
-    shapeLayer.shadowOpacity = shadowOpacity;
-    shapeLayer.name = @"TrianglePopShapeLayer";
-    [self.layer insertSublayer:shapeLayer atIndex:0];
-    
-    // 三角形ShapeLayer
-    CAShapeLayer *triangleLayer = [CAShapeLayer layer];
-    triangleLayer.path = trianglePath.CGPath;
-    triangleLayer.fillColor = triangleColor.CGColor;
-    triangleLayer.strokeColor = [UIColor clearColor].CGColor;
-    triangleLayer.name = @"TrianglePopShapeLayer";
-    [self.layer insertSublayer:triangleLayer above:shapeLayer];
+    return mainPath;
 }
 @end
 
@@ -838,6 +895,7 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
 - (ZLGradientCornerLayer *)gradLayer {
     if (!_gradLayer) {
         ZLGradientCornerLayer *layer = [ZLGradientCornerLayer layer];
+        layer.name = @"ZLPopGradientLayer";
         layer.startPoint = CGPointMake(0.5, 0); // 中上
         layer.endPoint = CGPointMake(0.5, 1); // 中上
         NSMutableArray *colors = NSMutableArray.array;
@@ -1885,6 +1943,7 @@ horizontalMarge {return 0;}
 @property (nonatomic,assign)UIEdgeInsets safeAreaMarge;
 @property (nonatomic,assign)CGPoint ap;
 @property (nonatomic,copy)UIColor *arrColor;
+@property (nonatomic,assign)CGFloat arrowOffset;
 
 @end
 @implementation ZLPopOverView
@@ -2010,12 +2069,16 @@ horizontalMarge {return 0;}
             self.backgroundColor = self.configObj.maskColor;
         } completion:^(BOOL finished) {
             [view.layer setAnchorPointWithoutMoving:CGPointMake(0.5, 0.5)];
+            [self popViewDidShow:self];
         }];
     }
     self.containerView.contentView.backgroundColor = UIColor.clearColor;
-    [self popViewDidShow:self];
+    if (j.animationIn <= 0) {
+        [self popViewDidShow:self];
+    }
     self.backgroundColor = self.configObj.maskColor;
     self.buildView.kfc.cornerRadius(j.cornerRadius);
+
 }
 - (void)addMaxWidthHeightConstraintsIfNeed {
     CGFloat maxWidth = self.frame.size.width - self.safeAreaMarge.left - self.safeAreaMarge.right;
@@ -2064,17 +2127,7 @@ horizontalMarge {return 0;}
         CGRect frame = self.containerView.contentView.bounds;
         self.gradLayer.cornerRadius = self.configObj.cornerRadius;
         self.gradLayer.masksToBounds = YES;
-        if (self.d == ZLPopOverDirectionUp){
-            self.gradLayer.frame = CGRectMake(frame.origin.x, self.aH, CGRectGetWidth(frame), CGRectGetHeight(frame) - self.aH);
-        }else if (self.d == ZLPopOverDirectionDown){
-            self.gradLayer.frame = CGRectMake(frame.origin.x, frame.origin.y, CGRectGetWidth(frame), CGRectGetHeight(frame) - self.aH);
-            
-        }else if (self.d == ZLPopOverDirectionLeading){
-            self.gradLayer.frame = CGRectMake(self.aH, frame.origin.y, CGRectGetWidth(frame) - self.aH, CGRectGetHeight(frame));
-            
-        }else if (self.d == ZLPopOverDirectionTrailing){
-            self.gradLayer.frame = CGRectMake(frame.origin.x, frame.origin.y, CGRectGetWidth(frame) - self.aH, CGRectGetHeight(frame));
-        }
+        self.gradLayer.frame = frame;
         UIRectCorner corners = self.containerView.corners;
         CGFloat radius = self.containerView.cornerRadius;
         self.gradLayer.topLeftRadius  = (corners & UIRectCornerTopLeft) != 0 ? radius : 0;
@@ -2082,6 +2135,23 @@ horizontalMarge {return 0;}
         self.gradLayer.bottomLeftRadius = (corners & UIRectCornerBottomLeft) != 0 ? radius : 0;
         self.gradLayer.bottomRightRadius = (corners & UIRectCornerBottomRight) != 0 ? radius : 0;
         [self.containerView.layer insertSublayer:self.gradLayer atIndex:0];
+        
+        
+        NSArray *oldLayers = [self.containerView.layer.sublayers copy];
+        CAShapeLayer *arrowLayer;
+        for (CALayer *layer in oldLayers) {
+            if ([layer.name isEqualToString:@"TrianglePopShapeLayer"]) {
+                arrowLayer = (CAShapeLayer*)layer;
+                break;
+            }
+        }
+        ZLBuildConfigObj *j = self.configObj;
+        UIBezierPath *path = [self.containerView createTriangleBorderWidth:j.borderWidth triangleWidth:self.aW triangleHeight:self.aH direction:self.d triangleOffset:self.arrowOffset cornerRadius:j.cornerRadius > 0 ? j.cornerRadius : 10 roundedCorners:j.corners];
+        CAShapeLayer *maskLayer = [CAShapeLayer layer];
+        maskLayer.path = path.CGPath;
+        maskLayer.fillColor = [UIColor blackColor].CGColor;
+        maskLayer.frame = self.containerView.bounds;
+        self.gradLayer.mask = maskLayer;
     }
 }
 - (void)dismiss {
@@ -2277,6 +2347,7 @@ horizontalMarge {return 0;}
 //        oX = MAX((rW+_aH-w)/2 + marge, MIN(oX, (w-rW+_aH)/2 - marge));
         oY = MAX((rH-h)/2 + marge, MIN(oY, (h-rH)/2 - marge));
     }
+    self.arrowOffset = *arrowOffset;
     return CGPointMake(oX ,oY);
 }
 - (void)deviceOrientationWillChange:(NSNotification *)notification {
