@@ -351,15 +351,19 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
        shapeLayer.shadowRadius = shadowRadius;
        shapeLayer.shadowOpacity = shadowOpacity;
        shapeLayer.name = @"TrianglePopShapeLayer";
-       [self.layer insertSublayer:shapeLayer above:gradientLayer];
+    if (gradientLayer) {
+        [self.layer insertSublayer:shapeLayer above:gradientLayer];
+    }else {
+        [self.layer insertSublayer:shapeLayer atIndex:0];
+    }
        
        // 三角形ShapeLayer
-       CAShapeLayer *triangleLayer = [CAShapeLayer layer];
-       triangleLayer.path = trianglePath.CGPath;
-       triangleLayer.fillColor = triangleColor.CGColor;
-       triangleLayer.strokeColor = [UIColor clearColor].CGColor;
-       triangleLayer.name = @"TrianglePopShapeLayer";
-       [self.layer insertSublayer:triangleLayer above:shapeLayer];
+//       CAShapeLayer *triangleLayer = [CAShapeLayer layer];
+//       triangleLayer.path = trianglePath.CGPath;
+//       triangleLayer.fillColor = triangleColor.CGColor;
+//       triangleLayer.strokeColor = [UIColor clearColor].CGColor;
+//       triangleLayer.name = @"TrianglePopShapeLayer";
+//       [self.layer insertSublayer:triangleLayer above:shapeLayer];
 }
 - (UIBezierPath *)createTriangleBorderWidth:(CGFloat)borderWidth
                         triangleWidth:(CGFloat)triangleWidth

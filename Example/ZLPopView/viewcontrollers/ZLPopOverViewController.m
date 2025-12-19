@@ -67,7 +67,7 @@
     builder
         .touchPenetrate
         .cornerRadius(10)
-        .backgroundColor(UIColor.orangeColor)
+//        .backgroundColor(UIColor.orangeColor)
         .shadowColor(UIColor.blackColor)
         .shadowOpacity(0.2)
         .borderColor(UIColor.redColor)
