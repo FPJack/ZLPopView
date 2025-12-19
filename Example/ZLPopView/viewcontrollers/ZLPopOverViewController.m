@@ -33,7 +33,7 @@
     }).addViewBK(^UIView * _Nonnull{
 //        return UILabel.new.kfc.multipleLines.text(@"UIButtonTypeContactAdd").view;
 
-        return  UILabel.new.kfc.multipleLines.text([self text]).preferredMaxLayoutWidth(1000).view;
+        return  UILabel.new.kfc.multipleLines.text([self text]).view;
     }).space(20).buildStackView;
 }
 

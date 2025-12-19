@@ -2381,18 +2381,31 @@ horizontalMarge {return 0;}
 - (void)refreshArrowLayout {
     if (self.fV) {
         dispatch_async(dispatch_get_main_queue(), ^{
+            UIView *view = self.containerView;
+            [self enumerateSubviewsOfView:view usingBlock:^(__kindof UIView *subView, BOOL *stop) {
+                if ([subView isKindOfClass:UILabel.class]) [subView invalidateIntrinsicContentSize];
+            }];
             [self addMaxWidthHeightConstraintsIfNeed];
+            [self setNeedsLayout];
             [self layoutIfNeeded];
             CGFloat arrowOffset = 0;
             CGPoint center = [self centerPoint:&arrowOffset];
-            UIView *view = self.containerView;
             [self removeCenterConstraintsForView:view];
             
             [view.kfc centerInView:view.superview centerOffset:center];
             self.ap = [self layerAnchorPoint:arrowOffset];
-//            [view.superview layoutIfNeeded];
             [self drawArrow:arrowOffset];
         });
+    }
+}
+- (void)enumerateSubviewsOfView:(UIView *)view
+                           usingBlock:(void (^)(__kindof UIView *subView, BOOL *stop))block {
+    if (!view || !block) return;
+    for (UIView *subView in view.subviews) {
+        BOOL stop = NO;
+        block(subView, &stop);
+        if (stop) return;
+        [self enumerateSubviewsOfView:subView usingBlock:block];
     }
 }
 @end
