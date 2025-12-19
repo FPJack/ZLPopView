@@ -2281,25 +2281,10 @@ horizontalMarge {return 0;}
 }
 - (void)deviceOrientationWillChange:(NSNotification *)notification {
     [super deviceOrientationWillChange:notification];
-   
-    
 }
 - (void)deviceOrientationDidChanged:(NSNotification *)notification{
     [super deviceOrientationDidChanged:notification];
-    if (self.fV) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self addMaxWidthHeightConstraintsIfNeed];
-            [self layoutIfNeeded];
-            CGFloat arrowOffset = 0;
-            CGPoint center = [self centerPoint:&arrowOffset];
-            UIView *view = self.containerView;
-            [self removeCenterConstraintsForView:view];
-            [view.kfc centerInView:view.superview centerOffset:center];
-            self.ap = [self layerAnchorPoint:arrowOffset];
-//            [view.superview layoutIfNeeded];
-            [self drawArrow:arrowOffset];
-        });
-    }
+    [self refreshArrowLayout];
 }
 - (void)removeCenterConstraintsForView:(UIView *)view {
     UIView *superView = view.superview;
@@ -2317,6 +2302,22 @@ horizontalMarge {return 0;}
         }
     }
     [superView removeConstraints:toRemove];
+}
+- (void)refreshArrowLayout {
+    if (self.fV) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self addMaxWidthHeightConstraintsIfNeed];
+            [self layoutIfNeeded];
+            CGFloat arrowOffset = 0;
+            CGPoint center = [self centerPoint:&arrowOffset];
+            UIView *view = self.containerView;
+            [self removeCenterConstraintsForView:view];
+            [view.kfc centerInView:view.superview centerOffset:center];
+            self.ap = [self layerAnchorPoint:arrowOffset];
+//            [view.superview layoutIfNeeded];
+            [self drawArrow:arrowOffset];
+        });
+    }
 }
 @end
 

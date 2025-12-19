@@ -271,5 +271,7 @@ typedef NS_ENUM(NSInteger, ZLPopOverDirection) {
 /// 设置箭头和指向点的间距
 - (ZLPopOverView* (^)(CGFloat ))setSpaceToPoint;
 - (ZLPopOverView* (^)(ZLPopOverDirection))setDirection;
+///锚点view的位置改变时刷新箭头位置
+- (void)refreshArrowLayout;
 @end
 NS_ASSUME_NONNULL_END
