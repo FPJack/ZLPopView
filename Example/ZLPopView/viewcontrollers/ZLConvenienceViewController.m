@@ -183,6 +183,9 @@
         .backgroundColor(UIColor.clearColor)
         .padding(20, 20, 20, 20)
         .space(12)
+        .shadowColor(UIColor.redColor)
+        .shadowRadius(5)
+        .shadowOpacity(1)
         .addView(UILabel.kfc.startAlignment.text(@"新版本上线").textAlignmentLeft.systemFontSize(20))
         .addViewBK(^UIView * _Nonnull{
                 UIStackView *stackView = kStackViewColumnBuilder

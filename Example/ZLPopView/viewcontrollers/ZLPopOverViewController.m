@@ -124,9 +124,10 @@
         .animateOut(0.25)
         .tapMaskDismiss
         .cornerRadius(5)
-        .shadowColor(UIColor.redColor)
-        .shadowOpacity(0.2)
-        .borderColor(UIColor.greenColor)
+        .shadowColor(UIColor.blackColor)
+        .shadowOpacity(1)
+//        .shadowRadius(5)
+        .borderColor(UIColor.whiteColor.alphaFactor(0.3))
         .borderWidth(1)
         .inset(10, 10, 10, 10)
         .bgGradientColors(colors)
