@@ -2387,6 +2387,7 @@ horizontalMarge {return 0;}
             CGPoint center = [self centerPoint:&arrowOffset];
             UIView *view = self.containerView;
             [self removeCenterConstraintsForView:view];
+            
             [view.kfc centerInView:view.superview centerOffset:center];
             self.ap = [self layerAnchorPoint:arrowOffset];
 //            [view.superview layoutIfNeeded];

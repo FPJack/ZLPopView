@@ -1436,6 +1436,13 @@ static CGFloat _defaultThickness = 1.0f;
         return self;
     };
 }
+
+- (ZLUILabelConfigure* (^)(CGFloat ))preferredMaxLayoutWidth{
+    return  ^ZLUILabelConfigure*(CGFloat maxWidth){
+        self.view.preferredMaxLayoutWidth = maxWidth;
+        return self;
+    };
+}
 - (instancetype)multipleLines {
     self.view.numberOfLines = 0;
     return self;

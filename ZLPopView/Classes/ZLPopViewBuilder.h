@@ -50,7 +50,7 @@ typedef void(^GMConfigureBlock)(ZLBuildConfigObj *configure);
 /// 设置容器View最大宽度
 @property (nonatomic,readonly)ZLPopViewBuilder * (^maxWidth)(CGFloat);
 @property (nonatomic,readonly)ZLPopViewBuilder * (^widthMultiplier)(CGFloat);
-/// SE手机上宽度自适应的时候屏幕旋转宽度不会跟随变化有bug，解决方案指定parentView，不使用默认window
+/// 如果内容是根据UILabel的宽度自适应，那么一定要设置label的preferredMaxLayoutWidth值，不然横竖平切换的时候不会自动根据内容切换
 @property (nonatomic,readonly)ZLPopViewBuilder * (^maxWidthMultiplier)(CGFloat);
 /// height > maxHeight 优先级
 @property (nonatomic,readonly)ZLPopViewBuilder * (^height)(CGFloat);

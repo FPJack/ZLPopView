@@ -254,7 +254,7 @@
     });
 }
 - (NSString *)text {
-    NSUInteger length = arc4random_uniform(50) + 1; // 1~1000
+    NSUInteger length = arc4random_uniform(200) + 1; // 1~1000
     NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     NSMutableString *randomString = [NSMutableString stringWithCapacity:length];
     for (NSUInteger i = 0; i < length; i++) {
@@ -284,6 +284,7 @@
                  .systemFontSize(12)
                  .textColor(UIColor.whiteColor)
                  .textAlignmentCenter
+                 .preferredMaxLayoutWidth(1000)
                  .numberOfLines(0))
         .buildCenterPopView
         .initStateBK(^(ZLPopBaseView * _Nonnull popView) {
@@ -299,7 +300,7 @@
             
         });
     [view show];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [view dismiss];
     });
 }

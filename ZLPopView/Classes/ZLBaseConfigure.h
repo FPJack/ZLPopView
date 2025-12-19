@@ -375,6 +375,9 @@ typedef id<ZLViewLayoutProtocol> ViewLayoutType;
 - (instancetype)textAlignmentRight;
 @property (nonatomic,readonly)ZLUILabelConfigure* (^attributedText)(NSAttributedString *);
 @property (nonatomic,readonly)ZLUILabelConfigure* (^numberOfLines)(NSInteger);
+@property (nonatomic,readonly)ZLUILabelConfigure* (^preferredMaxLayoutWidth)(CGFloat);
+
+
 - (instancetype)multipleLines;
 - (instancetype)singleLine;
 - (instancetype)twoLines;
