@@ -219,12 +219,10 @@
                 .dismissPopViewWhenTap
                 .addedToSuperview(popView.containerView)
                 .centerX(0).topTo(popView.containerView.bottomAnchor, 20);
-            UIImageView *imgView = UIImageView.kfc
-                .addedToSuperview(popView.containerView)
+             UIImageView.kfc
+                .insertedToSuperview(popView.containerView,0)
                 .image(@"newVersion_bag")
-                .trailing(-10).top(-30)
-                .view;
-            [popView.containerView insertSubview:imgView atIndex:0];
+                .trailing(-10).top(-30);
         })
         .hitTestBK(^UIView * _Nullable(ZLPopBaseView * _Nonnull popView, CGPoint point, UIEvent * _Nonnull event, BOOL * _Nonnull stop) {
             return [popView viewWithTag:101];

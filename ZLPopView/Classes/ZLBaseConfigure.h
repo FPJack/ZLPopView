@@ -263,6 +263,8 @@ typedef id<ZLViewLayoutProtocol> ViewLayoutType;
 ///布局方法，stackviiewbuilder里面使用无效，针对addSubview：对view进行手动布局
 @property (nonatomic,readonly) ObjectType (^addedToSuperview)(UIView *superview);
 
+@property (nonatomic,readonly) ObjectType (^insertedToSuperview)(UIView *superview,NSInteger index);
+
 @property (nonatomic,readonly) ObjectType (^topTo)(ViewLayoutType _Nullable viewLayout,CGFloat constant);
 
 @property (nonatomic,readonly) ObjectType (^top)(CGFloat constant);

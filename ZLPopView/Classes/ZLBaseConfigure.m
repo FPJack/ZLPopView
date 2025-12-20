@@ -866,6 +866,14 @@ static CGFloat _defaultThickness = 1.0f;
         return self;
     };
 }
+- (id  _Nonnull (^)(UIView * _Nonnull, NSInteger))insertedToSuperview {
+    return ^id (UIView *superview,NSInteger index) {
+        if ([superview isKindOfClass:UIView.class] && ![superview isEqual:self.view]) {
+            [superview insertSubview:self.view atIndex:index];
+        }
+        return self;
+    };
+}
 - (id  _Nonnull (^)(ViewLayoutType _Nullable, CGFloat))topTo {
     return ^id (ViewLayoutType _Nullable view, CGFloat c) {
         view = view ?: self.view.superview;
