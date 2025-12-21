@@ -188,9 +188,9 @@
         .backgroundColor(UIColor.clearColor)
         .padding(20, 20, 20, 20)
         .space(12)
-        .shadowColor(UIColor.redColor)
-        .shadowRadius(5)
-        .shadowOpacity(1)
+//        .shadowColor(UIColor.redColor)
+//        .shadowRadius(5)
+//        .shadowOpacity(1)
         .addView(UILabel.kfc.startAlignment.text(@"新版本上线").textAlignmentLeft.systemFontSize(20))
         .addViewBK(^UIView * _Nonnull{
                 UIStackView *stackView = kStackViewColumnBuilder
@@ -219,12 +219,14 @@
                  .backgroundColor(@"#7EE905"))
         .buildCenterPopView
         .initStateBK(^(ZLPopBaseView * _Nonnull popView) {
-            UIButton.kfc
+            
+                UIButton.kfc
+                .addedToSuperview(popView.containerView)
                 .tag(101).image(@"close")
                 .dismissPopViewWhenTap
-                .addedToSuperview(popView.containerView)
                 .centerX(0).topTo(popView.containerView.bottomAnchor, 20);
-             UIImageView.kfc
+            
+                UIImageView.kfc
                 .insertedToSuperview(popView.containerView,0)
                 .image(@"newVersion_bag")
                 .trailing(-10).top(-30);

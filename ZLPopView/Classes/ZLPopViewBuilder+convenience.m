@@ -317,7 +317,7 @@
             if (self.customActionViews.count > 0) {
                 self.addColumnEHViewsWTMS(self.customActionViews);
                 if (-self.configObj.inset.bottom >= 0) {
-                    self.insetBottom(UIApplication.sharedApplication.keyWindow.safeAreaInsets.bottom);
+                    self.insetBottom(kZLSafeAreaBottom);
                 }
                 if (self.configObj.inset.top <= 0) {
                     self.insetTop(20);
@@ -458,7 +458,7 @@
         self.orientationChangeBK(^(ZLLayoutConstraintObj * _Nonnull constraintObj, ZLBuildConfigObj * _Nonnull configureObj, BOOL isLandscape) {
             if (isLandscape) {
                 CGFloat marge = 0;
-                if (UIApplication.sharedApplication.keyWindow.safeAreaInsets.bottom > 0 || UIApplication.sharedApplication.keyWindow.safeAreaInsets.top > 0 || UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+                if (kZLSafeAreaBottom > 0 || kZLSafeAreaTop > 0 || UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
                     marge = UIScreen.mainScreen.bounds.size.width * 0.33;
                 }else {
                     marge = (UIScreen.mainScreen.bounds.size.width - UIScreen.mainScreen.bounds.size.height) / 2.0;
@@ -475,7 +475,7 @@
         .shadowColor(UIColor.clearColor)
         .insetAll(0)
         .horizontalLayoutConstraint(ZLHorizontalLayoutConstraintFill)
-        .marge(0, marge.left > 0 ? marge.left : defaultSpace, -marge.bottom > 0 ? -marge.bottom : (UIApplication.sharedApplication.keyWindow.safeAreaInsets.bottom + bottomSpace), -marge.right > 0 ? -marge.right : defaultSpace);
+        .marge(0, marge.left > 0 ? marge.left : defaultSpace, -marge.bottom > 0 ? -marge.bottom : (kZLSafeAreaBottom + bottomSpace), -marge.right > 0 ? -marge.right : defaultSpace);
     return ^{
         self.showBottomPopView();
     };

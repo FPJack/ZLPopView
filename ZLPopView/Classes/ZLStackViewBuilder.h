@@ -14,10 +14,15 @@
 #define kZLSafeAreaBottom \
 ({CGFloat bottom = 0; \
 if (@available(iOS 11.0, *)) { \
-    UIWindow *window = UIApplication.sharedApplication.windows.firstObject; \
-    bottom = window.safeAreaInsets.bottom; \
+    bottom = UIApplication.sharedApplication.windows.firstObject.safeAreaInsets.bottom; \
 } \
 bottom;})
+#define kZLSafeAreaTop \
+({CGFloat top = 0; \
+if (@available(iOS 11.0, *)) { \
+    top = UIApplication.sharedApplication.windows.firstObject.safeAreaInsets.bottom; \
+} \
+top;})
 NS_ASSUME_NONNULL_BEGIN
 //参考flutter Row的MainAxisAlignment属性
 typedef NS_ENUM(NSInteger, ZLMainAxisAlignment) {

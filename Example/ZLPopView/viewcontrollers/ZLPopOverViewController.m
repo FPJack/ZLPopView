@@ -127,6 +127,8 @@
         .cornerRadius(5)
         .shadowColor(UIColor.blackColor)
         .shadowOpacity(1)
+    .maxWidth(150)
+    .maxHeight(200)
 //        .shadowRadius(5)
         .borderColor(UIColor.whiteColor.alphaFactor(0.3))
         .borderWidth(1)
@@ -151,7 +153,7 @@
         .showPopView();
 }
 - (NSString *)text {
-    NSUInteger length = arc4random_uniform(100) + 1; // 1~1000
+    NSUInteger length = arc4random_uniform(20) + 1; // 1~1000
     NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     NSMutableString *randomString = [NSMutableString stringWithCapacity:length];
     for (NSUInteger i = 0; i < length; i++) {
