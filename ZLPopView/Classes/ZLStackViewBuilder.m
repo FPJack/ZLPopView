@@ -857,7 +857,7 @@ static inline UIView* _getViewFromViewKFC(ViewKFCType viewKFC) {
     };
 }
 
-- (id (^)(NSArray<UIView *> *))addColumnEWViews{
+- (id (^)(NSArray<UIView *> *))addColumnEHViews{
     return  ^id(NSArray<UIView * > * views){
         return views.count > 0 ?  self.addView(ZLStackViewBuilder
                                     .columnFillEqually
@@ -867,7 +867,7 @@ static inline UIView* _getViewFromViewKFC(ViewKFCType viewKFC) {
                                     .buildStackView) : self;
     };
 }
-- (id (^)(NSArray<UIView *> *))addColumnEWViewsWMS {
+- (id (^)(NSArray<UIView *> *))addColumnEHViewsWMS {
     return  ^id(NSArray<UIView * > * views){
         return views.count > 0 ?  self.addView(ZLStackViewBuilder
                                     .columnFillEqually
@@ -877,7 +877,7 @@ static inline UIView* _getViewFromViewKFC(ViewKFCType viewKFC) {
                                     .buildStackView) : self;
     };
 }
-- (id (^)(NSArray<UIView *> *))addColumnEWViewsWTMS {
+- (id (^)(NSArray<UIView *> *))addColumnEHViewsWTMS {
     return  ^id(NSArray<UIView * > * views){
         return views.count > 0 ? self.addViewWTS(ZLStackViewBuilder
                                     .columnFillEqually

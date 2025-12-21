@@ -271,7 +271,7 @@
         }
         if (self.customActionViews.count > 0) {
             if (self.customActionViews.count > 2) {
-                self.addColumnEWViewsWTMS(self.customActionViews);
+                self.addColumnEHViewsWTMS(self.customActionViews);
             }else {
                 self.addRowEWViewsWTMS(self.customActionViews);
             }
@@ -282,9 +282,9 @@
         ZLStackViewBuilder *builder = kStackViewColumnBuilder;
         [builder.views addObjectsFromArray:self.views];
         if (self.lastLabelView || self.views.count > 0) {
-            builder.addColumnEWViewsWTMS(self.customActionViews);
+            builder.addColumnEHViewsWTMS(self.customActionViews);
         }else {
-            builder.addColumnEWViewsWMS(self.customActionViews);
+            builder.addColumnEHViewsWMS(self.customActionViews);
         }
         UIView *contentView = builder
             .alignmentFill
@@ -309,13 +309,13 @@
         self.backgroundColor(UIColor.clearColor);
     }else if (self.alertType == 3) {
         if (!self.lastLabelView && self.views.count == 0) {
-            self.addColumnEWViewsWMS(self.customActionViews);
+            self.addColumnEHViewsWMS(self.customActionViews);
             if (self.configObj.inset.top <= 0) {
                 self.insetTop(0);
             }
         }else {
             if (self.customActionViews.count > 0) {
-                self.addColumnEWViewsWTMS(self.customActionViews);
+                self.addColumnEHViewsWTMS(self.customActionViews);
                 if (-self.configObj.inset.bottom >= 0) {
                     self.insetBottom(UIApplication.sharedApplication.keyWindow.safeAreaInsets.bottom);
                 }

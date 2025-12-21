@@ -152,10 +152,10 @@ id _recursive_objc_getAssociatedObject(id _Nonnull object, const void * _Nonnull
 /// view之间带分割线,整体顶部也带上划线
 @property (nonatomic,readonly)ObjectType (^addRowEWViewsWTMS)(NSArray<UIView *>*);
 ///添加一个垂直布局高度都相等的view
-@property (nonatomic,readonly)ObjectType (^addColumnEWViews)(NSArray<UIView *>*);
+@property (nonatomic,readonly)ObjectType (^addColumnEHViews)(NSArray<UIView *>*);
 /// view之间带分割线
-@property (nonatomic,readonly)ObjectType (^addColumnEWViewsWMS)(NSArray<UIView *>*);
-@property (nonatomic,readonly)ObjectType (^addColumnEWViewsWTMS)(NSArray<UIView *>*);
+@property (nonatomic,readonly)ObjectType (^addColumnEHViewsWMS)(NSArray<UIView *>*);
+@property (nonatomic,readonly)ObjectType (^addColumnEHViewsWTMS)(NSArray<UIView *>*);
 /// 条件为YES 懒加载添加view
 /// - Parameter block: <#block description#>
 @property (nonatomic,readonly)ObjectType (^addViewBKIf)(BOOL shouldAdd, ViewKFCType _Nullable (^)(void));

@@ -62,6 +62,11 @@
             });
     })
     .addViewBK(^ViewKFCType  _Nonnull{
+            return UILabel.kfc.text(@"简单Alert弹窗1").tapAction(^(__kindof UIView * _Nonnull view) {
+                [self showAlert1];
+            });
+    })
+    .addViewBK(^ViewKFCType  _Nonnull{
             return UILabel.kfc.text(@"ActionSheet弹窗").tapAction(^(__kindof UIView * _Nonnull view) {
                 [self showActionSheet];
             });
@@ -228,6 +233,18 @@
             return [popView viewWithTag:101];
         }).showPopView();
 }
+- (void)showAlert1 {
+        kPopViewColumnBuilder
+        .separatorThickness(0.5)
+       .title(@"新版本上线")
+       .message(@"1. 全新界面设计，提升用户体验。\n2. 优化性能，提升运行速度。\n3. 修复已知问题，增强稳定性。")
+       .addCancelViewStyleAction(^(UIView * _Nonnull view) {
+           
+       })
+       .addConfirmViewStyleActionText(@"去体验", ^(UIView * _Nonnull view) {
+           
+       }).showAlert();
+}
 - (NSAttributedString *)textAttr {
     NSAttributedString *attrMessage = [[NSAttributedString alloc] initWithString:@"这是一个简单的提示。" attributes:@{NSForegroundColorAttributeName:UIColor.redColor,NSFontAttributeName:[UIFont systemFontOfSize:16]}];
     
@@ -255,6 +272,9 @@
         .message(@"这是一个简单的提示。")
         .attributedMsgText([self textAttr])
         .addDeleteViewStyleActionText(@"删除", ^(UIView * _Nonnull view) {
+            
+        })
+        .ca_addConfirmBtnAction(^(UIView * _Nonnull btn) {
             
         })
         .addCancelViewStyleActionText(@"取消", nil)
