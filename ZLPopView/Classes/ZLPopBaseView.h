@@ -164,7 +164,11 @@ typedef void(^PopViewCallbackBK) (ZLPopBaseView *popView);
 
 - (void)popViewShowExpand:(ZLPopBaseView *)popView;
 - (void)popViewShowTight:(ZLPopBaseView *)popView;
-
+/// 拖拽未达到消失阈值，PopView 回弹到原始位置
+- (void)popViewWillRebound:(ZLPopBaseView *)popView;
+/// 拖拽过程中实时回调拖拽距离（正负表示方向）
+- (void)popView:(ZLPopBaseView *)popView
+didPanWithDistance:(CGFloat)distance;
 @end
 
 @interface _ZLView : UIView

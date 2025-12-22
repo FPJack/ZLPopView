@@ -54,7 +54,23 @@
         self.showTopBuilder.showCenterPopView();
     }))
     .addView(UILabel.kfc.text(@"底部弹出").tapAction(^(__kindof UIView * _Nonnull view) {
-        self.showTopBuilder.reserveSafeAreaBottomYes.showBottomPopView();
+        UIView *subView = UIView.kfc.tag(120).backgroundColor(UIColor.yellowColor).view;
+        UISwitch.kfc.addedToSuperview(subView).centerTo(subView);
+        [self.view addSubview:subView];
+        
+        self.showTopBuilder
+            .reserveSafeAreaBottomYes
+            .buildBottomPopView
+            .delegate(self)
+            .didShowBK(^(ZLPopBaseView * _Nonnull popView) {
+                NSLog(@"底部弹出 didShowBK");
+                subView.frame = CGRectMake(0, 0, self.view.frame.size.width, UIScreen.mainScreen.bounds.size.height - popView.containerView.frame.size.height - 100.3);
+            })
+            .didHiddenBK(^(ZLPopBaseView * _Nonnull popView) {
+                 NSLog(@"底部弹出 didHiddenBK");
+//                [subView removeFromSuperview];
+            })
+            .showPopView();
     }))
     .addView(UILabel.kfc.text(@"左边弹出").tapAction(^(__kindof UIView * _Nonnull view) {
         self.showTopBuilder.showLeftPopView();
@@ -416,11 +432,31 @@
 - (void)popViewDidShow:(ZLPopBaseView *)popView {
 }
 - (void)popViewWillHidden:(ZLPopBaseView *)popView {
-    
+    UIView *subView = [self.view viewWithTag:120];
+    [UIView animateWithDuration:popView.configObj.animationOut animations:^{
+        CGFloat height = UIScreen.mainScreen.bounds.size.height - 100.3;
+        subView.frame = CGRectMake(0, 0, self.view.frame.size.width, height);
+        [subView layoutIfNeeded];
+    } completion:^(BOOL finished) {
+        [subView removeFromSuperview];
+    }];
 }
 - (void)popViewDidHidden:(ZLPopBaseView *)popView {
     NSLog(@"popViewDidHidden");
     
 }
-
+- (void)popViewWillRebound:(ZLPopBaseView *)popView {
+    [UIView animateWithDuration:popView.configObj.animationIn animations:^{
+        CGFloat height = UIScreen.mainScreen.bounds.size.height - popView.containerView.frame.size.height - 100.3;
+        UIView *subView = [self.view viewWithTag:120];
+        subView.frame = CGRectMake(0, 0, self.view.frame.size.width, height);
+        [subView layoutIfNeeded];
+    }];
+}
+- (void)popView:(ZLPopBaseView *)popView didPanWithDistance:(CGFloat)distance {
+    NSLog(@"didPanWithDistance: %.2f", distance);
+    CGFloat height = UIScreen.mainScreen.bounds.size.height - popView.containerView.frame.size.height - 100.3;
+    UIView *subView = [self.view viewWithTag:120];
+    subView.frame = CGRectMake(0, 0, self.view.frame.size.width, height + distance);
+}
 @end

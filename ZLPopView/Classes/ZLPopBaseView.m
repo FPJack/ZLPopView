@@ -765,6 +765,11 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
     }
     self.pageState = ZLPopViewPageStateShowing;
 }
+- (void)popViewWillRebound:(ZLPopBaseView *)popView {
+    if ([self.delegateObj respondsToSelector:_cmd]) {
+        [self.delegateObj popViewWillRebound:self];
+    }
+}
 - (void)popViewDidShow:(ZLPopBaseView *)popView {
     
     if ([self.delegateObj respondsToSelector:_cmd]) {
@@ -862,7 +867,12 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
         [self.delegateObj popViewShowTight:self];
     }
 }
-
+- (void)popView:(ZLPopBaseView *)popView
+didPanWithDistance:(CGFloat)distance {
+    if ([self.delegateObj respondsToSelector:_cmd]) {
+        [self.delegateObj popView:self didPanWithDistance:distance];
+    }
+}
 - (UIView *)findSubviewInView:(UIView *)view matching:(BOOL (^)(UIView *subview))predicate {
     for (UIView *subview in view.subviews) {
         if (predicate(subview)) {
@@ -1520,9 +1530,12 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
     if (translation.y < 0) {
         self.otherScrollView.scrollEnabled = YES;
         self.viewBottomCons.constant = self.configObj.marge.bottom;
+        [self popView:self didPanWithDistance:0];
         return;
     };
     self.viewBottomCons.constant = self.configObj.marge.bottom + translation.y - self.otherScrollViewBeganOffsetY;
+    [self popView:self didPanWithDistance:translation.y - self.otherScrollViewBeganOffsetY];
+
     if (gesture.state == UIGestureRecognizerStateEnded) {
         CGFloat space = self.configObj.dragDismissDistance > 0 ? self.configObj.dragDismissDistance : self.containerHeight / 4;
         
@@ -1530,6 +1543,7 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
             [self dismiss];
         } else {
             // 回弹
+            [self popViewWillRebound:self];
             self.viewBottomCons.constant = self.configObj.marge.bottom;
             [UIView animateWithDuration:self.configObj.animationIn animations:^{
                 self.otherScrollView.scrollEnabled = YES;
