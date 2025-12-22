@@ -18,6 +18,7 @@
 #import "ZLPopViewBuilder+convenience.h"
 #import "ZLPopViewBuilder.h"
 #import "ZLStackViewBuilder.h"
+#import "ZLUICollectionView.h"
 
 FOUNDATION_EXPORT double ZLPopViewVersionNumber;
 FOUNDATION_EXPORT const unsigned char ZLPopViewVersionString[];
