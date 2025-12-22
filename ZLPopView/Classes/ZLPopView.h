@@ -9,4 +9,5 @@
 #import "UIView+kfc.h"
 #import "ZLPopViewBuilder+convenience.h"
 #import "UITextImageView.h"
+#import "ZLUICollectionView.h"
 #endif
