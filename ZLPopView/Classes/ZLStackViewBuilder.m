@@ -1258,7 +1258,9 @@ static inline UIView* _getViewFromViewKFC(ViewKFCType viewKFC) {
                 }else {
                     [stackView addArrangedSubview:view];
                 }
-                [self.builderCtx addView:view];
+                if (![self.builderCtx.allViews containsObject:view]) {
+                    [self.builderCtx addView:view];
+                }
             }
         }
     }];

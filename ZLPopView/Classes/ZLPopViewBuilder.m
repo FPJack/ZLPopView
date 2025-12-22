@@ -529,6 +529,7 @@ static GMConfigureBlock configureBlock;
         stackV.layoutMargins = UIEdgeInsetsMake(stackV.layoutMargins.top, stackV.layoutMargins.left, stackV.layoutMargins.bottom + kZLSafeAreaBottom, stackV.layoutMargins.right);
     }
     [view setValue:self.configObj forKey:@"configObj"];
+    [self.builderCtx addView:view];
     return view;
 }
 

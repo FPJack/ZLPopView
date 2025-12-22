@@ -138,6 +138,9 @@
     .addView(UILabel.kfc.text(@"tableView拖拽悬浮").tapAction(^(__kindof UIView * _Nonnull view) {
         [self showTableViewBottomFloat];
     }))
+    .addView(UILabel.kfc.text(@"动态更新View").tapAction(^(__kindof UIView * _Nonnull view) {
+        [self updateView];
+    }))
     .buildScrollViewToSuperView(self.view);
     
 }
@@ -352,6 +355,54 @@
         .buildBottomPopFloatView
         .setFloatHeight(200)
         .showExpand;
+}
+- (void)updateView {
+    
+    kPopViewColumnBuilder
+        .addDragGesture
+        .reserveSafeAreaBottomYes
+        .alignmentFill
+        .addViewBK(^UIView * _Nonnull{
+            return  kStackViewColumnBuilder
+                .alignmentFill
+                .addView(UILabel.kfc.text(@"动态更新View1"))
+                .addView(UIView.kfc.height(100).backgroundColor(UIColor.redColor))
+                .addView(UIButton.kfc.title(@"按钮").backgroundColor(UIColor.greenColor).height(50))
+                .buildStackView
+                .kfc
+                .updateViewModelBK(^(__kindof UIView * _Nonnull view, id  _Nullable viewModel, BOOL isUpdate) {
+                    view.hidden = [view.kfc.popView.kfc.viewModel isEqualToString:@"1"];
+                })
+                .view;
+        })
+        .addViewBK(^UIView * _Nonnull{
+            return  kStackViewColumnBuilder
+                .addView(UISlider.kfc)
+                .alignmentFill
+                .addView(UILabel.kfc.text(@"动态更新View2"))
+                .addView(UIView.kfc.height(200).backgroundColor(UIColor.orangeColor))
+                .buildStackView
+                .kfc
+                .updateViewModelBK(^(__kindof UIView * _Nonnull view, id  _Nullable viewModel, BOOL isUpdate) {
+                    NSLog(@"viewModel: %@", viewModel);
+
+                    view.hidden = [view.kfc.popView.kfc.viewModel isEqualToString:@"2"];
+                    if (!view.kfc.popView.kfc.viewModel) {
+                        view.hidden = YES;
+                    }
+                })
+                .view;
+        })
+    
+        .addView(UIButton.kfc
+                 .title(@"切换view的显示")
+                 .backgroundColor(UIColor.blueColor)
+                 .height(50)
+                 .touchUpAction(^(__kindof UIButton * _Nonnull button) {
+                     button.selected = !button.isSelected;
+                     [button.kfc.popView.kfc updateViewModel:button.isSelected ? @"1": @"2"];
+        }))
+        .showBottomPopView();
 }
 - (void)customBlurAnimate {
     ZLPopViewBuilder *builder = ZLPopViewBuilder.column
