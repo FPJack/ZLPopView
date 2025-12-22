@@ -803,7 +803,11 @@ static CGFloat _defaultThickness = 1.0f;
 }
 - (instancetype (^)(CGFloat ))topLeftCorner {
     return ^ZLBaseConfigure* (CGFloat cornerRadius) {
-        self.view.layer.maskedCorners = kCALayerMinXMinYCorner;
+        if (@available(iOS 11.0, *)) {
+            self.view.layer.maskedCorners = kCALayerMinXMinYCorner;
+        } else {
+            // Fallback on earlier versions
+        }
         self.view.layer.cornerRadius = cornerRadius;
         self.view.layer.masksToBounds = YES;
         return self;
@@ -811,7 +815,11 @@ static CGFloat _defaultThickness = 1.0f;
 }
 - (instancetype (^)(CGFloat ))topRightCorner {
     return ^ZLBaseConfigure* (CGFloat cornerRadius) {
-        self.view.layer.maskedCorners = kCALayerMaxXMinYCorner;
+        if (@available(iOS 11.0, *)) {
+            self.view.layer.maskedCorners = kCALayerMaxXMinYCorner;
+        } else {
+            // Fallback on earlier versions
+        }
         self.view.layer.cornerRadius = cornerRadius;
         self.view.layer.masksToBounds = YES;
         return self;
@@ -819,7 +827,11 @@ static CGFloat _defaultThickness = 1.0f;
 }
 - (instancetype (^)(CGFloat ))bottomLeftCorner {
     return ^ZLBaseConfigure* (CGFloat cornerRadius) {
-        self.view.layer.maskedCorners = kCALayerMinXMaxYCorner;
+        if (@available(iOS 11.0, *)) {
+            self.view.layer.maskedCorners = kCALayerMinXMaxYCorner;
+        } else {
+            // Fallback on earlier versions
+        }
         self.view.layer.cornerRadius = cornerRadius;
         self.view.layer.masksToBounds = YES;
         return self;
@@ -827,7 +839,11 @@ static CGFloat _defaultThickness = 1.0f;
 }
 - (instancetype (^)(CGFloat ))bottomRightCorner {
     return ^ZLBaseConfigure* (CGFloat cornerRadius) {
-        self.view.layer.maskedCorners = kCALayerMaxXMaxYCorner;
+        if (@available(iOS 11.0, *)) {
+            self.view.layer.maskedCorners = kCALayerMaxXMaxYCorner;
+        } else {
+            // Fallback on earlier versions
+        }
         self.view.layer.cornerRadius = cornerRadius;
         self.view.layer.masksToBounds = YES;
         return self;
@@ -835,7 +851,11 @@ static CGFloat _defaultThickness = 1.0f;
 }
 - (instancetype (^)(CGFloat ))topCorners {
     return ^ZLBaseConfigure* (CGFloat cornerRadius) {
-        self.view.layer.maskedCorners = kCALayerMinXMinYCorner | kCALayerMaxXMinYCorner;
+        if (@available(iOS 11.0, *)) {
+            self.view.layer.maskedCorners = kCALayerMinXMinYCorner | kCALayerMaxXMinYCorner;
+        } else {
+            // Fallback on earlier versions
+        }
         self.view.layer.cornerRadius = cornerRadius;
         self.view.layer.masksToBounds = YES;
         return self;
@@ -843,7 +863,11 @@ static CGFloat _defaultThickness = 1.0f;
 }
 - (instancetype (^)(CGFloat ))bottomCorners {
     return ^ZLBaseConfigure* (CGFloat cornerRadius) {
-        self.view.layer.maskedCorners = kCALayerMinXMaxYCorner | kCALayerMaxXMaxYCorner;
+        if (@available(iOS 11.0, *)) {
+            self.view.layer.maskedCorners = kCALayerMinXMaxYCorner | kCALayerMaxXMaxYCorner;
+        } else {
+            // Fallback on earlier versions
+        }
         self.view.layer.cornerRadius = cornerRadius;
         self.view.layer.masksToBounds = YES;
         return self;
