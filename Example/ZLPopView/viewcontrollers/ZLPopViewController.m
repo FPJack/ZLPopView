@@ -57,18 +57,22 @@
         UIView *subView = UIView.kfc.tag(120).backgroundColor(UIColor.yellowColor).view;
         UISwitch.kfc.addedToSuperview(subView).centerTo(subView);
         [self.view addSubview:subView];
-        
+        subView.frame = CGRectMake(0, 0, self.view.frame.size.width, UIScreen.mainScreen.bounds.size.height - 100.3);
         self.showTopBuilder
             .reserveSafeAreaBottomYes
             .buildBottomPopView
             .delegate(self)
             .didShowBK(^(ZLPopBaseView * _Nonnull popView) {
                 NSLog(@"底部弹出 didShowBK");
-                subView.frame = CGRectMake(0, 0, self.view.frame.size.width, UIScreen.mainScreen.bounds.size.height - popView.containerView.frame.size.height - 100.3);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [UIView animateWithDuration:popView.configObj.animationIn animations:^{
+                        subView.frame = CGRectMake(0, 0, self.view.frame.size.width, UIScreen.mainScreen.bounds.size.height - popView.containerView.frame.size.height - 100.3);
+                        [subView layoutIfNeeded];
+                    }];
+                });
             })
             .didHiddenBK(^(ZLPopBaseView * _Nonnull popView) {
                  NSLog(@"底部弹出 didHiddenBK");
-//                [subView removeFromSuperview];
             })
             .showPopView();
     }))
