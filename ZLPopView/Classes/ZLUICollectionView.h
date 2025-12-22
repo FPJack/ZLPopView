@@ -7,7 +7,6 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-@class ZLUIStackView;
 //UICollectionViewCompositionalLayout iOS 13.0+
 //https://cloud.tencent.com/developer/article/1645580
 NS_ASSUME_NONNULL_BEGIN
@@ -28,7 +27,7 @@ typedef void(^VCRIndexPathBlock)(ZLUICollectionView *collectionView,UICollection
 
 @interface ZLSubViewObj<__covariant ObjectType>: NSObject
 
-@property (nonatomic,strong)ZLUIStackView *stackView;
+@property (nonatomic,strong,readonly)UIStackView *stackView;
 @property (nonatomic,strong,readonly)UIView *backgroundView;
 @property (nonatomic,strong,readonly)UIView *accessoryView;
 @property (nonatomic,strong,readonly)UIView *customView;
@@ -51,10 +50,10 @@ typedef void(^VCRIndexPathBlock)(ZLUICollectionView *collectionView,UICollection
 ///渐变层
 @property (nonatomic,strong)CAGradientLayer *gradLayer;
 
-@property(nonatomic,readonly)ZLSubViewObj* (^initBK)(void(^block)(UIView* view));
-@property(nonatomic,readonly)ZLSubViewObj* (^layoutSubviewsBK)(void(^block)(UIView* view));
-@property(nonatomic,readonly)ZLSubViewObj* (^onceLayoutSubviewsBK)(void(^block)(UIView* view));
-@property(nonatomic,readonly)ZLSubViewObj* (^deallocBK)(void(^block)(UIView* view));
+@property(nonatomic,readonly)ZLSubViewObj* (^initBK)(void(^block)(__kindof UIView* view));
+@property(nonatomic,readonly)ZLSubViewObj* (^layoutSubviewsBK)(void(^block)(__kindof UIView* view));
+@property(nonatomic,readonly)ZLSubViewObj* (^onceLayoutSubviewsBK)(void(^block)(__kindof UIView* view));
+@property(nonatomic,readonly)ZLSubViewObj* (^deallocBK)(void(^block)(__kindof UIView* view));
 /// 可以在里面做一次性初始化布局
 - (void)initBK:(void(^)(ObjectType view))block;
 /// View layoutSubviews布局回调

@@ -72,18 +72,21 @@
         block(self.view);
     }
 }
-- (ZLSubViewObj * _Nonnull (^)(void (^ _Nonnull)(UIView*)))initBK {
+- (ZLSubViewObj * _Nonnull (^)(void (^ _Nonnull)(__kindof UIView * _Nonnull)))initBK {
     return ^ZLSubViewObj *(void (^block)(id view)){
         [self initBK:block];
         return self;
     };
 }
+
 - (void)layoutSubviewsBK:(void (^)(id _Nonnull))block{
+    typeof(self) __weak weakSelf = self;
     self.layoutSubviewsBlock = ^(id view) {
+        [weakSelf insertGradLayer];
         if (block) block(view);
     };
 }
-- (ZLSubViewObj * _Nonnull (^)(void (^ _Nonnull)(UIView*)))layoutSubviewsBK {
+- (ZLSubViewObj * _Nonnull (^)(void (^ _Nonnull)(__kindof UIView * _Nonnull)))layoutSubviewsBK {
     return ^ZLSubViewObj *(void (^block)(id view)){
         [self layoutSubviewsBK:block];
         return self;
@@ -92,14 +95,15 @@
 - (void)onceLayoutSubviewsBK:(void(^)(id _Nonnull))block {
     if (!self.layouted) self.onceLayoutSubviewsBlock = block;
 }
-- (ZLSubViewObj * _Nonnull (^)(void (^ _Nonnull)(UIView*)))onceLayoutSubviewsBK {
+- (ZLSubViewObj * _Nonnull (^)(void (^ _Nonnull)(__kindof UIView * _Nonnull)))onceLayoutSubviewsBK {
     return ^ZLSubViewObj *(void (^block)(id view)){
         [self onceLayoutSubviewsBK:block];
         return self;
     };
 }
 
-kPropertyGetterImplementation(ZLUIStackView, stackView)
+
+kPropertyGetterImplementation(UIStackView, stackView)
 kPropertyGetterImplementation(UILabel, textLabel)
 kPropertyGetterImplementation(UILabel, detailTextLabel)
 kPropertyGetterImplementation(UILabel, customLabel)
@@ -128,12 +132,13 @@ kPropertyGetterImplementation(UISwitch, switchView)
 - (void)deallocBK:(nonnull void (^)(id))block {
     self.deallocBlock = block;
 }
-- (ZLSubViewObj * _Nonnull (^)(void (^ _Nonnull)(UIView*)))deallocBK {
+- (ZLSubViewObj * _Nonnull (^)(void (^ _Nonnull)(__kindof UIView * _Nonnull)))deallocBK {
     return ^ZLSubViewObj *(void (^block)(id view)){
         [self deallocBK:block];
         return self;
     };
 }
+
 - (CAGradientLayer *)gradLayer {
     if (!_gradLayer) {
         CAGradientLayer *layer = [CAGradientLayer layer];

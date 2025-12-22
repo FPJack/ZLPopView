@@ -12,15 +12,22 @@
 #import "TableView.h"
 
 @interface ZLPopViewController ()<ZLPopViewDelegate>
-
+@property (nonatomic, strong) ZLUIView *view;
 @end
 
 @implementation ZLPopViewController
+
+- (void)loadView {
+    self.view = ZLUIView.new;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = UIColor.orangeColor;
     self.edgesForExtendedLayout = UIRectEdgeNone;
+    
+    [self.view.sv.stackView addSubview:self.view.sv.switchView];
+    self.view.sv.stackView.kfc.centerTo(self.view);
 
     ZLPopViewBuilder.defaultConfigureBK = ^(ZLBuildConfigObj * _Nonnull configure) {
         configure.tapMaskDismiss = YES;
