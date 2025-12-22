@@ -791,6 +791,16 @@ static CGFloat _defaultThickness = 1.0f;
         return self;
     };
 }
+- (id  _Nonnull (^)(UIEdgeInsets))layoutMargins {
+    return ^id (UIEdgeInsets inset) {
+        if (@available(iOS 11.0, *)) {
+            self.view.directionalLayoutMargins = NSDirectionalEdgeInsetsMake(inset.top, inset.left, inset.bottom, inset.right);
+        } else {
+            self.view.layoutMargins = inset;
+        }
+        return self;
+    };
+}
 - (instancetype (^)(CGFloat ))topLeftCorner {
     return ^ZLBaseConfigure* (CGFloat cornerRadius) {
         self.view.layer.maskedCorners = kCALayerMinXMinYCorner;

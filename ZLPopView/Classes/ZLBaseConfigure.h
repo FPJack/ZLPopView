@@ -209,7 +209,8 @@ typedef id<ZLViewLayoutProtocol> ViewLayoutType;
 @property (nonatomic,readonly) ObjectType (^margeVertical)(CGFloat);
 @property (nonatomic,readonly) ObjectType (^margeVerTB)(CGFloat,CGFloat);
 
-
+///设置view的layoutMargins
+@property (nonatomic,readonly) ObjectType (^layoutMargins)(UIEdgeInsets margins);
 
 
 
