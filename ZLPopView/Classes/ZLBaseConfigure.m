@@ -731,9 +731,9 @@ static CGFloat _defaultThickness = 1.0f;
     self.isFirstResponder = YES;
     return self;
 }
-- (instancetype (^)(UIEdgeInsets ))marge {
-    return ^ZLBaseConfigure* (UIEdgeInsets inset) {
-        self.margeViewInset = inset;
+- (id  _Nonnull (^)(CGFloat, CGFloat, CGFloat, CGFloat))marge {
+    return ^id (CGFloat top, CGFloat left, CGFloat bottom, CGFloat right) {
+        self.margeViewInset = UIEdgeInsetsMake(top, left, bottom, right);
         return self;
     };
 }

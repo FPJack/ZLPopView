@@ -198,7 +198,7 @@ typedef id<ZLViewLayoutProtocol> ViewLayoutType;
 
 
 ///设置view四边的marge，实际上是添加一个ContainerView包裹住view，最后需要返回margeView生效
-@property (nonatomic,readonly) ObjectType (^marge)(UIEdgeInsets);
+@property (nonatomic,readonly) ObjectType (^marge)(CGFloat top,CGFloat leading,CGFloat bottom,CGFloat trailing);
 @property (nonatomic,readonly) ObjectType (^margeAll)(CGFloat);
 @property (nonatomic,readonly) ObjectType (^margeTop)(CGFloat);
 @property (nonatomic,readonly) ObjectType (^margeBottom)(CGFloat);
