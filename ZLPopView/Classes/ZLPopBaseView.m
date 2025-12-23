@@ -401,6 +401,62 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
             break;
         }
         case ZLPopOverDirectionUp: {
+            
+            // 主体
+//            CGPoint aLeading = CGPointMake(topLeft, th);
+//            CGPoint aTrailing = CGPointMake(w - topRight, th);
+//            [mainPath moveToPoint:aLeading];
+//            
+//            
+//            CGPoint aStart = CGPointMake(offset, th);
+//            CGPoint aTop = CGPointMake(offset + tw/2, 0);
+//            CGPoint aEnd = CGPointMake(offset + tw, th);
+//            
+//            CGPoint aStartPre = CGPointMake(aStart.x - radius, th);
+//            CGPoint aStartNext = CGPointMake(aStart.x + radius, th - radius);
+//
+//            CGPoint aTopPre = CGPointMake(aTop.x - topRadius, topRadius);
+//            CGPoint aTopNext = CGPointMake(aTop.x + topRadius, topRadius);
+//
+//            CGPoint aEndPre = CGPointMake(aEnd.x - radius, th - radius);
+//            CGPoint aEndNext = CGPointMake(aEnd.x + radius, th);
+//            
+//            
+//            
+//            [mainPath addLineToPoint:aStartPre];
+//            [mainPath addQuadCurveToPoint:aStartNext controlPoint:aStart];
+//            
+//            [mainPath addLineToPoint:aTopPre];
+//            [mainPath addQuadCurveToPoint:aTopNext controlPoint:aTop];
+////
+//            [mainPath addLineToPoint:aEndPre];
+//            [mainPath addQuadCurveToPoint:aEndNext controlPoint:aEnd];
+//            
+//            
+////            [mainPath addLineToPoint:aTop];
+////            [mainPath addLineToPoint:aEnd];
+//            
+//            [mainPath addLineToPoint:aTrailing];
+//            
+//            if (topRight > 0) {
+//                [mainPath addQuadCurveToPoint:CGPointMake(w, th + topRight) controlPoint:CGPointMake(w, th)];
+//            }
+//            [mainPath addLineToPoint:CGPointMake(w, h - bottomRight)];
+//            if (bottomRight > 0) {
+//                [mainPath addQuadCurveToPoint:CGPointMake(w - bottomRight, h) controlPoint:CGPointMake(w, h)];
+//            }
+//            [mainPath addLineToPoint:CGPointMake(bottomLeft, h)];
+//            if (bottomLeft > 0) {
+//                [mainPath addQuadCurveToPoint:CGPointMake(0, h - bottomLeft) controlPoint:CGPointMake(0, h)];
+//            }
+//            [mainPath addLineToPoint:CGPointMake(0, th + topLeft)];
+//            if (topLeft > 0) {
+//                [mainPath addQuadCurveToPoint:CGPointMake(topLeft, th) controlPoint:CGPointMake(0, th)];
+//            }
+//            [mainPath closePath];
+// 
+//            break;
+            
             // 主体
             CGPoint aLeading = CGPointMake(topLeft, th);
             CGPoint aTrailing = CGPointMake(w - topRight, th);
@@ -1973,8 +2029,8 @@ horizontalMarge {return 0;}
 {
     self = [super init];
     if (self) {
-        _aW = 8;
-        _aH = 6;
+        _aW = 12;
+        _aH = 8;
 //        _safeAreaMarge = UIEdgeInsetsMake(50, 10, 20, 10);
         _safeAreaMarge = UIEdgeInsetsMake(10, 10, 10, 10);
 

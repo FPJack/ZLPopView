@@ -130,8 +130,8 @@
     .maxWidth(150)
     .maxHeight(200)
 //        .shadowRadius(5)
-        .borderColor(UIColor.whiteColor.alphaFactor(0.3))
-        .borderWidth(1)
+        .borderColor(UIColor.redColor.alphaFactor(0.3))
+        .borderWidth(2)
         .inset(10, 10, 10, 10)
         .bgGradientColors(colors)
         .backgroundColor(UIColor.clearColor)
@@ -143,8 +143,8 @@
         .buildPopOverView
         .setFromView(sender)
 //        .setArrowColor(UIColor.blueColor)
-//        .setArrowWidth(20)
-//        .setArrowHeight(15)
+//        .setArrowWidth(30)
+//        .setArrowHeight(20)
         .setDirection(d)
         .delegate(self)
 
