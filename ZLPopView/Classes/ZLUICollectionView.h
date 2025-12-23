@@ -48,7 +48,7 @@ typedef void(^VCRIndexPathBlock)(ZLUICollectionView *collectionView,UICollection
 ///是否已经调用过 layoutSubviews 方法对应是否调用onceLayoutSubviewsBK
 @property (nonatomic,assign,readonly)BOOL layouted;
 ///渐变层
-@property (nonatomic,strong)CAGradientLayer *gradLayer;
+@property (nonatomic,strong,readonly)CAGradientLayer *gradLayer;
 
 @property(nonatomic,readonly)ZLSubViewObj* (^initBK)(void(^block)(__kindof UIView* view));
 @property(nonatomic,readonly)ZLSubViewObj* (^layoutSubviewsBK)(void(^block)(__kindof UIView* view));

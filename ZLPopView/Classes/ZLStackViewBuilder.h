@@ -10,19 +10,17 @@
 #define kStackViewRowBuilder [ZLStackViewBuilder row]
 #define kStackViewColumnBuilder [ZLStackViewBuilder column]
 
-///底部安全区域
-#define kZLSafeAreaBottom \
-({CGFloat bottom = 0; \
+#define kZLSafeAreaBottom kZLSafeAreaInsets.bottom
+
+#define kZLSafeAreaTop kZLSafeAreaInsets.top
+
+#define kZLSafeAreaInsets \
+({UIEdgeInsets insets = UIEdgeInsetsZero; \
 if (@available(iOS 11.0, *)) { \
-    bottom = UIApplication.sharedApplication.windows.firstObject.safeAreaInsets.bottom; \
+    insets = UIApplication.sharedApplication.delegate.window.safeAreaInsets; \
 } \
-bottom;})
-#define kZLSafeAreaTop \
-({CGFloat top = 0; \
-if (@available(iOS 11.0, *)) { \
-    top = UIApplication.sharedApplication.windows.firstObject.safeAreaInsets.bottom; \
-} \
-top;})
+insets;})
+
 NS_ASSUME_NONNULL_BEGIN
 //参考flutter Row的MainAxisAlignment属性
 typedef NS_ENUM(NSInteger, ZLMainAxisAlignment) {

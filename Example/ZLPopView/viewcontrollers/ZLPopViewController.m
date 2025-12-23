@@ -18,7 +18,14 @@
 @implementation ZLPopViewController
 
 - (void)loadView {
-    self.view = ZLUIView.new;
+    ZLUIView *view = ZLUIView.new;
+    self.view = view;
+    [view.sv layoutSubviewsBK:^(ZLUIView * _Nonnull view) {
+        NSLog(@"layoutSubviewsBK");
+    }];
+    [view.sv onceLayoutSubviewsBK:^(ZLUIView * _Nonnull view) {
+        NSLog(@"onceLayoutSubviewsBK");
+    }];
 }
 
 - (void)viewDidLoad {

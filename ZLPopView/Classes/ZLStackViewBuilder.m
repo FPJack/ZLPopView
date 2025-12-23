@@ -1262,6 +1262,7 @@ static inline UIView* _getViewFromViewKFC(ViewKFCType viewKFC) {
                     [self.builderCtx addView:view];
                 }
             }
+            
         }
     }];
     UIView* (^blankViewBlock)(void) = ^{

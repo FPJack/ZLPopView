@@ -24,14 +24,63 @@
 
 @interface ZLSubViewObj()
 @property (nonatomic,weak)UIView *view;
-@property (nonatomic,assign)BOOL didSetup;
-@property (nonatomic,copy)void (^layoutSubviewsBlock)(id view);
-@property (nonatomic,copy)void (^deallocBlock)(id view);
-@property (nonatomic,copy)void (^onceLayoutSubviewsBlock)(id view);
-@property (nonatomic,assign,readwrite)BOOL layouted;
 @property (nonatomic,strong)NSMutableDictionary *propertyObjs;
 @end
 @implementation ZLSubViewObj
+- (void)setDidSetup:(BOOL)didSetup {
+    self.propertyObjs[@"didSetup"] = @(didSetup);
+}
+- (BOOL)didSetup {
+    NSNumber *num = self.propertyObjs[@"didSetup"];
+    return num.boolValue;
+}
+
+- (void)setLayoutSubviewsBlock:(void (^)(id))layoutSubviewsBlock {
+    if (layoutSubviewsBlock) {
+        self.propertyObjs[@"layoutSubviewsBlock"] = layoutSubviewsBlock;
+    }else {
+        [self.propertyObjs removeObjectForKey:@"layoutSubviewsBlock"];
+    }
+}
+- (void (^)(id))layoutSubviewsBlock {
+    return self.propertyObjs[@"layoutSubviewsBlock"];
+}
+
+- (void)setOnceLayoutSubviewsBlock:(void (^)(id))onceLayoutSubviewsBlock {
+    if (onceLayoutSubviewsBlock) {
+        self.propertyObjs[@"onceLayoutSubviewsBlock"] = onceLayoutSubviewsBlock;
+    }else {
+        [self.propertyObjs removeObjectForKey:@"onceLayoutSubviewsBlock"];
+    }
+}
+- (void (^)(id))onceLayoutSubviewsBlock {
+    return self.propertyObjs[@"onceLayoutSubviewsBlock"];
+}
+
+- (void (^)(id))deallocBlock {
+    return self.propertyObjs[@"deallocBlock"];
+}
+- (void)setDeallocBlock:(void (^)(id))deallocBlock {
+    if (deallocBlock) {
+        self.propertyObjs[@"deallocBlock"] = deallocBlock;
+    }else {
+        [self.propertyObjs removeObjectForKey:@"deallocBlock"];
+    }
+}
+
+- (BOOL)layouted {
+    NSNumber *num = self.propertyObjs[@"layouted"];
+    return num.boolValue;
+}
+- (void)setLayouted:(BOOL)layouted {
+    if(!self.layouted && self.onceLayoutSubviewsBlock){
+        self.onceLayoutSubviewsBlock(self.view);
+        self.onceLayoutSubviewsBlock = nil;
+    }
+    self.propertyObjs[@"layouted"] = @(layouted);
+}
+
+
 - (NSMutableDictionary *)propertyObjs {
     if (!_propertyObjs) {
         _propertyObjs = NSMutableDictionary.dictionary;
@@ -50,9 +99,10 @@
     return self;
 }
 - (void)insertGradLayer {
-    if (_gradLayer) {
-        [self.view.layer insertSublayer:self.gradLayer atIndex:0];
-        self.gradLayer.frame = self.view.bounds;
+    CALayer *gradLayer = self.propertyObjs[@"gradLayer"];
+    if (gradLayer) {
+        [self.view.layer insertSublayer:gradLayer atIndex:0];
+        gradLayer.frame = self.view.bounds;
     }
 }
 - (UIView *)superView {
@@ -121,14 +171,7 @@ kPropertyGetterImplementation(UITextField, textField)
 kPropertyGetterImplementation(UITextView, textView)
 kPropertyGetterImplementation(UISwitch, switchView)
 
-- (void)setLayouted:(BOOL)layouted {
-    if (_layouted == layouted) return;
-    if(!_layouted && self.onceLayoutSubviewsBlock){
-        self.onceLayoutSubviewsBlock(self.view);
-        self.onceLayoutSubviewsBlock = nil;
-    }
-    _layouted = layouted;
-}
+
 - (void)deallocBK:(nonnull void (^)(id))block {
     self.deallocBlock = block;
 }
@@ -140,13 +183,22 @@ kPropertyGetterImplementation(UISwitch, switchView)
 }
 
 - (CAGradientLayer *)gradLayer {
-    if (!_gradLayer) {
-        CAGradientLayer *layer = [CAGradientLayer layer];
+    CAGradientLayer *layer = self.propertyObjs[@"gradLayer"];
+    if (layer) {
+        layer = [CAGradientLayer layer];
         layer.startPoint = CGPointMake(0.5, 0); // 中上
         layer.endPoint = CGPointMake(0.5, 1); // 中上
-        _gradLayer = layer;
+        [self setGradLayer:layer];
     }
-    return _gradLayer;
+    return layer;
+}
+
+- (void)setGradLayer:(CAGradientLayer *)gradLayer {
+    if (gradLayer) {
+        self.propertyObjs[@"gradLayer"] = gradLayer;
+    }else {
+        [self.propertyObjs removeObjectForKey:@"gradLayer"];
+    }
 }
 - (void)dealloc
 {
