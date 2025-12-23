@@ -1333,6 +1333,7 @@ didPanWithDistance:(CGFloat)distance {
     CGPoint translation = [gesture translationInView:self.superview];
     if (translation.y > 0) return;
     self.viewTopCons.constant = self.configObj.marge.top + translation.y;
+    [self popView:self didPanWithDistance:translation.y];
     if (gesture.state == UIGestureRecognizerStateEnded) {
         CGFloat space = self.configObj.dragDismissDistance > 0 ? -self.configObj.dragDismissDistance : -self.containerHeight / 4;
         if (translation.y < space && self.configObj.enableDragDismiss) {
@@ -1340,6 +1341,7 @@ didPanWithDistance:(CGFloat)distance {
         } else {
             // 回弹
             self.viewTopCons.constant = self.configObj.marge.top;
+            [self popViewWillRebound:self];
             [UIView animateWithDuration:self.configObj.animationIn animations:^{
                 [self layoutIfNeeded];
             }];
@@ -1663,6 +1665,7 @@ horizontalMarge {return 0;}
     if (self.keyboardIsShowing) return;
     CGPoint translation = [gesture translationInView:self.parentView];
     self.horizontalCons.constant =  [self panCons:translation.x];
+    [self popView:self didPanWithDistance:translation.x];
     if (gesture.state == UIGestureRecognizerStateEnded) {
         self.isHorizontalPan = NO;
         if ([self panShouldDismiss:translation.x] && self.configObj.enableDragDismiss) {
@@ -1670,6 +1673,7 @@ horizontalMarge {return 0;}
         } else {
             // 回弹
             self.horizontalCons.constant = self.horizontalMarge;
+            [self popViewWillRebound:self];
             [UIView animateWithDuration:self.configObj.animationIn animations:^{
                 [self layoutIfNeeded];
             }];
