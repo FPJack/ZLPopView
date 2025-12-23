@@ -791,12 +791,16 @@ static CGFloat _defaultThickness = 1.0f;
         return self;
     };
 }
-- (id  _Nonnull (^)(UIEdgeInsets))layoutMargins {
-    return ^id (UIEdgeInsets inset) {
+- (id  _Nonnull (^)(CGFloat, CGFloat, CGFloat, CGFloat))layoutMargins {
+    return ^id (CGFloat top, CGFloat left, CGFloat bottom, CGFloat right) {
         if (@available(iOS 11.0, *)) {
-            self.view.directionalLayoutMargins = NSDirectionalEdgeInsetsMake(inset.top, inset.left, inset.bottom, inset.right);
+            self.view.directionalLayoutMargins = NSDirectionalEdgeInsetsMake(top, left, bottom, right);
         } else {
-            self.view.layoutMargins = inset;
+            self.view.layoutMargins = UIEdgeInsetsMake(top, left, bottom, right);
+        }
+        if ([self.view isKindOfClass:UIStackView.class]) {
+            UIStackView *stackView = (UIStackView *)self.view;
+            stackView.layoutMarginsRelativeArrangement = YES;
         }
         return self;
     };
