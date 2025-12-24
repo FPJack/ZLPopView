@@ -912,6 +912,24 @@ static CGFloat _defaultThickness = 1.0f;
         return self;
     };
 }
+- (id  _Nonnull (^)(UIView * _Nonnull, void (^ _Nonnull)(UIView * _Nonnull)))addSubview{
+    return ^id (UIView *subview, void (^block)(UIView *view)){
+        if ([subview isKindOfClass:UIView.class] && ![subview isEqual:self.view]) {
+            [self.view addSubview:subview];
+            if (block) block(subview);
+        }
+        return self;
+    };
+}
+- (id  _Nonnull (^)(UIView * _Nonnull, NSInteger, void (^ _Nonnull)(UIView * _Nonnull)))insertSubview {
+    return ^id (UIView *subview, NSInteger index, void (^block)(UIView *view)){
+        if ([subview isKindOfClass:UIView.class] && ![subview isEqual:self.view]) {
+            [self.view insertSubview:subview atIndex:index];
+            if (block) block(subview);
+        }
+        return self;
+    };
+}
 - (id  _Nonnull (^)(ViewLayoutType _Nullable, CGFloat))topTo {
     return ^id (ViewLayoutType _Nullable view, CGFloat c) {
         view = view ?: self.view.superview;
