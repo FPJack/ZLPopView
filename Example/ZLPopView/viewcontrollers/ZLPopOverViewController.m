@@ -8,8 +8,14 @@
 
 #import "ZLPopOverViewController.h"
 #import <ZLPopView/ZLPopView.h>
+
+#import "UIButton+ZLHitArea.h"
+
+
+
 @interface ZLPopOverViewController ()<ZLPopViewDelegate>
 @property (weak, nonatomic) IBOutlet UIView *testview;
+@property (weak, nonatomic) IBOutlet UIButton *centerButton;
 
 @end
 
@@ -26,7 +32,9 @@
     [btn addTarget:self action:@selector(popover:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
     
+    self.centerButton.zl_hitEdgeInsets = UIEdgeInsetsMake(20, 20, 20, 20);
 }
+
 - (UIView *)addItem {
     return ZLStackViewBuilder.row.addViewBK(^UIView * _Nonnull{
         return [UIButton buttonWithType:UIButtonTypeContactAdd].kfc.size(30).view;

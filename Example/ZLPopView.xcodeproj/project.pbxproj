@@ -21,6 +21,7 @@
 		6003F5B2195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
 		6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5B8195388D20070C39A /* InfoPlist.strings */; };
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
+		62F3561D2EFC2EC1008CBCF1 /* UIButton+ZLHitArea.m in Sources */ = {isa = PBXBuildFile; fileRef = 62F3561C2EFC2EC1008CBCF1 /* UIButton+ZLHitArea.m */; };
 		71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */; };
 		8432B31E2ED5C85D00617EFB /* ZLConfigure.m in Sources */ = {isa = PBXBuildFile; fileRef = 8432B31D2ED5C85D00617EFB /* ZLConfigure.m */; };
 		8432B3212ED5C90500617EFB /* ZLCommonViews.m in Sources */ = {isa = PBXBuildFile; fileRef = 8432B3202ED5C90500617EFB /* ZLCommonViews.m */; };
@@ -74,6 +75,8 @@
 		6003F5B9195388D20070C39A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6003F5BB195388D20070C39A /* Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tests.m; sourceTree = "<group>"; };
 		606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
+		62F3561B2EFC2EC1008CBCF1 /* UIButton+ZLHitArea.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIButton+ZLHitArea.h"; sourceTree = "<group>"; };
+		62F3561C2EFC2EC1008CBCF1 /* UIButton+ZLHitArea.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIButton+ZLHitArea.m"; sourceTree = "<group>"; };
 		71719F9E1E33DC2100824A3D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		731DC839FB505222550A1E37 /* Pods_ZLPopView_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZLPopView_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		738EE6DD1C1509D48AF976BA /* ZLPopView.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = ZLPopView.podspec; path = ../ZLPopView.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
@@ -191,6 +194,8 @@
 				8432B31D2ED5C85D00617EFB /* ZLConfigure.m */,
 				8432B31F2ED5C90500617EFB /* ZLCommonViews.h */,
 				8432B3202ED5C90500617EFB /* ZLCommonViews.m */,
+				62F3561B2EFC2EC1008CBCF1 /* UIButton+ZLHitArea.h */,
+				62F3561C2EFC2EC1008CBCF1 /* UIButton+ZLHitArea.m */,
 				71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
 				6003F594195388D20070C39A /* Supporting Files */,
@@ -481,6 +486,7 @@
 				6003F59E195388D20070C39A /* ZLAppDelegate.m in Sources */,
 				8432B3302ED68DA000617EFB /* ZLPopViewController.m in Sources */,
 				6003F5A7195388D20070C39A /* ZLViewController.m in Sources */,
+				62F3561D2EFC2EC1008CBCF1 /* UIButton+ZLHitArea.m in Sources */,
 				8432B3342ED6909600617EFB /* ZLNavigationController.m in Sources */,
 				8432B32B2ED68D7500617EFB /* ZLConvenienceViewController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
