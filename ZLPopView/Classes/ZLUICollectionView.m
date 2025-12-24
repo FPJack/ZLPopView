@@ -22,6 +22,41 @@
     return view; \
 }
 
+
+//#define kPropertyGetterSetterImplementation(type, propertyName, PropertyName) \
+//- (type *)propertyName { \
+//    NSString *key = NSStringFromSelector(_cmd); \
+//    type *view = [self.propertyObjs objectForKey:key]; \
+//    if (!view) { \
+//        view = [[type alloc] init]; \
+//        if (self.superView) { \
+//            [self.superView addSubview:view]; \
+//        } \
+//        [self.propertyObjs setObject:view forKey:key]; \
+//    } \
+//    return view; \
+//} \
+//\
+//- (void)set##PropertyName:(type *)propertyName { \
+//    NSString *key = NSStringFromSelector(@selector(propertyName)); \
+//    type *oldView = [self.propertyObjs objectForKey:key]; \
+//    if (oldView == propertyName) return; \
+//    \
+//    if (oldView) { \
+//        [oldView removeFromSuperview]; \
+//    } \
+//    \
+//    if (self.superView && propertyName.superview != self.superView) { \
+//        [self.superView addSubview:propertyName]; \
+//    } \
+//    \
+//    if (propertyName) { \
+//        [self.propertyObjs setObject:propertyName forKey:key]; \
+//    } else { \
+//        [self.propertyObjs removeObjectForKey:key]; \
+//    } \
+//}
+
 @interface ZLSubViewObj()
 @property (nonatomic,weak)UIView *view;
 @property (nonatomic,strong)NSMutableDictionary *propertyObjs;

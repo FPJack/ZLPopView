@@ -912,7 +912,7 @@ static CGFloat _defaultThickness = 1.0f;
         return self;
     };
 }
-- (id  _Nonnull (^)(UIView * _Nonnull, void (^ _Nonnull)(UIView * _Nonnull)))addSubview{
+- (id  _Nonnull (^)(UIView * _Nonnull, void (^ _Nonnull)(__kindof UIView * _Nonnull)))addSubview{
     return ^id (UIView *subview, void (^block)(UIView *view)){
         if ([subview isKindOfClass:UIView.class] && ![subview isEqual:self.view]) {
             [self.view addSubview:subview];
@@ -921,7 +921,7 @@ static CGFloat _defaultThickness = 1.0f;
         return self;
     };
 }
-- (id  _Nonnull (^)(UIView * _Nonnull, NSInteger, void (^ _Nonnull)(UIView * _Nonnull)))insertSubview {
+- (id  _Nonnull (^)(UIView * _Nonnull, NSInteger, void (^ _Nonnull)(__kindof UIView * _Nonnull)))insertSubview {
     return ^id (UIView *subview, NSInteger index, void (^block)(UIView *view)){
         if ([subview isKindOfClass:UIView.class] && ![subview isEqual:self.view]) {
             [self.view insertSubview:subview atIndex:index];

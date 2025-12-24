@@ -266,9 +266,9 @@ typedef id<ZLViewLayoutProtocol> ViewLayoutType;
 
 @property (nonatomic,readonly) ObjectType (^insertedToSuperview)(UIView *superview,NSInteger index);
 
-@property (nonatomic,readonly) ObjectType (^addSubview)(UIView *subview,void(^configure)(UIView *subview));
+@property (nonatomic,readonly) ObjectType (^addSubview)(UIView *subview,void(^configure)(__kindof UIView *subview));
 
-@property (nonatomic,readonly) ObjectType (^insertSubview)(UIView *subview,NSInteger idx,void(^configure)(UIView *subview));
+@property (nonatomic,readonly) ObjectType (^insertSubview)(UIView *subview,NSInteger idx,void(^configure)(__kindof UIView *subview));
 
 @property (nonatomic,readonly) ObjectType (^topTo)(ViewLayoutType _Nullable viewLayout,CGFloat constant);
 
