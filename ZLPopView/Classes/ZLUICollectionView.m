@@ -207,21 +207,21 @@ kPropertyGetterImplementation(UISwitch, switchView)
 
 @end
 @interface ZLUIView()
-@property (nonatomic,strong,readwrite)ZLSubViewObj *sv;
+@property (nonatomic,strong,readwrite)ZLSubViewObj *fkc;
 @end
 @implementation ZLUIView
-- (ZLSubViewObj *)sv {
-    if (!_sv) {
-        _sv = [[ZLSubViewObj alloc] init];
-        _sv.view = self;
+- (ZLSubViewObj *)fkc {
+    if (!_fkc) {
+        _fkc = [[ZLSubViewObj alloc] init];
+        _fkc.view = self;
     }
-    return _sv;
+    return _fkc;
 }
 - (void)layoutSubviews {
     [super layoutSubviews];
-    if (!self.superview || !_sv) return;
-    if (self.sv.layoutSubviewsBlock) self.sv.layoutSubviewsBlock(self);
-    self.sv.layouted = YES;
+    if (!self.superview || !_fkc) return;
+    if (self.fkc.layoutSubviewsBlock) self.fkc.layoutSubviewsBlock(self);
+    self.fkc.layouted = YES;
 }
 @end
 @interface ZLUICollectionReusableView()
@@ -243,22 +243,22 @@ kPropertyGetterImplementation(UISwitch, switchView)
 }
 @end
 @interface ZLUICollectionViewCell()
-@property (nonatomic,strong,readwrite)ZLSubViewObj *sv;
+@property (nonatomic,strong,readwrite)ZLSubViewObj *fkc;
 @property (nonatomic,copy)UICollectionViewLayoutAttributes* (^preferredLayoutAttributesFittingAttributesBlock)(ZLUICollectionViewCell *cell,UICollectionViewLayoutAttributes *layoutAttributes);
 @end
 @implementation ZLUICollectionViewCell
-- (ZLSubViewObj *)sv {
-    if (!_sv) {
-        _sv = [[ZLSubViewObj alloc] init];
-        _sv.view = self;
+- (ZLSubViewObj *)fkc {
+    if (!_fkc) {
+        _fkc = [[ZLSubViewObj alloc] init];
+        _fkc.view = self;
     }
-    return _sv;
+    return _fkc;
 }
 - (void)layoutSubviews {
     [super layoutSubviews];
-    if (!self.superview || !_sv) return;
-    if (self.sv.layoutSubviewsBlock) self.sv.layoutSubviewsBlock(self);
-    self.sv.layouted = YES;
+    if (!self.superview || !_fkc) return;
+    if (self.fkc.layoutSubviewsBlock) self.fkc.layoutSubviewsBlock(self);
+    self.fkc.layouted = YES;
 }
 - (void)preferredLayoutAttributesFittingAttributesBK:(UICollectionViewLayoutAttributes *(^)(ZLUICollectionViewCell *cell,UICollectionViewLayoutAttributes *layoutAttributes))block {
     self.preferredLayoutAttributesFittingAttributesBlock = block;
@@ -280,39 +280,39 @@ kPropertyGetterImplementation(UISwitch, switchView)
 @end
 
 @interface ZLUITableViewCell()
-@property (nonatomic,strong,readwrite)ZLSubViewObj<ZLUITableViewCell *> *sv;
+@property (nonatomic,strong,readwrite)ZLSubViewObj<ZLUITableViewCell *> *fkc;
 @end
 @implementation ZLUITableViewCell
-- (ZLSubViewObj *)sv {
-    if (!_sv) {
-        _sv = [[ZLSubViewObj alloc] init];
-        _sv.view = self;
+- (ZLSubViewObj *)fkc {
+    if (!_fkc) {
+        _fkc = [[ZLSubViewObj alloc] init];
+        _fkc.view = self;
     }
-    return _sv;
+    return _fkc;
 }
 - (void)layoutSubviews {
     [super layoutSubviews];
-    if (!self.superview || !_sv) return;
-    if (self.sv.layoutSubviewsBlock) self.sv.layoutSubviewsBlock(self);
-    self.sv.layouted = YES;
+    if (!self.superview || !_fkc) return;
+    if (self.fkc.layoutSubviewsBlock) self.fkc.layoutSubviewsBlock(self);
+    self.fkc.layouted = YES;
 }
 @end
 @interface ZLUITableViewHeaderFooterView()
-@property (nonatomic,strong,readwrite)ZLSubViewObj<ZLUITableViewHeaderFooterView *> *sv;
+@property (nonatomic,strong,readwrite)ZLSubViewObj<ZLUITableViewHeaderFooterView *> *fkc;
 @end
 @implementation ZLUITableViewHeaderFooterView
-- (ZLSubViewObj *)sv {
-    if (!_sv) {
-        _sv = [[ZLSubViewObj alloc] init];
-        _sv.view = self;
+- (ZLSubViewObj *)fkc {
+    if (!_fkc) {
+        _fkc = [[ZLSubViewObj alloc] init];
+        _fkc.view = self;
     }
-    return _sv;
+    return _fkc;
 }
 - (void)layoutSubviews {
     [super layoutSubviews];
-    if (!self.superview || !_sv) return;
-    if (self.sv.layoutSubviewsBlock) self.sv.layoutSubviewsBlock(self);
-    self.sv.layouted = YES;
+    if (!self.superview || !_fkc) return;
+    if (self.fkc.layoutSubviewsBlock) self.fkc.layoutSubviewsBlock(self);
+    self.fkc.layouted = YES;
 }
 @end
 

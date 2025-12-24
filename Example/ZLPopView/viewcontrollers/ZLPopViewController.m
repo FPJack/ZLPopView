@@ -20,10 +20,11 @@
 - (void)loadView {
     ZLUIView *view = ZLUIView.new;
     self.view = view;
-    [view.sv layoutSubviewsBK:^(ZLUIView * _Nonnull view) {
+    
+    [view.fkc layoutSubviewsBK:^(ZLUIView * _Nonnull view) {
         NSLog(@"layoutSubviewsBK");
     }];
-    [view.sv onceLayoutSubviewsBK:^(ZLUIView * _Nonnull view) {
+    [view.fkc onceLayoutSubviewsBK:^(ZLUIView * _Nonnull view) {
         NSLog(@"onceLayoutSubviewsBK");
     }];
 }
@@ -33,8 +34,7 @@
     self.view.backgroundColor = UIColor.orangeColor;
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
-    [self.view.sv.stackView addSubview:self.view.sv.switchView];
-    self.view.sv.stackView.kfc.centerTo(self.view);
+ 
 
     ZLPopViewBuilder.defaultConfigureBK = ^(ZLBuildConfigObj * _Nonnull configure) {
         configure.tapMaskDismiss = YES;
