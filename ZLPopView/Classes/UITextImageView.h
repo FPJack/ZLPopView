@@ -7,8 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "UIView+kfc.h"
-
+#import <ZLPopView/UIView+kfc.h>
 NS_ASSUME_NONNULL_BEGIN
 typedef NS_ENUM(NSInteger, UIImagePosition) {
     UIImagePositionStart = 0,

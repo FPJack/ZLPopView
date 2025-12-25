@@ -6,7 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ZLBaseConfigure.h"
+#import <ZLPopView/ZLBaseConfigure.h>
 #define kStackViewRowBuilder [ZLStackViewBuilder row]
 #define kStackViewColumnBuilder [ZLStackViewBuilder column]
 

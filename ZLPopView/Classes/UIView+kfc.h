@@ -6,7 +6,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ZLBaseConfigure.h"
+#import <ZLPopView/ZLBaseConfigure.h>
 @class ZLPopBaseView,ZLViewConfigObj,ZLUIScrollView,ZLBaseConfigure,ZLUILabelConfigure,ZLUITextFieldConfigure,ZLUIButtonConfigure,ZLUIImageViewConfigure,ZLUIViewConfigure,ZLUITextViewConfigure,ZLUISwitchConfigure,ZLUISliderConfigure,ZLUIStackViewConfigure,ZLSeparatorView;
 NS_ASSUME_NONNULL_BEGIN
 static inline UIColor * __UIColorFromObj(NSObject * obj);

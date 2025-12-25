@@ -6,8 +6,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ZLStackViewBuilder.h"
-#import "ZLPopBaseView.h"
+#import <ZLPopView/ZLStackViewBuilder.h>
+#import <ZLPopView/ZLPopBaseView.h>
+
 NS_ASSUME_NONNULL_BEGIN
 #define kPopViewRowBuilder  [ZLPopViewBuilder row]
 #define kPopViewColumnBuilder  [ZLPopViewBuilder column]
