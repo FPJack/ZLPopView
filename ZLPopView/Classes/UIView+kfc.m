@@ -142,6 +142,7 @@ static inline UIColor *_UIColorFromHexString(NSString *hexStr) {
 - (void)setKfc:(ZLBaseConfigure *)kfc {
     if ([kfc isKindOfClass:ZLBaseConfigure.class]) {
         [self setKfcCreated:YES];
+//        __autoreleasing UIView *strongV = self;
         [GMStrongView.sharedInstance keepAliveUntilRunloopEnd:self];
         objc_setAssociatedObject(self, @selector(kfc), kfc, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }

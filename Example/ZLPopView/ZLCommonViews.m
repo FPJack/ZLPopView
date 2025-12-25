@@ -77,4 +77,8 @@
 + (UIView *)verticalLineView {
     return self.lineView.kfc.width(kSeparatorWidth).view;
 }
+- (void)dealloc
+{
+    NSLog(@"%s",__func__);
+}
 @end

@@ -10,7 +10,8 @@
 #import <ZLPopView/ZLPopView.h>
 
 #import "UIButton+ZLHitArea.h"
-
+#import "TableView.h"
+#import "ZLCommonViews.h"
 
 
 @interface ZLPopOverViewController ()<ZLPopViewDelegate>
@@ -31,16 +32,12 @@
     [btn setTitleColor:UIColor.orangeColor forState:UIControlStateNormal];
     [btn addTarget:self action:@selector(popover:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
-    
-    self.centerButton.zl_hitEdgeInsets = UIEdgeInsetsMake(20, 20, 20, 20);
 }
-
 - (UIView *)addItem {
     return ZLStackViewBuilder.row.addViewBK(^UIView * _Nonnull{
         return [UIButton buttonWithType:UIButtonTypeContactAdd].kfc.size(30).view;
     }).addViewBK(^UIView * _Nonnull{
 //        return UILabel.new.kfc.multipleLines.text(@"UIButtonTypeContactAdd").view;
-
         return  UILabel.new.kfc.multipleLines.text([self text]).view;
     }).space(20).buildStackView;
 }
