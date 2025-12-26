@@ -1721,11 +1721,13 @@ static CGFloat _defaultThickness = 1.0f;
 }
 - (instancetype)defaultHighlightBgColor {
     UIColor *color;
-    if (@available(iOS 13.0, *)) {
-        color = [UIColor systemGray6Color];
-    } else {
-        color = [UIColor colorWithWhite:0.97 alpha:1.0f];
-    }
+//    if (@available(iOS 13.0, *)) {
+//        color = [UIColor systemGray6Color];
+//    } else {
+//        color = [UIColor colorWithWhite:0.97 alpha:1.0f];
+//    }
+    color = [UIColor colorWithWhite:0.97 alpha:1.0f];
+
     return self.highlightBgColor(color);
 }
 - (ZLUIButtonConfigure* (^)(id  ,UIControlState state))imageForState {
