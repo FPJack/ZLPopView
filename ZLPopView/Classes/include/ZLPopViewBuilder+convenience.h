@@ -5,7 +5,12 @@
 //  Created by admin on 2025/9/28.
 //
 
+
+#if __has_include(<ZLPopView/ZLPopView.h>)
 #import <ZLPopView/ZLPopView.h>
+#else
+#import "ZLPopView.h"
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 

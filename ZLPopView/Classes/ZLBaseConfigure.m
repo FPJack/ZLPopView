@@ -6,8 +6,7 @@
 //
 
 #import "ZLBaseConfigure.h"
-
-#import <ZLPopView/ZLPopView.h>
+#import "ZLPopView.h"
 #import <objc/runtime.h>
 #define kSeptorDefaultHeight ZLSeparatorView.defaultThickness
 

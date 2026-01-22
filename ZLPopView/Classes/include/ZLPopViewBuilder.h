@@ -6,8 +6,16 @@
 //
 
 #import <Foundation/Foundation.h>
+
+#if __has_include(<ZLPopView/ZLPopView.h>)
 #import <ZLPopView/ZLStackViewBuilder.h>
 #import <ZLPopView/ZLPopBaseView.h>
+
+#else
+#import "ZLStackViewBuilder.h"
+#import "ZLPopBaseView.h"
+
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 #define kPopViewRowBuilder  [ZLPopViewBuilder row]

@@ -7,9 +7,14 @@
 
 #import "ZLPopViewBuilder.h"
 #import <objc/runtime.h>
+#if __has_include(<ZLPopView/ZLPopView.h>)
 #import <ZLPopView/ZLBaseConfigure.h>
-#import "UIView+kfc.h"
 #import <ZLPopView/ZLStackViewBuilder.h>
+#else
+#import "ZLBaseConfigure.h"
+#import "ZLStackViewBuilder.h"
+#endif
+#import "UIView+kfc.h"
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wincomplete-implementation"
 
