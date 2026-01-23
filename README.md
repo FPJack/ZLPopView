@@ -32,6 +32,7 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 ## Installation
 
 ```ruby
+支持SPM导入和CocoaPods导入
 pod 'ZLPopView'
 ```
 
