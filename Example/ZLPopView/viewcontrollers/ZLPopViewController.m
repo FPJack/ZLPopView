@@ -284,6 +284,7 @@
         .addView(UILabel.kfc.text(@"加载中...").systemFontSize(12)
                  .textColor(UIColor.whiteColor)
                  .textAlignmentCenter)
+    
         .buildCenterPopView;
     [popView show];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -409,6 +410,7 @@
                      button.selected = !button.isSelected;
                      [button.kfc.popView.kfc updateViewModel:button.isSelected ? @"1": @"2"];
         }))
+
         .showBottomPopView();
 }
 - (void)customBlurAnimate {

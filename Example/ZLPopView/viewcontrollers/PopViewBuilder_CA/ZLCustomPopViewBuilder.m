@@ -32,6 +32,7 @@
         return ZLStackViewBuilder
             .rowFillEqually
             .space(10)
+            .context(builder.builderCtx)
             .paddingLeading(10)
             .paddingTrailing(10)
             .paddingBottom(10)
@@ -46,6 +47,7 @@
         return ZLStackViewBuilder
             .column
             .space(10)
+            .context(builder.builderCtx)
             .paddingLeading(10)
             .paddingTrailing(10)
             .paddingBottom(10)

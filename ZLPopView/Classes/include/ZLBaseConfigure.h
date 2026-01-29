@@ -35,7 +35,7 @@ static inline UITextField * _Nullable kIS_UITextField(id obj) {
 static inline UISwitch * _Nullable kIS_UISwitch(id obj) {
     return [obj isKindOfClass:[UISwitch class]] ? (UISwitch *)obj : nil;
 }
-@class ZLUIViewConfigure,ZLUILabelConfigure,ZLUITextFieldConfigure,ZLUITextViewConfigure,ZLUIButtonConfigure,ZLUIImageViewConfigure,ZLUISwitchConfigure,ZLUISliderConfigure,ZLUIStackViewConfigure,ZLUIScrollView,ZLPopBaseView,ZLUIScrollViewConfigure;
+@class ZLUIViewConfigure,ZLUILabelConfigure,ZLUITextFieldConfigure,ZLUITextViewConfigure,ZLUIButtonConfigure,ZLUIImageViewConfigure,ZLUISwitchConfigure,ZLUISliderConfigure,ZLUIStackViewConfigure,ZLUIScrollView,ZLPopBaseView,ZLUIScrollViewConfigure,ZLUIStackView;
 @class ZLBuilderContext;
 
 typedef NS_ENUM(NSInteger, ZLCrossAxisAlignment) {
@@ -67,6 +67,7 @@ typedef NS_ENUM(NSInteger, ZLCrossAxisAlignment) {
 @property (nonatomic,weak)ZLUIStackView *stackView;
 ///只有当设置了宽或高的参数的时候为scrollview对象才有值
 @property (nonatomic,weak)ZLUIScrollView *scrollView;
+
 ///所有view
 @property (nonatomic, strong,readonly) NSHashTable<UIView *> *allViews;
 ///根据tag获取view

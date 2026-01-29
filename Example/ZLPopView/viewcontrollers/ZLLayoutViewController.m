@@ -8,6 +8,11 @@
 
 #import "ZLLayoutViewController.h"
 #import <ZLPopView/ZLPopView.h>
+#import <ZLKeyboardManager.h>
+#import <NSObject+IQKeyboardManagerAdapter.h>
+#import <ZLPermission.h>
+#import <ZLPermissionProtocol.h>
+//#import <ZLPermissionBluetooth.h>
 @interface ZLLayoutViewController ()
 
 @end
@@ -19,6 +24,9 @@
     self.title = @"UIStackView布局";
     self.edgesForExtendedLayout = UIRectEdgeNone;
     self.stackViewBuilder.buildScrollViewToSuperView(self.view);
+#ifdef Test
+    ZLPermissionTypeBluetooth = 50,
+#endif
 }
 - (ZLStackViewBuilder *)stackViewBuilder {
     
@@ -135,7 +143,8 @@
     })
     .addView(UILabel.kfc.text(@"给view4个方向添加线条"))
     .addViewBK(^ViewKFCType _Nonnull{
-        return kStackViewRowBuilder
+        return
+        kStackViewRowBuilder
             .separatorColor(UIColor.redColor)
             .separatorThickness(2)
             .alignmentFill
@@ -148,6 +157,7 @@
             .addFlexSpaceView()
             .buildStackView.kfc.height(100);
     });
+   
     return builder;
 }
 - (UIView *)randomColorView {

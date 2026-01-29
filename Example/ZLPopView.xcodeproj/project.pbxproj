@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -23,6 +23,13 @@
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
 		62F3561D2EFC2EC1008CBCF1 /* UIButton+ZLHitArea.m in Sources */ = {isa = PBXBuildFile; fileRef = 62F3561C2EFC2EC1008CBCF1 /* UIButton+ZLHitArea.m */; };
 		71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */; };
+		840D969E2F23206A000F07EC /* ZLPagerTabController in Frameworks */ = {isa = PBXBuildFile; productRef = 840D969D2F23206A000F07EC /* ZLPagerTabController */; };
+		840D96A02F23206A000F07EC /* ZLPagerTabControllerParallaxHeader in Frameworks */ = {isa = PBXBuildFile; productRef = 840D969F2F23206A000F07EC /* ZLPagerTabControllerParallaxHeader */; };
+		840D96A22F23206A000F07EC /* ZLPagerTabControllerParallaxPagerViewController in Frameworks */ = {isa = PBXBuildFile; productRef = 840D96A12F23206A000F07EC /* ZLPagerTabControllerParallaxPagerViewController */; };
+		840D96A52F232080000F07EC /* ZLPagerTabController in Frameworks */ = {isa = PBXBuildFile; productRef = 840D96A42F232080000F07EC /* ZLPagerTabController */; };
+		840D96A72F232080000F07EC /* ZLPagerTabControllerParallaxHeader in Frameworks */ = {isa = PBXBuildFile; productRef = 840D96A62F232080000F07EC /* ZLPagerTabControllerParallaxHeader */; };
+		840D96A92F232080000F07EC /* ZLPagerTabControllerParallaxPagerViewController in Frameworks */ = {isa = PBXBuildFile; productRef = 840D96A82F232080000F07EC /* ZLPagerTabControllerParallaxPagerViewController */; };
+		840D96AC2F2321EA000F07EC /* ZLTabBarExtension in Frameworks */ = {isa = PBXBuildFile; productRef = 840D96AB2F2321EA000F07EC /* ZLTabBarExtension */; };
 		8432B31E2ED5C85D00617EFB /* ZLConfigure.m in Sources */ = {isa = PBXBuildFile; fileRef = 8432B31D2ED5C85D00617EFB /* ZLConfigure.m */; };
 		8432B3212ED5C90500617EFB /* ZLCommonViews.m in Sources */ = {isa = PBXBuildFile; fileRef = 8432B3202ED5C90500617EFB /* ZLCommonViews.m */; };
 		8432B3262ED68D4400617EFB /* ZLLayoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8432B3242ED68D4400617EFB /* ZLLayoutViewController.m */; };
@@ -32,6 +39,16 @@
 		8432B3302ED68DA000617EFB /* ZLPopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8432B32E2ED68DA000617EFB /* ZLPopViewController.m */; };
 		8432B3312ED68DA000617EFB /* ZLPopViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8432B32F2ED68DA000617EFB /* ZLPopViewController.xib */; };
 		8432B3342ED6909600617EFB /* ZLNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8432B3332ED6909600617EFB /* ZLNavigationController.m */; };
+		843725162F23187700AE4ED9 /* ZLKeyboardManager in Frameworks */ = {isa = PBXBuildFile; productRef = 843725152F23187700AE4ED9 /* ZLKeyboardManager */; };
+		843725182F23187700AE4ED9 /* ZLKeyboardManagerIQAdapter in Frameworks */ = {isa = PBXBuildFile; productRef = 843725172F23187700AE4ED9 /* ZLKeyboardManagerIQAdapter */; };
+		8437251B2F231AF100AE4ED9 /* ZLPagerTabController in Frameworks */ = {isa = PBXBuildFile; productRef = 8437251A2F231AF100AE4ED9 /* ZLPagerTabController */; };
+		8437251D2F231AF100AE4ED9 /* ZLPagerTabControllerParallaxHeader in Frameworks */ = {isa = PBXBuildFile; productRef = 8437251C2F231AF100AE4ED9 /* ZLPagerTabControllerParallaxHeader */; };
+		8437251F2F231AF100AE4ED9 /* ZLPagerTabControllerParallaxPagerViewController in Frameworks */ = {isa = PBXBuildFile; productRef = 8437251E2F231AF100AE4ED9 /* ZLPagerTabControllerParallaxPagerViewController */; };
+		843725222F231B8A00AE4ED9 /* ZLPagerTabController in Frameworks */ = {isa = PBXBuildFile; productRef = 843725212F231B8A00AE4ED9 /* ZLPagerTabController */; };
+		843725242F231B8A00AE4ED9 /* ZLPagerTabControllerParallaxHeader in Frameworks */ = {isa = PBXBuildFile; productRef = 843725232F231B8A00AE4ED9 /* ZLPagerTabControllerParallaxHeader */; };
+		843725262F231B8A00AE4ED9 /* ZLPagerTabControllerParallaxPagerViewController in Frameworks */ = {isa = PBXBuildFile; productRef = 843725252F231B8A00AE4ED9 /* ZLPagerTabControllerParallaxPagerViewController */; };
+		8453D5082F232CCF00A7F8AB /* ZLPermission in Frameworks */ = {isa = PBXBuildFile; productRef = 8453D5072F232CCF00A7F8AB /* ZLPermission */; };
+		8453D50A2F232CCF00A7F8AB /* ZLPermissionBluetooth in Frameworks */ = {isa = PBXBuildFile; productRef = 8453D5092F232CCF00A7F8AB /* ZLPermissionBluetooth */; };
 		8486FEF12ED80E6D002D624E /* ZLCustomPopViewBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 8486FEEF2ED80E6D002D624E /* ZLCustomPopViewBuilder.m */; };
 		8486FEF22ED80E6D002D624E /* GMCommonPopViews.m in Sources */ = {isa = PBXBuildFile; fileRef = 8486FEED2ED80E6D002D624E /* GMCommonPopViews.m */; };
 		8486FEFB2ED8493A002D624E /* ZLPopOverViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8486FEFA2ED8493A002D624E /* ZLPopOverViewController.xib */; };
@@ -118,9 +135,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8453D50A2F232CCF00A7F8AB /* ZLPermissionBluetooth in Frameworks */,
+				840D96A02F23206A000F07EC /* ZLPagerTabControllerParallaxHeader in Frameworks */,
+				8437251D2F231AF100AE4ED9 /* ZLPagerTabControllerParallaxHeader in Frameworks */,
+				843725242F231B8A00AE4ED9 /* ZLPagerTabControllerParallaxHeader in Frameworks */,
+				8453D5082F232CCF00A7F8AB /* ZLPermission in Frameworks */,
+				843725262F231B8A00AE4ED9 /* ZLPagerTabControllerParallaxPagerViewController in Frameworks */,
+				840D96A52F232080000F07EC /* ZLPagerTabController in Frameworks */,
 				6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */,
+				840D96A22F23206A000F07EC /* ZLPagerTabControllerParallaxPagerViewController in Frameworks */,
 				6003F592195388D20070C39A /* UIKit.framework in Frameworks */,
 				6003F58E195388D20070C39A /* Foundation.framework in Frameworks */,
+				8437251B2F231AF100AE4ED9 /* ZLPagerTabController in Frameworks */,
+				8437251F2F231AF100AE4ED9 /* ZLPagerTabControllerParallaxPagerViewController in Frameworks */,
+				843725222F231B8A00AE4ED9 /* ZLPagerTabController in Frameworks */,
+				840D96AC2F2321EA000F07EC /* ZLTabBarExtension in Frameworks */,
+				843725182F23187700AE4ED9 /* ZLKeyboardManagerIQAdapter in Frameworks */,
+				840D969E2F23206A000F07EC /* ZLPagerTabController in Frameworks */,
+				840D96A92F232080000F07EC /* ZLPagerTabControllerParallaxPagerViewController in Frameworks */,
+				840D96A72F232080000F07EC /* ZLPagerTabControllerParallaxHeader in Frameworks */,
+				843725162F23187700AE4ED9 /* ZLKeyboardManager in Frameworks */,
 				536CDC3F019742323B5639F1 /* Pods_ZLPopView_Example.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -355,6 +389,12 @@
 				Base,
 			);
 			mainGroup = 6003F581195388D10070C39A;
+			packageReferences = (
+				843725142F23187700AE4ED9 /* XCLocalSwiftPackageReference "../../ZLKeyboardManager" */,
+				840D96A32F232080000F07EC /* XCLocalSwiftPackageReference "../../ZLPagerTabController" */,
+				840D96AA2F2321EA000F07EC /* XCLocalSwiftPackageReference "../../ZLTabBarExtension" */,
+				8453D5062F232CCF00A7F8AB /* XCLocalSwiftPackageReference "../../ZLPermission" */,
+			);
 			productRefGroup = 6003F58B195388D20070C39A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -739,6 +779,96 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		840D96A32F232080000F07EC /* XCLocalSwiftPackageReference "../../ZLPagerTabController" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../../ZLPagerTabController;
+		};
+		840D96AA2F2321EA000F07EC /* XCLocalSwiftPackageReference "../../ZLTabBarExtension" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../../ZLTabBarExtension;
+		};
+		843725142F23187700AE4ED9 /* XCLocalSwiftPackageReference "../../ZLKeyboardManager" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../../ZLKeyboardManager;
+		};
+		8453D5062F232CCF00A7F8AB /* XCLocalSwiftPackageReference "../../ZLPermission" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../../ZLPermission;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		840D969D2F23206A000F07EC /* ZLPagerTabController */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ZLPagerTabController;
+		};
+		840D969F2F23206A000F07EC /* ZLPagerTabControllerParallaxHeader */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ZLPagerTabControllerParallaxHeader;
+		};
+		840D96A12F23206A000F07EC /* ZLPagerTabControllerParallaxPagerViewController */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ZLPagerTabControllerParallaxPagerViewController;
+		};
+		840D96A42F232080000F07EC /* ZLPagerTabController */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ZLPagerTabController;
+		};
+		840D96A62F232080000F07EC /* ZLPagerTabControllerParallaxHeader */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ZLPagerTabControllerParallaxHeader;
+		};
+		840D96A82F232080000F07EC /* ZLPagerTabControllerParallaxPagerViewController */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ZLPagerTabControllerParallaxPagerViewController;
+		};
+		840D96AB2F2321EA000F07EC /* ZLTabBarExtension */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ZLTabBarExtension;
+		};
+		843725152F23187700AE4ED9 /* ZLKeyboardManager */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ZLKeyboardManager;
+		};
+		843725172F23187700AE4ED9 /* ZLKeyboardManagerIQAdapter */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ZLKeyboardManagerIQAdapter;
+		};
+		8437251A2F231AF100AE4ED9 /* ZLPagerTabController */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ZLPagerTabController;
+		};
+		8437251C2F231AF100AE4ED9 /* ZLPagerTabControllerParallaxHeader */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ZLPagerTabControllerParallaxHeader;
+		};
+		8437251E2F231AF100AE4ED9 /* ZLPagerTabControllerParallaxPagerViewController */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ZLPagerTabControllerParallaxPagerViewController;
+		};
+		843725212F231B8A00AE4ED9 /* ZLPagerTabController */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ZLPagerTabController;
+		};
+		843725232F231B8A00AE4ED9 /* ZLPagerTabControllerParallaxHeader */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ZLPagerTabControllerParallaxHeader;
+		};
+		843725252F231B8A00AE4ED9 /* ZLPagerTabControllerParallaxPagerViewController */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ZLPagerTabControllerParallaxPagerViewController;
+		};
+		8453D5072F232CCF00A7F8AB /* ZLPermission */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ZLPermission;
+		};
+		8453D5092F232CCF00A7F8AB /* ZLPermissionBluetooth */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ZLPermissionBluetooth;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 6003F582195388D10070C39A /* Project object */;
 }

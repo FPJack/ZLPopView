@@ -158,6 +158,8 @@ typedef void(^_ZLActionBlock)(id);
 
 @interface ZLBuilderContext()
 @property (nonatomic, strong,readwrite) NSHashTable *allViews;
+@property (nonatomic,copy)void (^viewWillAddedToStackViewBK)(UIView *view,ZLUIStackView *stackView);
+
 @end
 @implementation ZLBuilderContext
 - (instancetype)init

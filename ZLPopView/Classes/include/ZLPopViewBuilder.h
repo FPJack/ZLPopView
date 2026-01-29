@@ -32,6 +32,7 @@ typedef void(^GMConfigureBlock)(ZLBuildConfigObj *configure);
 @property (nonatomic,readonly)ZLPopViewBuilder *horizontalLayoutConstraintCenter;
 
 @property (nonatomic, copy, readonly)ZLPopViewBuilder* (^applyBuildBK)(void(^)(ZLPopViewBuilder* builder));
+@property (nonatomic,copy,readonly)ZLPopViewBuilder* (^viewWillAddedToStackViewBK)(void (^)(UIView *view,ZLUIStackView *stackView));
 
 /// popView四边距
 //@property (nonatomic,readonly)ZLPopViewBuilder * (^popViewMarge)(UIEdgeInsets);

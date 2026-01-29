@@ -121,6 +121,10 @@ id _recursive_objc_getAssociatedObject(id _Nonnull object, const void * _Nonnull
 @property (nonatomic,readonly)ObjectType (^addView)(ViewKFCType _Nullable view);
 /// 通过builder添加view
 @property (nonatomic,readonly)ObjectType (^addViewBuilder)(ZLBaseStackViewBuilder * _Nullable);
+
+///view 即将添加到stackView里面，可以在这里面重新设置kfc的属性值进行覆盖
+@property (nonatomic,copy,readonly)ObjectType (^viewWillAddedToStackViewBK)(void (^)(UIView *view,ZLUIStackView *stackView));
+
 /// 条件添加view
 @property (nonatomic,readonly)ObjectType (^addViewIf)(BOOL shouldAdd,ViewKFCType _Nullable view);
 /// 添加view并携带点击事件
@@ -295,6 +299,8 @@ id _recursive_objc_getAssociatedObject(id _Nonnull object, const void * _Nonnull
 @class ZLStackViewBuilder;
 @interface ZLStackViewBuilder : ZLBaseStackViewBuilder<ZLStackViewBuilder *>
 @property (nonatomic, copy, readonly)ZLStackViewBuilder* (^applyBuildBK)(void(^)(ZLStackViewBuilder* builder));
+@property (nonatomic,copy,readonly)ZLStackViewBuilder* (^viewWillAddedToStackViewBK)(void (^)(UIView *view,ZLUIStackView *stackView));
+
 @end
 
 

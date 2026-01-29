@@ -55,6 +55,9 @@ static inline UIView* _getViewFromViewKFC(ViewKFCType viewKFC) {
 
 
 @end
+@interface ZLBuilderContext()
+@property (nonatomic,copy)void (^viewWillAddedToStackViewBK)(UIView *view,ZLUIStackView *stackView);
+@end
 @interface ZLViewConfigObj()
 @property (nonatomic,assign,readwrite)CGFloat alignmentMarge;
 @property (nonatomic,assign,readwrite)ZLCrossAxisAlignment alignment;
@@ -320,9 +323,11 @@ static inline UIView* _getViewFromViewKFC(ViewKFCType viewKFC) {
 }
 - (void)addArrangedSubview:(UIView *)view {
     if (!view || ![view isKindOfClass:UIView.class]) return;
+    if (self.context.viewWillAddedToStackViewBK) {
+        self.context.viewWillAddedToStackViewBK(view, self);
+    }
     if (view.kfcCreated) view = view.kfc.margeView;
     [super addArrangedSubview:view];
-    
     if (@available(iOS 11.0, *) ) {
         if (self.mainAxisAlignment == ZLMainAxisAlignmentSpaceEvenly || self.mainAxisAlignment == ZLMainAxisAlignmentSpaceAround) {
         }else {
@@ -345,12 +350,18 @@ static inline UIView* _getViewFromViewKFC(ViewKFCType viewKFC) {
 - (void)insertArrangedSubview:(UIView *)view behindView:(UIView *)siblingSubview {
     NSInteger index = [self.arrangedSubviews indexOfObject:siblingSubview];
     if (index != NSNotFound) {
+        if (self.context.viewWillAddedToStackViewBK) {
+            self.context.viewWillAddedToStackViewBK(view, self);
+        }
         [self insertArrangedSubview:view atIndex:index + 1];
     }
 }
 - (void)insertArrangedSubview:(UIView *)view frontView:(UIView *)siblingSubview {
     NSInteger index = [self.arrangedSubviews indexOfObject:siblingSubview];
     if (index != NSNotFound) {
+        if (self.context.viewWillAddedToStackViewBK) {
+            self.context.viewWillAddedToStackViewBK(view, self);
+        }
         [self insertArrangedSubview:view atIndex:index];
     }
 }
@@ -358,6 +369,9 @@ static inline UIView* _getViewFromViewKFC(ViewKFCType viewKFC) {
 - (void)insertArrangedSubview:(UIView *)view atIndex:(NSUInteger)stackIndex {
     if (!view || ![view isKindOfClass:UIView.class]) return;
     if (view.kfcCreated) view = view.kfc.margeView;
+    if (self.context.viewWillAddedToStackViewBK) {
+        self.context.viewWillAddedToStackViewBK(view, self);
+    }
     [super insertArrangedSubview:view atIndex:stackIndex];
     if (@available(iOS 11.0, *)) {
         if (self.mainAxisAlignment == ZLMainAxisAlignmentSpaceEvenly || self.mainAxisAlignment == ZLMainAxisAlignmentSpaceAround) {
@@ -543,9 +557,6 @@ static inline UIView* _getViewFromViewKFC(ViewKFCType viewKFC) {
 }
 - (void)addStartConstraint:(UIView *)v {
     UIEdgeInsets marge = self.layoutMargins;
-    if (v.tag == 33) {
-        NSLog(@"");
-    }
     ZLViewConfigObj *config = v.kfc.layoutInStackView;
     //self.axis == UILayoutConstraintAxisHorizontal ? (config.startCons = [v.kfc topToView:v.superview offset:marge.top + config.alignmentMarge]) : (config.startCons = [v.kfc leadingToView:v.superview offset:marge.left + config.alignmentMarge]);
     self.axis == UILayoutConstraintAxisHorizontal ? (config.startCons = [v.topAnchor constraintEqualToAnchor:v.superview.layoutMarginsGuide.topAnchor constant:config.alignmentMarge].gm_enableActive) : (config.startCons = [v.leadingAnchor constraintEqualToAnchor:v.superview.layoutMarginsGuide.leadingAnchor constant:config.alignmentMarge].gm_enableActive);
@@ -725,6 +736,12 @@ static inline UIView* _getViewFromViewKFC(ViewKFCType viewKFC) {
         UIView *view = ((ZLBaseStackViewBuilder *)builder.context(self.builderCtx)).buildStackView;
         if (!view) return self;
         return self.addView(view);
+    };
+}
+- (id  _Nonnull (^)(void (^ _Nonnull)(UIView * _Nonnull, ZLUIStackView * _Nonnull)))viewWillAddedToStackViewBK {
+    return ^id(void (^block)(UIView *view,ZLUIStackView *stackView)) {
+        self.builderCtx.viewWillAddedToStackViewBK = block;
+        return self;
     };
 }
 - (id  _Nonnull (^)(BOOL, ViewKFCType _Nullable view))addViewIf {
@@ -1533,5 +1550,6 @@ static inline UIView* _getViewFromViewKFC(ViewKFCType viewKFC) {
 
 @implementation ZLStackViewBuilder
 @dynamic applyBuildBK;
+@dynamic viewWillAddedToStackViewBK;
 
 @end

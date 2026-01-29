@@ -48,6 +48,7 @@ static GMConfigureBlock configureBlock;
 @dynamic buildStackViewToSuperViewInsets;
 @dynamic buildScrollViewToSuperViewInsets;
 @dynamic applyBuildBK;
+@dynamic viewWillAddedToStackViewBK;
 
 - (NSMutableArray *)customActionViews {
     if (!_customActionViews) {

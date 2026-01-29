@@ -8,9 +8,12 @@
 
 #import "ZLViewController.h"
 
+#import <ZLPagerViewController.h>
+#import <ZLParallaxPageTabBarViewController.h>
+#import <ZLTabBarExtension.h>
+#import <ZLPermission.h>
 
-
-
+//#import <ZLPermissionBluetooth.h>
 @interface ZLViewController ()
 
 @end
@@ -20,7 +23,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-   
     self.title = @"demo";
     if (@available(iOS 13.0, *)) {
         UINavigationBarAppearance *appearance = [[UINavigationBarAppearance alloc] init];
@@ -33,5 +35,6 @@
         self.navigationController.navigationBar.barTintColor = UIColor.orangeColor;
         self.navigationController.navigationBar.backgroundColor = UIColor.orangeColor;
     }
+    
 }
 @end

@@ -217,6 +217,7 @@
                  .titleColor(UIColor.blackColor)
                  .dismissPopViewWhenTap
                  .backgroundColor(@"#7EE905"))
+        
         .buildCenterPopView
         .initStateBK(^(ZLPopBaseView * _Nonnull popView) {
             
@@ -326,7 +327,7 @@
     })
     .addCustomViewAction(kDefaultStyleBtn.kfc.roundCorner.backgroundColor(UIColor.blueColor).view, ^(UIView * _Nonnull view) {
     })
-    .addCustomViewAction(kDefaultStyleBtn.kfc.roundCorner.backgroundColor(UIColor.orangeColor).view, ^(UIView * _Nonnull view) {
+    .addCustomViewAction(kDefaultStyleBtn.kfc.tag(323).roundCorner.backgroundColor(UIColor.orangeColor).view, ^(UIView * _Nonnull view) {
     })
     .showCenterPopView();
 }
