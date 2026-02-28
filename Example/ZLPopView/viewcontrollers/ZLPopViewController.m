@@ -10,6 +10,7 @@
 #import <ZLPopView/ZLPopView.h>
 #import "GMCommonPopViews.h"
 #import "TableView.h"
+#import "TestVC.h"
 
 @interface ZLPopViewController ()<ZLPopViewDelegate>
 @property (nonatomic, strong) ZLUIView *view;
@@ -349,8 +350,10 @@
         .view;
     kPopViewColumnBuilder
         .addView(label)
+        .addViewController(TestVC.new, self)
         .addView(TableView.new.kfc.height(400).view)
         .margeAll(0)
+    .popSuperView(UIApplication.sharedApplication.delegate.window)
         .showBottomPopView();
 }
 - (void)showTableViewBottomFloat {

@@ -500,6 +500,17 @@ static GMConfigureBlock configureBlock;
         return self;
     };
 }
+- (ZLPopViewBuilder*  _Nonnull (^)(UIViewController * _Nonnull, UIViewController * _Nonnull))addViewController {
+    return ^id (UIViewController *vc, UIViewController *parentVC){
+        if (!vc || !parentVC) return self;
+        ZLItemViewObj *obj = ZLItemViewObj.new;
+        obj.viewController = vc;
+        obj.parentVC = parentVC;
+        self.currentViewObj = obj;
+        [self addObject:obj];
+        return self.popSuperView(parentVC.view);
+    };
+}
 - (ZLPopBaseView* )configPopView:(ZLPopBaseView *)view {
     ZLBuildConfigObj *j = self.configObj;
     if (!j.touchPenetrate && j.maskColor == nil) {

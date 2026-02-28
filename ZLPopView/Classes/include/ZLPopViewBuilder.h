@@ -41,8 +41,8 @@ typedef void(^GMConfigureBlock)(ZLBuildConfigObj *configure);
 @property (nonatomic,readonly)ZLPopViewBuilder * (^popViewMargeLeading)(CGFloat);
 @property (nonatomic,readonly)ZLPopViewBuilder * (^popViewMargeBottom)(CGFloat);
 @property (nonatomic,readonly)ZLPopViewBuilder * (^popViewMargeTrailing)(CGFloat);
-
-
+/// 添加一个viewController的view到popView里面，弹窗的父视图就会设置是parentVC.view，且后续更改不起作用,添加多个viewController的时候一定要设置parentVC是同一个viewController，否则会有问题
+@property (nonatomic,readonly)ZLPopViewBuilder* (^addViewController)(UIViewController *vc,UIViewController *parentVC);
 
 /// 外边距，结合horizontalAlignment使用可实现精准布局
 //@property (nonatomic,readonly)ZLPopViewBuilder * (^marge)(UIEdgeInsets);
@@ -188,5 +188,6 @@ typedef void(^GMConfigureBlock)(ZLBuildConfigObj *configure);
 @property (nonatomic,readonly)ZLUIStackView* (^buildStackViewToSuperViewInsets)(UIView *superView,CGFloat leading,CGFloat top,CGFloat trailing,CGFloat bottom) NS_UNAVAILABLE;
 @property (nonatomic,readonly)ZLUIScrollView* (^buildScrollViewToSuperViewInsets)(UIView *superView,CGFloat leading,CGFloat top,CGFloat trailing,CGFloat bottom) NS_UNAVAILABLE;
 @end
+
 
 NS_ASSUME_NONNULL_END

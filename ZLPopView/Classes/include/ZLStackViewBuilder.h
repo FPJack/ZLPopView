@@ -79,6 +79,8 @@ id _recursive_objc_getAssociatedObject(id _Nonnull object, const void * _Nonnull
 
 @interface ZLItemViewObj : NSObject
 @property (nonatomic,strong)UIView *view;
+@property (nonatomic,strong)UIViewController *viewController;
+@property (nonatomic,weak)UIViewController *parentVC;;
 @property (nonatomic,strong)NSArray<UIView *> *arrangedSubviews;
 @property (nonatomic,copy)ViewKFCType (^viewBlock)(void) ;
 @property (nonatomic,copy)NSArray<UIView *>* (^viewsBlock)(void);

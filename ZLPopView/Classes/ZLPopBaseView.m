@@ -1859,6 +1859,7 @@ horizontalMarge {return 0;}
     self.viewBottomCons.constant = self.configObj.marge.bottom;
     [UIView animateWithDuration:self.configObj.animationIn animations:^{
         [self.superview layoutIfNeeded];
+        self.expand = YES;
     } completion:^(BOOL finished) {
         [self popViewShowExpand:self];
     }];
@@ -1873,6 +1874,7 @@ horizontalMarge {return 0;}
     self.viewBottomCons.constant = self.containerHeight - self.floatHeight;
     [UIView animateWithDuration:self.configObj.animationIn animations:^{
         [self.superview layoutIfNeeded];
+        self.expand = NO;
     } completion:^(BOOL finished) {
         [self popViewShowTight:self];
     }];

@@ -9,7 +9,11 @@
 #import "ZLBaseConfigure.h"
 #import <objc/runtime.h>
 #import "UIView+kfc.h"
-
+#if __has_include(<ZLPopView/ZLPopView.h>)
+#import <ZLPopView/ZLPopBaseView.h>
+#else
+#import "ZLPopBaseView.h"
+#endif
 #define kIgnoreViewTag 297812
 id _recursive_objc_getAssociatedObject(id _Nonnull object, const void * _Nonnull key) {
     id obj = objc_getAssociatedObject(object, key);
@@ -266,6 +270,7 @@ static inline UIView* _getViewFromViewKFC(ViewKFCType viewKFC) {
 @property (nonatomic,assign)BOOL didSetupConstraints;
 @property (nonatomic,assign)BOOL adjustViewCrossLayout;
 @property (nonatomic,strong,readwrite)ZLBuilderContext *context;
+@property (nonatomic,copy)void(^deallocBK)(void);
 
 @end
 @implementation ZLUIStackView
@@ -625,6 +630,10 @@ static inline UIView* _getViewFromViewKFC(ViewKFCType viewKFC) {
     }
     return [verticalConstraints copy];
 }
+- (void)dealloc
+{
+    if (self.deallocBK) self.deallocBK();
+}
 @end
 @implementation ZLItemViewObj
 - (instancetype)init
@@ -730,6 +739,7 @@ static inline UIView* _getViewFromViewKFC(ViewKFCType viewKFC) {
         return self;
     };
 }
+
 - (id  _Nonnull (^)(ZLBaseStackViewBuilder * _Nullable))addViewBuilder {
     return ^id (ZLBaseStackViewBuilder* builder){
         if (!builder) return self;
@@ -1266,6 +1276,23 @@ static inline UIView* _getViewFromViewKFC(ViewKFCType viewKFC) {
             NSArray<UIView *> *views = obj.viewsBlock1(self.builderCtx);
             [self adjustCustomSpacingWithView:views.lastObject spacing:obj.customSpace];
             [self addArrangedSubviewFromArray:views stackView:stackView addMiddleSeparator:obj.addMiddleSeparator];
+        }else if ([obj.viewController isKindOfClass:UIViewController.class] && [NSStringFromClass(self.class) isEqualToString:@"ZLPopViewBuilder"]) {
+            ZLBuildConfigObj *configObj = [self valueForKey:@"configObj"];
+            UIViewController *parentVC = obj.parentVC;
+            if (![configObj.superView isEqual:obj.parentVC.view]) {
+                [configObj setValue:parentVC.view forKey:@"superView"];
+            }
+            [parentVC addChildViewController:obj.viewController];
+            [obj.viewController willMoveToParentViewController:parentVC];
+            [self adjustCustomSpacingWithView:obj.viewController.view spacing:obj.customSpace];
+            [stackView addArrangedSubview:obj.viewController.view];
+            [obj.viewController didMoveToParentViewController:parentVC];
+            obj.viewController = nil;
+            stackView.deallocBK = ^{
+                [obj.viewController willMoveToParentViewController:nil];
+                [obj.viewController didMoveToParentViewController:nil];
+                [obj.viewController removeFromParentViewController];
+            };
         } else {
             UIView *view = [self addArrangedSubviewWithObj:obj stackView:stackView];
            [self adjustCustomSpacingWithView:view spacing:obj.customSpace];
