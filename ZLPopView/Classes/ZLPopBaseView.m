@@ -1880,6 +1880,10 @@ horizontalMarge {return 0;}
     }];
 }
 @end
+@interface  ZLPopBottomFloatView()
+
+@property (nonatomic,assign)CGFloat originBottomConsConstant;
+@end
 @implementation ZLPopBottomFloatView
 - (void)show{
     if (self.pageState == ZLPopViewPageStateShowing || self.pageState == ZLPopViewPageStateDidShow) return;
@@ -1897,6 +1901,7 @@ horizontalMarge {return 0;}
             [self layoutIfNeeded];
         }];
     }
+    self.originBottomConsConstant = self.viewBottomCons.constant;
     [self letViewBecomeFirstResponderIfNotNull];
     [self popViewDidShow:self];
     //支持拖拽dismiss
@@ -1950,6 +1955,7 @@ horizontalMarge {return 0;}
         }
     }
     self.viewBottomCons.constant =  MAX(self.originFloatOffsetY + translation.y - self.otherScrollViewBeganOffsetY, self.configObj.marge.bottom);
+    [self popView:self didPanWithDistance:self.viewBottomCons.constant - self.originBottomConsConstant];
     if (gesture.state == UIGestureRecognizerStateEnded) {
         if (self.originFloatOffsetY == self.containerHeight - self.floatHeight &&
             translation.y > self.configObj.dragDismissDistance ) {

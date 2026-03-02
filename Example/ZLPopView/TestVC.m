@@ -8,6 +8,8 @@
 
 #import "TestVC.h"
 #import <ZLPopView/ZLPopView.h>
+#import "ZLViewController.h"
+
 @interface TestVC ()
 
 @end
@@ -21,7 +23,7 @@
     UIView *view = UIView.new.kfc.height(200).blackBgColor.view;
     [self.view addSubview:view];
     view.kfc.edgeTo(self.view, 0, 0, 0, 0);
-    
+   
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
