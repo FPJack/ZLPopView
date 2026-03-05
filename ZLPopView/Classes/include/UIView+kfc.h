@@ -56,7 +56,7 @@ static inline UIColor * __UIColorFromObj(NSObject * obj);
 @property (nonatomic,strong,readonly)ZLUIButtonConfigure *kfc;
 @property (nonatomic,strong,readonly,class)ZLUIButtonConfigure *kfc;
 
-+ (instancetype )customTypeButton;
++ (instancetype )custom;
 @end
 @interface UIImageView(kfc)
 @property (nonatomic,strong,readonly)ZLUIImageViewConfigure *kfc;

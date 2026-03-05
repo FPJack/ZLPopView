@@ -1055,14 +1055,14 @@ static inline UIView* _getViewFromViewKFC(ViewKFCType viewKFC) {
     };
 }
 - (id  _Nonnull (^)(CGFloat, CGFloat))paddingHorLT {
-    return  ^id(CGFloat horizontal, CGFloat vertical){
-        self.layoutMargins = UIEdgeInsetsMake(self.layoutMargins.top, horizontal, self.layoutMargins.bottom, horizontal);
+    return  ^id(CGFloat leading, CGFloat trailing){
+        self.layoutMargins = UIEdgeInsetsMake(self.layoutMargins.top, leading, self.layoutMargins.bottom, trailing);
         return self;
     };
 }
 - (id  _Nonnull (^)(CGFloat, CGFloat))paddingVerTB {
-    return  ^id(CGFloat vertical, CGFloat horizontal){
-        self.layoutMargins = UIEdgeInsetsMake(vertical, self.layoutMargins.left, vertical, self.layoutMargins.right);
+    return  ^id(CGFloat top, CGFloat bottom){
+        self.layoutMargins = UIEdgeInsetsMake(top, self.layoutMargins.left, bottom, self.layoutMargins.right);
         return self;
     };
 }

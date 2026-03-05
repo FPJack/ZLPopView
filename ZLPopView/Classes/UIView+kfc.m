@@ -170,10 +170,10 @@ static inline UIColor *_UIColorFromHexString(NSString *hexStr) {
 
 @implementation UIButton (configure)
 + (ZLUIButtonConfigure *)kfc {
-    UIButton *button = [self customTypeButton];
+    UIButton *button = [self custom];
     return button.kfc;
 }
-+ (instancetype )customTypeButton {
++ (instancetype )custom {
     return [self buttonWithType:UIButtonTypeCustom];
 }
 - (UIButton * _Nonnull (^)(void (^ _Nonnull)(UIButton * _Nonnull)))kfcTouchUpAction {

@@ -233,7 +233,7 @@ id _recursive_objc_getAssociatedObject(id _Nonnull object, const void * _Nonnull
 
 @property (nonatomic,readonly)ObjectType (^padding)(CGFloat leading,CGFloat top,CGFloat trailing,CGFloat bottom);
 @property (nonatomic,readonly)ObjectType (^paddingHorLT)(CGFloat leading,CGFloat trailing);
-@property (nonatomic,readonly)ObjectType (^paddingVerTB)(CGFloat leading,CGFloat trailing);
+@property (nonatomic,readonly)ObjectType (^paddingVerTB)(CGFloat top,CGFloat bottom);
 @property (nonatomic,readonly)ObjectType (^paddingTop)(CGFloat);
 @property (nonatomic,readonly)ObjectType (^paddingLeading)(CGFloat);
 @property (nonatomic,readonly)ObjectType (^paddingBottom)(CGFloat);

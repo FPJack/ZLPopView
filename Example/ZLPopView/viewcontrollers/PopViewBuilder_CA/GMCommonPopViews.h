@@ -32,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 #define kTitleStyleLabel(x) [GMCommonPopViews titleStyleLabel].kfc.text(x).view
 #define kSubTitleStyleLabel(x) [GMCommonPopViews subTitleStyleLabel].kfc.text(x).view
 #define kTextLabel(x) UILabel.new.kfc.text(x).view
-#define kTextButton(x) UIButton.customTypeButton.kfc.title(x).view
+#define kTextButton(x) UIButton.custom.kfc.title(x).view
 //常用分割线
 #define kLineView [GMCommonPopViews lineView]
 #define kHorizontalLineView [GMCommonPopViews horizontalLineView]

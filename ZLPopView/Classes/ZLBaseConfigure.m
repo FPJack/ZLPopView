@@ -1251,6 +1251,18 @@ static CGFloat _defaultThickness = 1.0f;
         return self;
     };
 }
+- (instancetype)verCompressionLow{
+    return self.verCompressionPriority(UILayoutPriorityDefaultLow);
+}
+- (instancetype)verHuggingLow {
+    return self.verHuggingPriority(UILayoutPriorityDefaultLow);
+}
+- (instancetype)horCompressionLow {
+    return self.horCompressionPriority(UILayoutPriorityDefaultLow);
+}
+- (instancetype)horHuggingLow {
+    return self.horHuggingPriority(UILayoutPriorityDefaultLow);
+}
 - (instancetype (^)(id ))backgroundColor {
     return  ^ZLBaseConfigure*(UIColor *color){
         self.view.backgroundColor = __UIColorFromObj(color);

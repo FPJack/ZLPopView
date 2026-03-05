@@ -239,7 +239,10 @@ typedef id<ZLViewLayoutProtocol> ViewLayoutType;
 @property (nonatomic,readonly) ObjectType (^verHuggingPriority)(UILayoutPriority priority);
 @property (nonatomic,readonly) ObjectType (^horCompressionPriority)(UILayoutPriority priority);
 @property (nonatomic,readonly) ObjectType (^horHuggingPriority)(UILayoutPriority priority);
-
+- (instancetype)verCompressionLow;
+- (instancetype)verHuggingLow;
+- (instancetype)horCompressionLow;
+- (instancetype)horHuggingLow;
 ///UIColor or #333333
 @property (nonatomic,readonly) ObjectType (^backgroundColor)(id);
 @property (nonatomic,readonly) ObjectType (^cornerRadius)(CGFloat);

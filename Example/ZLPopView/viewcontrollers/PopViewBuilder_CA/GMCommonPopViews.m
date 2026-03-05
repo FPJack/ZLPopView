@@ -16,15 +16,22 @@
     return [self equalWidthStackViewBuilder].space(1);
 }
 + (UIButton *)confirmStyleBtn {
-    return UIButton.customTypeButton.kfc 
+    UIButton *btn = UIButton.custom.kfc
         .title(@"确定")
-        .titleFont([UIFont systemFontOfSize:14 weight:UIFontWeightMedium])
-        .titleColor(UIColor.blueColor)
+        .titleSystemFontSizeMedium(14)
+        .titleColor(UIColor.redColor)
+        .backgroundColor(UIColor.clearColor)
         .height(50)
         .view;
+//    UIButtonConfiguration *configuration = UIButtonConfiguration.filledButtonConfiguration;
+//    configuration.background = UIBackgroundConfiguration.clearConfiguration;
+//    configuration.baseForegroundColor = btn.titleLabel.textColor.alphaFactor(0.5);
+//    configuration.baseBackgroundColor = UIColor.clearColor;
+//    btn.configuration = configuration;
+    return btn;
 }
 + (UIButton *)cancelStyleBtn {
-    return UIButton.customTypeButton.kfc 
+    return UIButton.custom.kfc 
         .title(@"取消")
         .titleFont([UIFont systemFontOfSize:14 weight:UIFontWeightMedium])
         .titleColor(UIColor.redColor)
@@ -33,7 +40,7 @@
         .view;
 }
 + (UIButton *)deleteStyleBtn {
-    return UIButton.customTypeButton.kfc
+    return UIButton.custom.kfc
         .title(@"删除")
         .titleFont([UIFont systemFontOfSize:14 weight:UIFontWeightMedium])
         .titleColor(UIColor.redColor)
@@ -42,7 +49,7 @@
         .view;
 }
 + (UIButton *)defaultStyleBtn {
-    return UIButton.customTypeButton.kfc
+    return UIButton.custom.kfc
         .title(@"默认")
         .titleFont([UIFont systemFontOfSize:14 weight:UIFontWeightMedium])
         .titleColor(UIColor.blackColor)

@@ -160,8 +160,10 @@
         UIColor *color = isDark ? DARK_BUTTON_COLOR : LIGHT_BUTTON_COLOR;
         return kConfirmStyleBtn.kfc
             .title(text)
-            .titleColor(color)
-            .highlightBgColor(highlightBgColor)
+//            .titleColor(color)
+//            .highlightBgColor(highlightBgColor)
+        .titleColor(UIColor.redColor)
+//        .highlightBgColor(UIColor.redColor.alphaFactor(0.5))
             .view;
     };
     ZLPopViewBuilder.defaultButtonViewBK = ^UIView * _Nullable(ZLPopViewBuilder * _Nonnull builder, NSString * _Nonnull text) {
