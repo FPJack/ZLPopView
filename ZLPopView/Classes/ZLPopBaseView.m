@@ -1950,6 +1950,7 @@ horizontalMarge {return 0;}
             if (self.viewBottomCons.constant > self.configObj.marge.bottom) {
             }else {
                 self.otherScrollView.scrollEnabled = YES;
+                if (gesture.state == UIGestureRecognizerStateEnded) [self showExpand];
                 return;
             }
         }
