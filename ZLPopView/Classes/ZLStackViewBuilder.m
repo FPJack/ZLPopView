@@ -1311,9 +1311,9 @@ static inline UIView* _getViewFromViewKFC(ViewKFCType viewKFC) {
     }];
     UIView* (^blankViewBlock)(void) = ^{
         if (self.axis == UILayoutConstraintAxisHorizontal) {
-            return UIView.kfc.userInteractionEnabled(NO).width(0.01).tag(kIgnoreViewTag).view;
+            return UIView.kfc.userInteractionEnabled(NO).width(0.01).spacing(0).frontSpacing(0).tag(kIgnoreViewTag).view;
         }else {
-            return UIView.kfc.userInteractionEnabled(NO).height(0.01).tag(kIgnoreViewTag).view;
+            return UIView.kfc.userInteractionEnabled(NO).height(0.01).spacing(0).frontSpacing(0).tag(kIgnoreViewTag).view;
         }
     };
     if (self.mainAxisAlignment == ZLMainAxisAlignmentSpaceEvenly && stackView.arrangedSubviews.count > 1) {
@@ -1389,6 +1389,7 @@ static inline UIView* _getViewFromViewKFC(ViewKFCType viewKFC) {
 - (UIView *)createSpacer {
     UIView *view = [[_GMSpacer alloc] init];
     view.tag = kIgnoreViewTag;
+    view.kfc.spacing(0).frontSpacing(0);
     view.translatesAutoresizingMaskIntoConstraints = NO;
     if (self.axis == UILayoutConstraintAxisHorizontal) {
         [view setContentCompressionResistancePriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];

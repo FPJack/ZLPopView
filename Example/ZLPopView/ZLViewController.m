@@ -7,15 +7,16 @@
 //
 
 #import "ZLViewController.h"
-
+#import <ZLPopView/ZLPopView.h>
 #import <ZLPagerViewController.h>
 #import <ZLParallaxPageTabBarViewController.h>
 #import <ZLTabBarExtension.h>
 #import <ZLPermission.h>
+#import "TableView.h"
 
 //#import <ZLPermissionBluetooth.h>
 @interface ZLViewController ()
-
+@property (nonatomic,strong)UITableView *tableView;
 @end
 
 @implementation ZLViewController
@@ -35,6 +36,16 @@
         self.navigationController.navigationBar.barTintColor = UIColor.orangeColor;
         self.navigationController.navigationBar.backgroundColor = UIColor.orangeColor;
     }
+    
+    UISwitch *sw = UISwitch.new;
+    [self.view addSubview:sw];
+    sw.kfc.top(100).centerX(0);
+
+    TableView *tableView = [[TableView alloc] initWithFrame:CGRectMake(0, 400, self.view.bounds.size.width, self.view.bounds.size.height - 400)];
+    
+    [self.view addSubview:tableView];
+    self.tableView = tableView;
+    
     
 }
 @end

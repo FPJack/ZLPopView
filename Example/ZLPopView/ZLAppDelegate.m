@@ -13,6 +13,7 @@
 #import "ZLNavigationController.h"
 #import "ZLPopOverViewController.h"
 #import "ZLPopOverViewController.h"
+#import "ZLViewController.h"
 
 @implementation ZLAppDelegate
 
@@ -113,8 +114,10 @@
     
         // 添加到 TabBarController
     tabBarController.viewControllers = @[nav1, nav2, centerNav,nav3,nav4];
+    self.window.backgroundColor = UIColor.orangeColor;
+        self.window.rootViewController = ZLViewController.new;
+    self.window.rootViewController = tabBarController;
 
-        self.window.rootViewController = tabBarController;
         [self.window makeKeyAndVisible];
 
         return YES;
