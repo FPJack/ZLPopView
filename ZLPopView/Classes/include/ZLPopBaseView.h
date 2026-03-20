@@ -184,13 +184,19 @@ didPanWithDistance:(CGFloat)distance;
 @end
 
 typedef UIView* _Nullable (^ZLHitTestBK)(ZLPopBaseView *popView,CGPoint point,UIEvent *event,BOOL *stop);
+typedef BOOL  (^ZLSimultaneousGestureBK)(ZLPopBaseView *popView,UIGestureRecognizer *gestureRecognizer,UIGestureRecognizer *otherGestureRecognizer);
 
 //ParentView -> self -> ContainerView->contentView -> buildView
-@interface ZLPopBaseView : UIView
+@interface ZLPopBaseView<__covariant ObjectType> : UIView
 ///强引用对象，在某些特殊场合用来保存一些对象，防止被销毁，不需要额外全局去保存对象
 @property (nonatomic,strong)id strongObj;
 /// 外部控制响应者链的hitTest回调,优先返回响应的view，
-@property (nonatomic,readonly)ZLPopBaseView *(^hitTestBK)(ZLHitTestBK block);
+@property (nonatomic,readonly)ObjectType (^hitTestBK)(ZLHitTestBK block);
+///可接受事件的view的tags (和hitTestBK二选一）
+@property (nonatomic,readonly)ObjectType (^eventAcceptableViewTags)(NSArray<NSNumber *> *tags);
+
+@property (nonatomic,readonly)ObjectType (^simultaneousGestureBK)(ZLSimultaneousGestureBK block);
+
 /// 页面状态
 @property (nonatomic,assign,readonly)ZLPopViewPageState pageState;
 ///内容视图
@@ -209,17 +215,17 @@ typedef UIView* _Nullable (^ZLHitTestBK)(ZLPopBaseView *popView,CGPoint point,UI
 /// 生命周期代理对象
 @property (nonatomic,weak,readonly)id<ZLPopViewDelegate> delegateObj;
 /// 页面销毁回调
-@property (nonatomic,copy,nullable)ZLPopBaseView *(^deallocBK)(PopViewCallbackBK callback);
+@property (nonatomic,copy,nullable)ObjectType (^deallocBK)(PopViewCallbackBK callback);
 /// 类似viewDidLoad，只调用一次
-@property (nonatomic,copy,nullable)ZLPopBaseView *(^initStateBK)(PopViewCallbackBK callback);
+@property (nonatomic,copy,nullable)ObjectType (^initStateBK)(PopViewCallbackBK callback);
 /// 页面展示完成回调
-@property (nonatomic,copy,nullable)ZLPopBaseView *(^didShowBK)(PopViewCallbackBK callback);
+@property (nonatomic,copy,nullable)ObjectType (^didShowBK)(PopViewCallbackBK callback);
 /// 页面消失完成回调
-@property (nonatomic,copy,nullable)ZLPopBaseView *(^didHiddenBK)(PopViewCallbackBK callback);
+@property (nonatomic,copy,nullable)ObjectType (^didHiddenBK)(PopViewCallbackBK callback);
 /// 设置代理对象
-@property (nonatomic,copy,nullable)ZLPopBaseView *(^delegate)(id<ZLPopViewDelegate> delegate);
+@property (nonatomic,copy,nullable)ObjectType (^delegate)(id<ZLPopViewDelegate> delegate);
 ///
-@property (nonatomic,copy,nullable)ZLPopBaseView *(^layoutSubviewBK)(PopViewCallbackBK callback);
+@property (nonatomic,copy,nullable)ObjectType (^layoutSubviewBK)(PopViewCallbackBK callback);
 
 /// 弹出popView
 @property (nonatomic,readonly)void (^showPopView)(void);
@@ -231,29 +237,32 @@ typedef UIView* _Nullable (^ZLHitTestBK)(ZLPopBaseView *popView,CGPoint point,UI
 - (void)dismiss;
 @end
 
-@interface ZLPopTopView : ZLPopBaseView
+@class ZLPopTopView,ZLPopCenterView,ZLPopBottomView,ZLPopHorizontalView,ZLPopRightView,ZLPopLeftView,ZLPopFloatView,ZLPopBottomFloatView,ZLPopOverView;
+
+@interface ZLPopTopView : ZLPopBaseView<ZLPopTopView *>
 @end
-@interface ZLPopCenterView : ZLPopBaseView
+@interface ZLPopCenterView : ZLPopBaseView<ZLPopCenterView *>
 @end
-@interface ZLPopBottomView : ZLPopBaseView
+@interface ZLPopBottomView : ZLPopBaseView<ZLPopBottomView *>
 @end
-@interface ZLPopHorizontalView : ZLPopBaseView
+@interface ZLPopHorizontalView <__covariant ObjectType> : ZLPopBaseView<ObjectType>
 /// 垂直方向中心偏移量
-- (ZLPopHorizontalView* (^)(CGFloat ))setCenterYOffset;
+- (ObjectType (^)(CGFloat ))setCenterYOffset;
 @end
-@interface ZLPopRightView : ZLPopHorizontalView
+@interface ZLPopRightView : ZLPopHorizontalView<ZLPopRightView *>
 @end
-@interface ZLPopLeftView : ZLPopHorizontalView
+@interface ZLPopLeftView : ZLPopHorizontalView<ZLPopLeftView *>
 @end
-@interface ZLPopFloatView : ZLPopBaseView
+@interface ZLPopFloatView<__covariant ObjectType> : ZLPopBaseView<ObjectType>
 /// 默认内容高度的一半
-- (ZLPopFloatView* (^)(CGFloat))setFloatHeight;
+@property (nonatomic,readonly)ObjectType (^setFloatHeight)(CGFloat floatHeight);
+
 /// 完全展开状态
 - (void)showExpand;
 /// 收紧状态
 - (void)showTight;
 @end
-@interface ZLPopBottomFloatView : ZLPopFloatView
+@interface ZLPopBottomFloatView : ZLPopFloatView<ZLPopBottomFloatView *>
 @end
 typedef NS_ENUM(NSInteger, ZLPopOverDirection) {
     ZLPopOverDirectionAuto = 0,   // 自动判断
@@ -262,7 +271,7 @@ typedef NS_ENUM(NSInteger, ZLPopOverDirection) {
     ZLPopOverDirectionLeading,
     ZLPopOverDirectionTrailing
 };
-@interface ZLPopOverView : ZLPopBaseView
+@interface ZLPopOverView : ZLPopBaseView<ZLPopOverView *>
 
 /// 优先级大于setPoint,传View支持横竖平切换
 - (ZLPopOverView* (^)(UIView *))setFromView;

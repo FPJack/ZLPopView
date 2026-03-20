@@ -41,7 +41,7 @@ ZL_LAZY_OBJ_GETTER(UIView, NSMutableDictionary.dictionary, tapActionObj)
                 [self.mj_footer endRefreshing];
             });
         }];
-        [self addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+//        [self addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
     }
     return self;
 }

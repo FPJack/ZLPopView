@@ -47,6 +47,7 @@
 		843725222F231B8A00AE4ED9 /* ZLPagerTabController in Frameworks */ = {isa = PBXBuildFile; productRef = 843725212F231B8A00AE4ED9 /* ZLPagerTabController */; };
 		843725242F231B8A00AE4ED9 /* ZLPagerTabControllerParallaxHeader in Frameworks */ = {isa = PBXBuildFile; productRef = 843725232F231B8A00AE4ED9 /* ZLPagerTabControllerParallaxHeader */; };
 		843725262F231B8A00AE4ED9 /* ZLPagerTabControllerParallaxPagerViewController in Frameworks */ = {isa = PBXBuildFile; productRef = 843725252F231B8A00AE4ED9 /* ZLPagerTabControllerParallaxPagerViewController */; };
+		84426E8E2F6817710080E7CD /* ZLGeoFenceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84426E8D2F6817710080E7CD /* ZLGeoFenceViewController.m */; };
 		8453D5082F232CCF00A7F8AB /* ZLPermission in Frameworks */ = {isa = PBXBuildFile; productRef = 8453D5072F232CCF00A7F8AB /* ZLPermission */; };
 		8453D50A2F232CCF00A7F8AB /* ZLPermissionBluetooth in Frameworks */ = {isa = PBXBuildFile; productRef = 8453D5092F232CCF00A7F8AB /* ZLPermissionBluetooth */; };
 		8486FEF12ED80E6D002D624E /* ZLCustomPopViewBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 8486FEEF2ED80E6D002D624E /* ZLCustomPopViewBuilder.m */; };
@@ -115,6 +116,8 @@
 		8432B32F2ED68DA000617EFB /* ZLPopViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZLPopViewController.xib; sourceTree = "<group>"; };
 		8432B3322ED6909600617EFB /* ZLNavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLNavigationController.h; sourceTree = "<group>"; };
 		8432B3332ED6909600617EFB /* ZLNavigationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLNavigationController.m; sourceTree = "<group>"; };
+		84426E8C2F6817240080E7CD /* ZLGeoFenceViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLGeoFenceViewController.h; sourceTree = "<group>"; };
+		84426E8D2F6817710080E7CD /* ZLGeoFenceViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLGeoFenceViewController.m; sourceTree = "<group>"; };
 		8486FEEC2ED80E6D002D624E /* GMCommonPopViews.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GMCommonPopViews.h; sourceTree = "<group>"; };
 		8486FEED2ED80E6D002D624E /* GMCommonPopViews.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GMCommonPopViews.m; sourceTree = "<group>"; };
 		8486FEEE2ED80E6D002D624E /* ZLCustomPopViewBuilder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLCustomPopViewBuilder.h; sourceTree = "<group>"; };
@@ -311,6 +314,8 @@
 				8486FEFE2ED935B5002D624E /* TableView.m */,
 				8432B3322ED6909600617EFB /* ZLNavigationController.h */,
 				8432B3332ED6909600617EFB /* ZLNavigationController.m */,
+				84426E8C2F6817240080E7CD /* ZLGeoFenceViewController.h */,
+				84426E8D2F6817710080E7CD /* ZLGeoFenceViewController.m */,
 			);
 			path = viewcontrollers;
 			sourceTree = "<group>";
@@ -530,6 +535,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84426E8E2F6817710080E7CD /* ZLGeoFenceViewController.m in Sources */,
 				8486FEFC2ED8493A002D624E /* ZLPopOverViewController.m in Sources */,
 				8432B3262ED68D4400617EFB /* ZLLayoutViewController.m in Sources */,
 				8432B31E2ED5C85D00617EFB /* ZLConfigure.m in Sources */,

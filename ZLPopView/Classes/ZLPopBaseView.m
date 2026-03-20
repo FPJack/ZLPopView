@@ -776,6 +776,7 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
 @property (nonatomic,strong,readwrite)UIVisualEffectView *blurView;
 @property (nonatomic,strong)ZLGradientCornerLayer *gradLayer;
 @property (nonatomic,copy)ZLHitTestBK hitTestBlock;
+@property (nonatomic,copy)ZLSimultaneousGestureBK simultaneousGesBK;
 
 
 - (void)gm_pan:(UIPanGestureRecognizer *)gesture;
@@ -1012,6 +1013,9 @@ didPanWithDistance:(CGFloat)distance {
         if ([otherGestureRecognizer.view isKindOfClass:UIScrollView.class]) {
             self.otherScrollView = (UIScrollView*)otherGestureRecognizer.view;
         }
+    }
+    if (self.simultaneousGesBK) {
+        return self.simultaneousGesBK(self,gestureRecognizer,otherGestureRecognizer);
     }
     return YES;
 }
@@ -1289,9 +1293,35 @@ didPanWithDistance:(CGFloat)distance {
         return self;
     };
 }
-- (ZLPopBaseView * _Nonnull (^)(ZLHitTestBK _Nonnull))hitTestBK {
+- (id _Nonnull (^)(ZLHitTestBK _Nonnull))hitTestBK {
     return ^ZLPopBaseView *(ZLHitTestBK block) {
         self.hitTestBlock = block;
+        return self;
+    };
+}
+- (id  _Nonnull (^)(NSArray<NSNumber *> * _Nonnull))eventAcceptableViewTags {
+    return ^(NSArray<NSNumber *> *tags){
+        if (tags && tags.count > 0) {
+            self.hitTestBlock = ^UIView * _Nullable(__kindof ZLPopBaseView * _Nonnull popView, CGPoint point, UIEvent * _Nonnull event, BOOL * _Nonnull stop) {
+                for (NSNumber *tag in tags) {
+                    UIView *view = [popView viewWithTag:tag.integerValue];
+                    if (!view) continue;
+                    CGPoint p = [popView convertPoint:point toView:view];
+                    if (CGRectContainsPoint(view.bounds, p)) {
+                        return [view hitTest:p withEvent:event];
+                    }
+                }
+                //内部不再做任何处理，外部继续往下传递事件
+                *stop = YES;
+                return nil;
+            };
+        }
+        return self;
+    };
+}
+- (id _Nonnull (^)(ZLSimultaneousGestureBK _Nonnull))simultaneousGestureBK {
+    return ^ZLPopBaseView *(ZLSimultaneousGestureBK block) {
+        self.simultaneousGesBK  = block;
         return self;
     };
 }
@@ -1341,6 +1371,22 @@ didPanWithDistance:(CGFloat)distance {
     if (self.layoutSubviewBlock) {
         self.layoutSubviewBlock(self);
     }
+}
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [super touchesBegan:touches withEvent:event];
+    NSLog(@"touchesBegan -- %@",NSStringFromClass(self.class));
+}
+- (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [super touchesMoved:touches withEvent:event];
+    NSLog(@"touchesMoved -- %@",NSStringFromClass(self.class));
+}
+- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [super touchesEnded:touches withEvent:event];
+    NSLog(@"touchesEnded -- %@",NSStringFromClass(self.class));
+}
+- (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [super touchesCancelled:touches withEvent:event];
+    NSLog(@"touchesCancelled -- %@",NSStringFromClass(self.class)); 
 }
 @end
 
