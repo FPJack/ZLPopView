@@ -147,6 +147,11 @@ typedef void(^PopViewCallbackBK) (ZLPopBaseView *popView);
 @property (nonatomic) CGFloat bottomLeadingRadius;
 @property (nonatomic) CGFloat bottomTrailingRadius;
 
+
+// 是否启用惯性拖动，滑动列表松手的时候，PopView会根据拖动速度继续移动一段距离，直到完全消失或者回弹到原始位置，默认值为NO
+@property (nonatomic,assign)BOOL allowInertiaDown;
+
+
 @property(nonatomic,assign) UILayoutConstraintAxis axis;
 @property (nonatomic,copy)void (^orientationChangeBk)(ZLLayoutConstraintObj *constraintObj,ZLBuildConfigObj *configureObj,BOOL isLandscape);
 
@@ -169,6 +174,7 @@ typedef void(^PopViewCallbackBK) (ZLPopBaseView *popView);
 /// 拖拽过程中实时回调拖拽距离（正负表示方向）
 - (void)popView:(ZLPopBaseView *)popView
 didPanWithDistance:(CGFloat)distance;
+- (void)popView:(ZLPopBaseView *)popView didPanWithBottomOffset:(CGFloat)bottomOffset;
 @end
 
 @interface _ZLView : UIView

@@ -67,6 +67,11 @@ typedef void(^GMConfigureBlock)(ZLBuildConfigObj *configure);
 @property (nonatomic,readonly)ZLPopViewBuilder * (^maxHeight)(CGFloat);
 @property (nonatomic,readonly)ZLPopViewBuilder * (^heightMultiplier)(CGFloat);
 @property (nonatomic,readonly)ZLPopViewBuilder * (^maxHeightMultiplier)(CGFloat);
+/// 是否启用惯性拖动，滑动列表松手的时候，PopView会根据拖动速度继续移动一段距离，直到完全消失或者回弹到原始位置，默认值为NO
+///暂时只支持ZLPopBottomFloatView;
+@property (nonatomic,readonly)ZLPopViewBuilder * (^allowInertiaDown)(BOOL allow);
+
+
 
 - (instancetype)enableScrollWhenOutBounds;
 ///scrollview包裹stackView，可以解决scrollview里面放stackview高度不自适应以及内容宽高超出容器宽高滑动的问题

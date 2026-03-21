@@ -291,6 +291,12 @@ static GMConfigureBlock configureBlock;
         return self;
     };
 }
+- (ZLPopViewBuilder * _Nonnull (^)(BOOL))allowInertiaDown {
+    return ^ZLPopViewBuilder* (BOOL allow){
+        self.configObj.allowInertiaDown = allow;
+        return self;
+    };
+}
 - (instancetype)enableScrollWhenOutBounds{
     self.configObj.enableScrollWhenOutBounds = YES;
     return self;

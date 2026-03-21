@@ -361,11 +361,12 @@
     kPopViewColumnBuilder
         .addDragGesture
         .addView(UILabel.kfc.text(@"列表嵌套滑动").textAlignmentCenter)
-        .addView(TableView.kfc.height(400))
+        .addView(TableView.kfc.height(600))
         .margeAll(0)
+        .allowInertiaDown(YES)
         .buildBottomPopFloatView
-        .setFloatHeight(200)
-        .showExpand;
+        .setFloatHeight(300)
+        .showTight;
 }
 - (void)updateView {
     

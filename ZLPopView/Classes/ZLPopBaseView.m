@@ -930,6 +930,11 @@ didPanWithDistance:(CGFloat)distance {
         [self.delegateObj popView:self didPanWithDistance:distance];
     }
 }
+- (void)popView:(ZLPopBaseView *)popView didPanWithBottomOffset:(CGFloat)bottomOffset {
+    if ([self.delegateObj respondsToSelector:@selector(popView:didPanWithBottomOffset:)]) {
+        [self.delegateObj popView:self didPanWithBottomOffset:bottomOffset];
+    }
+}
 - (UIView *)findSubviewInView:(UIView *)view matching:(BOOL (^)(UIView *subview))predicate {
     for (UIView *subview in view.subviews) {
         if (predicate(subview)) {
@@ -1926,9 +1931,29 @@ horizontalMarge {return 0;}
     }];
 }
 @end
-@interface  ZLPopBottomFloatView()
 
+@interface NSObject(_Observer)
+@property (nonatomic,assign)BOOL _isAddedObserver;
+@end
+@implementation NSObject(_Observer)
+- (BOOL)_isAddedObserver {
+    return [objc_getAssociatedObject(self, _cmd) boolValue];
+}
+- (void)set_isAddedObserver:(BOOL)_isAddedObserver {
+    objc_setAssociatedObject(self, @selector(_isAddedObserver), @(_isAddedObserver), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+@end
+
+
+@interface  ZLPopBottomFloatView()
 @property (nonatomic,assign)CGFloat originBottomConsConstant;
+@property (nonatomic,assign)BOOL lock;
+@property (nonatomic,assign,readonly)BOOL shouldBeginPan;
+///scrollview 是否停止滑动
+@property (nonatomic,assign)BOOL scrollViewStoped;
+@property (nonatomic,assign)UIGestureRecognizerState lastPanState;
+//是否允许惯性下拉
+@property (nonatomic,assign)BOOL allowInertiaDown;
 @end
 @implementation ZLPopBottomFloatView
 - (void)show{
@@ -1956,6 +1981,121 @@ horizontalMarge {return 0;}
     }
     
 }
+- (BOOL)shouldBeginPan {
+    return YES;
+}
+- (void)endScroll {
+    [self removeScrollViewEvents];
+    CGFloat space = (self.containerHeight  - self.floatHeight) / 2.0;
+    CGFloat dismissSpace = self.configObj.dragDismissDistance > 0 ? self.configObj.dragDismissDistance : self.floatHeight / 4;
+    if (self.viewBottomCons.constant - self.configObj.marge.bottom > dismissSpace &&
+        self.containerHeight - self.viewBottomCons.constant < self.floatHeight &&
+        self.configObj.enableDragDismiss) {
+        [self dismiss];
+        return;
+    }
+    CGFloat offsetY = self.viewBottomCons.constant + self.configObj.marge.bottom;
+    if (offsetY >= 0 && offsetY < space) {
+        self.expand = @NO;
+        [self showExpand];
+    }else {
+        self.expand = @YES;
+        [self showTight];
+    }
+}
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    if ([gestureRecognizer isKindOfClass:UIPanGestureRecognizer.class] && [otherGestureRecognizer isKindOfClass:UIPanGestureRecognizer.class]) {
+        if ([otherGestureRecognizer.view isKindOfClass:UIScrollView.class]) {
+            if (![self.otherScrollView isEqual:otherGestureRecognizer.view]) {
+                [self removeScrollViewEvents];
+            }
+            self.otherScrollView = (UIScrollView*)otherGestureRecognizer.view;
+            if (!self.otherScrollView._isAddedObserver) {
+                [self.otherScrollView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+                self.otherScrollView._isAddedObserver = YES;
+                [self.otherScrollView.panGestureRecognizer addTarget:self action:@selector(handlePan:)];
+            }
+            return NO;
+        }
+    }
+    return YES;
+}
+
+- (void)handlePan:(UIPanGestureRecognizer *)pan {
+    self.lastPanState = pan.state;
+    if (pan.state == UIGestureRecognizerStateEnded) {
+        if (!self.otherScrollView.decelerating) {
+            NSLog(@"停止滑动 手指已经停止拖拽 没有惯性");
+            self.scrollViewStoped = YES;
+            [self endScroll];
+        }
+    }else if (pan.state == UIGestureRecognizerStateBegan) {
+        self.scrollViewStoped = NO;
+    }else if (pan.state == UIGestureRecognizerStateChanged) {
+    }else {
+    }
+}
+- (void)removeScrollViewEvents {
+    if (self.otherScrollView._isAddedObserver) {
+        self.otherScrollView._isAddedObserver = NO;
+        [self.otherScrollView.panGestureRecognizer removeTarget:self action:@selector(handlePan:)];
+        [self.otherScrollView removeObserver:self forKeyPath:@"contentOffset"];
+    }
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+    if (!self.shouldBeginPan) return;
+    if (self.lock) return;
+    UIScrollView *scrollView = self.otherScrollView;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (!scrollView.isDragging && !scrollView.isDecelerating) {
+            if (self.scrollViewStoped) return;
+            self.scrollViewStoped = YES;
+            //NSLog(@"停止滑动----减速为0");
+            [self endScroll];
+        }
+    });
+    NSValue *newValue = change[NSKeyValueChangeNewKey];
+    NSValue *oldValue = change[NSKeyValueChangeOldKey];
+    CGPoint newPoint = [newValue CGPointValue];
+    CGPoint oldPoint = [oldValue CGPointValue];
+    CGFloat viewBottomOffsetY = self.viewBottomCons.constant;
+    CGFloat scrollOffsetY = self.otherScrollView.contentOffset.y;
+    CGFloat deltaY = newPoint.y - oldPoint.y;
+    if (deltaY == 0.0) return;
+    CGFloat topInset = scrollView.adjustedContentInset.top;
+    CGFloat endMargeBottom = self.configObj.marge.bottom;
+    if (deltaY > 0) {
+        //NSLog(@"向上滚动");
+        CGFloat endOffsetY = viewBottomOffsetY - deltaY;
+        if (endOffsetY >= endMargeBottom) {
+            //容器滑动
+            self.viewBottomCons.constant = endOffsetY;
+            [self popView:self didPanWithBottomOffset:self.viewBottomCons.constant - endMargeBottom];
+            self.lock = YES;
+            self.otherScrollView.contentOffset = CGPointMake(0, -topInset);
+            self.lock = NO;
+        }else {
+            self.viewBottomCons.constant = endMargeBottom;
+            [self popView:self didPanWithBottomOffset:self.viewBottomCons.constant - endMargeBottom];
+        }
+    } else  {
+        //NSLog(@"向下滚动");
+        if (scrollOffsetY <= -topInset) {
+            //只有手指在拖拽的时候才允许下拉，惯性滚动不允许下拉
+            if (self.configObj.allowInertiaDown || self.lastPanState == UIGestureRecognizerStateChanged){
+                //容器滑动
+                CGFloat endOffsetY = viewBottomOffsetY - deltaY;
+                self.viewBottomCons.constant = endOffsetY;
+                [self popView:self didPanWithBottomOffset:self.viewBottomCons.constant - endMargeBottom];
+                self.lock = YES;
+                self.otherScrollView.contentOffset = CGPointMake(0, -topInset);
+                self.lock = NO;
+            }
+        }
+    }
+}
+
 - (void)dismiss {
     if (self.pageState == ZLPopViewPageStateDismissing || self.pageState == ZLPopViewPageStateDidDismissed) return;
     [self popViewWillHidden:self];
@@ -1971,60 +2111,29 @@ horizontalMarge {return 0;}
 - (void)gm_pan:(UIPanGestureRecognizer *)gesture {
     [super gm_pan:gesture];
     if (self.keyboardIsShowing) {return;}
-    CGPoint translation = [gesture translationInView:self.superview];
-    CGPoint velocity = [gesture velocityInView:self.containerView];
-    CGFloat offsetY = self.otherScrollView.contentOffset.y;
-    if (gesture.state == UIGestureRecognizerStateBegan) {
-        self.originFloatOffsetY = self.viewBottomCons.constant;
-        self.otherScrollViewBeganOffsetY = offsetY;
-    }
-    if (velocity.y > 0) {//向下
-        if (offsetY <= 0) {
-            self.otherScrollView.scrollEnabled = NO;
-        }else {
-            self.otherScrollView.scrollEnabled = YES;
-            return;
-        }
-    }else {
-        if (self.originFloatOffsetY == self.containerHeight - self.floatHeight) {
-            self.otherScrollView.scrollEnabled = NO;
-        }
-        CGFloat maxOffsetY = self.otherScrollView.contentSize.height - self.otherScrollView.bounds.size.height;
-        if (offsetY > maxOffsetY ) {
-            return;
-        } else {
-            if (self.viewBottomCons.constant > self.configObj.marge.bottom) {
+    if (!self.shouldBeginPan) return;
+    {
+        CGPoint translation = [gesture translationInView:self.superview];
+        if (gesture.state == UIGestureRecognizerStateBegan) {
+            self.originFloatOffsetY = self.viewBottomCons.constant;
+        }else if (gesture.state == UIGestureRecognizerStateChanged) {
+            if (self.originFloatOffsetY + translation.y < self.configObj.marge.bottom) {
+                self.viewBottomCons.constant = self.configObj.marge.bottom;
             }else {
-                self.otherScrollView.scrollEnabled = YES;
-                if (gesture.state == UIGestureRecognizerStateEnded) [self showExpand];
-                return;
+                self.viewBottomCons.constant = self.originFloatOffsetY + translation.y;
             }
-        }
-    }
-    self.viewBottomCons.constant =  MAX(self.originFloatOffsetY + translation.y - self.otherScrollViewBeganOffsetY, self.configObj.marge.bottom);
-    [self popView:self didPanWithDistance:self.viewBottomCons.constant - self.originBottomConsConstant];
-    if (gesture.state == UIGestureRecognizerStateEnded) {
-        if (self.originFloatOffsetY == self.containerHeight - self.floatHeight &&
-            translation.y > self.configObj.dragDismissDistance ) {
-            self.configObj.enableDragDismiss ? [self dismiss] : [self showTight];
-            return;
-        }
-        if (translation.y < -self.configObj.dragDismissDistance) {
-            [self showExpand];
-            self.otherScrollView.scrollEnabled = YES;
-        }else if (translation.y > self.configObj.dragDismissDistance) {
-            [self showTight];
-        }else {
-            if (self.originFloatOffsetY == self.containerHeight - self.floatHeight) {
-                [self showTight];
-            }else {
-                [self showExpand];
-            }
+            [self popView:self didPanWithBottomOffset:self.viewBottomCons.constant - self.configObj.marge.bottom];
+        }else if (gesture.state == UIGestureRecognizerStateEnded) {
+            [self endScroll];
         }
     }
 }
 - (void)showKeyboardEvent:(CGFloat)keyboardHeight duration:(CGFloat)duration {}
 - (void)hiddenKeyboardEvent:(CGFloat)keyboardHeight duration:(CGFloat)duration {}
+- (void)dealloc
+{
+    [self removeScrollViewEvents];
+}
 @end
 
 @implementation ZLKeyboardEvent
