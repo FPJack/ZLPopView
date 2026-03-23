@@ -1907,6 +1907,9 @@ horizontalMarge {return 0;}
         [self show];
         return;
     }
+    [self reloadExpand];
+}
+- (void)reloadExpand {
     self.viewBottomCons.constant = self.configObj.marge.bottom;
     [UIView animateWithDuration:self.configObj.animationIn animations:^{
         [self layoutIfNeeded];
@@ -1922,6 +1925,9 @@ horizontalMarge {return 0;}
         return;
     }
     
+    [self reloadTight];
+}
+- (void)reloadTight {
     self.viewBottomCons.constant = self.containerHeight - self.floatHeight;
     [UIView animateWithDuration:self.configObj.animationIn animations:^{
         [self layoutIfNeeded];
@@ -2128,8 +2134,35 @@ horizontalMarge {return 0;}
         }
     }
 }
-- (void)showKeyboardEvent:(CGFloat)keyboardHeight duration:(CGFloat)duration {}
-- (void)hiddenKeyboardEvent:(CGFloat)keyboardHeight duration:(CGFloat)duration {}
+
+- (void)showKeyboardEvent:(CGFloat)keyboardHeight duration:(CGFloat)duration {
+    CGFloat offsetY;
+    if (self.configObj.avoidKeyboardType == ZLAvoidKeyboardTypeAlwaysCenter) {
+        offsetY = (keyboardHeight - self.configObj.marge.bottom);
+    }else {
+        if (self.configObj.avoidKeyboardType == ZLAvoidKeyboardTypeFirstResponder) {
+            CGFloat bottomSpace = UIScreen.mainScreen.bounds.size.height -  [self firstResponderMaxYToWindow];
+            if (bottomSpace >= keyboardHeight + self.configObj.bottomOffsetToKeyboard) {
+                return;
+            }else {
+               CGFloat addSpace = keyboardHeight + self.configObj.bottomOffsetToKeyboard - bottomSpace;
+                offsetY = self.viewBottomCons.constant - addSpace;
+            }
+        }
+    }
+    
+    self.viewBottomCons.constant = offsetY;
+    [UIView animateWithDuration:duration animations:^{
+        [self layoutIfNeeded];
+    }];
+}
+- (void)hiddenKeyboardEvent:(CGFloat)keyboardHeight duration:(CGFloat)duration {
+    if (self.expand) {
+        [self reloadExpand];
+    }else {
+        [self reloadTight];
+    }
+}
 - (void)dealloc
 {
     [self removeScrollViewEvents];
