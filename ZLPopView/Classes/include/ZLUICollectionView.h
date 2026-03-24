@@ -72,10 +72,7 @@ typedef void(^VCRIndexPathBlock)(ZLUICollectionView *collectionView,UICollection
 @end
 @interface ZLUICollectionViewCell : UICollectionViewCell
 @property (nonatomic,strong,readonly)ZLSubViewObj<ZLUICollectionViewCell *> *fkc;
-///自动计算高度的时候调用
-- (void)preferredLayoutAttributesFittingAttributesBK:(UICollectionViewLayoutAttributes *(^)(ZLUICollectionViewCell *cell,UICollectionViewLayoutAttributes *layoutAttributes))block;
-///自动计算高度的时候返回这个值
-- (UICollectionViewLayoutAttributes *)sizeForCellWithLayoutAttributes:(UICollectionViewLayoutAttributes *)layoutAttributes estimatedItemSize:(CGSize)size;
+@property (nonatomic,copy)CGSize (^estimatedFittingSizeBK)(ZLUICollectionViewCell *cell,UICollectionViewLayoutAttributes *layoutAttributes);
 @end
 @interface ZLUITableViewCell : UITableViewCell
 @property (nonatomic,strong,readonly)ZLSubViewObj<ZLUITableViewCell *> *fkc;

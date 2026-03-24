@@ -295,23 +295,18 @@ kPropertyGetterImplementation(UISwitch, switchView)
     if (self.fkc.layoutSubviewsBlock) self.fkc.layoutSubviewsBlock(self);
     self.fkc.layouted = YES;
 }
-- (void)preferredLayoutAttributesFittingAttributesBK:(UICollectionViewLayoutAttributes *(^)(ZLUICollectionViewCell *cell,UICollectionViewLayoutAttributes *layoutAttributes))block {
-    self.preferredLayoutAttributesFittingAttributesBlock = block;
-}
 - (UICollectionViewLayoutAttributes *)preferredLayoutAttributesFittingAttributes:(UICollectionViewLayoutAttributes *)layoutAttributes {
-    UICollectionViewLayoutAttributes *attributes = [super preferredLayoutAttributesFittingAttributes:layoutAttributes];
-    if (self.preferredLayoutAttributesFittingAttributesBlock) {
-        return self.preferredLayoutAttributesFittingAttributesBlock(self,attributes);
+    if (!self.estimatedFittingSizeBK) {
+        return [super preferredLayoutAttributesFittingAttributes:layoutAttributes];
     }
-    return attributes;
-}
-- (UICollectionViewLayoutAttributes *)sizeForCellWithLayoutAttributes:(UICollectionViewLayoutAttributes *)layoutAttributes estimatedItemSize:(CGSize)size{
-    CGSize newSize = [self.contentView systemLayoutSizeFittingSize:size];
-    CGRect newFrame = layoutAttributes.frame;
-    newFrame.size.height = newSize.height;
+    CGSize estimatedSize = self.estimatedFittingSizeBK(self,layoutAttributes);
+    CGSize size = [self.contentView systemLayoutSizeFittingSize:estimatedSize withHorizontalFittingPriority:UILayoutPriorityRequired verticalFittingPriority:UILayoutPriorityFittingSizeLevel];
+    CGRect frame = layoutAttributes.frame;
+    CGRect newFrame = CGRectMake(frame.origin.x, frame.origin.y, size.width, size.height);
     layoutAttributes.frame = newFrame;
     return layoutAttributes;
 }
+
 @end
 
 @interface ZLUITableViewCell()
