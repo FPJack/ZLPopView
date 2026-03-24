@@ -1327,7 +1327,36 @@ static CGFloat _defaultThickness = 1.0f;
         return self;
     };
 }
-
+- (id  _Nonnull (^)(id _Nonnull))shadowColor {
+    return ^id (id color) {
+        self.view.layer.shadowColor = __UIColorFromObj(color).CGColor;
+        return self.shadowOffset(0,2);
+    };
+}
+- (id  _Nonnull (^)(CGFloat, CGFloat))shadowOffset {
+    return ^id (CGFloat width, CGFloat height) {
+        self.view.layer.shadowOffset = CGSizeMake(width, height);
+        return self.shadowRadius(6);
+    };
+}
+- (id  _Nonnull (^)(CGFloat))shadowRadius {
+    return ^id (CGFloat radius) {
+        self.view.layer.shadowRadius = radius;
+        return self.shadowOpacity(0.2);
+    };
+}
+- (id  _Nonnull (^)(CGFloat))shadowOpacity {
+    return ^id (CGFloat opacity) {
+        self.view.layer.shadowOpacity = opacity;
+        return self.masksToBounds(NO);
+    };
+}
+- (id  _Nonnull (^)(BOOL))masksToBounds {
+    return ^id (BOOL masks) {
+        self.view.layer.masksToBounds = masks;
+        return self;
+    };
+}
 
 #pragma mark - 子类配置
 - (id (^)(CGFloat ))spacing {

@@ -263,6 +263,15 @@ typedef id<ZLViewLayoutProtocol> ViewLayoutType;
 ///UIColor or #333333
 @property (nonatomic,readonly) ObjectType (^borderColor)(id);
 @property (nonatomic,readonly) ObjectType (^borderWidth)(CGFloat);
+@property (nonatomic,readonly) ObjectType (^shadowColor)(id color);
+//默认 （0,2）
+@property (nonatomic,readonly) ObjectType (^shadowOffset)(CGFloat width,CGFloat height);
+//默认0.2
+@property (nonatomic,readonly) ObjectType (^shadowOpacity)(CGFloat opacity);
+//默认6
+@property (nonatomic,readonly) ObjectType (^shadowRadius)(CGFloat radius);
+@property (nonatomic,readonly) ObjectType (^masksToBounds)(BOOL masksToBounds);
+
 
 
 ///布局方法，stackviiewbuilder里面使用无效，针对addSubview：对view进行手动布局
