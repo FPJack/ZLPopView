@@ -296,16 +296,25 @@ kPropertyGetterImplementation(UISwitch, switchView)
     self.fkc.layouted = YES;
 }
 - (UICollectionViewLayoutAttributes *)preferredLayoutAttributesFittingAttributes:(UICollectionViewLayoutAttributes *)layoutAttributes {
-    if (!self.estimatedFittingSizeBK) {
+    if (!self.estimatedFittingWidthBK && !self.estimatedFittingHeightBK) {
         return [super preferredLayoutAttributesFittingAttributes:layoutAttributes];
     }
-    CGSize estimatedSize = self.estimatedFittingSizeBK(self,layoutAttributes);
-    CGSize size = [self.contentView systemLayoutSizeFittingSize:estimatedSize withHorizontalFittingPriority:UILayoutPriorityRequired verticalFittingPriority:UILayoutPriorityFittingSizeLevel];
+    CGFloat height = MAXFLOAT;
+    CGFloat width = MAXFLOAT;
+    CGSize size = layoutAttributes.size;
+    if (self.estimatedFittingWidthBK) {
+         height = self.estimatedFittingWidthBK(self,layoutAttributes);
+         size = [self.contentView systemLayoutSizeFittingSize:CGSizeMake(width, height) withHorizontalFittingPriority:UILayoutPriorityFittingSizeLevel verticalFittingPriority:UILayoutPriorityRequired];
+    }else if (self.estimatedFittingHeightBK) {
+        width = self.estimatedFittingHeightBK(self,layoutAttributes);
+        size = [self.contentView systemLayoutSizeFittingSize:CGSizeMake(width, height) withHorizontalFittingPriority:UILayoutPriorityRequired verticalFittingPriority:UILayoutPriorityFittingSizeLevel];
+    }
     CGRect frame = layoutAttributes.frame;
     CGRect newFrame = CGRectMake(frame.origin.x, frame.origin.y, size.width, size.height);
     layoutAttributes.frame = newFrame;
     return layoutAttributes;
 }
+
 
 @end
 
