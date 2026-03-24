@@ -465,17 +465,26 @@ static inline UIView* _getViewFromViewKFC(ViewKFCType viewKFC) {
     [views enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         ZLCrossAxisAlignment effectiveAlignment = obj.kfc.alignment;
         ZLCrossAxisAlignment alignment = obj.kfc.alignment;
+        CGFloat alignmentMarge = obj.kfc.alignmentMarge;
         if (self.axis == UILayoutConstraintAxisHorizontal) {
-            if (self.alignment == UIStackViewAlignmentTop && alignment == ZLCrossAxisAlignmentStart) effectiveAlignment = ZLCrossAxisAlignmentAuto;
-            if (self.alignment == UIStackViewAlignmentBottom && alignment == ZLCrossAxisAlignmentEnd) effectiveAlignment = ZLCrossAxisAlignmentAuto;
-            if (self.alignment == UIStackViewAlignmentCenter && alignment == ZLCrossAxisAlignmentCenter) effectiveAlignment = ZLCrossAxisAlignmentAuto;
-            if (self.alignment == UIStackViewAlignmentFill && alignment == ZLCrossAxisAlignmentFill) effectiveAlignment = ZLCrossAxisAlignmentAuto;
+            if (self.alignment == UIStackViewAlignmentTop && alignment == ZLCrossAxisAlignmentStart &&
+                alignmentMarge <= 0.0) effectiveAlignment = ZLCrossAxisAlignmentAuto;
+            if (self.alignment == UIStackViewAlignmentBottom && alignment == ZLCrossAxisAlignmentEnd &&
+                alignmentMarge <= 0.0) effectiveAlignment = ZLCrossAxisAlignmentAuto;
+            if (self.alignment == UIStackViewAlignmentCenter && alignment == ZLCrossAxisAlignmentCenter &&
+                alignmentMarge <= 0.0) effectiveAlignment = ZLCrossAxisAlignmentAuto;
+            if (self.alignment == UIStackViewAlignmentFill && alignment == ZLCrossAxisAlignmentFill &&
+                alignmentMarge <= 0.0) effectiveAlignment = ZLCrossAxisAlignmentAuto;
 
         }else {
-            if (self.alignment == UIStackViewAlignmentLeading && alignment == ZLCrossAxisAlignmentStart) effectiveAlignment = ZLCrossAxisAlignmentAuto;
-            if (self.alignment == UIStackViewAlignmentTrailing && alignment == ZLCrossAxisAlignmentEnd) effectiveAlignment = ZLCrossAxisAlignmentAuto;
-            if (self.alignment == UIStackViewAlignmentCenter && alignment == ZLCrossAxisAlignmentCenter) effectiveAlignment = ZLCrossAxisAlignmentAuto;
-            if (self.alignment == UIStackViewAlignmentFill && alignment == ZLCrossAxisAlignmentFill) effectiveAlignment = ZLCrossAxisAlignmentAuto;
+            if (self.alignment == UIStackViewAlignmentLeading && alignment == ZLCrossAxisAlignmentStart &&
+                alignmentMarge <= 0.0) effectiveAlignment = ZLCrossAxisAlignmentAuto;
+            if (self.alignment == UIStackViewAlignmentTrailing && alignment == ZLCrossAxisAlignmentEnd &&
+                alignmentMarge <= 0.0) effectiveAlignment = ZLCrossAxisAlignmentAuto;
+            if (self.alignment == UIStackViewAlignmentCenter && alignment == ZLCrossAxisAlignmentCenter &&
+                alignmentMarge <= 0.0) effectiveAlignment = ZLCrossAxisAlignmentAuto;
+            if (self.alignment == UIStackViewAlignmentFill && alignment == ZLCrossAxisAlignmentFill &&
+                alignmentMarge <= 0.0) effectiveAlignment = ZLCrossAxisAlignmentAuto;
         }
         if (effectiveAlignment != ZLCrossAxisAlignmentAuto) {
             adjustViewCrossLayout = YES;
