@@ -2052,6 +2052,7 @@ horizontalMarge {return 0;}
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
     if (!self.shouldBeginPan) return;
     if (self.lock) return;
+    if (self.panGesture.state == UIGestureRecognizerStateChanged) return;
     UIScrollView *scrollView = self.otherScrollView;
     dispatch_async(dispatch_get_main_queue(), ^{
         if (!scrollView.isDragging && !scrollView.isDecelerating) {
