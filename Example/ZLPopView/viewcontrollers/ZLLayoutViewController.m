@@ -8,10 +8,10 @@
 
 #import "ZLLayoutViewController.h"
 #import <ZLPopView/ZLPopView.h>
-#import <ZLKeyboardManager.h>
-#import <NSObject+IQKeyboardManagerAdapter.h>
-#import <ZLPermission.h>
-#import <ZLPermissionProtocol.h>
+//#import <ZLKeyboardManager.h>
+//#import <NSObject+IQKeyboardManagerAdapter.h>
+//#import <ZLPermission.h>
+//#import <ZLPermissionProtocol.h>
 //#import <ZLPermissionBluetooth.h>
 @interface ZLLayoutViewController ()
 

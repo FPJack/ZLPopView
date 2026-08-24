@@ -8,10 +8,10 @@
 
 #import "ZLViewController.h"
 #import <ZLPopView/ZLPopView.h>
-#import <ZLPagerViewController.h>
-#import <ZLParallaxPageTabBarViewController.h>
-#import <ZLTabBarExtension.h>
-#import <ZLPermission.h>
+//#import <ZLPagerViewController.h>
+//#import <ZLParallaxPageTabBarViewController.h>
+//#import <ZLTabBarExtension.h>
+//#import <ZLPermission.h>
 #import "TableView.h"
 
 //#import <ZLPermissionBluetooth.h>

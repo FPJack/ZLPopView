@@ -5,7 +5,7 @@ PODS:
   - FBSnapshotTestCase/SwiftSupport (2.1.4):
     - FBSnapshotTestCase/Core
   - MJRefresh (3.7.6)
-  - ZLPopView (0.1.5)
+  - ZLPopView (0.1.8)
 
 DEPENDENCIES:
   - FBSnapshotTestCase
@@ -24,7 +24,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   FBSnapshotTestCase: 094f9f314decbabe373b87cc339bea235a63e07a
   MJRefresh: 2fe7fb43a5167ceda20bb7e63f130c04fd1814a5
-  ZLPopView: 14a52cbc03b3fa3781d8d1664b737bc621160c4a
+  ZLPopView: b785e3a2ff300239fa39f7123ffd5c67e83eb402
 
 PODFILE CHECKSUM: 413ede3e3ff7af619d97947b66e6ff635b4073e2
 
