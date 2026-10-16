@@ -38,6 +38,7 @@
 		8486FEFB2ED8493A002D624E /* ZLPopOverViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8486FEFA2ED8493A002D624E /* ZLPopOverViewController.xib */; };
 		8486FEFC2ED8493A002D624E /* ZLPopOverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8486FEF92ED8493A002D624E /* ZLPopOverViewController.m */; };
 		8486FEFF2ED935B5002D624E /* TableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8486FEFE2ED935B5002D624E /* TableView.m */; };
+		84AA00032F600003000AAAAA /* ZLSceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AA00022F600002000AAAAA /* ZLSceneDelegate.m */; };
 		84B1AD502EFD1C8400E4CF2D /* UITabBar+EX.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B1AD4F2EFD1C8400E4CF2D /* UITabBar+EX.m */; };
 		84DEFF9C2F52A33700C81A03 /* TestVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84DEFF9B2F52A33700C81A03 /* TestVC.xib */; };
 		84DEFF9D2F52A33700C81A03 /* TestVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DEFF9A2F52A33700C81A03 /* TestVC.m */; };
@@ -110,6 +111,8 @@
 		8486FEFA2ED8493A002D624E /* ZLPopOverViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZLPopOverViewController.xib; sourceTree = "<group>"; };
 		8486FEFD2ED935B5002D624E /* TableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TableView.h; sourceTree = "<group>"; };
 		8486FEFE2ED935B5002D624E /* TableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TableView.m; sourceTree = "<group>"; };
+		84AA00012F600001000AAAAA /* ZLSceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLSceneDelegate.h; sourceTree = "<group>"; };
+		84AA00022F600002000AAAAA /* ZLSceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLSceneDelegate.m; sourceTree = "<group>"; };
 		84B1AD4E2EFD1C8400E4CF2D /* UITabBar+EX.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITabBar+EX.h"; sourceTree = "<group>"; };
 		84B1AD4F2EFD1C8400E4CF2D /* UITabBar+EX.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITabBar+EX.m"; sourceTree = "<group>"; };
 		84DEFF992F52A33700C81A03 /* TestVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestVC.h; sourceTree = "<group>"; };
@@ -198,6 +201,8 @@
 				8432B3222ED68D1E00617EFB /* viewcontrollers */,
 				6003F59C195388D20070C39A /* ZLAppDelegate.h */,
 				6003F59D195388D20070C39A /* ZLAppDelegate.m */,
+				84AA00012F600001000AAAAA /* ZLSceneDelegate.h */,
+				84AA00022F600002000AAAAA /* ZLSceneDelegate.m */,
 				873B8AEA1B1F5CCA007FD442 /* Main.storyboard */,
 				6003F5A5195388D20070C39A /* ZLViewController.h */,
 				6003F5A6195388D20070C39A /* ZLViewController.m */,
@@ -506,6 +511,7 @@
 				8486FEFF2ED935B5002D624E /* TableView.m in Sources */,
 				8432B3212ED5C90500617EFB /* ZLCommonViews.m in Sources */,
 				6003F59E195388D20070C39A /* ZLAppDelegate.m in Sources */,
+				84AA00032F600003000AAAAA /* ZLSceneDelegate.m in Sources */,
 				8432B3302ED68DA000617EFB /* ZLPopViewController.m in Sources */,
 				6003F5A7195388D20070C39A /* ZLViewController.m in Sources */,
 				62F3561D2EFC2EC1008CBCF1 /* UIButton+ZLHitArea.m in Sources */,
@@ -647,7 +653,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ZLPopView/ZLPopView-Prefix.pch";
 				INFOPLIST_FILE = "ZLPopView/ZLPopView-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 15;
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = com.wws.popview;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -669,7 +675,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ZLPopView/ZLPopView-Prefix.pch";
 				INFOPLIST_FILE = "ZLPopView/ZLPopView-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 15;
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = com.wws.popview;
 				PRODUCT_NAME = "$(TARGET_NAME)";

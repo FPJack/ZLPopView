@@ -19,11 +19,41 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    // iOS 13+ 交由 ZLSceneDelegate 创建 window，这里只处理 iOS 13 以下
+    if (@available(iOS 13.0, *)) {
+        return YES;
+    }
+
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-  
-        // 创建 TabBarController
-        UITabBarController *tabBarController = [[UITabBarController alloc] init];
-    
+    self.window.backgroundColor = UIColor.orangeColor;
+    self.window.rootViewController = [ZLAppDelegate makeRootViewController];
+    [self.window makeKeyAndVisible];
+
+    return YES;
+}
+
+#pragma mark - UISceneSession lifecycle
+
+- (UISceneConfiguration *)application:(UIApplication *)application
+configurationForConnectingSceneSession:(UISceneSession *)connectingSceneSession
+                              options:(UISceneConnectionOptions *)options API_AVAILABLE(ios(13.0))
+{
+    return [[UISceneConfiguration alloc] initWithName:@"Default Configuration"
+                                          sessionRole:connectingSceneSession.role];
+}
+
+- (void)application:(UIApplication *)application
+didDiscardSceneSessions:(NSSet<UISceneSession *> *)sceneSessions API_AVAILABLE(ios(13.0))
+{
+}
+
+#pragma mark - Root
+
++ (UIViewController *)makeRootViewController
+{
+    // 创建 TabBarController
+    UITabBarController *tabBarController = [[UITabBarController alloc] init];
+
     if (@available(iOS 13.0, *)) {
         UITabBarItemAppearance *inlineLayoutAppearance = [[UITabBarItemAppearance  alloc] init];
         // fix https://github.com/ChenYilong/CYLTabBarController/issues/456
@@ -48,7 +78,7 @@
 //        UITabBarItem *tabBar = [UITabBarItem appearance];
 //        [tabBar setTitleTextAttributes:normalAttrs forState:UIControlStateNormal];
 //        [tabBar setTitleTextAttributes:selectedAttrs forState:UIControlStateSelected];
-//        
+//
 //        // This shadow image attribute is ignored if the tab bar does not also have a custom background image.So at least set somthing.
 //        [[UITabBar appearance] setBackgroundImage:[[UIImage alloc] init]];
 //        [[UITabBar appearance] setShadowImage:[[self class] imageWithColor:[UIColor cyl_systemGreenColor] size:CGSizeMake([UIScreen mainScreen].bounds.size.width, 1)]];
@@ -114,13 +144,8 @@
     
         // 添加到 TabBarController
     tabBarController.viewControllers = @[nav1, nav2, centerNav,nav3,nav4];
-    self.window.backgroundColor = UIColor.orangeColor;
-        self.window.rootViewController = ZLViewController.new;
-    self.window.rootViewController = tabBarController;
 
-        [self.window makeKeyAndVisible];
-
-        return YES;
+    return tabBarController;
 }
 
 
