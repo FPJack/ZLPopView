@@ -452,16 +452,26 @@
 - (void (^)(void))showActionSheet {
     self.alertType = 2;
     UIEdgeInsets marge = self.configObj.marge;
-    CGFloat defaultSpace = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? UIScreen.mainScreen.bounds.size.width * 0.25 : 8;
+    // 分屏 / 多窗口 / 折叠屏下窗口尺寸 != 屏幕尺寸，不能用 UIScreen.mainScreen
+    CGSize (^containerSize)(ZLLayoutConstraintObj *) = ^CGSize(ZLLayoutConstraintObj *obj) {
+        UIView *v = (UIView *)obj.margeLeadingCons.firstItem;
+        UIWindow *w = v.window ?: v.superview.window;
+        if (w && !CGRectIsEmpty(w.bounds)) return w.bounds.size;
+        if (v.superview && !CGRectIsEmpty(v.superview.bounds)) return v.superview.bounds.size;
+        return UIScreen.mainScreen.bounds.size;
+    };
+    CGSize screenSize = UIScreen.mainScreen.bounds.size;
+    CGFloat defaultSpace = UIDevice.currentDevice.userInterfaceIdiom == UIUserInterfaceIdiomPad ? MIN(screenSize.width, screenSize.height) * 0.25 : 8;
     CGFloat bottomSpace = 8;
     if (!self.configObj.orientationChangeBk) {
         self.orientationChangeBK(^(ZLLayoutConstraintObj * _Nonnull constraintObj, ZLBuildConfigObj * _Nonnull configureObj, BOOL isLandscape) {
             if (isLandscape) {
+                CGSize size = containerSize(constraintObj);
                 CGFloat marge = 0;
-                if (kZLSafeAreaBottom > 0 || kZLSafeAreaTop > 0 || UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-                    marge = UIScreen.mainScreen.bounds.size.width * 0.33;
+                if (kZLSafeAreaBottom > 0 || kZLSafeAreaTop > 0 || UIDevice.currentDevice.userInterfaceIdiom == UIUserInterfaceIdiomPad) {
+                    marge = size.width * 0.33;
                 }else {
-                    marge = (UIScreen.mainScreen.bounds.size.width - UIScreen.mainScreen.bounds.size.height) / 2.0;
+                    marge = MAX(0, (size.width - size.height) / 2.0);
                 }
                 constraintObj.margeLeadingCons.constant = marge;
                 constraintObj.margeTrailingCons.constant = -marge;

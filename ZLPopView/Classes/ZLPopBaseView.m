@@ -406,12 +406,12 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
 //            CGPoint aLeading = CGPointMake(topLeft, th);
 //            CGPoint aTrailing = CGPointMake(w - topRight, th);
 //            [mainPath moveToPoint:aLeading];
-//            
-//            
+//
+//
 //            CGPoint aStart = CGPointMake(offset, th);
 //            CGPoint aTop = CGPointMake(offset + tw/2, 0);
 //            CGPoint aEnd = CGPointMake(offset + tw, th);
-//            
+//
 //            CGPoint aStartPre = CGPointMake(aStart.x - radius, th);
 //            CGPoint aStartNext = CGPointMake(aStart.x + radius, th - radius);
 //
@@ -420,24 +420,24 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
 //
 //            CGPoint aEndPre = CGPointMake(aEnd.x - radius, th - radius);
 //            CGPoint aEndNext = CGPointMake(aEnd.x + radius, th);
-//            
-//            
-//            
+//
+//
+//
 //            [mainPath addLineToPoint:aStartPre];
 //            [mainPath addQuadCurveToPoint:aStartNext controlPoint:aStart];
-//            
+//
 //            [mainPath addLineToPoint:aTopPre];
 //            [mainPath addQuadCurveToPoint:aTopNext controlPoint:aTop];
 ////
 //            [mainPath addLineToPoint:aEndPre];
 //            [mainPath addQuadCurveToPoint:aEndNext controlPoint:aEnd];
-//            
-//            
+//
+//
 ////            [mainPath addLineToPoint:aTop];
 ////            [mainPath addLineToPoint:aEnd];
-//            
+//
 //            [mainPath addLineToPoint:aTrailing];
-//            
+//
 //            if (topRight > 0) {
 //                [mainPath addQuadCurveToPoint:CGPointMake(w, th + topRight) controlPoint:CGPointMake(w, th)];
 //            }
@@ -454,7 +454,7 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
 //                [mainPath addQuadCurveToPoint:CGPointMake(topLeft, th) controlPoint:CGPointMake(0, th)];
 //            }
 //            [mainPath closePath];
-// 
+//
 //            break;
             
             // 主体
@@ -778,6 +778,13 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
 @property (nonatomic,copy)ZLHitTestBK hitTestBlock;
 @property (nonatomic,copy)ZLSimultaneousGestureBK simultaneousGesBK;
 
+/// 上一次布局时自身的尺寸，用于检测「容器尺寸变化」(旋转 / 分屏 / 折叠屏展开 / Stage Manager)
+@property (nonatomic,assign)CGSize zl_lastLayoutSize;
+
+/// 子类可覆写：返回弹窗应该依附的 window(多窗口场景下不能依赖全局 keyWindow)
+- (UIWindow *)anchorWindow;
+/// 容器尺寸发生变化时回调(比 UIDeviceOrientationDidChangeNotification 更可靠)
+- (void)popViewContainerSizeDidChange:(CGSize)size;
 
 - (void)gm_pan:(UIPanGestureRecognizer *)gesture;
 - (void)popViewWillShow:(ZLPopBaseView *)popView;
@@ -1029,14 +1036,17 @@ didPanWithDistance:(CGFloat)distance {
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.frame = [UIScreen mainScreen].bounds;
+        // 注意：不要用 UIScreen.mainScreen.bounds 当作初始 frame，
+        // 在分屏 / 多窗口 / 折叠屏下 window 的尺寸和屏幕尺寸不一致。
+        // 真正的尺寸由 addPopViewMargeCons 的约束决定，这里只是一个占位值。
+        if (CGRectIsEmpty(frame)) {
+            self.frame = [UIScreen mainScreen].bounds;
+        }
         self.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0];
         self.pageState = ZLPopViewPageStateNone;
         self.clipsToBounds = YES;
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                    selector:@selector(deviceOrientationWillChange:)
-                                                        name:UIDeviceOrientationDidChangeNotification
-                                                      object:nil];
+        self.zl_lastLayoutSize = CGSizeZero;
+        // 只注册一次，原来同一个通知注册了两个 selector，执行顺序不确定
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                     selector:@selector(deviceOrientationDidChanged:)
                                                      name:UIDeviceOrientationDidChangeNotification
@@ -1045,6 +1055,20 @@ didPanWithDistance:(CGFloat)distance {
     }
     return self;
 }
+/// 当前弹窗所在界面的方向（不要用 UIDevice.orientation，设备平放 / 折叠屏 / 分屏下不准）
+- (UIInterfaceOrientation)zl_interfaceOrientation {
+    if (@available(iOS 13.0, *)) {
+        UIWindowScene *scene = self.window.windowScene ?: [self getKeyWindow].windowScene;
+        if (scene) return scene.interfaceOrientation;
+    }
+    CGSize size = self.window ? self.window.bounds.size : UIScreen.mainScreen.bounds.size;
+    return size.width > size.height ? UIInterfaceOrientationLandscapeRight : UIInterfaceOrientationPortrait;
+}
+- (UIWindow *)anchorWindow {
+    return nil;
+}
+- (void)popViewContainerSizeDidChange:(CGSize)size {}
+
 - (UIVisualEffectView *)blurView {
     if (self.configObj.blurEffect && !_blurView) {
         _blurView = [[UIVisualEffectView alloc] initWithEffect:self.configObj.blurEffect];
@@ -1059,13 +1083,16 @@ didPanWithDistance:(CGFloat)distance {
     return _constraintObj;
 }
 - (void)deviceOrientationWillChange:(NSNotification *)notification {
-    UIInterfaceOrientation newOrientation = [notification.userInfo[UIApplicationStatusBarOrientationUserInfoKey] integerValue];
+    // UIDeviceOrientationDidChangeNotification 的 userInfo 里并没有
+    // UIApplicationStatusBarOrientationUserInfoKey，原来取出来恒为 0(Unknown)，
+    // 导致 orientationChangeBk 的 isLandscape 永远是 YES。
+    UIInterfaceOrientation newOrientation = [self zl_interfaceOrientation];
     if (self.configObj.orientationChangeBk) {
         self.configObj.orientationChangeBk(self.constraintObj,self.configObj,!UIInterfaceOrientationIsPortrait(newOrientation));
     }
 }
 - (void)deviceOrientationDidChanged:(NSNotification *)notification{
-    
+    [self deviceOrientationWillChange:notification];
 }
 - (void)setConfigObj:(ZLBuildConfigObj *)configObj {
     _configObj = configObj;
@@ -1252,30 +1279,32 @@ didPanWithDistance:(CGFloat)distance {
 //}
 
 - (UIWindow *)getKeyWindow {
+    // 1.自身已经在某个 window 上时，直接用它（多窗口 / 分屏 / 折叠屏下最准确）
+    if (self.window) return self.window;
+    // 2.调用方指定了 superView，用它所在的 window
+    if ([self.configObj.superView isKindOfClass:UIView.class]) {
+        UIWindow *w = [(UIView *)self.configObj.superView window];
+        if (w) return w;
+    }
+    // 3.子类提供的锚点 window（例如 ZLPopOverView 的 fromView 所在 window）
+    UIWindow *anchor = [self anchorWindow];
+    if (anchor) return anchor;
+
     if (@available(iOS 13.0, *)) {
-        NSSet<UIScene *> *scenes =
-            UIApplication.sharedApplication.connectedScenes;
-
+        NSSet<UIScene *> *scenes = UIApplication.sharedApplication.connectedScenes;
+        UIWindow *fallback = nil;
         for (UIScene *scene in scenes) {
-            if (![scene isKindOfClass:[UIWindowScene class]]) {
-                continue;
-            }
-
+            if (![scene isKindOfClass:[UIWindowScene class]]) continue;
             UIWindowScene *windowScene = (UIWindowScene *)scene;
-
-            // 优先获取当前激活的 Scene
-            if (windowScene.activationState != UISceneActivationStateForegroundActive) {
-                continue;
-            }
-
+            BOOL isActive = windowScene.activationState == UISceneActivationStateForegroundActive;
             for (UIWindow *window in windowScene.windows) {
-                if (window.isKeyWindow) {
-                    return window;
-                }
+                if (window.isHidden) continue;
+                if (isActive && window.isKeyWindow) return window;
+                // NSSet 是无序的，这里只记录一个兜底，避免随机挑到另一个窗口
+                if (!fallback && isActive) fallback = window;
             }
         }
-
-        return nil;
+        return fallback;
     } else {
         #pragma clang diagnostic push
         #pragma clang diagnostic ignored "-Wdeprecated-declarations"
@@ -1413,6 +1442,16 @@ didPanWithDistance:(CGFloat)distance {
     if (self.layoutSubviewBlock) {
         self.layoutSubviewBlock(self);
     }
+    // 旋转 / 分屏 / 折叠屏展开 / Stage Manager 改变窗口大小时都会走到这里，
+    // 比 UIDeviceOrientationDidChangeNotification 可靠（设备方向不等于界面方向）
+    CGSize size = self.bounds.size;
+    if (!CGSizeEqualToSize(self.zl_lastLayoutSize, size)) {
+        CGSize old = self.zl_lastLayoutSize;
+        self.zl_lastLayoutSize = size;
+        if (!CGSizeEqualToSize(old, CGSizeZero)) {
+            [self popViewContainerSizeDidChange:size];
+        }
+    }
 }
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [super touchesBegan:touches withEvent:event];
@@ -1428,7 +1467,7 @@ didPanWithDistance:(CGFloat)distance {
 }
 - (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [super touchesCancelled:touches withEvent:event];
-    NSLog(@"touchesCancelled -- %@",NSStringFromClass(self.class)); 
+    NSLog(@"touchesCancelled -- %@",NSStringFromClass(self.class));
 }
 @end
 
@@ -2257,6 +2296,10 @@ horizontalMarge {return 0;}
 @property (nonatomic,assign)CGPoint ap;
 @property (nonatomic,copy)UIColor *arrColor;
 @property (nonatomic,assign)CGFloat arrowOffset;
+/// 外部设置的原始方向(可能是 Auto)，旋转后需要据此重新判断
+@property (nonatomic,assign)ZLPopOverDirection originalD;
+/// 防止重复触发刷新
+@property (nonatomic,assign)BOOL isRefreshingLayout;
 
 @end
 @implementation ZLPopOverView
@@ -2279,6 +2322,25 @@ horizontalMarge {return 0;}
 - (void)setConfigObj:(ZLBuildConfigObj *)configObj {
     [super setConfigObj: configObj];
     self.containerView.shadowColor = UIColor.clearColor;
+}
+/// 多窗口 / 分屏 / 折叠屏下必须跟随 fromView 所在的 window，
+/// 否则会被加到另一个 scene 的窗口上，坐标完全对不上
+- (UIWindow *)anchorWindow {
+    return self.fV.window;
+}
+/// 弹窗可用的布局区域（即自身 bounds）。
+/// show 的早期 self.frame 还是占位值，这里优先用 superview 的 bounds 扣掉 popViewMarge 计算
+- (CGSize)zl_layoutReferenceSize {
+    UIView *superView = self.superview;
+    if (superView && !CGRectIsEmpty(superView.bounds)) {
+        UIEdgeInsets m = self.configObj.popViewMarge;
+        CGSize s = superView.bounds.size;
+        return CGSizeMake(MAX(0, s.width - m.left - m.right),
+                          MAX(0, s.height - m.top - m.bottom));
+    }
+    if (!CGRectIsEmpty(self.bounds)) return self.bounds.size;
+    UIWindow *w = [self getKeyWindow];
+    return w ? w.bounds.size : UIScreen.mainScreen.bounds.size;
 }
 - (ZLPopOverView* (^)(CGPoint))setPoint {
     return  ^ZLPopOverView*(CGPoint p){
@@ -2333,6 +2395,7 @@ horizontalMarge {return 0;}
 - (void)show{
     if (self.pageState == ZLPopViewPageStateShowing || self.pageState == ZLPopViewPageStateDidShow) return;
     [super show];
+    self.originalD = self.d;
     if (self.d == ZLPopOverDirectionLeading || self.d == ZLPopOverDirectionTrailing) {
         if ([UIView userInterfaceLayoutDirectionForSemanticContentAttribute:UIView.appearance.semanticContentAttribute] == UIUserInterfaceLayoutDirectionRightToLeft) {
             if (self.d == ZLPopOverDirectionLeading) {
@@ -2346,6 +2409,10 @@ horizontalMarge {return 0;}
     UIView *view = self.containerView;
     //如果分开写约束top 约束一定要写到bottom约束的前面，不然布局有问题
     [self addPopViewMargeCons];
+    // 先让父视图完成布局，self.bounds 才是真实的窗口尺寸
+    // (分屏 / 多窗口 / 折叠屏下它和 UIScreen.mainScreen.bounds 不一样)
+    [self.superview layoutIfNeeded];
+    self.zl_lastLayoutSize = self.bounds.size;
     
     [self addMaxWidthHeightConstraintsIfNeed];
     
@@ -2355,6 +2422,8 @@ horizontalMarge {return 0;}
     if (self.d == ZLPopOverDirectionAuto){
         [self layoutIfNeeded];
         self.d = [self directionWithAuto];
+        // 方向确定后可用空间会变化，重新计算一次最大宽高
+        [self addMaxWidthHeightConstraintsIfNeed];
     }
 
     if (self.d == ZLPopOverDirectionUp) {
@@ -2397,21 +2466,24 @@ horizontalMarge {return 0;}
 
 }
 - (void)addMaxWidthHeightConstraintsIfNeed {
-    CGFloat maxWidth = self.frame.size.width - self.safeAreaMarge.left - self.safeAreaMarge.right;
-    CGFloat maxHeight = self.frame.size.height - self.safeAreaMarge.top - self.safeAreaMarge.bottom;
+    CGSize refSize = [self zl_layoutReferenceSize];
+    CGFloat maxWidth = refSize.width - self.safeAreaMarge.left - self.safeAreaMarge.right;
+    CGFloat maxHeight = refSize.height - self.safeAreaMarge.top - self.safeAreaMarge.bottom;
     if (self.d == ZLPopOverDirectionLeading) {
-         maxWidth = self.frame.size.width - self.p.x - self.safeAreaMarge.right  - self.aH - self.s;
-         maxHeight = self.frame.size.height - self.safeAreaMarge.bottom  - self.safeAreaMarge.top;
+         maxWidth = refSize.width - self.p.x - self.safeAreaMarge.right  - self.aH - self.s;
+         maxHeight = refSize.height - self.safeAreaMarge.bottom  - self.safeAreaMarge.top;
     }else if (self.d == ZLPopOverDirectionTrailing) {
          maxWidth =  self.p.x - self.safeAreaMarge.left  - self.aH - self.s;
-         maxHeight = self.frame.size.height - self.safeAreaMarge.bottom  - self.safeAreaMarge.top;
+         maxHeight = refSize.height - self.safeAreaMarge.bottom  - self.safeAreaMarge.top;
     }else if (self.d == ZLPopOverDirectionUp) {
-         maxHeight = self.frame.size.height - self.p.y - self.safeAreaMarge.bottom  - self.aW - self.s;
-         maxWidth =  self.frame.size.width - self.safeAreaMarge.left  - self.safeAreaMarge.right;
+         maxHeight = refSize.height - self.p.y - self.safeAreaMarge.bottom  - self.aW - self.s;
+         maxWidth =  refSize.width - self.safeAreaMarge.left  - self.safeAreaMarge.right;
     }else if (self.d == ZLPopOverDirectionDown) {
          maxHeight = self.p.y - self.safeAreaMarge.top  - self.aW - self.s;
-         maxWidth = self.frame.size.width - self.safeAreaMarge.left  - self.safeAreaMarge.right;
+         maxWidth = refSize.width - self.safeAreaMarge.left  - self.safeAreaMarge.right;
     }
+    maxWidth = MAX(1, maxWidth);
+    maxHeight = MAX(1, maxHeight);
     if (self.configObj.maxWidth <= 0 && self.configObj.width <= 0 && self.configObj.maxWidthMultiplier <= 0 ) {
         self.containerView.kfc.maxWidth(maxWidth);
     }
@@ -2514,7 +2586,9 @@ horizontalMarge {return 0;}
     CGFloat rH = CGRectGetHeight(view.frame);
     CGPoint p = self.p;
     ZLPopOverDirection d;
-    CGRect outRect = view.superview.frame;
+    // 这里需要的是「自身可用区域」，必须用 bounds 而不是 frame：
+    // frame 的 origin 在分屏 / 有 popViewMarge 时不为 0，会导致判断整体偏移
+    CGRect outRect = view.superview ? view.superview.bounds : CGRectMake(0, 0, [self zl_layoutReferenceSize].width, [self zl_layoutReferenceSize].height);
     outRect = CGRectMake(self.safeAreaMarge.left, self.safeAreaMarge.top, outRect.size.width - self.safeAreaMarge.left - self.safeAreaMarge.right, outRect.size.height - self.safeAreaMarge.top - self.safeAreaMarge.bottom);
     {
         d = ZLPopOverDirectionDown;
@@ -2567,10 +2641,10 @@ horizontalMarge {return 0;}
 - (CGPoint)p {
     if (self.fV) {
         UIView *fv = self.fV;
-        CGFloat fW = fv.frame.size.width;
-        CGFloat fH = fv.frame.size.height;
+        CGFloat fW = fv.bounds.size.width;
+        CGFloat fH = fv.bounds.size.height;
         ZLPopOverDirection d = self.d;
-        CGPoint p = CGPointZero;
+        CGPoint p = CGPointMake(fW/2, fH/2);
         if (d == ZLPopOverDirectionUp) {
             p = CGPointMake(fW/2, fH);
         }else if (d == ZLPopOverDirectionDown) {
@@ -2580,9 +2654,17 @@ horizontalMarge {return 0;}
         }else if (d == ZLPopOverDirectionTrailing) {
             p = CGPointMake(0, fH/2);
         }
-         p = [fv convertPoint:p toView:[self getKeyWindow]];
-        
-        return p;
+        // 必须换算到 containerView 的父视图(即 self)的坐标系，
+        // 因为 centerPoint: 里用的就是 self 的尺寸做中心偏移计算。
+        // 原来换算到 keyWindow，在分屏 / 多窗口 / 存在 popViewMarge 时就会整体偏移。
+        UIView *coordinateSpace = self.containerView.superview ?: self;
+        if (fv.window && coordinateSpace.window && fv.window != coordinateSpace.window) {
+            // 跨 window(多场景)时先转到自己的 window 坐标系
+            CGPoint inFromWindow = [fv convertPoint:p toView:nil];
+            CGPoint inSelfWindow = [coordinateSpace.window convertPoint:inFromWindow fromWindow:fv.window];
+            return [coordinateSpace convertPoint:inSelfWindow fromView:coordinateSpace.window];
+        }
+        return [fv convertPoint:p toView:coordinateSpace];
     }
     return _p;
 }
@@ -2596,8 +2678,11 @@ horizontalMarge {return 0;}
     CGFloat oY = 0;
     CGFloat rW = view.frame.size.width;
     CGFloat rH = view.frame.size.height;
-    CGFloat w = view.superview.frame.size.width ;
-    CGFloat h = view.superview.frame.size.height ;
+    // 用 bounds，避免 frame.origin 影响；superview 还没布局时用参考尺寸兜底
+    CGSize superSize = view.superview ? view.superview.bounds.size : CGSizeZero;
+    if (superSize.width <= 0 || superSize.height <= 0) superSize = [self zl_layoutReferenceSize];
+    CGFloat w = superSize.width;
+    CGFloat h = superSize.height;
     CGFloat offset = 0;
     oX = x - w/2;
     oY = y - h/2;
@@ -2674,6 +2759,12 @@ horizontalMarge {return 0;}
     [super deviceOrientationDidChanged:notification];
     [self refreshArrowLayout];
 }
+/// 分屏 / 折叠屏展开 / Stage Manager 改变窗口尺寸时不会发设备方向通知，
+/// 必须靠容器尺寸变化来触发重新定位
+- (void)popViewContainerSizeDidChange:(CGSize)size {
+    [super popViewContainerSizeDidChange:size];
+    [self refreshArrowLayout];
+}
 - (void)removeCenterConstraintsForView:(UIView *)view {
     UIView *superView = view.superview;
     if (!superView) return;
@@ -2692,24 +2783,75 @@ horizontalMarge {return 0;}
     [superView removeConstraints:toRemove];
 }
 - (void)refreshArrowLayout {
-    if (self.fV) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            UIView *view = self.containerView;
-            [self enumerateSubviewsOfView:view usingBlock:^(__kindof UIView *subView, BOOL *stop) {
-                if ([subView isKindOfClass:UILabel.class]) [subView invalidateIntrinsicContentSize];
-            }];
-            [self addMaxWidthHeightConstraintsIfNeed];
-            [self setNeedsLayout];
+    if (self.pageState == ZLPopViewPageStateDismissing ||
+        self.pageState == ZLPopViewPageStateDidDismissed) return;
+    if (!self.superview) return;
+    if (self.isRefreshingLayout) return;
+    self.isRefreshingLayout = YES;
+    // 这里可能是在 layoutSubviews 里被触发的，放到下一个 runloop 再改约束，避免递归布局
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.isRefreshingLayout = NO;
+        if (!self.superview) return;
+        UIView *view = self.containerView;
+        if (!view.superview) return;
+        // 先让自身(以及 window)完成布局，拿到旋转后的真实尺寸
+        [self.superview layoutIfNeeded];
+
+        UIStackView *stackView = (UIStackView *)self.stackView;
+        UIEdgeInsets m = stackView.layoutMargins;
+        // 方向原本是 Auto 的话，旋转后需要重新判断，否则可能指向屏幕外
+        if (self.originalD == ZLPopOverDirectionAuto) {
+            ZLPopOverDirection old = self.d;
+            // 先去掉上一次为箭头预留的 margin，重新判断方向后再加回去
+            m = [self stackViewMarginsByRemovingArrowSpaceFrom:m direction:old];
+            stackView.layoutMargins = m;
             [self layoutIfNeeded];
-            CGFloat arrowOffset = 0;
-            CGPoint center = [self centerPoint:&arrowOffset];
-            [self removeCenterConstraintsForView:view];
-            
-            [view.kfc centerInView:view.superview centerOffset:center];
-            self.ap = [self layerAnchorPoint:arrowOffset];
-            [self drawArrow:arrowOffset];
-        });
+            self.d = ZLPopOverDirectionAuto;
+            self.d = [self directionWithAuto];
+            stackView.layoutMargins = [self stackViewMarginsByAddingArrowSpaceTo:m direction:self.d];
+        }
+
+        [self enumerateSubviewsOfView:view usingBlock:^(__kindof UIView *subView, BOOL *stop) {
+            if ([subView isKindOfClass:UILabel.class]) [subView invalidateIntrinsicContentSize];
+        }];
+        [self addMaxWidthHeightConstraintsIfNeed];
+        [self setNeedsLayout];
+        [self layoutIfNeeded];
+        CGFloat arrowOffset = 0;
+        CGPoint center = [self centerPoint:&arrowOffset];
+        [self removeCenterConstraintsForView:view];
+        
+        [view.kfc centerInView:view.superview centerOffset:center];
+        self.ap = [self layerAnchorPoint:arrowOffset];
+        [view.superview layoutIfNeeded];
+        [self drawArrow:arrowOffset];
+    });
+}
+/// 去掉为箭头预留的 layoutMargins
+- (UIEdgeInsets)stackViewMarginsByRemovingArrowSpaceFrom:(UIEdgeInsets)m direction:(ZLPopOverDirection)d {
+    if (d == ZLPopOverDirectionUp) {
+        return UIEdgeInsetsMake(m.top - self.aH, m.left, m.bottom, m.right);
+    }else if (d == ZLPopOverDirectionDown) {
+        return UIEdgeInsetsMake(m.top, m.left, m.bottom - self.aH, m.right);
+    }else if (d == ZLPopOverDirectionLeading) {
+        return UIEdgeInsetsMake(m.top, m.left - self.aH, m.bottom - self.aH, m.right);
+    }else if (d == ZLPopOverDirectionTrailing) {
+        return UIEdgeInsetsMake(m.top, m.left, m.bottom - self.aH, m.right - self.aH);
     }
+    return m;
+}
+/// 为箭头预留 layoutMargins（与 show 中逻辑保持一致）
+- (UIEdgeInsets)stackViewMarginsByAddingArrowSpaceTo:(UIEdgeInsets)m direction:(ZLPopOverDirection)d {
+    if (d == ZLPopOverDirectionUp) {
+        return UIEdgeInsetsMake(m.top + self.aH, m.left, m.bottom, m.right);
+    }else if (d == ZLPopOverDirectionDown) {
+        return UIEdgeInsetsMake(m.top, m.left, m.bottom + self.aH, m.right);
+    }else if (d == ZLPopOverDirectionLeading) {
+        return UIEdgeInsetsMake(m.top, m.left + self.aH, m.bottom + self.aH, m.right);
+    }else if (d == ZLPopOverDirectionTrailing) {
+        return UIEdgeInsetsMake(m.top, m.left, m.bottom + self.aH, m.right + self.aH);
+    }
+    return m;
 }
 - (void)enumerateSubviewsOfView:(UIView *)view
                            usingBlock:(void (^)(__kindof UIView *subView, BOOL *stop))block {
