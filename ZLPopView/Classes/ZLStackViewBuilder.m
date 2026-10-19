@@ -15,6 +15,44 @@
 #import "ZLPopBaseView.h"
 #endif
 #define kIgnoreViewTag 297812
+
+/// 解析安全区所依据的 window。
+/// 优先级：view 自己所在的 window > 当前活跃 scene 的 keyWindow > 活跃 scene 的任意可见 window
+/// > AppDelegate.window(兼容未做 Scene 适配的老工程)
+static UIWindow * _ZLResolveWindow(UIView * _Nullable view) {
+    if (view.window) return view.window;
+    if ([view isKindOfClass:UIWindow.class]) return (UIWindow *)view;
+
+    if (@available(iOS 13.0, *)) {
+        UIWindow *fallback = nil;
+        for (UIScene *scene in UIApplication.sharedApplication.connectedScenes) {
+            if (![scene isKindOfClass:UIWindowScene.class]) continue;
+            UIWindowScene *windowScene = (UIWindowScene *)scene;
+            if (windowScene.activationState != UISceneActivationStateForegroundActive) continue;
+            for (UIWindow *window in windowScene.windows) {
+                if (window.isHidden) continue;
+                if (window.isKeyWindow) return window;
+                // connectedScenes 是无序的 NSSet，只留一个兜底，避免随机挑到别的窗口
+                if (!fallback) fallback = window;
+            }
+        }
+        if (fallback) return fallback;
+    }
+
+    id<UIApplicationDelegate> delegate = UIApplication.sharedApplication.delegate;
+    if ([delegate respondsToSelector:@selector(window)]) {
+        return delegate.window;
+    }
+    return nil;
+}
+
+UIEdgeInsets ZLSafeAreaInsetsForView(UIView * _Nullable view) {
+    // view 已经上屏时直接用它自己的安全区，分屏 / 多窗口下这是最准确的
+    if (view.window) return view.safeAreaInsets;
+    UIWindow *window = _ZLResolveWindow(view);
+    return window ? window.safeAreaInsets : UIEdgeInsetsZero;
+}
+
 id _recursive_objc_getAssociatedObject(id _Nonnull object, const void * _Nonnull key) {
     id obj = objc_getAssociatedObject(object, key);
     if (obj) return obj;
@@ -1080,7 +1118,7 @@ static inline UIView* _getViewFromViewKFC(ViewKFCType viewKFC) {
         self.layoutMargins = UIEdgeInsetsMake(top, self.layoutMargins.left, self.layoutMargins.bottom, self.layoutMargins.right);
         return self;
     };
-}   
+}
 - (id (^)(CGFloat ))paddingLeading {
     return  ^id(CGFloat leading){
         self.layoutMargins = UIEdgeInsetsMake(self.layoutMargins.top, leading, self.layoutMargins.bottom, self.layoutMargins.right);

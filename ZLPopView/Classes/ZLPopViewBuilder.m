@@ -545,11 +545,13 @@ static GMConfigureBlock configureBlock;
         view.stackView = stackView;
         stackV = stackView;
     }
+    // 用弹窗自己所在窗口的安全区：分屏 / 多窗口 / 双屏下各窗口的 safeArea 并不相同
+    CGFloat safeBottom = kZLSafeAreaBottomOfView(stackV);
     if (self.configObj.reserveSafeAreaBottom
-        && stackV.layoutMargins.bottom < kZLSafeAreaBottom
-        && -self.configObj.inset.bottom < kZLSafeAreaBottom
+        && stackV.layoutMargins.bottom < safeBottom
+        && -self.configObj.inset.bottom < safeBottom
         ) {
-        stackV.layoutMargins = UIEdgeInsetsMake(stackV.layoutMargins.top, stackV.layoutMargins.left, stackV.layoutMargins.bottom + kZLSafeAreaBottom, stackV.layoutMargins.right);
+        stackV.layoutMargins = UIEdgeInsetsMake(stackV.layoutMargins.top, stackV.layoutMargins.left, stackV.layoutMargins.bottom + safeBottom, stackV.layoutMargins.right);
     }
     [view setValue:self.configObj forKey:@"configObj"];
     [self.builderCtx addView:view];

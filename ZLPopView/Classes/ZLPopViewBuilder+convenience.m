@@ -467,8 +467,10 @@
         self.orientationChangeBK(^(ZLLayoutConstraintObj * _Nonnull constraintObj, ZLBuildConfigObj * _Nonnull configureObj, BOOL isLandscape) {
             if (isLandscape) {
                 CGSize size = containerSize(constraintObj);
+                // 用弹窗所在窗口的安全区，分屏 / 多窗口 / 双屏下各窗口不一样
+                UIEdgeInsets safeArea = kZLSafeAreaInsetsOfView((UIView *)constraintObj.margeLeadingCons.firstItem);
                 CGFloat marge = 0;
-                if (kZLSafeAreaBottom > 0 || kZLSafeAreaTop > 0 || UIDevice.currentDevice.userInterfaceIdiom == UIUserInterfaceIdiomPad) {
+                if (safeArea.bottom > 0 || safeArea.top > 0 || UIDevice.currentDevice.userInterfaceIdiom == UIUserInterfaceIdiomPad) {
                     marge = size.width * 0.33;
                 }else {
                     marge = MAX(0, (size.width - size.height) / 2.0);

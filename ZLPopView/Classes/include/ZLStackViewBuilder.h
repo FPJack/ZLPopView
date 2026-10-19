@@ -15,16 +15,22 @@
 #define kStackViewRowBuilder [ZLStackViewBuilder row]
 #define kStackViewColumnBuilder [ZLStackViewBuilder column]
 
-#define kZLSafeAreaBottom kZLSafeAreaInsets.bottom
+/// 取安全区。
+/// 不要再用 UIApplication.sharedApplication.delegate.window：
+/// 1.Scene 化的 App 里 AppDelegate.window 通常是 nil，会直接返回 Zero，底部安全区丢失；
+/// 2.多窗口 / 分屏 / 双屏下有多个 window，各自的 safeAreaInsets 并不相同。
+/// 传入任意一个已经上屏的 view，就能拿到它真正所在窗口的安全区；传 nil 则取当前活跃场景的 keyWindow。
+FOUNDATION_EXPORT UIEdgeInsets ZLSafeAreaInsetsForView(UIView * _Nullable view);
 
-#define kZLSafeAreaTop kZLSafeAreaInsets.top
+/// 带 view 的版本，优先使用（能拿到弹窗真正所在窗口的安全区）
+#define kZLSafeAreaInsetsOfView(v) ZLSafeAreaInsetsForView(v)
+#define kZLSafeAreaBottomOfView(v) (ZLSafeAreaInsetsForView(v).bottom)
+#define kZLSafeAreaTopOfView(v)    (ZLSafeAreaInsetsForView(v).top)
 
-#define kZLSafeAreaInsets \
-({UIEdgeInsets insets = UIEdgeInsetsZero; \
-if (@available(iOS 11.0, *)) { \
-    insets = UIApplication.sharedApplication.delegate.window.safeAreaInsets; \
-} \
-insets;})
+/// 无 view 上下文时的兜底版本
+#define kZLSafeAreaInsets ZLSafeAreaInsetsForView(nil)
+#define kZLSafeAreaBottom (ZLSafeAreaInsetsForView(nil).bottom)
+#define kZLSafeAreaTop    (ZLSafeAreaInsetsForView(nil).top)
 
 NS_ASSUME_NONNULL_BEGIN
 //参考flutter Row的MainAxisAlignment属性
