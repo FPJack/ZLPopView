@@ -148,8 +148,12 @@
         .buildPopOverView
         .setFromView(sender)
 //        .setArrowColor(UIColor.blueColor)
-//        .setArrowWidth(30)
-//        .setArrowHeight(20)
+        .setArrowWidth(24)
+        .setArrowHeight(14)
+        /// 三角箭头三个角的圆滑系数，半径 = MIN(箭头宽,箭头高) * 系数。
+        /// 0(默认) = 尖角，> 0 即开启圆弧，越大越圆，建议 0 ~ 0.5；
+        /// 需要绝对半径时改用 setArrowCornerRadius(4)，其优先级更高。
+        .setArrowSmoothRatio(0.3)
         .setDirection(d)
         .delegate(self)
 

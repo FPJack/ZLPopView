@@ -292,6 +292,13 @@ typedef NS_ENUM(NSInteger, ZLPopOverDirection) {
 - (ZLPopOverView* (^)(CGFloat))setArrowWidth;
 - (ZLPopOverView* (^)(CGFloat))setArrowHeight;
 //- (ZLPopOverView* (^)(id ))setArrowColor;
+/// 三角箭头三个角(顶部尖角 + 两个底角)的圆滑系数，半径 = MIN(箭头宽, 箭头高) * 系数。
+/// 默认 0 表示不做圆角(保持原来的尖角效果)，> 0 即开启圆弧，越大越圆，建议 0 ~ 0.5。
+/// 超出几何允许范围时会自动收敛，不会把箭头画变形。
+- (ZLPopOverView* (^)(CGFloat))setArrowSmoothRatio;
+/// 直接指定箭头三个角的绝对圆角半径(单位 pt)，优先级高于 setArrowSmoothRatio。
+/// 传 0 表示交回给系数去算；两个都是 0 时即为尖角。
+- (ZLPopOverView* (^)(CGFloat))setArrowCornerRadius;
 /// 设置安全区域边距
 - (ZLPopOverView* (^)(UIEdgeInsets ))setSafeAreaMarge;
 /// 设置箭头和指向点的间距

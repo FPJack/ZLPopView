@@ -15,6 +15,13 @@
 #define kBT @"BT"
 #define kBB @"BB"
 static NSHashTable<ZLPopBaseView *> *keyboardViews;
+
+@interface ZLPopOverView (ZLContainerMask)
+/// containerView 裁剪内容用的气泡路径(含箭头缺口)。
+/// 方向尚未确定(Auto)或还没完成布局时返回 nil，调用方需退回普通圆角矩形。
+- (UIBezierPath *)zl_containerMaskPath;
+@end
+
 @interface _ZLView ()
 @property (nonatomic,assign)UIViewContentMode bgImageContentMode;
 @property (nonatomic,copy)UIImage *image;
@@ -57,13 +64,25 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
 #pragma mark - 更新方法
 
 - (void)updateCornerPath {
-    if (_cornerRadius <= 0) {
+    UIBezierPath *path = [self zl_contentMaskPath];
+    if (!path) {
         self.contentView.layer.mask = nil;
         return;
     }
     CAShapeLayer *maskLayer = [CAShapeLayer layer];
-    maskLayer.path = self.bezierPath.CGPath;
+    maskLayer.path = path.CGPath;
     self.contentView.layer.mask = maskLayer;
+}
+/// 内容裁剪路径。
+/// 作为 ZLPopOverView 的容器时必须用「气泡轮廓(矩形扣掉箭头那条带)」来裁剪，
+/// 否则箭头预留的那条 margin 不会被裁掉，滚动内容会从气泡边框外露出来。
+- (UIBezierPath *)zl_contentMaskPath {
+    if ([self.superview isKindOfClass:ZLPopOverView.class]) {
+        UIBezierPath *arrowPath = [(ZLPopOverView *)self.superview zl_containerMaskPath];
+        if (arrowPath) return arrowPath;
+    }
+    if (_cornerRadius <= 0) return nil;
+    return self.bezierPath;
 }
 - (UIBezierPath *)bezierPath {
     return [UIBezierPath bezierPathWithRoundedRect:self.contentView.bounds
@@ -255,6 +274,44 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
 
 
 
+/// 计算在 corner 处做圆角时，几何上允许的最大半径。
+/// prev / next 为折角两侧的相邻点，返回值已收敛到不会让圆弧溢出任一条边的范围。
+static CGFloat ZLClampedCornerRadius(CGPoint prev, CGPoint corner, CGPoint next, CGFloat radius) {
+    if (radius <= 0) return 0;
+    CGFloat v1x = prev.x - corner.x, v1y = prev.y - corner.y;
+    CGFloat v2x = next.x - corner.x, v2y = next.y - corner.y;
+    CGFloat l1 = hypot(v1x, v1y), l2 = hypot(v2x, v2y);
+    if (l1 < 0.01 || l2 < 0.01) return 0;
+    CGFloat cosTheta = (v1x * v2x + v1y * v2y) / (l1 * l2);
+    cosTheta = MAX(-1.0, MIN(1.0, cosTheta));
+    CGFloat theta = acos(cosTheta);
+    // 近似共线(夹角接近 0 或 180°)时没有圆角可言
+    if (theta < 0.02 || theta > M_PI - 0.02) return 0;
+    // 切点到折角的距离 d = r / tan(θ/2)，限制 d 不超过相邻边长的一半
+    CGFloat maxD = MIN(l1, l2) * 0.5;
+    CGFloat maxR = maxD * tan(theta * 0.5);
+    return MIN(radius, maxR);
+}
+
+/// 从当前点出发，把 corner 处的折角画成圆弧后拐向 next。
+/// radius <= 0 或几何上无法成弧时，退化为普通折线，保持原有尖角效果。
+static void ZLPathAddRoundedCorner(UIBezierPath *path, CGPoint prev, CGPoint corner, CGPoint next, CGFloat radius) {
+    CGFloat r = ZLClampedCornerRadius(prev, corner, next, radius);
+    if (r <= 0.01) {
+        [path addLineToPoint:corner];
+        return;
+    }
+    CGMutablePathRef mutablePath = CGPathCreateMutableCopy(path.CGPath);
+    if (!mutablePath) {
+        [path addLineToPoint:corner];
+        return;
+    }
+    // CGPathAddArcToPoint 会自动补上「当前点 -> 第一个切点」的直线，再接一段与两条边都相切的圆弧
+    CGPathAddArcToPoint(mutablePath, NULL, corner.x, corner.y, next.x, next.y, r);
+    path.CGPath = mutablePath;
+    CGPathRelease(mutablePath);
+}
+
 @implementation UIView(draw)
 - (void)addTrianglePopWithShadowColor:(UIColor *)shadowColor
                          shadowOffset:(CGSize)shadowOffset
@@ -270,6 +327,38 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
                        triangleOffset:(CGFloat)triangleOffset
                          cornerRadius:(CGFloat)cornerRadius
                        roundedCorners:(UIRectCorner)roundedCorners
+{
+    [self addTrianglePopWithShadowColor:shadowColor
+                           shadowOffset:shadowOffset
+                           shadowRadius:shadowRadius
+                          shadowOpacity:shadowOpacity
+                            borderWidth:borderWidth
+                            borderColor:borderColor
+                              fillColor:fillColor
+                          triangleWidth:triangleWidth
+                         triangleHeight:triangleHeight
+                          triangleColor:triangleColor
+                              direction:direction
+                         triangleOffset:triangleOffset
+                           cornerRadius:cornerRadius
+                         roundedCorners:roundedCorners
+                      arrowCornerRadius:0];
+}
+- (void)addTrianglePopWithShadowColor:(UIColor *)shadowColor
+                         shadowOffset:(CGSize)shadowOffset
+                         shadowRadius:(CGFloat)shadowRadius
+                        shadowOpacity:(float)shadowOpacity
+                          borderWidth:(CGFloat)borderWidth
+                          borderColor:(UIColor *)borderColor
+                            fillColor:(UIColor *)fillColor
+                        triangleWidth:(CGFloat)triangleWidth
+                       triangleHeight:(CGFloat)triangleHeight
+                        triangleColor:(UIColor *)triangleColor
+                            direction:(ZLPopOverDirection)direction
+                       triangleOffset:(CGFloat)triangleOffset
+                         cornerRadius:(CGFloat)cornerRadius
+                       roundedCorners:(UIRectCorner)roundedCorners
+                    arrowCornerRadius:(CGFloat)arrowCornerRadius
 {
     // 移除旧的shapeLayer
        NSArray *oldLayers = [self.layer.sublayers copy];
@@ -337,7 +426,7 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
                break;
            }
        }
-       UIBezierPath *path = [self createTriangleBorderWidth:borderWidth triangleWidth:triangleWidth triangleHeight:triangleHeight direction:direction triangleOffset:triangleOffset cornerRadius:cornerRadius roundedCorners:roundedCorners];
+        UIBezierPath *path = [self createTriangleBorderWidth:borderWidth triangleWidth:triangleWidth triangleHeight:triangleHeight direction:direction triangleOffset:triangleOffset cornerRadius:cornerRadius roundedCorners:roundedCorners arrowCornerRadius:arrowCornerRadius];
        // 主体ShapeLayer
        CAShapeLayer *shapeLayer = [CAShapeLayer layer];
        shapeLayer.path = path.CGPath;
@@ -371,6 +460,24 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
                          cornerRadius:(CGFloat)cornerRadius
                        roundedCorners:(UIRectCorner)roundedCorners
 {
+    return [self createTriangleBorderWidth:borderWidth
+                             triangleWidth:triangleWidth
+                            triangleHeight:triangleHeight
+                                 direction:direction
+                            triangleOffset:triangleOffset
+                              cornerRadius:cornerRadius
+                            roundedCorners:roundedCorners
+                         arrowCornerRadius:0];
+}
+- (UIBezierPath *)createTriangleBorderWidth:(CGFloat)borderWidth
+                        triangleWidth:(CGFloat)triangleWidth
+                       triangleHeight:(CGFloat)triangleHeight
+                            direction:(ZLPopOverDirection)direction
+                       triangleOffset:(CGFloat)triangleOffset
+                         cornerRadius:(CGFloat)cornerRadius
+                       roundedCorners:(UIRectCorner)roundedCorners
+                    arrowCornerRadius:(CGFloat)arrowCornerRadius
+{
     CGFloat w = self.bounds.size.width;
     CGFloat h = self.bounds.size.height;
     CGFloat tw = triangleWidth;
@@ -394,67 +501,14 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
     CGFloat topRight = (roundedCorners & UIRectCornerTopRight) ? cr : 0;
     CGFloat bottomLeft = (roundedCorners & UIRectCornerBottomLeft) ? cr : 0;
     CGFloat bottomRight = (roundedCorners & UIRectCornerBottomRight) ? cr : 0;
+    // 箭头三个角的圆角半径，再额外按箭头尺寸兜一层底，避免传入过大的值把箭头磨没
+    CGFloat ar = MAX(0, MIN(arrowCornerRadius, MIN(tw, th)));
     switch (direction) {
         case ZLPopOverDirectionAuto: {
             break;
         }
         case ZLPopOverDirectionUp: {
-            
-            // 主体
-//            CGPoint aLeading = CGPointMake(topLeft, th);
-//            CGPoint aTrailing = CGPointMake(w - topRight, th);
-//            [mainPath moveToPoint:aLeading];
-//
-//
-//            CGPoint aStart = CGPointMake(offset, th);
-//            CGPoint aTop = CGPointMake(offset + tw/2, 0);
-//            CGPoint aEnd = CGPointMake(offset + tw, th);
-//
-//            CGPoint aStartPre = CGPointMake(aStart.x - radius, th);
-//            CGPoint aStartNext = CGPointMake(aStart.x + radius, th - radius);
-//
-//            CGPoint aTopPre = CGPointMake(aTop.x - topRadius, topRadius);
-//            CGPoint aTopNext = CGPointMake(aTop.x + topRadius, topRadius);
-//
-//            CGPoint aEndPre = CGPointMake(aEnd.x - radius, th - radius);
-//            CGPoint aEndNext = CGPointMake(aEnd.x + radius, th);
-//
-//
-//
-//            [mainPath addLineToPoint:aStartPre];
-//            [mainPath addQuadCurveToPoint:aStartNext controlPoint:aStart];
-//
-//            [mainPath addLineToPoint:aTopPre];
-//            [mainPath addQuadCurveToPoint:aTopNext controlPoint:aTop];
-////
-//            [mainPath addLineToPoint:aEndPre];
-//            [mainPath addQuadCurveToPoint:aEndNext controlPoint:aEnd];
-//
-//
-////            [mainPath addLineToPoint:aTop];
-////            [mainPath addLineToPoint:aEnd];
-//
-//            [mainPath addLineToPoint:aTrailing];
-//
-//            if (topRight > 0) {
-//                [mainPath addQuadCurveToPoint:CGPointMake(w, th + topRight) controlPoint:CGPointMake(w, th)];
-//            }
-//            [mainPath addLineToPoint:CGPointMake(w, h - bottomRight)];
-//            if (bottomRight > 0) {
-//                [mainPath addQuadCurveToPoint:CGPointMake(w - bottomRight, h) controlPoint:CGPointMake(w, h)];
-//            }
-//            [mainPath addLineToPoint:CGPointMake(bottomLeft, h)];
-//            if (bottomLeft > 0) {
-//                [mainPath addQuadCurveToPoint:CGPointMake(0, h - bottomLeft) controlPoint:CGPointMake(0, h)];
-//            }
-//            [mainPath addLineToPoint:CGPointMake(0, th + topLeft)];
-//            if (topLeft > 0) {
-//                [mainPath addQuadCurveToPoint:CGPointMake(topLeft, th) controlPoint:CGPointMake(0, th)];
-//            }
-//            [mainPath closePath];
-//
-//            break;
-            
+
             // 主体
             CGPoint aLeading = CGPointMake(topLeft, th);
             CGPoint aTrailing = CGPointMake(w - topRight, th);
@@ -463,9 +517,10 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
             CGPoint aStart = CGPointMake(offset, th);
             CGPoint aTop = CGPointMake(offset + tw/2, 0);
             CGPoint aEnd = CGPointMake(offset + tw, th);
-            [mainPath addLineToPoint:aStart];
-            [mainPath addLineToPoint:aTop];
-            [mainPath addLineToPoint:aEnd];
+            // 左底角 -> 顶部尖角 -> 右底角，三个角都按 ar 做圆弧过渡
+            ZLPathAddRoundedCorner(mainPath, aLeading, aStart, aTop, ar);
+            ZLPathAddRoundedCorner(mainPath, aStart, aTop, aEnd, ar);
+            ZLPathAddRoundedCorner(mainPath, aTop, aEnd, aTrailing, ar);
             [mainPath addLineToPoint:aTrailing];
             if (topRight > 0) {
                 [mainPath addQuadCurveToPoint:CGPointMake(w, th + topRight) controlPoint:CGPointMake(w, th)];
@@ -496,10 +551,15 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
             if (bottomRight > 0) {
                 [mainPath addQuadCurveToPoint:CGPointMake(w - bottomRight, h - th) controlPoint:CGPointMake(w, h - th)];
             }
-            [mainPath addLineToPoint:CGPointMake(offset + tw, h - th)];
-            [mainPath addLineToPoint:CGPointMake(offset + tw/2, h)];
-            [mainPath addLineToPoint:CGPointMake(offset, h - th)];
-            [mainPath addLineToPoint:CGPointMake(bottomLeft, h - th)];
+            CGPoint dPrev = CGPointMake(bottomRight > 0 ? w - bottomRight : w, h - th);
+            CGPoint dStart = CGPointMake(offset + tw, h - th);
+            CGPoint dTip = CGPointMake(offset + tw/2, h);
+            CGPoint dEnd = CGPointMake(offset, h - th);
+            CGPoint dNext = CGPointMake(bottomLeft, h - th);
+            ZLPathAddRoundedCorner(mainPath, dPrev, dStart, dTip, ar);
+            ZLPathAddRoundedCorner(mainPath, dStart, dTip, dEnd, ar);
+            ZLPathAddRoundedCorner(mainPath, dTip, dEnd, dNext, ar);
+            [mainPath addLineToPoint:dNext];
             if (bottomLeft > 0) {
                 [mainPath addQuadCurveToPoint:CGPointMake(0, h - th - bottomLeft) controlPoint:CGPointMake(0, h - th)];
             }
@@ -511,11 +571,16 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
             break;
         }
         case ZLPopOverDirectionLeading: {
-            [mainPath moveToPoint:CGPointMake(th, topLeft)];
-            [mainPath addLineToPoint:CGPointMake(th, offset)];
-            [mainPath addLineToPoint:CGPointMake(0, offset + tw/2)];
-            [mainPath addLineToPoint:CGPointMake(th, offset + tw)];
-            [mainPath addLineToPoint:CGPointMake(th, h - bottomLeft)];
+            CGPoint lPrev = CGPointMake(th, topLeft);
+            CGPoint lStart = CGPointMake(th, offset);
+            CGPoint lTip = CGPointMake(0, offset + tw/2);
+            CGPoint lEnd = CGPointMake(th, offset + tw);
+            CGPoint lNext = CGPointMake(th, h - bottomLeft);
+            [mainPath moveToPoint:lPrev];
+            ZLPathAddRoundedCorner(mainPath, lPrev, lStart, lTip, ar);
+            ZLPathAddRoundedCorner(mainPath, lStart, lTip, lEnd, ar);
+            ZLPathAddRoundedCorner(mainPath, lTip, lEnd, lNext, ar);
+            [mainPath addLineToPoint:lNext];
             if (bottomLeft > 0) {
                 [mainPath addQuadCurveToPoint:CGPointMake(th + bottomLeft, h) controlPoint:CGPointMake(th, h)];
             }
@@ -543,10 +608,15 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
             if (topRight > 0) {
                 [mainPath addQuadCurveToPoint:CGPointMake(w - th, topRight) controlPoint:CGPointMake(w - th, 0)];
             }
-            [mainPath addLineToPoint:CGPointMake(w - th, offset)];
-            [mainPath addLineToPoint:CGPointMake(w, offset + tw/2)];
-            [mainPath addLineToPoint:CGPointMake(w - th, offset + tw)];
-            [mainPath addLineToPoint:CGPointMake(w - th, h - bottomRight)];
+            CGPoint tPrev = CGPointMake(w - th, topRight > 0 ? topRight : 0);
+            CGPoint tStart = CGPointMake(w - th, offset);
+            CGPoint tTip = CGPointMake(w, offset + tw/2);
+            CGPoint tEnd = CGPointMake(w - th, offset + tw);
+            CGPoint tNext = CGPointMake(w - th, h - bottomRight);
+            ZLPathAddRoundedCorner(mainPath, tPrev, tStart, tTip, ar);
+            ZLPathAddRoundedCorner(mainPath, tStart, tTip, tEnd, ar);
+            ZLPathAddRoundedCorner(mainPath, tTip, tEnd, tNext, ar);
+            [mainPath addLineToPoint:tNext];
             if (bottomRight > 0) {
                 [mainPath addQuadCurveToPoint:CGPointMake(w - th - bottomRight, h) controlPoint:CGPointMake(w - th, h)];
             }
@@ -2367,6 +2437,10 @@ horizontalMarge {return 0;}
 @property (nonatomic,assign)CGPoint ap;
 @property (nonatomic,copy)UIColor *arrColor;
 @property (nonatomic,assign)CGFloat arrowOffset;
+/// 箭头三个角的绝对圆角半径(pt)，0 = 未设置，交由 aCRRatio 决定
+@property (nonatomic,assign)CGFloat aCR;
+/// 圆滑系数，半径 = MIN(aW, aH) * aCRRatio。0 = 尖角(默认)
+@property (nonatomic,assign)CGFloat aCRRatio;
 /// 外部设置的原始方向(可能是 Auto)，旋转后需要据此重新判断
 @property (nonatomic,assign)ZLPopOverDirection originalD;
 /// 防止重复触发刷新
@@ -2442,6 +2516,71 @@ horizontalMarge {return 0;}
         self.arrColor = __UIColorFromObj(c);
         return self;
     };
+}
+- (ZLPopOverView* (^)(CGFloat))setArrowCornerRadius {
+    return ^ZLPopOverView*(CGFloat r){
+        self.aCR = MAX(0, r);
+        [self refreshArrowLayoutIfNeeded];
+        return self;
+    };
+}
+- (ZLPopOverView* (^)(CGFloat))setArrowSmoothRatio {
+    return ^ZLPopOverView*(CGFloat ratio){
+        self.aCRRatio = MAX(0, ratio);
+        [self refreshArrowLayoutIfNeeded];
+        return self;
+    };
+}
+/// 解析箭头圆角半径：绝对值优先；没设绝对值就按「系数 × 箭头短边」算。
+/// 两者都为 0 时返回 0，绘制时自动退化成原来的尖角。
+- (CGFloat)resolvedArrowCornerRadius {
+    if (self.aCR > 0) return self.aCR;
+    return MIN(self.aW, self.aH) * self.aCRRatio;
+}
+/// 已经显示出来后再改箭头样式时，重绘一次
+- (void)refreshArrowLayoutIfNeeded {
+    if (self.pageState == ZLPopViewPageStateDidShow) {
+        [self drawArrow:self.arrowOffset];
+        [self setNeedsLayout];
+    }
+}
+/// 气泡轮廓路径(矩形 + 箭头缺口)，描边、渐变遮罩、内容裁剪三处共用同一条路径
+- (UIBezierPath *)zl_balloonPath {
+    if (self.d == ZLPopOverDirectionAuto) return nil;
+    UIView *container = self.containerView;
+    if (!container || CGRectIsEmpty(container.bounds)) return nil;
+    ZLBuildConfigObj *j = self.configObj;
+    return [container createTriangleBorderWidth:j.borderWidth
+                                  triangleWidth:self.aW
+                                 triangleHeight:self.aH
+                                      direction:self.d
+                                 triangleOffset:self.arrowOffset
+                                   cornerRadius:j.cornerRadius > 0 ? j.cornerRadius : 10
+                                 roundedCorners:j.corners
+                              arrowCornerRadius:[self resolvedArrowCornerRadius]];
+}
+- (UIBezierPath *)zl_containerMaskPath {
+    if (self.d == ZLPopOverDirectionAuto) return nil;
+    UIView *container = self.containerView;
+    if (!container || CGRectIsEmpty(container.bounds)) return nil;
+    ZLBuildConfigObj *j = self.configObj;
+    CGFloat cr = j.cornerRadius > 0 ? j.cornerRadius : 10;
+    // 箭头空间是靠 stackView.layoutMargins 预留的，滚动时这段 margin 会被滚掉，
+    // 所以内容必须按「气泡主体(整体扣掉箭头那条带)」裁剪，否则内容会滚到箭头区甚至边框外。
+    // 注意这里刻意不用完整气泡路径：内容不应该出现在三角箭头里面。
+    UIEdgeInsets inset = UIEdgeInsetsZero;
+    switch (self.d) {
+        case ZLPopOverDirectionUp:       inset.top = self.aH;    break;
+        case ZLPopOverDirectionDown:     inset.bottom = self.aH; break;
+        case ZLPopOverDirectionLeading:  inset.left = self.aH;   break;
+        case ZLPopOverDirectionTrailing: inset.right = self.aH;  break;
+        default: break;
+    }
+    CGRect body = UIEdgeInsetsInsetRect(container.bounds, inset);
+    if (CGRectIsEmpty(body)) return nil;
+    return [UIBezierPath bezierPathWithRoundedRect:body
+                                 byRoundingCorners:j.corners
+                                       cornerRadii:CGSizeMake(cr, cr)];
 }
 - (ZLPopOverView* (^)(UIView *))setFromView {
     return  ^ZLPopOverView*(UIView* v){
@@ -2576,9 +2715,12 @@ horizontalMarge {return 0;}
                                        triangleHeight:self.aH
                           triangleColor:self.arrColor ?: (j.backgroundColor ?: UIColor.whiteColor)
                                             direction:self.d
-                                       triangleOffset:arrowOffset
+                                        triangleOffset:arrowOffset
                            cornerRadius:j.cornerRadius > 0 ? j.cornerRadius : 10
-                         roundedCorners:j.corners];
+                         roundedCorners:j.corners
+                      arrowCornerRadius:[self resolvedArrowCornerRadius]];
+    // 箭头形状变了，容器的内容裁剪路径要跟着重算，否则滚动内容会溢出气泡轮廓
+    [view setNeedsLayout];
 }
 - (void)layoutSubviews {
     [super layoutSubviews];
@@ -2594,23 +2736,16 @@ horizontalMarge {return 0;}
         self.gradLayer.bottomLeftRadius = (corners & UIRectCornerBottomLeft) != 0 ? radius : 0;
         self.gradLayer.bottomRightRadius = (corners & UIRectCornerBottomRight) != 0 ? radius : 0;
         [self.containerView.layer insertSublayer:self.gradLayer atIndex:0];
-        
-        
-        NSArray *oldLayers = [self.containerView.layer.sublayers copy];
-        CAShapeLayer *arrowLayer;
-        for (CALayer *layer in oldLayers) {
-            if ([layer.name isEqualToString:@"TrianglePopShapeLayer"]) {
-                arrowLayer = (CAShapeLayer*)layer;
-                break;
-            }
+
+        // 渐变层按气泡轮廓裁剪，保证箭头区域的渐变和描边形状完全对齐
+        UIBezierPath *path = [self zl_balloonPath];
+        if (path) {
+            CAShapeLayer *maskLayer = [CAShapeLayer layer];
+            maskLayer.path = path.CGPath;
+            maskLayer.fillColor = [UIColor blackColor].CGColor;
+            maskLayer.frame = self.containerView.bounds;
+            self.gradLayer.mask = maskLayer;
         }
-        ZLBuildConfigObj *j = self.configObj;
-        UIBezierPath *path = [self.containerView createTriangleBorderWidth:j.borderWidth triangleWidth:self.aW triangleHeight:self.aH direction:self.d triangleOffset:self.arrowOffset cornerRadius:j.cornerRadius > 0 ? j.cornerRadius : 10 roundedCorners:j.corners];
-        CAShapeLayer *maskLayer = [CAShapeLayer layer];
-        maskLayer.path = path.CGPath;
-        maskLayer.fillColor = [UIColor blackColor].CGColor;
-        maskLayer.frame = self.containerView.bounds;
-        self.gradLayer.mask = maskLayer;
     }
 }
 - (void)dismiss {
