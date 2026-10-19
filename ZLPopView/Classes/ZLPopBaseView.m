@@ -10,8 +10,6 @@
 #import "ZLBaseConfigure.h"
 #import "UIView+kfc.h"
 
-#define kSHeight UIScreen.mainScreen.bounds.size.height
-#define kSWidth UIScreen.mainScreen.bounds.size.width
 #define kBL @"BL"
 #define kBR @"BR"
 #define kBT @"BT"
@@ -786,6 +784,12 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
 /// 容器尺寸发生变化时回调(比 UIDeviceOrientationDidChangeNotification 更可靠)
 - (void)popViewContainerSizeDidChange:(CGSize)size;
 
+#pragma mark - 键盘避让(窗口坐标系)
+/// 弹窗所在 window 的高度。分屏 / 多窗口 / 折叠屏下它 != UIScreen.mainScreen 的高度
+- (CGFloat)zl_windowHeight;
+/// 键盘对「当前弹窗所在 window」的真实遮挡高度(0 表示没遮住)
+- (CGFloat)zl_keyboardCoveredHeight;
+
 - (void)gm_pan:(UIPanGestureRecognizer *)gesture;
 - (void)popViewWillShow:(ZLPopBaseView *)popView;
 - (void)popViewDidShow:(ZLPopBaseView *)popView;
@@ -845,7 +849,11 @@ static NSHashTable<ZLPopBaseView *> *keyboardViews;
         });
     }
     if (self.keyboardIsShowing && self.configObj.avoidKeyboardType != ZLAvoidKeyboardTypeNone) {
-        [self showKeyboardEvent:ZLKeyboardEvent.share.keyboardHeight duration:0];
+        // 弹窗显示时键盘已经弹起：同样要用「对本窗口的真实遮挡高度」
+        CGFloat covered = [self zl_keyboardCoveredHeight];
+        if (covered > 0) {
+            [self showKeyboardEvent:covered duration:0];
+        }
     }
     self.pageState = ZLPopViewPageStateDidShow;
     if (self.configObj.orientationChangeBk) {
@@ -1105,12 +1113,66 @@ didPanWithDistance:(CGFloat)distance {
     self.containerView.shadowRadius = configObj.shadowRadius;
     self.containerView.shadowOpacity = configObj.shadowOpacity;
 }
+#pragma mark - 键盘避让(全部基于弹窗自己的 window 坐标系)
+
+/// 弹窗真正所在的 window。所有键盘避让相关的坐标换算都必须用它，
+/// 否则在多窗口 / 分屏下会出现「高度取 A 窗口、坐标取 B 窗口」的错位
+- (UIWindow *)zl_ownWindow {
+    return self.window ?: [self getKeyWindow];
+}
+
+/// 分屏 / 多窗口 / 折叠屏下 window 的高度和屏幕高度不一样，
+/// 而 firstResponderMaxYToWindow / popViewMaxYToWindow 都是 window 坐标系的值，
+/// 所以这里必须用 window 高度，不能用 UIScreen.mainScreen
+- (CGFloat)zl_windowHeight {
+    UIWindow *w = [self zl_ownWindow];
+    if (w && !CGRectIsEmpty(w.bounds)) return w.bounds.size.height;
+    if (self.superview && !CGRectIsEmpty(self.superview.bounds)) return self.superview.bounds.size.height;
+    return UIScreen.mainScreen.bounds.size.height;
+}
+
+/// 键盘只会遮挡「持有第一响应者」的那个窗口。
+/// 双屏 / 多窗口下键盘通知是全局广播的，不加这个判断，
+/// A 窗口弹键盘会把 B 窗口里的弹窗一起顶上去。
+- (BOOL)zl_keyboardBelongsToOwnWindow {
+    UIWindow *w = [self zl_ownWindow];
+    if (!w) return NO;
+    if (w.isKeyWindow) return YES;
+    return [self findFirstResponderInView:w] != nil;
+}
+
+/// UIKeyboardFrameEndUserInfoKey 给的是「屏幕坐标系」的键盘 frame，
+/// 它的 height 只有在「窗口全屏且贴着屏幕底部」时才等于遮挡高度。
+/// 分屏 / 多窗口 / 浮动键盘 / 分离键盘下必须取键盘与本窗口的交集才准。
+- (CGFloat)zl_keyboardCoveredHeightWithFrame:(CGRect)keyboardFrameInScreen {
+    if (CGRectIsNull(keyboardFrameInScreen) || CGRectIsEmpty(keyboardFrameInScreen)) return 0;
+    UIWindow *window = [self zl_ownWindow];
+    if (!window || CGRectIsEmpty(window.bounds)) return 0;
+    // 旁边 App 弹的键盘不该影响自己
+    if (!ZLKeyboardEvent.share.keyboardIsLocal) return 0;
+    if (![self zl_keyboardBelongsToOwnWindow]) return 0;
+
+    // 屏幕坐标 -> 本窗口坐标
+    CGRect kbInWindow = [window convertRect:keyboardFrameInScreen fromWindow:nil];
+    CGRect intersection = CGRectIntersection(window.bounds, kbInWindow);
+    if (CGRectIsNull(intersection) || CGRectIsEmpty(intersection)) return 0;
+    // 只关心从窗口底部往上遮挡的部分（浮动键盘不贴底时不做避让）
+    CGFloat covered = CGRectGetMaxY(window.bounds) - CGRectGetMinY(intersection);
+    return MAX(0, MIN(covered, window.bounds.size.height));
+}
+
+- (CGFloat)zl_keyboardCoveredHeight {
+    return [self zl_keyboardCoveredHeightWithFrame:ZLKeyboardEvent.share.keyboardFrame];
+}
+
 - (void)showKeyboard:(NSNotification *)notification {
     if (self.bounds.origin.y > 0 || self.superview.bounds.origin.y > 0) return;
 
     NSDictionary *userInfo = notification.userInfo;
     CGRect keyboardFrame = [userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    CGFloat keyboardHeight = keyboardFrame.size.height;
+    // 用真实遮挡高度，而不是键盘自身高度
+    CGFloat keyboardHeight = [self zl_keyboardCoveredHeightWithFrame:keyboardFrame];
+    if (keyboardHeight <= 0) return;   // 键盘没有遮到本窗口(分屏旁边的 App / 浮动键盘)
     NSTimeInterval animationDuration = [userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
     [self showKeyboardEvent:keyboardHeight duration:animationDuration ? animationDuration : 0.1];
 }
@@ -1119,7 +1181,7 @@ didPanWithDistance:(CGFloat)distance {
     if (self.bounds.origin.y > 0 || self.superview.bounds.origin.y > 0) return;
     NSDictionary *userInfo = notification.userInfo;
     CGRect keyboardFrame = [userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    CGFloat keyboardHeight = keyboardFrame.size.height;
+    CGFloat keyboardHeight = [self zl_keyboardCoveredHeightWithFrame:keyboardFrame];
     NSTimeInterval animationDuration = [userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
     [self hiddenKeyboardEvent:keyboardHeight duration:animationDuration];
 }
@@ -1332,6 +1394,7 @@ didPanWithDistance:(CGFloat)distance {
 }
 - (CGFloat)firstResponderMaxYToWindow {
     UIView *view = [self findFirstResponderInView:self];
+    if (!view) return 0;
     CGFloat y = 0;
     if ([self.buildView isKindOfClass:UIScrollView.class]) {
         UIScrollView *scrollView = (UIScrollView*)self.buildView;
@@ -1340,12 +1403,13 @@ didPanWithDistance:(CGFloat)distance {
             [scrollView setContentOffset:CGPointMake(0, CGRectGetMaxY(view.frame) - self.containerHeight) animated:YES];
         }
     }
-    CGRect viewFrameInWindow = [view convertRect:view.bounds toView:[self getKeyWindow]];
+    // 必须和 zl_windowHeight 用同一个 window，否则坐标系对不上(多窗口 / 分屏)
+    CGRect viewFrameInWindow = [view convertRect:view.bounds toView:[self zl_ownWindow]];
     CGFloat maxY = CGRectGetMaxY(viewFrameInWindow) - y;
     return maxY;
 }
 - (CGFloat)popViewMaxYToWindow {
-    CGRect viewFrameInWindow = [self.containerView convertRect:self.containerView.bounds toView:[self getKeyWindow]];
+    CGRect viewFrameInWindow = [self.containerView convertRect:self.containerView.bounds toView:[self zl_ownWindow]];
     CGFloat maxY = CGRectGetMaxY(viewFrameInWindow);
     return maxY;
 }
@@ -1532,9 +1596,9 @@ didPanWithDistance:(CGFloat)distance {
     }
 }
 - (void)showKeyboardEvent:(CGFloat)keyboardHeight duration:(CGFloat)duration {
-    CGFloat bottomToWindowSpace = UIScreen.mainScreen.bounds.size.height - self.containerHeight - self.configObj.marge.top;
+    CGFloat bottomToWindowSpace = [self zl_windowHeight] - self.containerHeight - self.configObj.marge.top;
     if (self.configObj.avoidKeyboardType == ZLAvoidKeyboardTypeFirstResponder) {
-        bottomToWindowSpace = UIScreen.mainScreen.bounds.size.height - ([self firstResponderMaxYToWindow] + self.configObj.marge.top - self.viewTopCons.constant);
+        bottomToWindowSpace = [self zl_windowHeight] - ([self firstResponderMaxYToWindow] + self.configObj.marge.top - self.viewTopCons.constant);
     }
     CGFloat offsetY = self.configObj.bottomOffsetToKeyboard + keyboardHeight - bottomToWindowSpace;
     if (offsetY <= 0 ) {
@@ -1570,13 +1634,13 @@ didPanWithDistance:(CGFloat)distance {
     [self layoutIfNeeded];
     if (self.keyboardIsShowing) {
         if (self.configObj.avoidKeyboardType == ZLAvoidKeyboardTypePopViewBottom) {
-            CGFloat space = kSHeight - [self popViewMaxYToWindow] - self.configObj.bottomOffsetToKeyboard - ZLKeyboardEvent.share.keyboardHeight;
+            CGFloat space = [self zl_windowHeight] - [self popViewMaxYToWindow] - self.configObj.bottomOffsetToKeyboard - [self zl_keyboardCoveredHeight];
             if (space < 0) self.viewCenterYCons.constant = space;
         }else if (self.configObj.avoidKeyboardType == ZLAvoidKeyboardTypeFirstResponder) {
-            CGFloat space = kSHeight - [self firstResponderMaxYToWindow] - self.configObj.bottomOffsetToKeyboard - ZLKeyboardEvent.share.keyboardHeight;
+            CGFloat space = [self zl_windowHeight] - [self firstResponderMaxYToWindow] - self.configObj.bottomOffsetToKeyboard - [self zl_keyboardCoveredHeight];
             if (space < 0) self.viewCenterYCons.constant = space;
         }else if (self.configObj.avoidKeyboardType  == ZLAvoidKeyboardTypeAlwaysCenter) {
-            self.viewCenterYCons.constant = -ZLKeyboardEvent.share.keyboardHeight / 2;
+            self.viewCenterYCons.constant = -[self zl_keyboardCoveredHeight] / 2;
         }
     }
     if (self.configObj.animationIn > 0) {
@@ -1612,8 +1676,8 @@ didPanWithDistance:(CGFloat)distance {
     if (self.configObj.avoidKeyboardType == ZLAvoidKeyboardTypeAlwaysCenter) {
         offsetY = -keyboardHeight / 2;
     }else {
-        offsetY = -keyboardHeight + (kSHeight - self.containerHeight) / 2 - self.configObj.bottomOffsetToKeyboard;
-        CGFloat bottomToWindowSpace = kSHeight - ([self firstResponderMaxYToWindow] - self.viewCenterYCons.constant);
+        offsetY = -keyboardHeight + ([self zl_windowHeight] - self.containerHeight) / 2 - self.configObj.bottomOffsetToKeyboard;
+        CGFloat bottomToWindowSpace = [self zl_windowHeight] - ([self firstResponderMaxYToWindow] - self.viewCenterYCons.constant);
         if (self.configObj.avoidKeyboardType == ZLAvoidKeyboardTypeFirstResponder) {
             if (bottomToWindowSpace >= keyboardHeight) {
                 offsetY = 0;
@@ -1621,7 +1685,7 @@ didPanWithDistance:(CGFloat)distance {
                 offsetY = -(keyboardHeight - bottomToWindowSpace + self.configObj.bottomOffsetToKeyboard);
             }
         }else if (self.configObj.avoidKeyboardType == ZLAvoidKeyboardTypePopViewBottom) {
-            CGFloat space = kSHeight - ([self popViewMaxYToWindow] - self.viewCenterYCons.constant) - self.configObj.bottomOffsetToKeyboard ;
+            CGFloat space = [self zl_windowHeight] - ([self popViewMaxYToWindow] - self.viewCenterYCons.constant) - self.configObj.bottomOffsetToKeyboard ;
             if (space > keyboardHeight) {
                 return;
             }
@@ -1744,7 +1808,7 @@ didPanWithDistance:(CGFloat)distance {
     }else {
         offsetY = keyboardHeight + self.configObj.bottomOffsetToKeyboard;
         if (self.configObj.avoidKeyboardType == ZLAvoidKeyboardTypeFirstResponder) {
-            CGFloat bottomToWindowSpace = UIScreen.mainScreen.bounds.size.height - ([self firstResponderMaxYToWindow] + (self.configObj.marge.bottom - self.viewBottomCons.constant));
+            CGFloat bottomToWindowSpace = [self zl_windowHeight] - ([self firstResponderMaxYToWindow] + (self.configObj.marge.bottom - self.viewBottomCons.constant));
             if (bottomToWindowSpace >= offsetY) {
                 offsetY = -self.configObj.marge.bottom;
             }else {
@@ -1803,13 +1867,13 @@ horizontalMarge {return 0;}
     [self layoutIfNeeded];
     if (self.keyboardIsShowing) {
         if (self.configObj.avoidKeyboardType == ZLAvoidKeyboardTypePopViewBottom) {
-            CGFloat space = kSHeight - [self popViewMaxYToWindow] - self.configObj.bottomOffsetToKeyboard - ZLKeyboardEvent.share.keyboardHeight;
+            CGFloat space = [self zl_windowHeight] - [self popViewMaxYToWindow] - self.configObj.bottomOffsetToKeyboard - [self zl_keyboardCoveredHeight];
             if (space < 0) self.viewCenterYCons.constant = space;
         }else if (self.configObj.avoidKeyboardType == ZLAvoidKeyboardTypeFirstResponder) {
-            CGFloat space = kSHeight - [self firstResponderMaxYToWindow] - self.configObj.bottomOffsetToKeyboard - ZLKeyboardEvent.share.keyboardHeight;
+            CGFloat space = [self zl_windowHeight] - [self firstResponderMaxYToWindow] - self.configObj.bottomOffsetToKeyboard - [self zl_keyboardCoveredHeight];
             if (space < 0) self.viewCenterYCons.constant = space;
         }else if (self.configObj.avoidKeyboardType  == ZLAvoidKeyboardTypeAlwaysCenter) {
-            self.viewCenterYCons.constant = -ZLKeyboardEvent.share.keyboardHeight / 2;
+            self.viewCenterYCons.constant = -[self zl_keyboardCoveredHeight] / 2;
         }
     }
     
@@ -1884,8 +1948,8 @@ horizontalMarge {return 0;}
     if (self.configObj.avoidKeyboardType == ZLAvoidKeyboardTypeAlwaysCenter) {
         offsetY = -keyboardHeight / 2;
     }else {
-        offsetY = -keyboardHeight + (kSHeight - self.containerHeight) / 2 - self.configObj.bottomOffsetToKeyboard;
-        CGFloat bottomToWindowSpace = kSHeight - [self firstResponderMaxYToWindow] ;
+        offsetY = -keyboardHeight + ([self zl_windowHeight] - self.containerHeight) / 2 - self.configObj.bottomOffsetToKeyboard;
+        CGFloat bottomToWindowSpace = [self zl_windowHeight] - [self firstResponderMaxYToWindow] ;
         if (self.configObj.avoidKeyboardType == ZLAvoidKeyboardTypeFirstResponder) {
             if (bottomToWindowSpace >= keyboardHeight + self.configObj.bottomOffsetToKeyboard) {
                 return;
@@ -1894,7 +1958,7 @@ horizontalMarge {return 0;}
                 offsetY = self.centerYOffsetValue  - s;
             }
         }else if (self.configObj.avoidKeyboardType == ZLAvoidKeyboardTypePopViewBottom) {
-            CGFloat bottomToWindowSpace = kSHeight - [self popViewMaxYToWindow] ;
+            CGFloat bottomToWindowSpace = [self zl_windowHeight] - [self popViewMaxYToWindow] ;
             if (bottomToWindowSpace > keyboardHeight + self.configObj.bottomOffsetToKeyboard) {
                 return;
             }else {
@@ -2213,12 +2277,14 @@ horizontalMarge {return 0;}
 }
 
 - (void)showKeyboardEvent:(CGFloat)keyboardHeight duration:(CGFloat)duration {
-    CGFloat offsetY;
+    // 必须给初值：avoidKeyboardType 既不是 AlwaysCenter 也不是 FirstResponder 时，
+    // 原来 offsetY 是未初始化的栈上随机值，会被直接赋给约束，导致弹窗乱跳
+    CGFloat offsetY = self.viewBottomCons.constant;
     if (self.configObj.avoidKeyboardType == ZLAvoidKeyboardTypeAlwaysCenter) {
         offsetY = (keyboardHeight - self.configObj.marge.bottom);
     }else {
         if (self.configObj.avoidKeyboardType == ZLAvoidKeyboardTypeFirstResponder) {
-            CGFloat bottomSpace = UIScreen.mainScreen.bounds.size.height -  [self firstResponderMaxYToWindow];
+            CGFloat bottomSpace = [self zl_windowHeight] -  [self firstResponderMaxYToWindow];
             if (bottomSpace >= keyboardHeight + self.configObj.bottomOffsetToKeyboard) {
                 return;
             }else {
@@ -2268,8 +2334,11 @@ horizontalMarge {return 0;}
     CGRect keyboardFrame = [userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
     CGFloat keyboardHeight = keyboardFrame.size.height;
     NSTimeInterval animationDuration = [userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    NSNumber *isLocal = userInfo[UIKeyboardIsLocalUserInfoKey];
     self.keyboardIsShowing = YES;
     self.keyboardHeight = keyboardHeight;
+    self.keyboardFrame = keyboardFrame;
+    self.keyboardIsLocal = isLocal ? isLocal.boolValue : YES;
     self.animateDuration = animationDuration ;
     for (ZLPopBaseView *view in keyboardViews) {
         [view showKeyboard:notification];
@@ -2278,6 +2347,8 @@ horizontalMarge {return 0;}
 - (void)hiddenKeyboard:(NSNotification *)notification {
     self.keyboardIsShowing = NO;
     self.keyboardHeight = 0;
+    self.keyboardFrame = CGRectZero;
+    self.keyboardIsLocal = YES;
     self.animateDuration = 0;
     for (ZLPopBaseView *view in keyboardViews) {
         [view hiddenKeyboard:notification];

@@ -52,7 +52,14 @@ typedef NS_ENUM(NSInteger, ZLPopViewPageState) {
 typedef void(^PopViewCallbackBK) (ZLPopBaseView *popView);
 @interface ZLKeyboardEvent : NSObject
 @property (nonatomic,assign)BOOL keyboardIsShowing;
+/// 键盘高度(屏幕坐标系下的原始高度)。
+/// 注意：分屏 / 多窗口 / 折叠屏下它 != 键盘对某个 window 的实际遮挡高度，
+/// 需要遮挡高度请用 ZLPopBaseView 的 -zl_keyboardCoveredHeight
 @property (nonatomic,assign)CGFloat keyboardHeight;
+/// 键盘最终 frame(屏幕坐标系)，用于换算到具体 window 计算真实遮挡区域
+@property (nonatomic,assign)CGRect keyboardFrame;
+/// 键盘是否属于当前 App(分屏时旁边的 App 弹键盘会是 NO)
+@property (nonatomic,assign)BOOL keyboardIsLocal;
 @property (nonatomic,assign)CGFloat animateDuration;
 
 + (instancetype)share;
