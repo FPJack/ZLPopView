@@ -1035,12 +1035,13 @@ didPanWithDistance:(CGFloat)distance {
         self.clipsToBounds = YES;
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                     selector:@selector(deviceOrientationWillChange:)
-                                                        name:UIApplicationWillChangeStatusBarOrientationNotification
+                                                        name:UIDeviceOrientationDidChangeNotification
                                                       object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                     selector:@selector(deviceOrientationDidChanged:)
-                                                     name:UIApplicationDidChangeStatusBarOrientationNotification
+                                                     name:UIDeviceOrientationDidChangeNotification
                                                       object:nil];
+        
     }
     return self;
 }
@@ -1235,20 +1236,56 @@ didPanWithDistance:(CGFloat)distance {
     };
 }
 
+//- (UIWindow *)getKeyWindow {
+//    UIWindow *keyWindow = nil;
+//    if (@available(iOS 13.0, *)) {
+//        for (UIWindow *window in UIApplication.sharedApplication.windows) {
+//            if (window.isKeyWindow) {
+//                keyWindow = window;
+//                break;
+//            }
+//        }
+//    } else {
+//        keyWindow = UIApplication.sharedApplication.keyWindow;
+//    }
+//    return keyWindow;
+//}
+
 - (UIWindow *)getKeyWindow {
-    UIWindow *keyWindow = nil;
     if (@available(iOS 13.0, *)) {
-        for (UIWindow *window in UIApplication.sharedApplication.windows) {
-            if (window.isKeyWindow) {
-                keyWindow = window;
-                break;
+        NSSet<UIScene *> *scenes =
+            UIApplication.sharedApplication.connectedScenes;
+
+        for (UIScene *scene in scenes) {
+            if (![scene isKindOfClass:[UIWindowScene class]]) {
+                continue;
+            }
+
+            UIWindowScene *windowScene = (UIWindowScene *)scene;
+
+            // 优先获取当前激活的 Scene
+            if (windowScene.activationState != UISceneActivationStateForegroundActive) {
+                continue;
+            }
+
+            for (UIWindow *window in windowScene.windows) {
+                if (window.isKeyWindow) {
+                    return window;
+                }
             }
         }
+
+        return nil;
     } else {
-        keyWindow = UIApplication.sharedApplication.keyWindow;
+        #pragma clang diagnostic push
+        #pragma clang diagnostic ignored "-Wdeprecated-declarations"
+        UIWindow *window = UIApplication.sharedApplication.keyWindow;
+        #pragma clang diagnostic pop
+
+        return window;
     }
-    return keyWindow;
 }
+
 - (BOOL)resignFirstResponder {
     UIView *firstResponderView = [self findFirstResponderInView:self];
     if (firstResponderView) {
@@ -2225,6 +2262,8 @@ horizontalMarge {return 0;}
 @implementation ZLPopOverView
 - (instancetype)init
 {
+    //    [self addMaxWidthHeightConstraintsIfNeed];
+
     self = [super init];
     if (self) {
         _aW = 12;
@@ -2333,6 +2372,7 @@ horizontalMarge {return 0;}
     CGFloat arrowOffset = 0;
     CGPoint center = [self centerPoint:&arrowOffset];
     [view.kfc centerInView:view.superview centerOffset:center];
+
     self.ap = [self layerAnchorPoint:arrowOffset];
     [view.superview layoutIfNeeded];
     [self drawArrow:arrowOffset];
@@ -2540,7 +2580,8 @@ horizontalMarge {return 0;}
         }else if (d == ZLPopOverDirectionTrailing) {
             p = CGPointMake(0, fH/2);
         }
-         p = [fv convertPoint:p toView:self];
+         p = [fv convertPoint:p toView:[self getKeyWindow]];
+        
         return p;
     }
     return _p;

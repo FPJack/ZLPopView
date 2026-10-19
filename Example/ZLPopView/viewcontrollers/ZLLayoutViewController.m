@@ -22,13 +22,30 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"UIStackView布局";
-    self.edgesForExtendedLayout = UIRectEdgeNone;
+    self.edgesForExtendedLayout = UIRectEdgeBottom | UIRectEdgeTop;
+    
     self.stackViewBuilder.buildScrollViewToSuperView(self.view);
 #ifdef Test
     ZLPermissionTypeBluetooth = 50,
 #endif
 }
 - (ZLStackViewBuilder *)stackViewBuilder {
+//    {
+//        ZLStackViewBuilder *builder = ZLStackViewBuilder
+//            .column
+//            .space(10)
+//            .distributionStart
+//            .alignmentFill;
+//        builder
+//        .addView(UILabel.kfc.text(@"起点开始布局"))
+//        .addViewBK(^UIView * _Nonnull{
+//            return self.generateBuilder
+//                .distributionStart
+//                .buildStackView;
+//        });
+//        return  builder;
+//    }
+//    
     
     ZLStackViewBuilder *builder = ZLStackViewBuilder
         .column
